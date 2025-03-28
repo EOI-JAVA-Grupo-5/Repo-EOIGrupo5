@@ -8,11 +8,11 @@
         <version>3.4.3</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.atm.java6</groupId>
-    <artifactId>pepito</artifactId>
+    <groupId>com.eoi.grupo5</groupId>
+    <artifactId>grupo5proyecto</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>pepito</name>
-    <description>pepito</description>
+    <name>grupo5proyecto</name>
+    <description>grupo5proyecto</description>
     <url/>
     <licenses>
         <license/>
