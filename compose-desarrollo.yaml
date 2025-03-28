@@ -13,6 +13,7 @@ services:
     depends_on:
       db:
         condition: service_healthy
+
     healthcheck:
       test: [ "CMD", "curl", "-f", "http://localhost:${PUERTO_PRODUCCION}/actuator/health" ]
       interval: 30s
@@ -33,3 +34,5 @@ services:
       timeout: 20s
       retries: 10
     restart: always
+    expose:
+      - 54325
