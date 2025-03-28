@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 16</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+    crossorigin="anonymous"></script>
+
+  <!-- Stylesheets -->
+  <link href="../CSS/styles.css" rel="stylesheet" />
+
+  <!-- Links para el Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
+</head>
+
+<style>
+
+
+
+
+</style>
+
+<body style="background-color:#F7FFDD;">
+
+  <nav class="navbar " style="background-color: #FCFDAF; color: black;">
+    <div class="container">
+      <a class="navbar-brand" href="#">Code Lik</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="#" style="color: black;">Inicio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" style="color: black;">Categorías</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" style="color: black;">Acerca de nosotros</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" style="color: black;">Contacta con nosotros</a>
+          </li>
+        </ul>
+        <form class="d-flex me-3">
+          <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Buscar">
+          <button class="btn btn-outline-light" type="submit" style="color: black;">Buscar</button>
+        </form>
+      </div>
+    </div>
+  </nav>
+
+
+  <div class="container my-5">
+    <div class="row">
+
+      <div class="col-lg-10">
+        <h2 class="mb-4">Productos</h2>
+        <div class="row">
+
+          <div class="col-md-6 mb-4">
+            <div class="card">
+              <img src="https://picsum.photos/300/200" class="card-img-top" alt="">
+              <div class="card-body">
+                <h5 class="card-title">Producto 1</h5>
+                <p class="card-text">Breve descripción del producto 1.</p>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalN1">Comprar</button>
+                <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalN1">Leer más</button>
+              </div>
+            </div>
+          </div>
+
+
+
+          <div class="col-md-6 mb-6">
+            <div class="card">
+              <img src="https://picsum.photos/300/200" class="card-img-top" alt="">
+              <div class="card-body">
+                <h5 class="card-title">Producto 2</h5>
+                <p class="card-text">Breve descripción del producto 2.</p>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalN2">Comprar</button>
+                <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalN2">Leer más</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class="modal fade" id="modalN1" tabindex="-1" aria-labelledby="modal1" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="modal1">Noticia 1 - Detalle</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal1" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <img src="https://picsum.photos/800/400" class="img-fluid mb-3" alt="Noticia 1">
+              <p>Aquí se desarrolla la información del producto 1 de forma detallada.</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Comprar</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+      <div class="modal fade" id="modalN2" tabindex="-1" aria-labelledby="modal1" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="modal2">Noticia 2 - Detalle</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal2" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <img src="https://picsum.photos/800/400" class="img-fluid mb-3" alt="Noticia 2">
+              <p>Aquí se desarrolla la información del producto 2 de forma detallada.</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Comprar</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+  </div>
+
+  <div class="text-black text-center p-4" style="background-color: #FCFDAF;">
+    <p> Nuestras redes sociales.</p>
+    <p>
+      Síguenos en:
+      <a href="#" class="text-black text-decoration-none">Facebook</a> -
+      <a href="#" class="text-black text-decoration-none">Twitter</a> -
+      <a href="#" class="text-black text-decoration-none">Instagram</a>
+    </p>
+    <p>Nuestros patrocinadores</p>
+    <p>
+      <a href="#" class="text-black text-decoration-none">Carrefor</a> -
+      <a href="#" class="text-black text-decoration-none">Mercadona</a> -
+      <a href="#" class="text-black text-decoration-none">Lidel</a>
+    </p>
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>
