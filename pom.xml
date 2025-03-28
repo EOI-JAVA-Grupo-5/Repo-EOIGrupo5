@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.atm.java6</groupId>
-    <artifactId>buenaspracticas</artifactId>
+    <artifactId>pepito</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>buenaspracticas</name>
-    <description>buenaspracticas</description>
+    <name>pepito</name>
+    <description>pepito</description>
     <url/>
     <licenses>
         <license/>
