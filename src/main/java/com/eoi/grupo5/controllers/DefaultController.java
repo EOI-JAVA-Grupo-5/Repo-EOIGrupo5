@@ -100,6 +100,18 @@ public class DefaultController {
         return "perfilSupermercado"; // View name
     }
 
+    @GetMapping("/paginaDeInicio")
+    public String paginaDeInicio(Model model)
+    {
+        return "paginaDeInicio"; // View name
+    }
+
+    @GetMapping("/paginaDeProducto")
+    public String paginaDeProducto(Model model)
+    {
+        return "paginaDeProducto"; // View name
+    }
+
 
 
     /**
