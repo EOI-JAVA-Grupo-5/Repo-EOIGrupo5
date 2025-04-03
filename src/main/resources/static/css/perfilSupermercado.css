@@ -1,0 +1,12 @@
+.banner-ad {
+    min-height: 300px; /* Asegurar altura suficiente */
+    position: relative;
+}
+
+.camion-img {
+    position: absolute;
+    bottom: 10px; /* Ajusta la posición */
+    right: 10px;
+    max-width: 200px;
+    z-index: 10; /* Asegura que esté encima de otros elementos */
+}
