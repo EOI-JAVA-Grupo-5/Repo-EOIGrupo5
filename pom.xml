@@ -165,7 +165,7 @@
                 <configuration>
                     <image>
                         <!--suppress UnresolvedMavenProperty -->
-                        <name>buenaspracticas:${env.VERSION}</name>
+                        <name>grupo5proyecto:${env.VERSION}</name>
                     </image>
                 </configuration>
             </plugin>
