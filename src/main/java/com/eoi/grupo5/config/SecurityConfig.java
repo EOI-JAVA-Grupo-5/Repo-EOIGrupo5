@@ -94,8 +94,10 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/entities").permitAll()
                         .requestMatchers("/carrito").permitAll()
-                        .requestMatchers("/entities/*").permitAll()
                         .requestMatchers("/forum").permitAll()
+                        .requestMatchers("/usuario").permitAll()
+                        .requestMatchers("/entities/*").permitAll()
+                        .requestMatchers("/").permitAll()
                         .requestMatchers("/css/*").permitAll()
                         .requestMatchers(HttpMethod.POST,"/entidades/deleteHija/*").authenticated()
                         .anyRequest().authenticated()

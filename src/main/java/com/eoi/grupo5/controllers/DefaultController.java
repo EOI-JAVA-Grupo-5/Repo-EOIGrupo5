@@ -70,10 +70,28 @@ public class DefaultController {
     }
 
 
+    @GetMapping("/")
+    public String index(Model model)
+    {
+        return "paginaDeInicio"; // View name
+    }
+
     @GetMapping("/carrito")
     public String carrito(Model model)
     {
         return "carrito"; // View name
+    }
+
+    @GetMapping("/login")
+    public String login(Model model)
+    {
+        return "login"; // View name
+    }
+
+    @GetMapping("/usuario")
+    public String usuario(Model model)
+    {
+        return "perfilUsuario"; // View name
     }
 
     @GetMapping("/forum")
@@ -86,6 +104,18 @@ public class DefaultController {
     public String perfilSupermercado(Model model)
     {
         return "perfilSupermercado"; // View name
+    }
+
+    @GetMapping("/paginaDeInicio")
+    public String paginaDeInicio(Model model)
+    {
+        return "paginaDeInicio"; // View name
+    }
+
+    @GetMapping("/paginaDeProducto")
+    public String paginaDeProducto(Model model)
+    {
+        return "paginaDeProducto"; // View name
     }
 
 
