@@ -26,53 +26,6 @@
     rel="stylesheet">
     <style>
 
-* {
-  font-family: "Albert Sans", sans-serif;
-  font-optical-sizing: auto;
-  font-style: normal;
-}
-
-/* Navbar principal */
-.primary-navbar
-{
-    background-color: #dba159;
-}
-
-.primary-navbar span
-{
-    color: #fcfdaf;   
-}
-
-#search-icon
-{
-    background-color: #fcfdaf;
-    border-color: orange;
-    color: black;
-}
-
-.primary-navbar div button
-{
-    background-color: #fcfdaf;
-}
-
-.primary-navbar div button:hover
-{
-    background-color: #efd780;
-}
-
-/* Iconos de redes sociales del footer */
-.icono-red-footer
-{
-    color: #fcfdaf;
-}
-
-.icono-red-footer:hover
-{
-    color: #efd780;
-}
-
-
-
     </style>
   
 </head>
@@ -149,17 +102,6 @@
                             <i class="bi bi-person-circle"></i> Login
                         </button>
                     </div>
-
-                    <div class="d-grid p-3">
-                        <button
-                            type="button"
-                            name=""
-                            id=""
-                            class="btn btn-warning"
-                        >
-                            <i class="bi bi-basket2"></i> Carrito
-                        </button>
-                    </div>
                     
                 </div>
             </div>
@@ -168,22 +110,29 @@
     </section>
 
 
-
-
     
     <!-- Aqui termina la navbar y empiezan los cosos -->
 
-    <section class="container-fluid">
-        <div class="row">
-          <!-- Columna izquierda que ocupa casi todo el ancho -->
-          <div class="col-8">
-            <div class="text-white p-4">
-              <img src="https://picsum.photos/600" alt="">
-            </div>
-          </div>
-    </section>
+
+<!-- Inicio ventanas que rellena java-->
+
+<div class="container-xxl py-5 h-75">
 
 
+
+    <!-- Aqui vamos a escribir las cabeceras de los bloques  -->
+
+    <section class="container" layout:fragment="cabecera"> </section>
+
+    <!-- Aqui vamos a escribir el contenido de los bloques  -->
+
+    <section class="container" layout:fragment="contenido"> </section>
+
+    <!-- Aqui vamos a escribir la parte del tutorial -->
+
+    <section class="container" layout:fragment="turorial"> </section>
+
+</div>
 
     <!-- Aqui terminan los cosos y empieza el footer -->
 

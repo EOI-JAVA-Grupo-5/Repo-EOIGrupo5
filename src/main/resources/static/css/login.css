@@ -1,0 +1,84 @@
+/*
+  Nombre del archivo: login.css
+  Autor: Grupo 5
+  Descripción: Estilo del login
+  Fecha de creación: 2/04/2025
+*/
+
+* {
+    font-family: "Albert Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    color: black;
+}
+
+body
+{
+    background: #d0e3cc;
+}
+
+.gradient-custom-2
+{
+    /* fallback for old browsers */
+    background: #dba159;
+
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to right, #f7ffdd, #fcdfaf, #efd180, #dba159);
+
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, #f7ffdd, #fcdfaf, #efd180, #dba159);
+}
+
+
+#btnLogin
+{
+    color: black;
+    border: solid 1px #dba159;
+    background-color: #dba159;
+}
+
+button:hover
+{
+    box-shadow: 2px 2px black;
+}
+
+#btnLogin:hover
+{
+    animation: animacionBtnLogin 3s infinite ease-in-out;
+}
+
+@keyframes animacionBtnLogin
+{
+    0%
+    {
+        background-color: #dba159;
+    }
+
+    25%
+    {
+        background-color: #fcdfaf;
+    }
+
+    75%
+    {
+        background-color: #dba159;
+    }
+}
+
+
+@media (min-width: 768px)
+{
+    .gradient-form
+    {
+        height: 100vh !important;
+    }
+}
+
+@media (min-width: 769px)
+{
+    .gradient-custom-2
+    {
+        border-top-right-radius: .3rem;
+        border-bottom-right-radius: .3rem;
+    }
+}

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aqui va el nombre de la página</title>
+    <title>Perfil del Usuario</title>
 
     <link rel="apple-touch-icon" sizes="180x180" href="https://ecochestnut.eu/wp-content/uploads/2020/04/logoEcoChestnut.colour.png">
     <link rel="icon" type="image/png" sizes="32x32" href="https://ecochestnut.eu/wp-content/uploads/2020/04/logoEcoChestnut.colour.png">
@@ -25,53 +25,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,100..900;1,100..900&display=swap"
     rel="stylesheet">
     <style>
-
-* {
-  font-family: "Albert Sans", sans-serif;
-  font-optical-sizing: auto;
-  font-style: normal;
-}
-
-/* Navbar principal */
-.primary-navbar
-{
-    background-color: #dba159;
-}
-
-.primary-navbar span
-{
-    color: #fcfdaf;   
-}
-
-#search-icon
-{
-    background-color: #fcfdaf;
-    border-color: orange;
-    color: black;
-}
-
-.primary-navbar div button
-{
-    background-color: #fcfdaf;
-}
-
-.primary-navbar div button:hover
-{
-    background-color: #efd780;
-}
-
-/* Iconos de redes sociales del footer */
-.icono-red-footer
-{
-    color: #fcfdaf;
-}
-
-.icono-red-footer:hover
-{
-    color: #efd780;
-}
-
-
 
     </style>
   
@@ -149,17 +102,6 @@
                             <i class="bi bi-person-circle"></i> Login
                         </button>
                     </div>
-
-                    <div class="d-grid p-3">
-                        <button
-                            type="button"
-                            name=""
-                            id=""
-                            class="btn btn-warning"
-                        >
-                            <i class="bi bi-basket2"></i> Carrito
-                        </button>
-                    </div>
                     
                 </div>
             </div>
@@ -168,24 +110,208 @@
     </section>
 
 
+    <!-- PERFIL -->
+    <section class="p-3" id="datos-perfil">
+        <div class="container">
+            <h2>Perfil</h2>
+            <div
+                class="row justify-content-center align-items-center g-2"
+            >
+                <div class="col-md-3">
 
+                    <div class="card bg-light">
+                        <img class="card-img-top rounded-circle justify-content-center align-self-center p-2" style="width: 12rem;height: fit-content;" src="https://content.imageresizer.com/images/memes/rizz-apple-meme-5.jpg" alt="Image-Avatar">
+                        <div class="card-body text-center">
+                            <h4 id="userName" class="card-title">Nick del usuario</h4>
+                            <p class="card-text">Aquí puede haber cosos yoquese</p>
+                        </div>
+                    </div>   
+                </div>
 
-    
-    <!-- Aqui termina la navbar y empiezan los cosos -->
-
-    <section class="container-fluid">
-        <div class="row">
-          <!-- Columna izquierda que ocupa casi todo el ancho -->
-          <div class="col-8">
-            <div class="text-white p-4">
-              <img src="https://picsum.photos/600" alt="">
+                <div class="col-md-9 align-self-start">
+                    <div class="card bg-light">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0"><strong>Nombre</strong></p>
+                                </div>
+                                <div class="col-sm-9">Paco Pacoles</div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0"><strong>Correo</strong></p>
+                                </div>
+                                <div class="col-sm-9">correodelusuario@correo.es</div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0"><strong>Teléfono</strong></p>
+                                </div>
+                                <div class="col-sm-9">654 32 10 98</div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0"><strong>Contraseña</strong></p>
+                                </div>
+                                <div class="col-sm-9">*******nosesabe******</div>
+                            </div>
+                            <div class="row pt-3 justify-content-end">
+                                <div class="col-md-2">
+                                    <a
+                                        name=""
+                                        id=""
+                                        class="btn btn-primary"
+                                        href="#"
+                                        role="button"
+                                        >Modificar</a
+                                    >
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>  
+                </div>
             </div>
-          </div>
+            
+        </div>
+
+    </section>
+
+    <!-- Popurri de informacion -->
+    <section id="popurri">
+        <div class="container">
+            <h3>Datos de compras</h3>
+            <div class="row">
+                <div class="col-md-6">
+                    <nav>
+                        <div class="nav nav-tabs" role="tablist">
+                            <button class="nav-link active" id="tab-1" data-bs-toggle="tab" data-bs-target="#tab-content-1" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Euros gastados en semana</button>
+                            <button class="nav-link" id="tab-2" data-bs-toggle="tab" data-bs-target="#tab-content-2" type="button" role="tab" aria-controls="nav-home" aria-selected="false">Dinero ahorrado</button>
+                            <button class="nav-link" id="tab-3" data-bs-toggle="tab" data-bs-target="#tab-content-3" type="button" role="tab" aria-controls="nav-home" aria-selected="false">Total</button>
+                        </div>
+                    </nav>
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="tab-content-1" role="tabpanel" aria-labelledby="tab-content-1" tabindex="0">
+
+                            <div>
+                                <canvas id="myChart1"></canvas>
+                            </div>
+                            
+                            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                            
+                            <script>
+                            const ctx1 = document.getElementById('myChart1');
+                            
+                            new Chart(ctx1, {
+                                type: 'bar',
+                                data: {
+                                labels: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'],
+                                datasets: [{
+                                    label: 'Euros gastados',
+                                    data: [12, 19, 3, 5, 2, 3, 5],
+                                    borderWidth: 1
+                                }]
+                                },
+                                options: {
+                                scales: {
+                                    y: {
+                                    beginAtZero: true
+                                    }
+                                }
+                                }
+                            });
+                            </script>
+                            
+                        </div>
+
+                        <div class="tab-pane fade" id="tab-content-2" role="tabpanel" aria-labelledby="tab-content-2" tabindex="0">
+
+                            <div class="container">
+                                <canvas id="myChart3"></canvas>
+                            </div>
+                              
+                            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                              
+                            <script>
+                            const ctx3 = document.getElementById('myChart3');
+                        
+                            new Chart(ctx3, {
+                                type: 'line',
+                                data: {
+                                labels: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'],
+                                datasets: [{
+                                    label: 'Euros gastados',
+                                    data: [12, 19, 3, 5, 2, 3, 5],
+                                    borderWidth: 1
+                                }]
+                                },
+                                options: {
+                                scales: {
+                                    y: {
+                                    beginAtZero: true
+                                    }
+                                }
+                                }
+                            });
+
+                            </script>
+
+                        </div>
+
+                        <div class="tab-pane fade" id="tab-content-3" role="tabpanel" aria-labelledby="tab-content-3" tabindex="0">
+                            <div class="container">
+                                <canvas id="myChart2"></canvas>
+                            </div>
+                              
+                            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                              
+                            <script>
+                            const ctx2 = document.getElementById('myChart2');
+                        
+                            new Chart(ctx2, {
+                                type: 'pie',
+                                data: {
+                                labels: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'],
+                                datasets: [{
+                                    label: 'Euros gastados',
+                                    data: [12, 19, 3, 5, 2, 3, 5],
+                                    borderWidth: 1
+                                }]
+                                },
+                                options: {
+                                scales: {
+                                    y: {
+                                    beginAtZero: true
+                                    }
+                                }
+                                }
+                            });
+
+                            </script>
+                        </div>
+
+                    </div>
+                   
+                </div>
+
+                <div class="col-md-6">
+                    <div class="container m-3">
+                        <ul class="list-group">
+                            <li class="list-group-item list-group-item-action">Historial de compras</li>
+                            <li class="list-group-item list-group-item-action">Lista de amigos</li>
+                            <li class="list-group-item list-group-item-action">Mensajes del foro</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
     </section>
 
 
-
-    <!-- Aqui terminan los cosos y empieza el footer -->
 
     <section id="footer">
         <div class="justify-content-end pt-3">
