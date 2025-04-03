@@ -93,11 +93,12 @@ public class SecurityConfig {
                 .formLogin(Customizer.withDefaults())
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/entities").permitAll()
+                        .requestMatchers("/").permitAll()
                         .requestMatchers("/carrito").permitAll()
                         .requestMatchers("/forum").permitAll()
                         .requestMatchers("/usuario").permitAll()
+                        .requestMatchers("/inicioSesion").permitAll()
                         .requestMatchers("/entities/*").permitAll()
-                        .requestMatchers("/").permitAll()
                         .requestMatchers("/css/*").permitAll()
                         .requestMatchers(HttpMethod.POST,"/entidades/deleteHija/*").authenticated()
                         .anyRequest().authenticated()
