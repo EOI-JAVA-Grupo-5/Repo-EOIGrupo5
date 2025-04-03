@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Perfil del Supermercado</title>
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+    />
+
+    <!-- Stylesheets -->
+    <link href="../CSS/styles.css" rel="stylesheet" />
+
+    <!-- Links para el Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+            href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+            rel="stylesheet"
+    />
+
+    <style>
+        * {
+            font-family: "Albert Sans", sans-serif;
+            font-optical-sizing: auto;
+            font-style: normal;
+        }
+    </style>
+</head>
+
+<body>
+<!-- NAVBAR -->
+<section id="navbar-section">
+    <nav class="navbar navbar-expand-sm primary-navbar">
+        <div class="container">
+            <a class="navbar-brand d-inline-flex" href="#">
+                <img
+                        class="d-inline-block"
+                        src="https://ecochestnut.eu/wp-content/uploads/2020/04/logoEcoChestnut.colour.png"
+                        alt="logo"
+                        style="width: 5rem; height: fit-content; align-self: center"
+                />
+                <span class="text-1000 fs-3 fw-bold ms-2">Castaña</span>
+            </a>
+            <button
+                    class="navbar-toggler d-lg-none"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapsibleNavId"
+                    aria-controls="collapsibleNavId"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+            >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="collapsibleNavId">
+                <ul class="navbar-nav me-auto mt-2 mt-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#" aria-current="page"
+                        >Página 1 <span class="visually-hidden">(current)</span></a
+                        >
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#" aria-current="page"
+                        >Página 2 <span class="visually-hidden">(current)</span></a
+                        >
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#" aria-current="page"
+                        >Página 3 <span class="visually-hidden">(current)</span></a
+                        >
+                    </li>
+                </ul>
+
+                <form class="d-flex pt-3 my-2 my-lg-0">
+                    <div class="input-group mb-3">
+                <span class="input-group-text" id="search-icon">
+                  <i class="bi bi-search"></i>
+                </span>
+                        <input
+                                class="form-control input-box bg-100"
+                                type="search"
+                                placeholder="Buscar"
+                                aria-label="Search"
+                        />
+                        <button
+                                class="btn btn-outline-warning text-black my-2 my-sm-0"
+                                type="submit"
+                        >
+                            Buscar
+                        </button>
+                    </div>
+                </form>
+
+                <div class="d-grid p-3">
+                    <button type="button" name="" id="" class="btn btn-warning">
+                        <i class="bi bi-person-circle"></i> Login
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+</section>
+
+<!--Supermarket Info-->
+<section class="py-3">
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+
+                <div class="banner-blocks d-flex align-items-stretch gap-4">
+
+                    <div class="banner-ad h-100 d-flex flex-column large bg-custom block-1 rounded-3">
+                        <div class="row banner-content p-5">
+                            <div class="img-wrapper col-2">
+                                <img src="https://placehold.co/150x150" class="img-fluid">
+                            </div>
+                            <div class="content-wrapper col-10 d-flex flex-column">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h3 class="display-4">Tienda de alimentación Trini</h3>
+                                        <p>¿Dónde encontrar sus tiendas?</p>
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-12">
+                                        <div class="border border-dark fs-6 rounded-1 px-4 py-3 w-100" style="min-height: 400px;">Mapa</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="banner-ad d-flex flex-column bg-custom block-3 rounded-3" style="background:url('../images/camion.png') no-repeat;background-position: right bottom">
+                        <div class="row banner-content flex-grow-1 p-5">
+                            <div class="container mt-4">
+                                <div class="content-wrapper ju col-md-7">
+                                    <div class="categories fw-bold mb-3 p-3 pe-3 border border-dark rounded bg-warning d-inline-block">
+                                        Envío A domicilio
+                                    </div>
+                                    <h3 class="item-title">Disponible</h3>
+                                    <div class="d-flex align-items-center flex-column text-center">
+                                        <span class="fw-bold fs-4">4.99€</span>
+                                        <div>
+                                            Compra superior a 50€
+                                            <svg width="24" height="24"><use xlink:href="#arrow-right"></use></svg>
+                                            <span class="fw-bold">GRATIS</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<!--Products List-->
+<section class="container my-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Listado de Productos</h2>
+        <div class="dropdown">
+            <button
+                    class="btn btn-primary dropdown-toggle"
+                    type="button"
+                    id="dropdownMenuButton"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+            >
+                Filtrar
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <li><a class="dropdown-item" href="#">Nombre (A-Z)</a></li>
+                <li><a class="dropdown-item" href="#">Nombre (Z-A)</a></li>
+                <li>
+                    <a class="dropdown-item" href="#">Precio (Menor a Mayor)</a>
+                </li>
+                <li>
+                    <a class="dropdown-item" href="#">Precio (Mayor a Menor)</a>
+                </li>
+                <li><a class="dropdown-item" href="#">Categoría</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <!-- Producto -->
+        <div class="col-md-2 col-sm-6 mb-4" style="min-width: 200px">
+            <div
+                    class="card text-center p-2"
+                    data-bs-toggle="modal"
+                    data-bs-target="#productModal1"
+            >
+                <img
+                        src="https://placehold.co/150x150"
+                        class="card-img-top"
+                        alt="Producto"
+                />
+                <div class="card-body">
+                    <h5 class="card-title">Producto 1</h5>
+                    <p class="text-warning">★★★★★</p>
+                    <p class="fw-bold">10.99 €</p>
+                    <button class="btn btn-outline-danger btn-sm mb-2">❤</button>
+                    <div
+                            class="d-flex justify-content-center align-items-center mb-2"
+                    >
+                        <button class="btn btn-outline-secondary btn-sm">-</button>
+                        <span class="mx-2">1</span>
+                        <button class="btn btn-outline-secondary btn-sm">+</button>
+                    </div>
+                    <button class="btn btn-success btn-sm">Añadir al carrito</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div
+                class="modal fade"
+                id="productModal1"
+                tabindex="-1"
+                aria-labelledby="productModalLabel"
+                aria-hidden="true"
+        >
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="productModalLabel">Producto 1</h5>
+                        <button
+                                type="button"
+                                class="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Cerrar"
+                        ></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div
+                                    class="col-md-6 d-flex justify-content-center align-items-center"
+                            >
+                                <img
+                                        src="https://placehold.co/150x150"
+                                        class="img-fluid"
+                                        alt="Producto"
+                                />
+                            </div>
+                            <div class="col-md-6">
+                                <h5>Descripción:</h5>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                    Phasellus imperdiet, nulla et dictum interdum, nisi lorem
+                                    egestas odio, vitae scelerisque enim ligula venenatis
+                                    dolor. Maecenas nisl est, ultrices nec congue eget, auctor
+                                    vitae massa.
+                                </p>
+                                <h5>Reseñas:</h5>
+                                <div>
+                                    <p>
+                                        <strong>Usuario 1:</strong> ★★★★★ Me encanta este
+                                        producto, es de excelente calidad.
+                                    </p>
+                                    <p>
+                                        <strong>Usuario 2:</strong> ★★★★☆ Muy bueno, pero la
+                                        talla no es precisa.
+                                    </p>
+                                    <p>
+                                        <strong>Usuario 3:</strong> ★★★☆☆ Cumple su función,
+                                        pero esperaba más.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button
+                                type="button"
+                                class="btn btn-secondary"
+                                data-bs-dismiss="modal"
+                        >
+                            Cerrar
+                        </button>
+                        <button type="button" class="btn btn-success">
+                            Añadir al carrito
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Producto -->
+        <div class="col-md-2 col-sm-6 mb-4" style="min-width: 200px">
+            <div class="card text-center p-2">
+                <img
+                        src="https://placehold.co/150x150"
+                        class="card-img-top"
+                        alt="Producto"
+                />
+                <div class="card-body">
+                    <h5 class="card-title">Producto 1</h5>
+                    <p class="text-warning">★★★★★</p>
+                    <p class="fw-bold">10.99 €</p>
+                    <button class="btn btn-outline-danger btn-sm mb-2">❤</button>
+                    <div
+                            class="d-flex justify-content-center align-items-center mb-2"
+                    >
+                        <button class="btn btn-outline-secondary btn-sm">-</button>
+                        <span class="mx-2">1</span>
+                        <button class="btn btn-outline-secondary btn-sm">+</button>
+                    </div>
+                    <button class="btn btn-success btn-sm">Añadir al carrito</button>
+                </div>
+            </div>
+        </div>
+        <!-- Producto -->
+        <div class="col-md-2 col-sm-6 mb-4" style="min-width: 200px">
+            <div class="card text-center p-2">
+                <img
+                        src="https://placehold.co/150x150"
+                        class="card-img-top"
+                        alt="Producto"
+                />
+                <div class="card-body">
+                    <h5 class="card-title">Producto 1</h5>
+                    <p class="text-warning">★★★★★</p>
+                    <p class="fw-bold">10.99 €</p>
+                    <button class="btn btn-outline-danger btn-sm mb-2">❤</button>
+                    <div
+                            class="d-flex justify-content-center align-items-center mb-2"
+                    >
+                        <button class="btn btn-outline-secondary btn-sm">-</button>
+                        <span class="mx-2">1</span>
+                        <button class="btn btn-outline-secondary btn-sm">+</button>
+                    </div>
+                    <button class="btn btn-success btn-sm">Añadir al carrito</button>
+                </div>
+            </div>
+        </div>
+        <!-- Producto -->
+        <div class="col-md-2 col-sm-6 mb-4" style="min-width: 200px">
+            <div class="card text-center p-2">
+                <img
+                        src="https://placehold.co/150x150"
+                        class="card-img-top"
+                        alt="Producto"
+                />
+                <div class="card-body">
+                    <h5 class="card-title">Producto 1</h5>
+                    <p class="text-warning">★★★★★</p>
+                    <p class="fw-bold">10.99 €</p>
+                    <button class="btn btn-outline-danger btn-sm mb-2">❤</button>
+                    <div
+                            class="d-flex justify-content-center align-items-center mb-2"
+                    >
+                        <button class="btn btn-outline-secondary btn-sm">-</button>
+                        <span class="mx-2">1</span>
+                        <button class="btn btn-outline-secondary btn-sm">+</button>
+                    </div>
+                    <button class="btn btn-success btn-sm">Añadir al carrito</button>
+                </div>
+            </div>
+        </div>
+        <!-- Producto -->
+        <div class="col-md-2 col-sm-6 mb-4" style="min-width: 200px">
+            <div class="card text-center p-2">
+                <img
+                        src="https://placehold.co/150x150"
+                        class="card-img-top"
+                        alt="Producto"
+                />
+                <div class="card-body">
+                    <h5 class="card-title">Producto 1</h5>
+                    <p class="text-warning">★★★★★</p>
+                    <p class="fw-bold">10.99 €</p>
+                    <button class="btn btn-outline-danger btn-sm mb-2">❤</button>
+                    <div
+                            class="d-flex justify-content-center align-items-center mb-2"
+                    >
+                        <button class="btn btn-outline-secondary btn-sm">-</button>
+                        <span class="mx-2">1</span>
+                        <button class="btn btn-outline-secondary btn-sm">+</button>
+                    </div>
+                    <button class="btn btn-success btn-sm">Añadir al carrito</button>
+                </div>
+            </div>
+        </div>
+        <!-- Producto -->
+        <div class="col-md-2 col-sm-6 mb-4" style="min-width: 200px">
+            <div class="card text-center p-2">
+                <img
+                        src="https://placehold.co/150x150"
+                        class="card-img-top"
+                        alt="Producto"
+                />
+                <div class="card-body">
+                    <h5 class="card-title">Producto 1</h5>
+                    <p class="text-warning">★★★★★</p>
+                    <p class="fw-bold">10.99 €</p>
+                    <button class="btn btn-outline-danger btn-sm mb-2">❤</button>
+                    <div
+                            class="d-flex justify-content-center align-items-center mb-2"
+                    >
+                        <button class="btn btn-outline-secondary btn-sm">-</button>
+                        <span class="mx-2">1</span>
+                        <button class="btn btn-outline-secondary btn-sm">+</button>
+                    </div>
+                    <button class="btn btn-success btn-sm">Añadir al carrito</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <!-- Producto -->
+        <div class="col-md-2 col-sm-6 mb-4" style="min-width: 200px">
+            <div class="card text-center p-2">
+                <img
+                        src="https://placehold.co/150x150"
+                        class="card-img-top"
+                        alt="Producto"
+                />
+                <div class="card-body">
+                    <h5 class="card-title">Producto 1</h5>
+                    <p class="text-warning">★★★★★</p>
+                    <p class="fw-bold">10.99 €</p>
+                    <button class="btn btn-outline-danger btn-sm mb-2">❤</button>
+                    <div
+                            class="d-flex justify-content-center align-items-center mb-2"
+                    >
+                        <button class="btn btn-outline-secondary btn-sm">-</button>
+                        <span class="mx-2">1</span>
+                        <button class="btn btn-outline-secondary btn-sm">+</button>
+                    </div>
+                    <button class="btn btn-success btn-sm">Añadir al carrito</button>
+                </div>
+            </div>
+        </div>
+        <!-- Producto -->
+        <div class="col-md-2 col-sm-6 mb-4" style="min-width: 200px">
+            <div class="card text-center p-2">
+                <img
+                        src="https://placehold.co/150x150"
+                        class="card-img-top"
+                        alt="Producto"
+                />
+                <div class="card-body">
+                    <h5 class="card-title">Producto 1</h5>
+                    <p class="text-warning">★★★★★</p>
+                    <p class="fw-bold">10.99 €</p>
+                    <button class="btn btn-outline-danger btn-sm mb-2">❤</button>
+                    <div
+                            class="d-flex justify-content-center align-items-center mb-2"
+                    >
+                        <button class="btn btn-outline-secondary btn-sm">-</button>
+                        <span class="mx-2">1</span>
+                        <button class="btn btn-outline-secondary btn-sm">+</button>
+                    </div>
+                    <button class="btn btn-success btn-sm">Añadir al carrito</button>
+                </div>
+            </div>
+        </div>
+        <!-- Producto -->
+        <div class="col-md-2 col-sm-6 mb-4" style="min-width: 200px">
+            <div class="card text-center p-2">
+                <img
+                        src="https://placehold.co/150x150"
+                        class="card-img-top"
+                        alt="Producto"
+                />
+                <div class="card-body">
+                    <h5 class="card-title">Producto 1</h5>
+                    <p class="text-warning">★★★★★</p>
+                    <p class="fw-bold">10.99 €</p>
+                    <button class="btn btn-outline-danger btn-sm mb-2">❤</button>
+                    <div
+                            class="d-flex justify-content-center align-items-center mb-2"
+                    >
+                        <button class="btn btn-outline-secondary btn-sm">-</button>
+                        <span class="mx-2">1</span>
+                        <button class="btn btn-outline-secondary btn-sm">+</button>
+                    </div>
+                    <button class="btn btn-success btn-sm">Añadir al carrito</button>
+                </div>
+            </div>
+        </div>
+        <!-- Producto -->
+        <div class="col-md-2 col-sm-6 mb-4" style="min-width: 200px">
+            <div class="card text-center p-2">
+                <img
+                        src="https://placehold.co/150x150"
+                        class="card-img-top"
+                        alt="Producto"
+                />
+                <div class="card-body">
+                    <h5 class="card-title">Producto 1</h5>
+                    <p class="text-warning">★★★★★</p>
+                    <p class="fw-bold">10.99 €</p>
+                    <button class="btn btn-outline-danger btn-sm mb-2">❤</button>
+                    <div
+                            class="d-flex justify-content-center align-items-center mb-2"
+                    >
+                        <button class="btn btn-outline-secondary btn-sm">-</button>
+                        <span class="mx-2">1</span>
+                        <button class="btn btn-outline-secondary btn-sm">+</button>
+                    </div>
+                    <button class="btn btn-success btn-sm">Añadir al carrito</button>
+                </div>
+            </div>
+        </div>
+        <!-- Producto -->
+        <div class="col-md-2 col-sm-6 mb-4" style="min-width: 200px">
+            <div class="card text-center p-2">
+                <img
+                        src="https://placehold.co/150x150"
+                        class="card-img-top"
+                        alt="Producto"
+                />
+                <div class="card-body">
+                    <h5 class="card-title">Producto 1</h5>
+                    <p class="text-warning">★★★★★</p>
+                    <p class="fw-bold">10.99 €</p>
+                    <button class="btn btn-outline-danger btn-sm mb-2">❤</button>
+                    <div
+                            class="d-flex justify-content-center align-items-center mb-2"
+                    >
+                        <button class="btn btn-outline-secondary btn-sm">-</button>
+                        <span class="mx-2">1</span>
+                        <button class="btn btn-outline-secondary btn-sm">+</button>
+                    </div>
+                    <button class="btn btn-success btn-sm">Añadir al carrito</button>
+                </div>
+            </div>
+        </div>
+        <!-- Producto -->
+        <div class="col-md-2 col-sm-6 mb-4" style="min-width: 200px">
+            <div class="card text-center p-2">
+                <img
+                        src="https://placehold.co/150x150"
+                        class="card-img-top"
+                        alt="Producto"
+                />
+                <div class="card-body">
+                    <h5 class="card-title">Producto 1</h5>
+                    <p class="text-warning">★★★★★</p>
+                    <p class="fw-bold">10.99 €</p>
+                    <button class="btn btn-outline-danger btn-sm mb-2">❤</button>
+                    <div
+                            class="d-flex justify-content-center align-items-center mb-2"
+                    >
+                        <button class="btn btn-outline-secondary btn-sm">-</button>
+                        <span class="mx-2">1</span>
+                        <button class="btn btn-outline-secondary btn-sm">+</button>
+                    </div>
+                    <button class="btn btn-success btn-sm">Añadir al carrito</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <!-- Producto -->
+        <div class="col-md-2 col-sm-6 mb-4" style="min-width: 200px">
+            <div class="card text-center p-2">
+                <img
+                        src="https://placehold.co/150x150"
+                        class="card-img-top"
+                        alt="Producto"
+                />
+                <div class="card-body">
+                    <h5 class="card-title">Producto 1</h5>
+                    <p class="text-warning">★★★★★</p>
+                    <p class="fw-bold">10.99 €</p>
+                    <button class="btn btn-outline-danger btn-sm mb-2">❤</button>
+                    <div
+                            class="d-flex justify-content-center align-items-center mb-2"
+                    >
+                        <button class="btn btn-outline-secondary btn-sm">-</button>
+                        <span class="mx-2">1</span>
+                        <button class="btn btn-outline-secondary btn-sm">+</button>
+                    </div>
+                    <button class="btn btn-success btn-sm">Añadir al carrito</button>
+                </div>
+            </div>
+        </div>
+        <!-- Producto -->
+        <div class="col-md-2 col-sm-6 mb-4" style="min-width: 200px">
+            <div class="card text-center p-2">
+                <img
+                        src="https://placehold.co/150x150"
+                        class="card-img-top"
+                        alt="Producto"
+                />
+                <div class="card-body">
+                    <h5 class="card-title">Producto 1</h5>
+                    <p class="text-warning">★★★★★</p>
+                    <p class="fw-bold">10.99 €</p>
+                    <button class="btn btn-outline-danger btn-sm mb-2">❤</button>
+                    <div
+                            class="d-flex justify-content-center align-items-center mb-2"
+                    >
+                        <button class="btn btn-outline-secondary btn-sm">-</button>
+                        <span class="mx-2">1</span>
+                        <button class="btn btn-outline-secondary btn-sm">+</button>
+                    </div>
+                    <button class="btn btn-success btn-sm">Añadir al carrito</button>
+                </div>
+            </div>
+        </div>
+        <!-- Producto -->
+        <div class="col-md-2 col-sm-6 mb-4" style="min-width: 200px">
+            <div class="card text-center p-2">
+                <img
+                        src="https://placehold.co/150x150"
+                        class="card-img-top"
+                        alt="Producto"
+                />
+                <div class="card-body">
+                    <h5 class="card-title">Producto 1</h5>
+                    <p class="text-warning">★★★★★</p>
+                    <p class="fw-bold">10.99 €</p>
+                    <button class="btn btn-outline-danger btn-sm mb-2">❤</button>
+                    <div
+                            class="d-flex justify-content-center align-items-center mb-2"
+                    >
+                        <button class="btn btn-outline-secondary btn-sm">-</button>
+                        <span class="mx-2">1</span>
+                        <button class="btn btn-outline-secondary btn-sm">+</button>
+                    </div>
+                    <button class="btn btn-success btn-sm">Añadir al carrito</button>
+                </div>
+            </div>
+        </div>
+        <!-- Producto -->
+        <div class="col-md-2 col-sm-6 mb-4" style="min-width: 200px">
+            <div class="card text-center p-2">
+                <img
+                        src="https://placehold.co/150x150"
+                        class="card-img-top"
+                        alt="Producto"
+                />
+                <div class="card-body">
+                    <h5 class="card-title">Producto 1</h5>
+                    <p class="text-warning">★★★★★</p>
+                    <p class="fw-bold">10.99 €</p>
+                    <button class="btn btn-outline-danger btn-sm mb-2">❤</button>
+                    <div
+                            class="d-flex justify-content-center align-items-center mb-2"
+                    >
+                        <button class="btn btn-outline-secondary btn-sm">-</button>
+                        <span class="mx-2">1</span>
+                        <button class="btn btn-outline-secondary btn-sm">+</button>
+                    </div>
+                    <button class="btn btn-success btn-sm">Añadir al carrito</button>
+                </div>
+            </div>
+        </div>
+        <!-- Producto -->
+        <div class="col-md-2 col-sm-6 mb-4" style="min-width: 200px">
+            <div class="card text-center p-2">
+                <img
+                        src="https://placehold.co/150x150"
+                        class="card-img-top"
+                        alt="Producto"
+                />
+                <div class="card-body">
+                    <h5 class="card-title">Producto 1</h5>
+                    <p class="text-warning">★★★★★</p>
+                    <p class="fw-bold">10.99 €</p>
+                    <button class="btn btn-outline-danger btn-sm mb-2">❤</button>
+                    <div
+                            class="d-flex justify-content-center align-items-center mb-2"
+                    >
+                        <button class="btn btn-outline-secondary btn-sm">-</button>
+                        <span class="mx-2">1</span>
+                        <button class="btn btn-outline-secondary btn-sm">+</button>
+                    </div>
+                    <button class="btn btn-success btn-sm">Añadir al carrito</button>
+                </div>
+            </div>
+        </div>
+        <!-- Producto -->
+        <div class="col-md-2 col-sm-6 mb-4" style="min-width: 200px">
+            <div class="card text-center p-2">
+                <img
+                        src="https://placehold.co/150x150"
+                        class="card-img-top"
+                        alt="Producto"
+                />
+                <div class="card-body">
+                    <h5 class="card-title">Producto 1</h5>
+                    <p class="text-warning">★★★★★</p>
+                    <p class="fw-bold">10.99 €</p>
+                    <button class="btn btn-outline-danger btn-sm mb-2">❤</button>
+                    <div
+                            class="d-flex justify-content-center align-items-center mb-2"
+                    >
+                        <button class="btn btn-outline-secondary btn-sm">-</button>
+                        <span class="mx-2">1</span>
+                        <button class="btn btn-outline-secondary btn-sm">+</button>
+                    </div>
+                    <button class="btn btn-success btn-sm">Añadir al carrito</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="text-center text-lg-start" style="background-color: #efd780">
+    <!-- Section: Social media -->
+    <section
+            class="d-flex justify-content-between p-4"
+            style="background-color: #dba159"
+    >
+        <!-- Left -->
+        <div class="me-5" style="color: #fcfdaf">
+            <span><strong>Síguenos en nuestras redes sociales:</strong></span>
+        </div>
+        <!-- Left -->
+
+        <!-- Right -->
+        <div>
+            <a href="" class="icono-red-footer me-4">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="" class="icono-red-footer me-4">
+                <i class="fab fa-twitter"></i>
+            </a>
+            <a href="" class="icono-red-footer me-4">
+                <i class="fab fa-google"></i>
+            </a>
+            <a href="" class="icono-red-footer me-4">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="" class="icono-red-footer me-4">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="" class="icono-red-footer me-4">
+                <i class="fab fa-github"></i>
+            </a>
+        </div>
+        <!-- Right -->
+    </section>
+    <!-- Section: Social media -->
+
+    <!-- Section: Links  -->
+    <section class="">
+        <div class="container text-center text-md-start mt-5">
+            <!-- Grid row -->
+            <div class="row mt-3">
+                <!-- Grid column -->
+                <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                    <!-- Content -->
+                    <h6 class="text-uppercase fw-bold">Sobre Castañazo Deals</h6>
+                    <hr
+                            class="mb-4 mt-0 d-inline-block mx-auto"
+                            style="width: 60px; background-color: #dba159; height: 2px"
+                    />
+                    <p>
+                        Aquí va propaganda pura y dura, sin filtrar. Café para los mas
+                        cafeteros.
+                    </p>
+                </div>
+                <!-- Grid column -->
+
+                <!-- Grid column -->
+                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+                    <!-- Links -->
+                    <h6 class="text-uppercase fw-bold">Cosas</h6>
+                    <hr
+                            class="mb-4 mt-0 d-inline-block mx-auto"
+                            style="width: 60px; background-color: #dba159; height: 2px"
+                    />
+                    <p>
+                        <a href="#!" class="text-blue">Cosa 1</a>
+                    </p>
+                    <p>
+                        <a href="#!" class="text-blue">Cosa 2</a>
+                    </p>
+                    <p>
+                        <a href="#!" class="text-blue">Cosa 3</a>
+                    </p>
+                    <p>
+                        <a href="#!" class="text-blue">Cosa 4</a>
+                    </p>
+                </div>
+                <!-- Grid column -->
+
+                <!-- Grid column -->
+                <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                    <!-- Links -->
+                    <h6 class="text-uppercase fw-bold">Links Útiles</h6>
+                    <hr
+                            class="mb-4 mt-0 d-inline-block mx-auto"
+                            style="width: 60px; background-color: #dba159; height: 2px"
+                    />
+                    <p>
+                        <a href="#!" class="text-blue">Link 1</a>
+                    </p>
+                    <p>
+                        <a href="#!" class="text-blue">Link 2</a>
+                    </p>
+                    <p>
+                        <a href="#!" class="text-blue">Link 3</a>
+                    </p>
+                    <p>
+                        <a href="#!" class="text-blue">Link 4</a>
+                    </p>
+                </div>
+                <!-- Grid column -->
+
+                <!-- Grid column -->
+                <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                    <!-- Links -->
+                    <h6 class="text-uppercase fw-bold">Contacto</h6>
+                    <hr
+                            class="mb-4 mt-0 d-inline-block mx-auto"
+                            style="width: 60px; background-color: #dba059; height: 2px"
+                    />
+                    <p><i class="fas fa-home mr-3"></i> Sevilla, Sevilla, ES</p>
+                    <p><i class="fas fa-envelope mr-3"></i> info@castañazodeals.es</p>
+                    <p><i class="fas fa-phone mr-3"></i> + 01 234 567 88</p>
+                    <p><i class="fas fa-print mr-3"></i> + 01 234 567 89</p>
+                </div>
+                <!-- Grid column -->
+            </div>
+            <!-- Grid row -->
+        </div>
+    </section>
+    <!-- Section: Links  -->
+
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: #dba0598f">
+        © 2025 Copyright:
+        <a class="text-blue" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+    </div>
+    <!-- Copyright -->
+</footer>
+</body>
+
+<!-- Bootstrap -->
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"
+></script>
+</html>
