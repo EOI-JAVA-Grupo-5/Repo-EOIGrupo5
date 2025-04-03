@@ -11,6 +11,7 @@
 
     <!-- Stylesheets -->
     <link th:href="@{css/styles.css}" rel="stylesheet" />
+    <link th:href="@{css/perfilSupermercado.css}" rel="stylesheet">
 
     <!-- iconos -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -153,7 +154,8 @@
                         </div>
                     </div>
 
-                    <div class="banner-ad d-flex flex-column bg-custom block-3 rounded-3" style="background:url('../static/images/camion.png') no-repeat;background-position: right bottom">
+                    <div class="banner-ad d-flex flex-column bg-custom block-3 rounded-3 position-relative">
+                        <img src="../static/images/camion.png" alt="Camión de transporte" class="camion-img">
                         <div class="row banner-content flex-grow-1 p-5">
                             <div class="container mt-4">
                                 <div class="content-wrapper ju col-md-7">
@@ -173,6 +175,8 @@
                             </div>
                         </div>
                     </div>
+
+
 
                 </div>
 
