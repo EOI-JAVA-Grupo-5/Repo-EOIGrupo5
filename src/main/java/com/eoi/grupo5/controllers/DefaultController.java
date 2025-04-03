@@ -82,7 +82,7 @@ public class DefaultController {
         return "carrito"; // View name
     }
 
-    @GetMapping("/login")
+    @GetMapping("/inicioSesion")
     public String login(Model model)
     {
         return "login"; // View name
