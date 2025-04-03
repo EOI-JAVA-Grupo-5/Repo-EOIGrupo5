@@ -1,0 +1,51 @@
+/*
+  Nombre del archivo: styles.css
+  Autor: Grupo 5
+  Descripción: Estilos principales comunes para el sitio web
+  Fecha de creación: 27/03/2025
+*/
+/*Font Incluido para todas las paginas html*/
+* {
+    font-family: "Albert Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+/* Navbar principal */
+.primary-navbar
+{
+    background-color: #dba159;
+}
+
+.primary-navbar span
+{
+    color: #fcfdaf;
+}
+
+#search-icon
+{
+    background-color: #fcfdaf;
+    border-color: orange;
+    color: black;
+}
+
+.primary-navbar div button
+{
+    background-color: #fcfdaf;
+}
+
+.primary-navbar div button:hover
+{
+    background-color: #efd780;
+}
+
+/* Iconos de redes sociales del footer */
+.icono-red-footer
+{
+    color: #fcfdaf;
+}
+
+.icono-red-footer:hover
+{
+    color: #efd780;
+}
