@@ -97,7 +97,7 @@ public class SecurityConfig {
                         .requestMatchers("/forum").permitAll()
                         .requestMatchers("/usuario").permitAll()
                         .requestMatchers("/entities/*").permitAll()
-                        .requestMatchers("/forum").permitAll()
+                        .requestMatchers("/").permitAll()
                         .requestMatchers("/css/*").permitAll()
                         .requestMatchers(HttpMethod.POST,"/entidades/deleteHija/*").authenticated()
                         .anyRequest().authenticated()
