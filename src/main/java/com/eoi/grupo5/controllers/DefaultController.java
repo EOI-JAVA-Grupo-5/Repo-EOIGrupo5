@@ -76,6 +76,18 @@ public class DefaultController {
         return "carrito"; // View name
     }
 
+    @GetMapping("/login")
+    public String login(Model model)
+    {
+        return "login"; // View name
+    }
+
+    @GetMapping("/usuario")
+    public String usuario(Model model)
+    {
+        return "perfilUsuario"; // View name
+    }
+
     @GetMapping("/forum")
     public String forum(Model model)
     {

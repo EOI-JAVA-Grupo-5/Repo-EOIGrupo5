@@ -94,6 +94,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/entities").permitAll()
                         .requestMatchers("/carrito").permitAll()
+                        .requestMatchers("/forum").permitAll()
+                        .requestMatchers("/usuario").permitAll()
                         .requestMatchers("/entities/*").permitAll()
                         .requestMatchers("/forum").permitAll()
                         .requestMatchers("/css/*").permitAll()
