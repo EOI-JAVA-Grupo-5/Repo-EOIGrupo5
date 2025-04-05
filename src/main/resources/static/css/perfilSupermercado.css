@@ -1,12 +1,22 @@
 .banner-ad {
-    min-height: 300px; /* Asegurar altura suficiente */
+    min-height: 300px;
     position: relative;
 }
 
 .camion-img {
     position: absolute;
-    bottom: 10px; /* Ajusta la posición */
+    bottom: 100px;
     right: 10px;
     max-width: 200px;
-    z-index: 10; /* Asegura que esté encima de otros elementos */
+    z-index: 10;
+}
+
+.filter-btn
+{
+    background-color: #fcfdaf;
+}
+
+.filter-btn:hover
+{
+    background-color: #efd780;
 }
