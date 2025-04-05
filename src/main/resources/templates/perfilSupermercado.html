@@ -147,7 +147,9 @@
                                 </div>
                                 <div class="row mt-3">
                                     <div class="col-12">
-                                        <div class="border border-dark fs-6 rounded-1 px-4 py-3 w-100" style="min-height: 400px;">Mapa</div>
+                                        <div id="map">
+
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -158,10 +160,10 @@
                         <div class="row banner-content flex-grow-1 p-3 pb-0">
                             <div class="container mt-4">
                                 <div class="content-wrapper ju col-md-7">
+                                    <h3 class="item-title">Envío A Domicilio</h3>
                                     <div class="fw-bold mb-3 p-3 pe-3 border border-dark rounded bg-success d-inline-block" style="color: #fff;">
-                                        Envío A domicilio
+                                        Disponible
                                     </div>
-                                    <h3 class="item-title">Disponible</h3>
                                     <div class="d-flex align-items-center flex-column text-center">
                                         <span class="fw-bold fs-4">4.99€</span>
                                         <div>
@@ -800,4 +802,36 @@
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
         crossorigin="anonymous"
 ></script>
+
+<!-- Map -->
+<script>(g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})
+({key: "AIzaSyCjrZgjGKXXglqTkK1Xvo7xuFOuh5ICEAk", v: "weekly"});</script>
+<script>
+    let map;
+
+    async function initMap() {
+        // The location of Uluru
+        const position = { lat: 36.69579, lng: -6.11515 };
+        // Request needed libraries.
+        //@ts-ignore
+        const { Map } = await google.maps.importLibrary("maps");
+        const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
+
+        // The map, centered at Uluru
+        map = new Map(document.getElementById("map"), {
+            zoom: 15,
+            center: position,
+            mapId: "DEMO_MAP_ID",
+        });
+
+        // The marker, positioned at Uluru
+        const marker = new AdvancedMarkerElement({
+            map: map,
+            position: position,
+            title: "Uluru",
+        });
+    }
+
+    initMap();
+</script>
 </html>
