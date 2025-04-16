@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perfil del Usuario</title>
 
-    <link rel="apple-touch-icon" sizes="180x180" th:href="@{images/logo-SF.png}">
-    <link rel="icon" type="image/png" sizes="32x32" th:href="@{images/logo-SF.png}">
-    <link rel="icon" type="image/png" sizes="16x16" th:href="@{images/logo-SF.png}">
-    <link rel="shortcut icon" type="image/x-icon" th:href="@{images/logo-SF.png}">
+    <link rel="apple-touch-icon" sizes="180x180" th:href="@{/images/logo-SF.png}">
+    <link rel="icon" type="image/png" sizes="32x32" th:href="@{/images/logo-SF.png}">
+    <link rel="icon" type="image/png" sizes="16x16" th:href="@{/images/logo-SF.png}">
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/images/logo-SF.png}">
     
     <!-- Stylesheets -->
     <link href="assets/css/theme.min.css" rel="stylesheet" />
@@ -40,9 +40,9 @@
                 <a class="navbar-brand d-inline-flex" href="#">
                     <img class="d-inline-block" th:src="@{images/logo-SF.png}"
                          alt="logo" style="width: 5rem; align-self: center;">
-                    <img class="d-inline-block" src="../static/images/logo-SF.png"
+                    <img class="d-inline-block" th:src="@{/images/logo-SF.png}"
                          alt="logo" style="width: 5rem; align-self: center;">
-                    <span class="text-1000 fs-3 fw-bold ms-2">Castañazo Deals</span>
+                    <span class="text-1000 fs-3 fw-bold ms-2">Castañazo <br> Deals</span>
                 </a>
                 <button
                     class="navbar-toggler d-lg-none"
