@@ -175,7 +175,7 @@
                 <configuration>
                     <image>
                         <!--suppress UnresolvedMavenProperty -->
-                        <name>grupo5proyecto:${env.VERSION}</name>
+                        <name>grupo5proyecto:${env.VERSION}</name>  <!--Aquí parece dar error-->
                     </image>
                 </configuration>
             </plugin>
