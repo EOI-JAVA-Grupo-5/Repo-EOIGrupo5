@@ -66,14 +66,17 @@
                                         </div>
                         
                                         <div class="text-center pt-1 mb-5 pb-1">
-                                            <button id="btnLogin" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block fa-lg mb-3" type="button">Log
-                                            in</button>
+                                            <a th:href="@{/usuario}">
+                                                <button id="btnLogin" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block fa-lg mb-3" type="button">Log in</button>
+                                            </a>
                                             <a class="text-muted" href="#!">¿Olvidaste tu contraseña?</a>
                                         </div>
                         
                                         <div class="d-flex align-items-center justify-content-center pb-4">
                                             <p class="mb-0 me-2">¿No tienes cuenta?</p>
-                                            <button  type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-warning">Crea una cuenta</button>
+                                            <a th:href="@{/registro}">
+                                                <button  type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-warning">Crea una cuenta</button>
+                                            </a>
                                         </div>
                     
                                     </form>

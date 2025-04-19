@@ -88,6 +88,12 @@ public class DefaultController {
         return "login"; // View name
     }
 
+    @GetMapping("/registro")
+    public String registro(Model model)
+    {
+        return "register"; // View name
+    }
+
     @GetMapping("/usuario")
     public String usuario(Model model)
     {
