@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
   <meta charset="UTF-8">
@@ -119,26 +119,33 @@
     </div>
   </nav>
 
-
   <div class="container container mt-3">
+    <div class="page-center page-header">
+      <h1 class="font-weight-bold display-2">
+        Foro de discusión
+      </h1>
+    </div>
     <div class="row">
-      <!-- Main Content Area (9 columns) -->
+      <!-- Main Content Area -->
       <div class="col-lg-9">
         <div class="row text-left mb-5">
           <div class="col-lg-6 mb-3">
+            <h4>Elegir categoria:</h4>
             <select class="form-control form-control-lg bg-white text-sm">
-              <option> Categories </option>
-              <option> Food </option>
-              <option> Cosmetics </option>
-              <option> Supermarket </option>
+              <option> ... </option>
+              <option> Alimentacion </option>
+              <option> Cosmetica </option>
+              <option> Mascotas </option>
             </select>
           </div>
           <div class="col-lg-6 text-lg-right">
+            <h4>Filtrar por:</h4>
             <select class="form-control form-control-lg bg-white text-sm">
-              <option> Filter by </option>
-              <option> Votes </option>
-              <option> Replies </option>
-              <option> Views </option>
+              <option> ... </option>
+              <option> Votos </option>
+              <option> Contestaciones </option>
+              <option> Visitas </option>
+              <option> Supermercado </option>
             </select>
           </div>
         </div>
@@ -147,23 +154,32 @@
         <div class="card mb-3 border-warning">
           <div class="row align-items-center">
             <div class="col-md-8">
-              <h5><a href="#" class="text-primary">Title example of forum topic</a></h5>
-              <p class="text-sm">Posted <a class="text-black" href="#">20 minutes</a> ago by <a class="text-black"
-                  href="#">Jordan</a></p>
+              <h5>
+                <a th:href="@{/forum}" class="text-primary" th:text="'Ejemplo de título del tema del foro'">Ejemplo de título del tema del foro</a>
+              </h5>
+              <p class="text-sm">
+                Publicado hace <a class="text-black" th:text="'20 minutos'">20 minutos</a> por <a class="text-black" th:text="'Jordan'">Jordan</a>
+              </p>
               <div class="text-sm">
-                <a class="text-black mr-2" href="#">#C++</a>
-                <a class="text-black mr-2" href="#">#AppStrap</a>
-                <a class="text-black mr-2" href="#">#WordPress</a>
+                <a class="text-black mr-2" th:text="'#C++'">#C++</a>
+                <a class="text-black mr-2" th:text="'#AppStrap'">#AppStrap</a>
+                <a class="text-black mr-2" th:text="'#WordPress'">#WordPress</a>
               </div>
             </div>
             <div class="col-md-4 text-center">
               <div class="row">
-                <div class="col px-1"> <i class="ion-connection-bars icon-1x"></i> <span class="d-block text-sm">141
-                    Votes</span> </div>
-                <div class="col px-1"> <i class="ion-ios-chatboxes-outline icon-1x"></i> <span
-                    class="d-block text-sm">122 Replies</span> </div>
-                <div class="col px-1"> <i class="ion-ios-eye-outline icon-1x"></i> <span class="d-block text-sm">290
-                    Views</span> </div>
+                <div class="col px-1">
+                  <i class="ion-connection-bars icon-1x"></i>
+                  <span class="d-block text-sm" th:text="'165 votos'">-- votos</span>
+                </div>
+                <div class="col px-1">
+                  <i class="ion-ios-chatboxes-outline icon-1x"></i>
+                  <span class="d-block text-sm" th:text="'122 respuestas'">-- respuestas</span>
+                </div>
+                <div class="col px-1">
+                  <i class="ion-ios-eye-outline icon-1x"></i>
+                  <span class="d-block text-sm" th:text="'290 vistas'">-- vistas</span>
+                </div>
               </div>
             </div>
           </div>
@@ -173,20 +189,20 @@
       <!-- Sidebar (3 columns) -->
       <div class="col-lg-3">
         <div class="sticky">
-          <a class="btn btn-lg btn-block btn-success py-4 mb-3" href="#">Ask Question</a>
+          <a class="btn btn-lg btn-block btn-success py-4 mb-3" th:href="@{/forum}">+ Crear tema</a>
           <div class="bg-white mb-3">
-            <h4 class="px-3 py-4">Active Topics</h4>
+            <h4 class="px-3 py-4">Temas activas</h4>
             <hr>
             <div class="px-3 py-3">
-              <h6><a href="#" class="text-primary">Why Bootstrap 4 is so awesome?</a></h6>
-              <p class="text-sm">Posted <a class="text-black" href="#">39 minutes</a> ago by <a class="text-black"
-                  href="#">AppStrapMaster</a></p>
+              <h6><a th:href="@{/forum}" th:text="'Título del tema aquí...'" class="text-primary">Placeholder</a></h6>
+              <p class="text-sm">Publicado hace <a class="text-black" th:text="'10 minutos'"> X minutos</a> por
+                <a class="text-black" th:text="'Usuario 1'">...</a> </p>
             </div>
             <hr>
             <div class="px-3 py-3">
-              <h6><a href="#" class="text-primary">Custom shortcut for terminal?</a></h6>
-              <p class="text-sm">Posted <a class="text-black" href="#">58 minutes</a> ago by <a class="text-black"
-                  href="#">DanielD</a></p>
+              <h6><a th:href="@{/forum}" th:text="'Título del tema aquí...'" class="text-primary">Placeholder</a></h6>
+              <p class="text-sm">Publicado hace <a class="text-black" th:text="'20 minutos'"> X minutos</a> por
+                <a class="text-black" th:text="'Usuario 2'">...</a> </p>
             </div>
           </div>
         </div>
