@@ -32,13 +32,6 @@
             rel="stylesheet"
     />
 
-    <style>
-        * {
-            font-family: "Albert Sans", sans-serif;
-            font-optical-sizing: auto;
-            font-style: normal;
-        }
-    </style>
 </head>
 
 <body>
@@ -67,20 +60,20 @@
             <div class="collapse navbar-collapse" id="collapsibleNavId">
                 <ul class="navbar-nav me-auto mt-2 mt-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#" aria-current="page"
-                        >Página 1
+                        <a class="nav-link active" th:href="@{/paginaDeProducto}" aria-current="page"
+                        >Productos
                             <span class="visually-hidden">(current)</span></a
                         >
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="#" aria-current="page"
-                        >Página 2
+                        <a class="nav-link active" th:href="@{/perfilSupermercado}" aria-current="page"
+                        >Supermercado
                             <span class="visually-hidden">(current)</span></a
                         >
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="#" aria-current="page"
-                        >Página 3
+                        <a class="nav-link active" th:href="@{/forum}" aria-current="page"
+                        >Forum
                             <span class="visually-hidden">(current)</span></a
                         >
                     </li>
@@ -105,25 +98,29 @@
                 </form>
 
                 <div class="d-grid p-3">
-                    <button
-                            type="button"
-                            name=""
-                            id=""
-                            class="btn btn-warning"
-                    >
-                        <i class="bi bi-person-circle"></i> Login
-                    </button>
+                    <a th:href="@{/inicioSesion}">
+                        <button
+                                type="button"
+                                name=""
+                                id=""
+                                class="btn btn-warning"
+                        >
+                            <i class="bi bi-person-circle"></i> Login
+                        </button>
+                    </a>
                 </div>
 
                 <div class="d-grid p-3">
-                    <button
-                            type="button"
-                            name=""
-                            id=""
-                            class="btn btn-warning"
-                    >
-                        <i class="bi bi-basket2"></i> Carrito
-                    </button>
+                    <a th:href="@{/carrito}">
+                        <button
+                                type="button"
+                                name=""
+                                id=""
+                                class="btn btn-warning"
+                        >
+                            <i class="bi bi-basket2"></i> Carrito
+                        </button>
+                    </a>
                 </div>
 
             </div>
@@ -133,7 +130,7 @@
 </section>
 
 <!--Supermarket Info-->
-<section class="py-3">
+<section id="infoSuper" class="py-3">
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-md-10">
@@ -148,13 +145,13 @@
                             <div class="content-wrapper col-10 d-flex flex-column">
                                 <div class="row">
                                     <div class="col-12">
-                                        <h3 class="display-4">Tienda de alimentación Trini</h3>
-                                        <p>¿Dónde encontrar sus tiendas?</p>
+                                        <h3 class="display-4" id="nombreSuper">Lidl</h3>
+                                        <p>Dónde encontrar su tienda más cercana:</p>
                                     </div>
                                 </div>
                                 <div class="row mt-3">
                                     <div class="col-12">
-                                        <div id="map">
+                                        <div  id="map">
 
                                         </div>
                                     </div>
@@ -163,13 +160,15 @@
                         </div>
                     </div>
 
-                    <div class="banner-ad d-flex flex-column bg-custom block-3 rounded-3 position-relative" style="top: 100px;">
+                    <div class="banner-ad d-flex flex-column bg-custom block-3 rounded-3 position-relative" id="transporte" >
                         <div class="row banner-content flex-grow-1 p-3 pb-0">
-                            <div class="container mt-4">
-                                <div class="content-wrapper ju col-md-7">
-                                    <h3 class="item-title">Envío A Domicilio</h3>
-                                    <div class="fw-bold mb-3 p-3 pe-3 border border-dark rounded bg-success d-inline-block" style="color: #fff;">
-                                        Disponible
+                            <div class="container" style="margin-top: 100px">
+                                    <div class="text-center">
+                                     <h3 class="item-title">Envío A Domicilio</h3>
+
+                                        <div class="fw-bold mb-3 p-3 pe-3 border border-dark rounded bg-success d-inline-block" style="color: #fff;">
+                                            Disponible
+                                        </div>
                                     </div>
                                     <div class="d-flex align-items-center flex-column text-center">
                                         <span class="fw-bold fs-4">4.99€</span>
@@ -179,7 +178,6 @@
                                             <span class="fw-bold">GRATIS</span>
                                         </div>
                                     </div>
-                                </div>
                             </div>
                         </div>
                         <img src="/images/camion.png" alt="Camión de transporte" class="camion-img">
@@ -810,35 +808,84 @@
         crossorigin="anonymous"
 ></script>
 
-<!-- Map -->
-<script>(g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})
-({key: "", v: "weekly"});</script>
+<!-- Mapa -->
+<script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjrZgjGKXXglqTkK1Xvo7xuFOuh5ICEAk&libraries=places,geometry&callback=initMap"
+        async
+        defer
+></script>
+
+
 <script>
-    let map;
+    function initMap() {
+        const nombreSupermercado = document.getElementById("nombreSuper")?.textContent || "supermercado";
 
-    async function initMap() {
-        // The location of Uluru
-        const position = { lat: 36.69579, lng: -6.11515 };
-        // Request needed libraries.
-        //@ts-ignore
-        const { Map } = await google.maps.importLibrary("maps");
-        const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
+        navigator.geolocation.getCurrentPosition(
+            function (pos) {
+                const userPos = {
+                    lat: pos.coords.latitude,
+                    lng: pos.coords.longitude,
+                };
 
-        // The map, centered at Uluru
-        map = new Map(document.getElementById("map"), {
-            zoom: 15,
-            center: position,
-            mapId: "DEMO_MAP_ID",
-        });
+                const map = new google.maps.Map(document.getElementById("map"), {
+                    center: userPos,
+                    zoom: 15,
+                });
 
-        // The marker, positioned at Uluru
-        const marker = new AdvancedMarkerElement({
-            map: map,
-            position: position,
-            title: "Uluru",
-        });
+                const request = {
+                    location: userPos,
+                    radius: 25000,
+                    keyword: nombreSupermercado,
+                };
+
+                const service = new google.maps.places.PlacesService(map);
+                service.nearbySearch(request, function (results, status) {
+                    if (
+                        status === google.maps.places.PlacesServiceStatus.OK &&
+                        results.length > 0
+                    ) {
+                        let closest = results[0];
+
+                        let minDistance = google.maps.geometry.spherical.computeDistanceBetween(
+                            new google.maps.LatLng(userPos.lat, userPos.lng),
+                            results[0].geometry.location
+                        );
+
+                        results.forEach((place) => {
+                            const marker = new google.maps.Marker({
+                                map,
+                                position: place.geometry.location,
+                                title: place.name,
+                            });
+
+                            const distance = google.maps.geometry.spherical.computeDistanceBetween(
+                                new google.maps.LatLng(userPos.lat, userPos.lng),
+                                place.geometry.location
+                            );
+
+                            if (distance < minDistance) {
+                                minDistance = distance;
+                                closest = place;
+                            }
+                        });
+
+                        map.setCenter(closest.geometry.location);
+                    } else {
+                        alert("No se encontró ningún supermercado cercano con ese nombre.");
+                    }
+                });
+            },
+            function (err) {
+                console.error("Error obteniendo la ubicación:", err.message);
+                alert("No se pudo obtener tu ubicación.");
+            },
+            {
+                enableHighAccuracy: true,
+                timeout: 5000,
+                maximumAge: 0,
+            }
+        );
     }
-
-    initMap();
+    window.initMap = initMap;
 </script>
 </html>

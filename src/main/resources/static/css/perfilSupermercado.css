@@ -1,3 +1,16 @@
+* {
+    font-family: "Albert Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+.banner-ad.block-1 {
+    width: 75%;
+    flex-shrink: 0;
+}
+.banner-ad.block-3 {
+    width: 25%;
+}
+
 .banner-ad {
     min-height: 300px;
     position: relative;
@@ -11,7 +24,7 @@
     z-index: 10;
 }
 
-.filter-btn
+.filter-btn, #infoSuper
 {
     background-color: #fcfdaf;
 }
@@ -23,4 +36,12 @@
 
 #map{
     height: 400px;
+    width: 100%;
+}
+
+#transporte{
+    background-color: #dba0598f;
+    border: 1px solid #dba0598f;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #dba0598f;
 }
