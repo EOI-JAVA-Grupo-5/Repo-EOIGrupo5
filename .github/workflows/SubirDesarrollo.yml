@@ -33,7 +33,6 @@ jobs:
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v4
-
       - name: Desplegar contenedor de desarrollo
         env:
           COMPOSE_PROJECT_NAME: grupo5proyecto-dev
