@@ -1,20 +1,20 @@
-name: Desarrollo
+name: ${COMPOSE_NAME}
 
 # Definimos los servicios que se ejecutarán en los contenedores Docker.
 services:
   java:
-    image: grupo5proyecto:${VERSION:-snapshot}
+    image: ${PROJECT_NAME}:${VERSION:-snapshot}
     ports:
       - "${PUERTO_DESARROLLO:-8080}:8080"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/desarrollo
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/desarrollodb
       SPRING_DATASOURCE_USERNAME: desarrollouser
       SPRING_DATASOURCE_PASSWORD: desarrollopassword
     depends_on:
       db:
         condition: service_healthy
     healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:${PUERTO_PRODUCCION}/actuator/health" ]
+      test: [ "CMD", "curl", "-f", "http://localhost:${PUERTO_DESARROLLO}/actuator/health" ]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -22,14 +22,49 @@ services:
 
   db:
     image: postgres:latest
-    ports:
-      - "${PUERTO_DB_DESARROLLO:-5432}:5432"
     environment:
-      POSTGRES_DB: 'desarrollo'
+      POSTGRES_DB: 'desarrollodb'
       POSTGRES_USER: 'desarrollouser'
       POSTGRES_PASSWORD: 'desarrollopassword'
     healthcheck:
-      test: [ "CMD", "pg_isready", "-U", "desarrollouser" ]
+      test: [ "CMD", "pg_isready", "-U", "desarrollouser" "-d", "postgres"  ]
       timeout: 20s
       retries: 10
     restart: always
+    ports:
+      - "${PUERTO_DB_DESARROLLO}:5432"
+#name: Desarrollo
+#
+## Definimos los servicios que se ejecutarán en los contenedores Docker.
+#services:
+#  java:
+#    image: grupo5proyecto:${VERSION:-snapshot}
+#    ports:
+#      - "${PUERTO_DESARROLLO:-8080}:8080"
+#    environment:
+#      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/desarrollo
+#      SPRING_DATASOURCE_USERNAME: desarrollouser
+#      SPRING_DATASOURCE_PASSWORD: desarrollopassword
+#    depends_on:
+#      db:
+#        condition: service_healthy
+#    healthcheck:
+#      test: [ "CMD", "curl", "-f", "http://localhost:${PUERTO_PRODUCCION}/actuator/health" ]
+#      interval: 30s
+#      timeout: 10s
+#      retries: 3
+#    restart: always
+#
+#  db:
+#    image: postgres:latest
+#    ports:
+#      - "${PUERTO_DB_DESARROLLO:-5432}:5432"
+#    environment:
+#      POSTGRES_DB: 'desarrollo'
+#      POSTGRES_USER: 'desarrollouser'
+#      POSTGRES_PASSWORD: 'desarrollopassword'
+#    healthcheck:
+#      test: [ "CMD", "pg_isready", "-U", "desarrollouser" ]
+#      timeout: 20s
+#      retries: 10
+#    restart: always
