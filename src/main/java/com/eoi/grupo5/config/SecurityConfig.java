@@ -100,6 +100,7 @@ public class SecurityConfig {
                         .requestMatchers("/inicioSesion").permitAll()
                         .requestMatchers("/entities/*").permitAll()
                         .requestMatchers("/css/*").permitAll()
+                        .requestMatchers("/images/*").permitAll()
                         .requestMatchers(HttpMethod.POST,"/entidades/deleteHija/*").authenticated()
                         .anyRequest().authenticated()
                 );
