@@ -81,40 +81,63 @@
       <div class="collapse navbar-collapse" id="collapsibleNavId">
         <ul class="navbar-nav me-auto mt-2 mt-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" href="#" aria-current="page">Página 1
-              <span class="visually-hidden">(current)</span></a>
+            <a class="nav-link active" href="paginaDeProducto" aria-current="page"
+            > Productos
+              <span class="visually-hidden">(current)</span>
+            </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" href="#" aria-current="page">Página 2
-              <span class="visually-hidden">(current)</span></a>
+            <a class="nav-link active" href="perfilSupermercado" aria-current="page"
+            > Supermercados
+              <span class="visually-hidden">(current)</span>
+            </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" href="#" aria-current="page">Página 3
-              <span class="visually-hidden">(current)</span></a>
+            <a class="nav-link active" href="forum" aria-current="page"
+            >Forum
+              <span class="visually-hidden">(current)</span>
+            </a>
           </li>
         </ul>
-
-
         <form class="d-flex pt-3 my-2 my-lg-0">
-
           <div class="input-group mb-3">
-            <span class="input-group-text" id="search-icon">
-              <i class="bi bi-search"></i>
-            </span>
+                            <span class="input-group-text" id="search-icon">
+                                <i class="bi bi-search"></i>
+                            </span>
             <input class="form-control  input-box bg-100" type="search" placeholder="Buscar" aria-label="Search">
-            <button class="btn btn-outline-warning text-black my-2 my-sm-0" type="submit">
+            <button
+                    class="btn btn-outline-warning text-black my-2 my-sm-0"
+                    type="submit"
+            >
               Buscar
             </button>
           </div>
-
         </form>
-
         <div class="d-grid p-3">
-          <button type="button" name="" id="" class="btn btn-warning">
-            <i class="bi bi-person-circle"></i> Login
-          </button>
-        </div>
+          <a th:href="@{/inicioSesion}">
+            <button
+                    type="button"
+                    name=""
+                    id="u"
+                    class="btn btn-warning"
 
+            >
+              <i class="bi bi-person-circle"></i> Login
+            </button>
+          </a>
+        </div>
+        <div class="d-grid p-3">
+          <a th:href="@{/carrito}">
+            <button
+                    type="button"
+                    name=""
+                    id=""
+                    class="btn btn-warning"
+            >
+              <i class="bi bi-cart-fill"></i> Carrito
+            </button>
+          </a>
+        </div>
       </div>
     </div>
   </nav>
