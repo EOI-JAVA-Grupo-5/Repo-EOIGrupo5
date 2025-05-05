@@ -35,7 +35,6 @@
     }
 
     body {
-
       background: #FCFDAF;
     }
 
@@ -47,12 +46,6 @@
       text-decoration: none;
     }
 
-    .text-primary,
-    a.text-primary:focus,
-    a.text-primary:hover {
-      color: #00ADBB !important;
-    }
-
     .text-black,
     .text-hover-black:hover {
       color: #000 !important;
@@ -60,6 +53,24 @@
 
     .font-weight-bold {
       font-weight: 700 !important;
+    }
+
+    .card-hover:hover {
+      box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+      transition: box-shadow 0.1s linear;
+    }
+
+    .text-title {
+      color: #000;
+      font-size: x-large;
+    }
+
+    .card-hover:hover .text-title {
+      color: #ff6f00
+    }
+
+    .side-hover:hover .text-title {
+      color: #ff6f00
     }
   </style>
 </head>
@@ -69,8 +80,7 @@
   <nav class="navbar navbar-expand-sm primary-navbar">
     <div class="container">
       <a class="navbar-brand d-inline-flex" th:href="@{/}">
-        <img class="d-inline-block" src="../images/logo-SF.png"
-          alt="logo" style="width: 5rem; align-self: center;">
+        <img class="d-inline-block" src="../images/logo-SF.png" alt="logo" style="width: 5rem; align-self: center;">
         <span class="text-1000 fs-3 fw-bold ms-2">Castañazo <br> Deals</span>
       </a>
       <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse"
@@ -81,59 +91,42 @@
       <div class="collapse navbar-collapse" id="collapsibleNavId">
         <ul class="navbar-nav me-auto mt-2 mt-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" href="paginaDeProducto" aria-current="page"
-            > Productos
+            <a class="nav-link active" href="paginaDeProducto" aria-current="page"> Productos
               <span class="visually-hidden">(current)</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" href="perfilSupermercado" aria-current="page"
-            > Supermercados
+            <a class="nav-link active" href="perfilSupermercado" aria-current="page"> Supermercados
               <span class="visually-hidden">(current)</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" href="forum" aria-current="page"
-            >Forum
+            <a class="nav-link active" href="forum" aria-current="page">Forum
               <span class="visually-hidden">(current)</span>
             </a>
           </li>
         </ul>
         <form class="d-flex pt-3 my-2 my-lg-0">
           <div class="input-group mb-3">
-                            <span class="input-group-text" id="search-icon">
-                                <i class="bi bi-search"></i>
-                            </span>
+            <span class="input-group-text" id="search-icon">
+              <i class="bi bi-search"></i>
+            </span>
             <input class="form-control  input-box bg-100" type="search" placeholder="Buscar" aria-label="Search">
-            <button
-                    class="btn btn-outline-warning text-black my-2 my-sm-0"
-                    type="submit"
-            >
+            <button class="btn btn-outline-warning text-black my-2 my-sm-0" type="submit">
               Buscar
             </button>
           </div>
         </form>
         <div class="d-grid p-3">
           <a th:href="@{/inicioSesion}">
-            <button
-                    type="button"
-                    name=""
-                    id="u"
-                    class="btn btn-warning"
-
-            >
+            <button type="button" name="" id="u" class="btn btn-warning">
               <i class="bi bi-person-circle"></i> Login
             </button>
           </a>
         </div>
         <div class="d-grid p-3">
           <a th:href="@{/carrito}">
-            <button
-                    type="button"
-                    name=""
-                    id=""
-                    class="btn btn-warning"
-            >
+            <button type="button" name="" id="" class="btn btn-warning">
               <i class="bi bi-cart-fill"></i> Carrito
             </button>
           </a>
@@ -143,11 +136,13 @@
   </nav>
 
   <div class="container container mt-3">
-    <div class="page-center page-header">
+    <div class="page-center page-header d-flex justify-content-between align-items-center">
       <h1 class="font-weight-bold display-2">
         Foro de discusión
       </h1>
+      <a class="btn btn-block btn-success py-2 px-3 mb-3" th:href="@{/forum}">+ Crear tema</a>
     </div>
+
     <div class="row">
       <!-- Main Content Area -->
       <div class="col-lg-9">
@@ -174,14 +169,16 @@
         </div>
 
         <!-- Forum Topic Example -->
-        <div class="card mb-3 border-warning">
+        <div class="card card-hover mb-3 border-warning p-2">
           <div class="row align-items-center">
             <div class="col-md-8">
               <h5>
-                <a th:href="@{/forum}" class="text-primary" th:text="'Ejemplo de título del tema del foro'">Ejemplo de título del tema del foro</a>
+                <a th:href="@{/forum}" class="text-title" th:text="'Ejemplo de título del tema del foro'">Ejemplo de
+                  título del tema del foro</a>
               </h5>
               <p class="text-sm">
-                Publicado hace <a class="text-black" th:text="'20 minutos'">20 minutos</a> por <a class="text-black" th:text="'Jordan'">Jordan</a>
+                Publicado hace <a class="text-black" th:text="'20 minutos'">20 minutos</a> por <a class="text-black"
+                  th:text="'Jordan'">Jordan</a>
               </p>
               <div class="text-sm">
                 <a class="text-black mr-2" th:text="'#C++'">#C++</a>
@@ -193,15 +190,15 @@
               <div class="row">
                 <div class="col px-1">
                   <i class="ion-connection-bars icon-1x"></i>
-                  <span class="d-block text-sm" th:text="'165 votos'">-- votos</span>
+                  <span class="d-block text-sm" th:text="'165'">--</span>
                 </div>
                 <div class="col px-1">
                   <i class="ion-ios-chatboxes-outline icon-1x"></i>
-                  <span class="d-block text-sm" th:text="'122 respuestas'">-- respuestas</span>
+                  <span class="d-block text-sm" th:text="'122'">--</span>
                 </div>
                 <div class="col px-1">
                   <i class="ion-ios-eye-outline icon-1x"></i>
-                  <span class="d-block text-sm" th:text="'290 vistas'">-- vistas</span>
+                  <span class="d-block text-sm" th:text="'290'">--</span>
                 </div>
               </div>
             </div>
@@ -210,23 +207,24 @@
       </div>
 
       <!-- Sidebar (3 columns) -->
-      <div class="col-lg-3">
-        <div class="sticky">
-          <a class="btn btn-lg btn-block btn-success py-4 mb-3" th:href="@{/forum}">+ Crear tema</a>
-          <div class="bg-white mb-3">
-            <h4 class="px-3 py-4">Temas activas</h4>
-            <hr>
-            <div class="px-3 py-3">
-              <h6><a th:href="@{/forum}" th:text="'Título del tema aquí...'" class="text-primary">Placeholder</a></h6>
-              <p class="text-sm">Publicado hace <a class="text-black" th:text="'10 minutos'"> X minutos</a> por
-                <a class="text-black" th:text="'Usuario 1'">...</a> </p>
-            </div>
-            <hr>
-            <div class="px-3 py-3">
-              <h6><a th:href="@{/forum}" th:text="'Título del tema aquí...'" class="text-primary">Placeholder</a></h6>
-              <p class="text-sm">Publicado hace <a class="text-black" th:text="'20 minutos'"> X minutos</a> por
-                <a class="text-black" th:text="'Usuario 2'">...</a> </p>
-            </div>
+      <div class="col-lg-3 rounded">
+        <div class="bg-white mb-3 rounded border">
+          <div class="text-center">
+            <h5 class="px-3 pt-2">Temas activas</h5>
+          </div>
+          <hr>
+          <div class="side-hover px-3 py-3">
+            <h6><a class="text-title" th:href="@{/forum}" th:text="'Título del tema aquí...'">Placeholder</a></h6>
+            <p class="text-sm">Publicado hace <a class="text-black" th:text="'10 minutos'"> X minutos</a> por
+              <a class="text-black" th:text="'Usuario 1'">...</a>
+            </p>
+          </div>
+          <hr>
+          <div class="side-hover px-3 py-3">
+            <h6><a th:href="@{/forum}" th:text="'Título del tema aquí...'" class="text-title">Placeholder</a></h6>
+            <p class="text-sm">Publicado hace <a class="text-black" th:text="'20 minutos'"> X minutos</a> por
+              <a class="text-black" th:text="'Usuario 2'">...</a>
+            </p>
           </div>
         </div>
       </div>
