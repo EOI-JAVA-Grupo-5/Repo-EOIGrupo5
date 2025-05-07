@@ -98,6 +98,7 @@ public class SecurityConfig {
                         .requestMatchers("/forum").permitAll()
                         .requestMatchers("/usuario").permitAll()
                         .requestMatchers("/inicioSesion").permitAll()
+                        .requestMatchers("/registro").permitAll()
                         .requestMatchers("/entities/*").permitAll()
                         .requestMatchers("/css/*").permitAll()
                         .requestMatchers("/images/*").permitAll()
