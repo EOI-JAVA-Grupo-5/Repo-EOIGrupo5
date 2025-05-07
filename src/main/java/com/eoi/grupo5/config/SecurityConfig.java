@@ -99,6 +99,8 @@ public class SecurityConfig {
                         .requestMatchers("/usuario").permitAll()
                         .requestMatchers("/inicioSesion").permitAll()
                         .requestMatchers("/registro").permitAll()
+                        .requestMatchers("/paginaDeProducto").permitAll()
+                        .requestMatchers("/perfilSupermercado").permitAll()
                         .requestMatchers("/entities/*").permitAll()
                         .requestMatchers("/css/*").permitAll()
                         .requestMatchers("/images/*").permitAll()
