@@ -1,8 +1,13 @@
 package com.eoi.grupo5.entities;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDateTime;
 
+@Getter
+@Setter
 @Entity
 public class EntidadMensaje {
     @Id
@@ -18,44 +23,4 @@ public class EntidadMensaje {
     // TODO: Reemplazar con la clase Usuario de Jose Angel cuando esté lista
     @ManyToOne
     private Usuario autor;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getContenido() {
-        return contenido;
-    }
-
-    public void setContenido(String contenido) {
-        this.contenido = contenido;
-    }
-
-    public LocalDateTime getFechaPublicacion() {
-        return fechaPublicacion;
-    }
-
-    public void setFechaPublicacion(LocalDateTime fechaPublicacion) {
-        this.fechaPublicacion = fechaPublicacion;
-    }
-
-    public EntidadHilo getHilo() {
-        return hilo;
-    }
-
-    public void setHilo(EntidadHilo hilo) {
-        this.hilo = hilo;
-    }
-
-    public Usuario getAutor() {
-        return autor;
-    }
-
-    public void setAutor(Usuario autor) {
-        this.autor = autor;
-    }
 }
