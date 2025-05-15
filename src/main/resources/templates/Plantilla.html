@@ -35,22 +35,22 @@
     <!-- NAVBAR -->
     <section id="navbar-section">
         <nav
-            class="navbar navbar-expand-sm primary-navbar"
+                class="navbar navbar-expand-sm primary-navbar"
         >
             <div class="container">
                 <a class="navbar-brand d-inline-flex" th:href="@{/}">
-                    <img class="d-inline-block" src="../static/images/logo-SF.png"
+                    <img class="d-inline-block" th:src="@{/images/logo-SF.png}"
                          alt="logo" style="width: 5rem; align-self: center;">
                     <span class="text-1000 fs-3 fw-bold ms-2">Castañazo <br> Deals</span>
                 </a>
                 <button
-                    class="navbar-toggler d-lg-none"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#collapsibleNavId"
-                    aria-controls="collapsibleNavId"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation"
+                        class="navbar-toggler d-lg-none"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#collapsibleNavId"
+                        aria-controls="collapsibleNavId"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation"
                 >
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -76,35 +76,40 @@
                         </li>
                     </ul>
 
-                    
+
                     <form class="d-flex pt-3 my-2 my-lg-0">
-
                         <div class="input-group mb-3">
-                            <span class="input-group-text" id="search-icon">
-                                <i class="bi bi-search"></i>
-                            </span>
-                            <input class="form-control  input-box bg-100" type="search" placeholder="Buscar" aria-label="Search">
-                            <button
-                            class="btn btn-outline-warning text-black my-2 my-sm-0"
-                            type="submit"
-                        >
-                            Buscar
-                        </button>
+                            <input class="form-control input-box bg-100" type="search" placeholder="Buscar" aria-label="Search" style="border-top-left-radius: 20px; border-bottom-left-radius: 20px">
+                            <button class="btn btn-outline-warning text-black my-2 my-sm-0 fa-solid fa-magnifying-glass" type="submit" style="border-top-right-radius: 20px; border-bottom-right-radius: 20px">
+                            </button>
                         </div>
-
                     </form>
 
                     <div class="d-grid p-3">
                         <button
-                            type="button"
-                            name=""
-                            id=""
-                            class="btn btn-warning"
+                                type="button"
+                                name=""
+                                id="btnLog"
+                                class="btn btn-warning rounded-pill"
                         >
                             <i class="bi bi-person-circle"></i> Login
                         </button>
                     </div>
-                    
+
+                    <div class="d-grid p-3">
+                        <a th:href="@{/carrito}">
+                            <button
+                                    type="button"
+                                    name=""
+                                    id="btnCarrito"
+                                    class="btn btn-warning rounded-pill"
+                            >
+                                <i class="bi bi-cart-fill"></i> Carrito
+                            </button>
+                        </a>
+
+                    </div>
+
                 </div>
             </div>
         </nav>

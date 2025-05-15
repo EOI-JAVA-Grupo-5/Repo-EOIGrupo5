@@ -45,8 +45,16 @@
     color: #fcfdaf;
     /* or any highlight color */
     border-bottom: 1px solid #fcfdaf;
+    transition: color 0.3s ease, border-bottom 0.3s ease;
     text-decoration: none;
 }
+
+/*.nav-item .nav-link:active {*/
+/*    color: #fcfdaf;*/
+/*    !* or any highlight color *!*/
+/*    border-bottom: 1px solid #fcfdaf;*/
+/*    text-decoration: none;*/
+/*}*/
 
 /* Iconos de redes sociales del footer */
 .icono-red-footer {
@@ -55,4 +63,14 @@
 
 .icono-red-footer:hover {
     color: #efd780;
+}
+
+.input-group .form-control {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.input-group .btn {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
 }
