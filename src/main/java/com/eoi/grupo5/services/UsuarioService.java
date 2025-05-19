@@ -37,7 +37,7 @@ public class UsuarioService {
     }
 
     public Optional<Usuario> obtenerUsuarioPorNombreUsuario(String nombreUsuario) {
-        return usuarioRepo.buscarPorNombreUsuario(nombreUsuario);
+        return usuarioRepo.findUsuarioByNombreUsuario(nombreUsuario);
     }
 
 }

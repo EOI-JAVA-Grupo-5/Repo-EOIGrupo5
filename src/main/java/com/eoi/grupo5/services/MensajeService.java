@@ -16,8 +16,11 @@ public class MensajeService {
         this.mensajeRepo = mensajeRepo;
     }
 
-    public List<EntidadMensaje> obtenerMensajesPorHilo(Long hiloId) {
-        return mensajeRepo.buscarPorHiloId(hiloId);
+    public List<EntidadMensaje> findMessagesByHiloId(Long hiloId) {
+        // Write logic to populate the List of messages
+
+        // Return populated List of messages
+        return null;
     }
 
     public EntidadMensaje guardarMensaje(EntidadMensaje mensaje) {

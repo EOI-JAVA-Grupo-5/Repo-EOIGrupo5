@@ -100,11 +100,11 @@ public class DefaultController {
         return "perfilUsuario"; // View name
     }
 
-    @GetMapping("/forum")
-    public String forum(Model model)
-    {
-        return "forum"; // View name
-    }
+//    @GetMapping("/forum")
+//    public String forum(Model model)
+//    {
+//        return "forum"; // View name
+//    }
 
     @GetMapping("/perfilSupermercado")
     public String perfilSupermercado(Model model)

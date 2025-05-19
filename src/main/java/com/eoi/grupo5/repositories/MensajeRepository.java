@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface MensajeRepository extends JpaRepository<EntidadMensaje, Long> {
-    List<EntidadMensaje> buscarPorHiloId(Long hiloId);
+    List<EntidadMensaje> findMessagesByHiloId(Long hiloId);
 }
