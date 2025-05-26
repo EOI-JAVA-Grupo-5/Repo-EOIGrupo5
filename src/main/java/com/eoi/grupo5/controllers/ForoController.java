@@ -10,11 +10,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping
+@RequestMapping("/foro")
 public class ForoController {
 
     private HiloService hiloService;
     private MensajeService mensajeService;
+
+    // Temporary While Jose Angel makes the main one.
     private UsuarioService usuarioService;
 
     @Autowired
@@ -24,9 +26,9 @@ public class ForoController {
         this.usuarioService = usuarioService;
     }
 
-    @GetMapping("/forum")
+    @GetMapping
     public String listarHilos(Model model) {
         model.addAttribute("hilos", hiloService.obtenerHilos());
-        return "forum";
+        return "foro/main";
     }
 }
