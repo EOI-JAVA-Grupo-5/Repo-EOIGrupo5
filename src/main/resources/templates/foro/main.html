@@ -4,12 +4,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Forum</title>
+  <title>Foro</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- Stylesheets -->
-  <link th:href="@{css/styles.css}" rel="stylesheet" />
-  <link th:href="@{/css/forum.css}" rel="stylesheet" />
+  <link th:href="@{/css/styles.css}" rel="stylesheet" />
+  <link th:href="@{/css/foro/main.css}" rel="stylesheet" />
+
   <!-- iconos -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
@@ -20,99 +21,48 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,100..900;1,100..900&display=swap"
     rel="stylesheet">
+
+  <!--Icono de web-->
+  <link rel="apple-touch-icon" sizes="180x180" th:href="@{/images/logo-SF.png}">
+  <link rel="icon" type="image/png" sizes="32x32" th:href="@{/images/logo-SF.png}">
+  <link rel="icon" type="image/png" sizes="16x16" th:href="@{/images/logo-SF.png}">
+  <link rel="shortcut icon" type="image/x-icon" th:href="@{/images/logo-SF.png}">
 </head>
 
 <body>
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg primary-navbar">
-    <div class="container">
-      <a class="navbar-brand d-inline-flex" th:href="@{/}">
-        <img class="d-inline-block align-middle" style="width: 5rem;" src="../images/logo-SF.png" alt="logo">
-        <span class="text-1000 fs-3 fw-bold ms-2">Castañazo <br> Deals</span>
-      </a>
-      <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse"
-        data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
-        aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="collapsibleNavId">
-        <ul class="navbar-nav me-auto mt-2 mt-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" href="paginaDeProducto" aria-current="page">
-              <i class="fa-solid fa-cube"></i> Productos
-              <span class="visually-hidden">(current)</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" href="perfilSupermercado" aria-current="page">
-              <i class="fa-solid fa-store"></i> Supermercados
-              <span class="visually-hidden">(current)</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" href="forum" aria-current="page">
-              <i class="fa-solid fa-comments"></i> Forum
-              <span class="visually-hidden">(current)</span>
-            </a>
-          </li>
-        </ul>
-        <form class="d-flex pt-3 my-2 my-lg-0">
-          <div class="input-group mb-3">
-            <input class="form-control  input-box bg-100" type="search" placeholder="Buscar" aria-label="Search">
-            <button class="btn btn-outline-warning text-black my-2 my-sm-0 fa-solid fa-magnifying-glass" type="submit">
-            </button>
-          </div>
-        </form>
-        <div class="d-grid p-3">
-          <a th:href="@{/inicioSesion}">
-            <button type="button" name="" id="u" class="btn btn-warning">
-              <i class="bi bi-person-circle"></i> Login
-            </button>
-          </a>
-        </div>
-        <div class="d-grid p-3">
-          <a th:href="@{/carrito}">
-            <button type="button" name="" id="" class="btn btn-warning">
-              <i class="bi bi-cart-fill"></i> Carrito
-            </button>
-          </a>
-        </div>
-      </div>
-    </div>
-  </nav>
-
+  <!-- Incluir navbar -->
+  <div th:replace="plantillas/navbar :: navbar"></div>
+  <!-- Main Content Area -->
   <div class="container container mt-3">
     <div class="page-center page-header d-flex justify-content-between align-items-center">
       <h1 class="font-weight-bold display-2">
         Foro de discusión
       </h1>
-      <a class="btn btn-block btn-success py-2 px-3 mb-3" th:href="@{/forum}">+ Crear tema</a>
+      <a class="btn btn-primary btn-success py-2 px-3 mb-3" data-bs-toggle="modal" data-bs-target="#nuevoHiloModal">
+        + Crear tema</a>
+    </div>
+    <div class="modal fade" id="nuevoHiloModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form th:action="@{/foro/nuevoHilo}" method="post">
+            <div class="modal-header">
+              <h5 class="modal-title">Nuevo Hilo</h5>
+            </div>
+            <div class="modal-body">
+              <input type="text" class="form-control" placeholder="Título del hilo" />
+              <textarea class="form-control mt-2" placeholder="Contenido"></textarea>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-success">Publicar</button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
 
     <div class="row">
-      <!-- Main Content Area -->
+
       <div class="col-lg-9">
-        <div class="row text-left mb-5">
-          <div class="col-lg-6 mb-3">
-            <h4>Elegir categoria:</h4>
-            <select class="form-control form-control-lg bg-white text-sm">
-              <option> ... </option>
-              <option> Alimentacion </option>
-              <option> Cosmetica </option>
-              <option> Mascotas </option>
-            </select>
-          </div>
-          <div class="col-lg-6 text-lg-right">
-            <h4>Filtrar por:</h4>
-            <select class="form-control form-control-lg bg-white text-sm">
-              <option> ... </option>
-              <option> Votos </option>
-              <option> Contestaciones </option>
-              <option> Visitas </option>
-              <option> Supermercado </option>
-            </select>
-          </div>
-        </div>
 
         <!-- Forum Topic Example -->
         <div class="card card-hover mb-3 border-warning p-2">
@@ -175,124 +125,8 @@
       </div>
     </div>
   </div>
-
-
-
-  <!-- Footer -->
-  <footer class="text-center text-lg-start" style="background-color: #efd780">
-    <!-- Section: Social media -->
-    <section class="d-flex justify-content-between p-4" style="background-color: #dba159">
-      <!-- Left -->
-      <div class="me-5" style="color: #fcfdaf;">
-        <span><strong>Síguenos en nuestras redes sociales:</strong></span>
-      </div>
-      <!-- Left -->
-
-      <!-- Right -->
-      <div>
-        <a href="" class="icono-red-footer me-4">
-          <i class="fab fa-facebook-f"></i>
-        </a>
-        <a href="" class="icono-red-footer me-4">
-          <i class="fab fa-twitter"></i>
-        </a>
-        <a href="" class="icono-red-footer me-4">
-          <i class="fab fa-google"></i>
-        </a>
-        <a href="" class="icono-red-footer me-4">
-          <i class="fab fa-instagram"></i>
-        </a>
-        <a href="" class="icono-red-footer me-4">
-          <i class="fab fa-linkedin"></i>
-        </a>
-        <a href="" class="icono-red-footer me-4">
-          <i class="fab fa-github"></i>
-        </a>
-      </div>
-      <!-- Right -->
-    </section>
-    <!-- Section: Social media -->
-
-    <!-- Section: Links  -->
-    <section class="">
-      <div class="container text-center text-md-start mt-5">
-        <!-- Grid row -->
-        <div class="row mt-3">
-          <!-- Grid column -->
-          <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-            <!-- Content -->
-            <h6 class="text-uppercase fw-bold">Sobre Castañazo Deals</h6>
-            <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 60px; background-color: #dba159; height: 2px" />
-            <p>
-              Aquí va propaganda pura y dura, sin filtrar. Café para los mas cafeteros.
-            </p>
-          </div>
-          <!-- Grid column -->
-
-          <!-- Grid column -->
-          <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-            <!-- Links -->
-            <h6 class="text-uppercase fw-bold">Cosas</h6>
-            <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 60px; background-color: #dba159; height: 2px" />
-            <p>
-              <a href="#!" class="text-blue">Cosa 1</a>
-            </p>
-            <p>
-              <a href="#!" class="text-blue">Cosa 2</a>
-            </p>
-            <p>
-              <a href="#!" class="text-blue">Cosa 3</a>
-            </p>
-            <p>
-              <a href="#!" class="text-blue">Cosa 4</a>
-            </p>
-          </div>
-          <!-- Grid column -->
-
-          <!-- Grid column -->
-          <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-            <!-- Links -->
-            <h6 class="text-uppercase fw-bold">Links Útiles</h6>
-            <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 60px; background-color: #dba159; height: 2px" />
-            <p>
-              <a href="#!" class="text-blue">Link 1</a>
-            </p>
-            <p>
-              <a href="#!" class="text-blue">Link 2</a>
-            </p>
-            <p>
-              <a href="#!" class="text-blue">Link 3</a>
-            </p>
-            <p>
-              <a href="#!" class="text-blue">Link 4</a>
-            </p>
-          </div>
-          <!-- Grid column -->
-
-          <!-- Grid column -->
-          <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-            <!-- Links -->
-            <h6 class="text-uppercase fw-bold">Contacto</h6>
-            <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 60px; background-color: #dba059; height: 2px" />
-            <p><i class="fas fa-home mr-3"></i> Sevilla, Sevilla, ES</p>
-            <p><i class="fas fa-envelope mr-3"></i> info@castañazodeals.es</p>
-            <p><i class="fas fa-phone mr-3"></i> + 01 234 567 88</p>
-            <p><i class="fas fa-print mr-3"></i> + 01 234 567 89</p>
-          </div>
-          <!-- Grid column -->
-        </div>
-        <!-- Grid row -->
-      </div>
-    </section>
-    <!-- Section: Links  -->
-
-    <!-- Copyright -->
-    <div class="text-center p-3" style="background-color: #dba0598f">
-      © 2025 Copyright:
-      <a class="text-blue" href="https://mdbootstrap.com/">MDBootstrap.com</a>
-    </div>
-    <!-- Copyright -->
-  </footer>
+  <!-- Incluir footer -->
+  <div th:replace="plantillas/footer :: footer"></div>
 </body>
 
 <!-- Bootstrap -->

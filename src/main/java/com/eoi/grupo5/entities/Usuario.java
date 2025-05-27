@@ -1,5 +1,6 @@
 package com.eoi.grupo5.entities;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.Getter;
@@ -12,5 +13,6 @@ import lombok.Setter;
 public class Usuario {
     @Id
     private Long id;
+    @Column()
     private String nombreUsuario;
 }

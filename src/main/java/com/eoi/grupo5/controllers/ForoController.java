@@ -31,4 +31,9 @@ public class ForoController {
         model.addAttribute("hilos", hiloService.obtenerHilos());
         return "foro/main";
     }
+
+    @GetMapping("/hilo")
+    public String obtenerHilo(Model model) {
+        return "foro/hilo";
+    }
 }
