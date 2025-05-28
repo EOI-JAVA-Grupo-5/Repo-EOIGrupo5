@@ -4,11 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Castañazo Deals</title>
-    <!-- Swiper CSS -->
-    <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"
-    />
+
     <!-- Bootstrap + Iconos + Fuentes -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -16,6 +12,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
 
     <!-- Estilos locales -->
     <link rel="stylesheet" th:href="@{css/styles.css}">
@@ -26,6 +25,11 @@
 
     <!-- Estilos personalizados -->
     <style>
+
+        .supermercados-swiper .swiper-slide p {
+            margin-bottom: 50px; /* Aumenta este valor según lo que necesites */
+        }
+
         .hero {
             background: #fcfdaf;
             color: rgb(0, 0, 0);
@@ -332,82 +336,22 @@
         </div>
     </section>
 
-<!-- Supermercados Populares -->
-<section id="clients" class="clients section light-background">
+<!-- Supermercados Cercanos -->
+<section class="container py-5">
+    <h2 class="text-center mb-4">Supermercados Cercanos</h2>
 
-    <!-- Section Title -->
-    <div class="container section-title text-center" data-aos="fade-up">
-        <h2>Descubre los supermercados más conocidos donde puedes encontrar los mejores productos</h2>
-    </div><!-- End Section Title -->
-
-    <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="swiper init-swiper">
-            <script type="application/json" class="swiper-config">
-                {
-                    "loop": true,
-                    "speed": 600,
-                    "autoplay": {
-                        "delay": 4000
-                    },
-                    "slidesPerView": "auto",
-                    "pagination": {
-                        "el": ".swiper-pagination",
-                        "type": "bullets",
-                        "clickable": true
-                    },
-                    "breakpoints": {
-                        "320": {
-                            "slidesPerView": 2,
-                            "spaceBetween": 40
-                        },
-                        "480": {
-                            "slidesPerView": 3,
-                            "spaceBetween": 60
-                        },
-                        "640": {
-                            "slidesPerView": 4,
-                            "spaceBetween": 80
-                        },
-                        "992": {
-                            "slidesPerView": 6,
-                            "spaceBetween": 120
-                        }
-                    }
-                }
-            </script>
-            <div class="swiper-wrapper align-items-center">
-                <div class="swiper-slide">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Logo_Mercadona.svg/256px-Logo_Mercadona.svg.png" class="img-fluid" alt="Mercadona">
-                </div>
-                <div class="swiper-slide">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Carrefour_logo.svg/256px-Carrefour_logo.svg.png" class="img-fluid" alt="Carrefour">
-                </div>
-                <div class="swiper-slide">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Logo_Alcampo.svg/256px-Logo_Alcampo.svg.png" class="img-fluid" alt="Alcampo">
-                </div>
-                <div class="swiper-slide">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Eroski_logo.svg/256px-Eroski_logo.svg.png" class="img-fluid" alt="Eroski">
-                </div>
-                <div class="swiper-slide">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Dia_Logo_2017.svg/256px-Dia_Logo_2017.svg.png" class="img-fluid" alt="DIA">
-                </div>
-                <div class="swiper-slide">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Lidl-Logo.svg/256px-Lidl-Logo.svg.png" class="img-fluid" alt="Lidl">
-                </div>
-                <div class="swiper-slide">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Consum.svg/256px-Consum.svg.png" class="img-fluid" alt="Consum">
-                </div>
-                <div class="swiper-slide">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Caprabo_Logo.svg/256px-Caprabo_Logo.svg.png" class="img-fluid" alt="Caprabo">
-                </div>
-            </div>
-            <div class="swiper-pagination"></div>
+    <div class="swiper supermercados-swiper">
+        <div class="swiper-wrapper text-center" id="supermercadoSlides">
+            <!-- Aquí JS insertará los supermercados ordenados -->
         </div>
-
+        <div class="swiper-pagination mt-4"></div>
     </div>
+</section>
 
-</section><!-- /Supermercados Populares -->
+<!-- Swiper JS y CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+
 
 
 <!-- Beneficios -->
@@ -581,21 +525,145 @@
                 <!-- Copyright -->
             </footer>
         </div>
-
     </section>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<!-- Swiper JS -->
-<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+
+<!-- Inicializar Swiper -->
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const swiperElements = document.querySelectorAll('.init-swiper');
-        swiperElements.forEach(swiperEl => {
-            const configScript = swiperEl.querySelector('.swiper-config');
-            const config = configScript ? JSON.parse(configScript.textContent) : {};
-            new Swiper(swiperEl, config);
-        });
+    const swiper = new Swiper('.supermercados-swiper', {
+        loop: true,
+        autoplay: {
+            delay: 4000,
+        },
+        slidesPerView: 1,
+        spaceBetween: 20,
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        breakpoints: {
+            576: {
+                slidesPerView: 2,
+            },
+            768: {
+                slidesPerView: 3,
+            },
+            992: {
+                slidesPerView: 4,
+            }
+        }
     });
+</script>
+<script>
+    const supermercados = [
+        {
+            nombre: "Mercadona",
+            logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Mercadona.svg/200px-Mercadona.svg.png",
+            lat: 40.4171,
+            lng: -3.7038
+        },
+        {
+            nombre: "Carrefour",
+            logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Logo_Carrefour.svg/200px-Logo_Carrefour.svg.png",
+            lat: 40.4221,
+            lng: -3.7028
+        },
+        {
+            nombre: "Lidl",
+            logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Lidl-Logo.svg/200px-Lidl-Logo.svg.png",
+            lat: 40.4251,
+            lng: -3.6990
+        },
+        {
+            nombre: "DIA",
+            logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Logo_DIA.svg/200px-Logo_DIA.svg.png",
+            lat: 40.4291,
+            lng: -3.7080
+        },
+        {
+            nombre: "Alcampo",
+            logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Alcampo_logo_2022.svg/200px-Alcampo_logo_2022.svg.png",
+            lat: 40.4335,
+            lng: -3.7150
+        },
+        {
+            nombre: "Eroski",
+            logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Logo_eroski.svg/200px-Logo_eroski.svg.png",
+            lat: 40.4198,
+            lng: -3.6985
+        },
+        {
+            nombre: "Aldi",
+            logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/ALDI_Logo_2017.svg/200px-ALDI_Logo_2017.svg.png",
+            lat: 40.4182,
+            lng: -3.7102
+        },
+        {
+            nombre: "El Corte Inglés",
+            logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/El_Corte_Ingl%C3%A9s_logo.svg/200px-El_Corte_Ingl%C3%A9s_logo.svg.png",
+            lat: 40.4209,
+            lng: -3.7044
+        }
+    ];
+
+    function calcularDistancia(lat1, lon1, lat2, lon2) {
+        const R = 6371;
+        const dLat = (lat2 - lat1) * Math.PI / 180;
+        const dLon = (lon2 - lon1) * Math.PI / 180;
+        const a = Math.sin(dLat / 2) ** 2 +
+            Math.cos(lat1 * Math.PI / 180) *
+            Math.cos(lat2 * Math.PI / 180) *
+            Math.sin(dLon / 2) ** 2;
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        return R * c;
+    }
+
+    function mostrarSupermercadosOrdenados(userLat, userLng) {
+        // Calcular distancias
+        const supermercadosConDistancia = supermercados.map(s => ({
+            ...s,
+            distancia: calcularDistancia(userLat, userLng, s.lat, s.lng)
+        }));
+
+        // Ordenar por distancia
+        supermercadosConDistancia.sort((a, b) => a.distancia - b.distancia);
+
+        // Crear HTML dinámicamente
+        const contenedor = document.getElementById("supermercadoSlides");
+        contenedor.innerHTML = supermercadosConDistancia.map(s => `
+      <div class="swiper-slide">
+        <img src="${s.logo}" class="img-fluid mb-2" style="height: 60px;">
+        <p><strong>${s.nombre}</strong><br>📍 ${s.distancia.toFixed(2)} km</p>
+      </div>
+    `).join("");
+
+        // Iniciar Swiper después de insertar contenido
+        new Swiper('.supermercados-swiper', {
+            loop: true,
+            autoplay: { delay: 4000 },
+            slidesPerView: 1,
+            spaceBetween: 20,
+            pagination: { el: '.swiper-pagination', clickable: true },
+            breakpoints: {
+                576: { slidesPerView: 2 },
+                768: { slidesPerView: 3 },
+                992: { slidesPerView: 4 }
+            }
+        });
+    }
+
+    // Obtener ubicación del usuario
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            pos => mostrarSupermercadosOrdenados(pos.coords.latitude, pos.coords.longitude),
+            () => alert("No se pudo obtener tu ubicación.")
+        );
+    } else {
+        alert("Tu navegador no soporta geolocalización.");
+    }
 </script>
 
 </body>
