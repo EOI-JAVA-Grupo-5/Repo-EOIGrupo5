@@ -13,7 +13,7 @@ import java.io.Serializable;
 @Setter
 @Entity
 @Table(name = "relaciones_seguidores")
-public class RelacionesUsuarios implements Serializable {
+public class RelacionUsuarios implements Serializable {
 
     /**
      * The serialVersionUID
