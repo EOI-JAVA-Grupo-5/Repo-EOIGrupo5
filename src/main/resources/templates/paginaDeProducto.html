@@ -122,97 +122,55 @@
 <body>
 
 <!-- NAVBAR -->
+<!-- NAVBAR -->
 <section id="navbar-section">
-    <nav
-        class="navbar navbar-expand-sm primary-navbar"
-    >
+    <nav class="navbar navbar-expand-sm primary-navbar">
         <div class="container">
-            <a class="navbar-brand d-inline-flex" th:href="@{/}">
-                <img class="d-inline-block" src="../images/logo-SF.png"
-                     alt="logo" style="width: 5rem; align-self: center;">
+            <a class="navbar-brand d-inline-flex" href="#">
+                <img class="d-inline-block" src="../images/logo-SF.png" alt="logo" style="width: 5rem; align-self: center;">
                 <span class="text-1000 fs-3 fw-bold ms-2">Castañazo <br> Deals</span>
             </a>
-            <button
-                class="navbar-toggler d-lg-none"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#collapsibleNavId"
-                aria-controls="collapsibleNavId"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-            >
+            <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="collapsibleNavId">
                 <ul class="navbar-nav me-auto mt-2 mt-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" href="paginaDeProducto" aria-current="page">
-                            <i class="fa-solid fa-cube"></i> Productos
-                            <span class="visually-hidden">(current)</span>
-                        </a>
+                        <a class="nav-link active" href="paginaDeProducto"><i class="fa-solid fa-cube"></i> Productos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="perfilSupermercado" aria-current="page">
-                            <i class="fa-solid fa-store"></i> Supermercados
-                            <span class="visually-hidden">(current)</span>
-                        </a>
+                        <a class="nav-link active" href="perfilSupermercado"><i class="fa-solid fa-store"></i> Supermercados</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="forum" aria-current="page">
-                            <i class="fa-solid fa-comments"></i> Forum
-                            <span class="visually-hidden">(current)</span>
-                        </a>
+                        <a class="nav-link active" href="forum"><i class="fa-solid fa-comments"></i> Forum</a>
                     </li>
                 </ul>
-
-                
                 <form class="d-flex pt-3 my-2 my-lg-0">
-
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="search-icon">
                             <i class="bi bi-search"></i>
                         </span>
                         <input class="form-control  input-box bg-100" type="search" placeholder="Buscar" aria-label="Search">
-                        <button
-                        class="btn btn-outline-warning text-black my-2 my-sm-0"
-                        type="submit"
-                    >
-                        Buscar
-                    </button>
+                        <button class="btn btn-outline-warning text-black my-2 my-sm-0" type="submit">Buscar</button>
                     </div>
-
                 </form>
-
                 <div class="d-grid p-3">
                     <a th:href="@{/inicioSesion}">
-                    <button
-                        type="button"
-                        name=""
-                        id=""
-                        class="btn btn-warning"
-                    >
-                        <i class="bi bi-person-circle"></i> Login
-                    </button>
+                        <button type="button" class="btn btn-warning rounded-pill">
+                            <i class="bi bi-person-circle"></i> Login
+                        </button>
                     </a>
                 </div>
-
                 <div class="d-grid p-3">
                     <a th:href="@{/carrito}">
-                    <button
-                        type="button"
-                        name=""
-                        id=""
-                        class="btn btn-warning"
-                    >
-                        <i class="bi bi-cart-fill"></i> Carrito
-                    </button>
+                        <button type="button" class="btn btn-warning rounded-pill">
+                            <i class="bi bi-cart-fill"></i> Carrito
+                        </button>
                     </a>
                 </div>
-                
             </div>
         </div>
     </nav>
-    
 </section>
 
     <!-- Sección ¡Vamos de compras! -->
