@@ -1,30 +1,25 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Castañazo Deals</title>
 
+    <!-- Bootstrap + Iconos + Fuentes -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" th:href="@{css/styles.css}">
-    <!-- Links para el Font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,100..900;1,100..900&display=swap"
-    rel="stylesheet">
-    <!-- iconos -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-    <!--Icono de web-->
+    <!-- Estilos locales -->
+    <link rel="stylesheet" th:href="@{css/styles.css}">
     <link rel="apple-touch-icon" sizes="180x180" th:href="@{/images/logo-SF.png}">
     <link rel="icon" type="image/png" sizes="32x32" th:href="@{/images/logo-SF.png}">
     <link rel="icon" type="image/png" sizes="16x16" th:href="@{/images/logo-SF.png}">
     <link rel="shortcut icon" type="image/x-icon" th:href="@{/images/logo-SF.png}">
 
+    <!-- Estilos personalizados -->
     <style>
         .hero {
             background: #fcfdaf;
@@ -42,148 +37,231 @@
         .primary-navbar {
             background-color: #dba159;
         }
-        
         .primary-navbar span {
-            color: #fcfdaf;   
+            color: #fcfdaf;
         }
-        
         #search-icon {
             background-color: #fcfdaf;
             border-color: orange;
             color: black;
         }
-        
         .primary-navbar div button {
             background-color: #fcfdaf;
         }
-        
         .primary-navbar div button:hover {
             background-color: #efd780;
+        }
+
+        /* Estilos para la sección de tutorial */
+        /* Tutorial */
+        .tutorial-container {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px 30px;
+            max-width: 800px;
+            margin: 60px auto 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .tutorial-container h2 {
+            font-size: 28px;
+            color: #dba159;
+            margin-bottom: 30px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+        }
+
+        #imagenTutorial {
+            width: 100%;
+            max-height: 350px;
+            object-fit: contain;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            transition: opacity 0.5s ease;
+        }
+
+        #textoTutorial {
+            font-size: 18px;
+            font-weight: 500;
+            margin-top: 10px;
+            min-height: 60px;
+            transition: opacity 0.5s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .barra-progreso {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 25px;
+        }
+
+        .paso {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background-color: #ccc;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .paso.activo {
+            background-color: #dba159;
         }
     </style>
 </head>
 <body>
-    <!-- NAVBAR -->
-    <section id="navbar-section">
-        <nav
-            class="navbar navbar-expand-sm primary-navbar"
-        >
-            <div class="container">
-                <a class="navbar-brand d-inline-flex" href="#">
-                    <img class="d-inline-block" src="../images/logo-SF.png"
-                         alt="logo" style="width: 5rem; align-self: center;">
-                    <span class="text-1000 fs-3 fw-bold ms-2">Castañazo <br> Deals</span>
-                </a>
-                <button
-                    class="navbar-toggler d-lg-none"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#collapsibleNavId"
-                    aria-controls="collapsibleNavId"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation"
-                >
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="collapsibleNavId">
-                    <ul class="navbar-nav me-auto mt-2 mt-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="paginaDeProducto" aria-current="page">
-                                <i class="fa-solid fa-cube"></i> Productos
-                                <span class="visually-hidden">(current)</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="perfilSupermercado" aria-current="page">
-                                <i class="fa-solid fa-store"></i> Supermercados
-                                <span class="visually-hidden">(current)</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="forum" aria-current="page">
-                                <i class="fa-solid fa-comments"></i> Forum
-                                <span class="visually-hidden">(current)</span>
-                            </a>
-                        </li>
-                    </ul>
 
-                    
-                    <form class="d-flex pt-3 my-2 my-lg-0">
 
-                        <div class="input-group mb-3">
-                            <span class="input-group-text" id="search-icon">
-                                <i class="bi bi-search"></i>
-                            </span>
-                            <input class="form-control  input-box bg-100" type="search" placeholder="Buscar" aria-label="Search">
-                            <button
-                            class="btn btn-outline-warning text-black my-2 my-sm-0"
-                            type="submit"
-                        >
-                            Buscar
-                        </button>
-                        </div>
-
-                    </form>
-
-                    <div class="d-grid p-3">
-                        <a th:href="@{/inicioSesion}">
-                            <button
-                                    type="button"
-                                    name=""
-                                    id="u"
-                                    class="btn btn-warning rounded-pill"
-
-                            >
-                                <i class="bi bi-person-circle"></i> Login
-                            </button>
-                        </a>
-
+<!-- NAVBAR -->
+<section id="navbar-section">
+    <nav class="navbar navbar-expand-sm primary-navbar">
+        <div class="container">
+            <a class="navbar-brand d-inline-flex" href="#">
+                <img class="d-inline-block" src="../images/logo-SF.png" alt="logo" style="width: 5rem; align-self: center;">
+                <span class="text-1000 fs-3 fw-bold ms-2">Castañazo <br> Deals</span>
+            </a>
+            <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="collapsibleNavId">
+                <ul class="navbar-nav me-auto mt-2 mt-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="paginaDeProducto"><i class="fa-solid fa-cube"></i> Productos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="perfilSupermercado"><i class="fa-solid fa-store"></i> Supermercados</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="forum"><i class="fa-solid fa-comments"></i> Forum</a>
+                    </li>
+                </ul>
+                <form class="d-flex pt-3 my-2 my-lg-0">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="search-icon">
+                            <i class="bi bi-search"></i>
+                        </span>
+                        <input class="form-control  input-box bg-100" type="search" placeholder="Buscar" aria-label="Search">
+                        <button class="btn btn-outline-warning text-black my-2 my-sm-0" type="submit">Buscar</button>
                     </div>
-
-                    <div class="d-grid p-3">
-                        <a th:href="@{/carrito}">
-                        <button
-                            type="button"
-                            name=""
-                            id=""
-                            class="btn btn-warning rounded-pill"
-                        >
+                </form>
+                <div class="d-grid p-3">
+                    <a th:href="@{/inicioSesion}">
+                        <button type="button" class="btn btn-warning rounded-pill">
+                            <i class="bi bi-person-circle"></i> Login
+                        </button>
+                    </a>
+                </div>
+                <div class="d-grid p-3">
+                    <a th:href="@{/carrito}">
+                        <button type="button" class="btn btn-warning rounded-pill">
                             <i class="bi bi-cart-fill"></i> Carrito
                         </button>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </nav>
-        
-    </section>
-    
-    <!-- Hero Section -->
-    <section class="hero">
-        <h2 class="fw-bold">¿Cómo funciona?</h2>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3 text-center">
-                    <img src="https://picsum.photos/100" class="mb-2">
-                    <p>Inicia sesión o crea tu cuenta</p>
-                </div>
-                <div class="col-md-3 text-center">
-                    <img src="https://picsum.photos/100" class="mb-2">
-                    <p>Ajusta tus preferencias y fija un presupuesto</p>
-                </div>
-                <div class="col-md-3 text-center">
-                    <img src="https://picsum.photos/100" class="mb-2">
-                    <p>Selecciona tu ubicación</p>
-                </div>
-                <div class="col-md-3 text-center">
-                    <img src="https://picsum.photos/100" class="mb-2">
-                    <p>Imprime tu lista y a comprar</p>
+                    </a>
                 </div>
             </div>
         </div>
-    </section>
-    
-    <!-- Calendario de Ofertas -->
+    </nav>
+</section>
+
+<!-- TUTORIAL / ¿CÓMO FUNCIONA? -->
+<section id="tutorial" role="region" aria-labelledby="tituloTutorial">
+    <div class="tutorial-container">
+        <h2 id="tituloTutorial">¿Cómo hacer una compra?</h2>
+        <img id="imagenTutorial" src="img/tutorial0.png" alt="Paso 1" />
+        <p id="textoTutorial">Paso 1: Busca el producto que deseas comprar usando la barra de búsqueda o navegando por las categorías.</p>
+        <div class="barra-progreso" id="barraProgreso"></div>
+    </div>
+    <script>
+        const pasos = [
+            {
+                texto: "Paso 1: Busca el producto que deseas comprar usando la barra de búsqueda o navegando por las categorías.",
+                imagen: "img/tutorial0.png",
+                alt: "Paso 1"
+            },
+            {
+                texto: "Paso 2: Haz clic en el producto para ver los detalles y opciones disponibles.",
+                imagen: "img/tutorial1.png",
+                alt: "Paso 2"
+            },
+            {
+                texto: "Paso 3: Añade el producto a tu carrito haciendo clic en 'Añadir al carrito'.",
+                imagen: "img/tutorial2.png",
+                alt: "Paso 3"
+            },
+            {
+                texto: "Paso 4: Accede a tu carrito y revisa tu pedido antes de finalizar la compra.",
+                imagen: "img/tutorial3.png",
+                alt: "Paso 4"
+            },
+            {
+                texto: "Paso 5: Rellena tus datos y selecciona el método de pago para finalizar la compra.",
+                imagen: "img/tutorial4.png",
+                alt: "Paso 5"
+            }
+        ];
+
+        let pasoActual = 0;
+        let intervalo;
+
+        const imagen = document.getElementById("imagenTutorial");
+        const texto = document.getElementById("textoTutorial");
+        const barra = document.getElementById("barraProgreso");
+
+        function renderBarra() {
+            barra.innerHTML = "";
+            pasos.forEach((_, i) => {
+                const punto = document.createElement("div");
+                punto.classList.add("paso");
+                if (i === pasoActual) punto.classList.add("activo");
+                punto.addEventListener("click", () => {
+                    pasoActual = i;
+                    mostrarPaso();
+                    reiniciarCarrusel();
+                });
+                barra.appendChild(punto);
+            });
+        }
+
+        function mostrarPaso() {
+            const paso = pasos[pasoActual];
+            imagen.style.opacity = 0;
+            texto.style.opacity = 0;
+
+            setTimeout(() => {
+                imagen.src = paso.imagen;
+                imagen.alt = paso.alt;
+                texto.textContent = paso.texto;
+                imagen.style.opacity = 1;
+                texto.style.opacity = 1;
+                renderBarra();
+            }, 300);
+        }
+
+        function siguientePaso() {
+            pasoActual = (pasoActual + 1) % pasos.length;
+            mostrarPaso();
+        }
+
+        function iniciarCarrusel() {
+            intervalo = setInterval(siguientePaso, 4000);
+        }
+
+        function reiniciarCarrusel() {
+            clearInterval(intervalo);
+            iniciarCarrusel();
+        }
+
+        window.addEventListener("DOMContentLoaded", () => {
+            mostrarPaso();
+            iniciarCarrusel();
+        });
+    </script>
+</section>
+
+<!-- Calendario de Ofertas -->
     <section class="container py-5">
         <h2 class="text-center mb-4">Calendario de Ofertas</h2>
         <div class="row">
