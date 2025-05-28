@@ -7,18 +7,23 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Categoria {
+public class ProductoSupermercado {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    private Categoria categoriaPadre;
+    private Producto producto;
 
-    private String nombre;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Supermercado supermercado;
+
+    private BigDecimal precio;
 }
