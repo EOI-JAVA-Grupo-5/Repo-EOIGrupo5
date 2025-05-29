@@ -189,15 +189,33 @@
 </section>
 
 <!-- TUTORIAL / ¿CÓMO FUNCIONA? -->
-<section id="tutorial" role="region" aria-labelledby="tituloTutorial">
+<section id="tutorial" role="region">
     <div class="tutorial-container">
-        <h2 id="tituloTutorial">¿Cómo hacer una compra?</h2>
-        <img id="imagenTutorial" src="img/tutorial0.png" alt="Paso 1" />
-        <p id="textoTutorial">Paso 1: Busca el producto que deseas comprar usando la barra de búsqueda o navegando por las categorías.</p>
+        <h2 id="tituloTutorial">¿Cómo funciona?</h2>
+        <img id="imagenTutorial" src="img/tutorial0.png" alt="Introducción" />
+        <p id="textoTutorial" class="texto-centrado">
+            ¿Quieres ahorrar dinero en la cesta de la compra? Nuestro comparador de precios investiga miles de productos cada día y encuentra los mejores precios en los principales supermercados de España. Castañazo Deals te permite comparar precios buscando por categoría, producto o supermercado.
+        </p>
         <div class="barra-progreso" id="barraProgreso"></div>
     </div>
+
+    <style>
+        .texto-centrado {
+            text-align: center;
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 1em auto;
+            line-height: 1.5;
+        }
+    </style>
+
     <script>
         const pasos = [
+            {
+                texto: "¿Quieres ahorrar dinero en la cesta de la compra? Nuestro comparador de precios investiga miles de productos cada día y encuentra los mejores precios en los principales supermercados de España. Castañazo Deals te permite comparar precios buscando por categoría, producto o supermercado.",
+                imagen: "img/tutorial0.png",
+                alt: "Introducción"
+            },
             {
                 texto: "Busca el producto que deseas comprar usando la barra de búsqueda o navegando por las categorías.",
                 imagen: "img/tutorial1.png",
@@ -209,12 +227,12 @@
                 alt: "Paso 2"
             },
             {
-                texto: " Añade el producto a tu carrito haciendo clic en 'Añadir al carrito'.",
+                texto: "Añade el producto a tu carrito haciendo clic en 'Añadir al carrito'.",
                 imagen: "img/tutorial3.png",
                 alt: "Paso 3"
             },
             {
-                texto: " Accede a tu carrito y revisa tu pedido antes de finalizar la compra.",
+                texto: "Accede a tu carrito y revisa tu pedido antes de finalizar la compra.",
                 imagen: "img/tutorial4.png",
                 alt: "Paso 4"
             },
@@ -227,7 +245,6 @@
 
         let pasoActual = 0;
         let intervalo;
-
         const imagen = document.getElementById("imagenTutorial");
         const texto = document.getElementById("textoTutorial");
         const barra = document.getElementById("barraProgreso");
@@ -268,7 +285,15 @@
         }
 
         function iniciarCarrusel() {
-            intervalo = setInterval(siguientePaso, 4000);
+            let primerPaso = true;
+
+            function siguiente() {
+                siguientePaso();
+                clearInterval(intervalo);
+                intervalo = setInterval(siguientePaso, 4000); // después de la primera, normal
+            }
+
+            intervalo = setTimeout(siguiente, 7000); // primera dura más (7s)
         }
 
         function reiniciarCarrusel() {
@@ -282,6 +307,7 @@
         });
     </script>
 </section>
+
 
 <!-- Ofertas destacadas -->
 <section class="container py-5">
@@ -636,7 +662,13 @@
         contenedor.innerHTML = supermercadosConDistancia.map(s => `
       <div class="swiper-slide">
         <img src="${s.logo}" class="img-fluid mb-2" style="height: 60px;">
-        <p><strong>${s.nombre}</strong><br>📍 ${s.distancia.toFixed(2)} km</p>
+        <p>
+        <strong>${s.nombre}</strong><br>
+        <svg xmlns="http://www.w3.org/2000/svg" height="16" fill="currentColor" viewBox="0 0 16 16" style="vertical-align: middle; margin-right: 4px;">
+        <path d="M8 0a5.53 5.53 0 0 0-5.5 5.5c0 4.412 5.5 10.5 5.5 10.5s5.5-6.088 5.5-10.5A5.53 5.53 0 0 0 8 0Zm0 7.5a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z"/>
+        </svg>
+         ${s.distancia.toFixed(2)} km
+         </p>
       </div>
     `).join("");
 

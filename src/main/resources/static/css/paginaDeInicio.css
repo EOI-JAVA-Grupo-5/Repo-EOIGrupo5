@@ -1,0 +1,118 @@
+.supermercados-swiper .swiper-slide p {
+            margin-bottom: 50px; /* Aumenta este valor según lo que necesites */
+        }
+
+        .hero {
+            background: #fcfdaf;
+            color: rgb(0, 0, 0);
+            text-align: center;
+            padding: 50px 20px;
+        }
+        .card img {
+            border-radius: 10px;
+        }
+        .btn-orange {
+            background-color: #fcfdaf;
+            color: rgb(0, 0, 0);
+        }
+        .primary-navbar {
+            background-color: #dba159;
+        }
+        .primary-navbar span {
+            color: #fcfdaf;
+        }
+        #search-icon {
+            background-color: #fcfdaf;
+            border-color: orange;
+            color: black;
+        }
+        .primary-navbar div button {
+            background-color: #fcfdaf;
+        }
+        .primary-navbar div button:hover {
+            background-color: #efd780;
+        }
+
+        /* Estilos para la sección de tutorial */
+        /* Tutorial */
+        .tutorial-container {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px 30px;
+            max-width: 800px;
+            margin: 60px auto 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .tutorial-container h2 {
+            font-size: 28px;
+            color: #dba159;
+            margin-bottom: 30px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+        }
+
+        #imagenTutorial {
+            width: 100%;
+            max-height: 350px;
+            object-fit: contain;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            transition: opacity 0.5s ease;
+        }
+
+        #textoTutorial {
+            font-size: 18px;
+            font-weight: 500;
+            margin-top: 10px;
+            min-height: 60px;
+            transition: opacity 0.5s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .barra-progreso {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 25px;
+        }
+
+        .paso {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background-color: #ccc;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .paso.activo {
+            background-color: #dba159;
+        }
+        .benefit-card {
+            background: white;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .benefit-card i {
+                font-size: 3.2rem !important;
+            }
+        }
+    
+
+
+        .texto-centrado {
+            text-align: center;
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 1em auto;
+            line-height: 1.5;
+        }
