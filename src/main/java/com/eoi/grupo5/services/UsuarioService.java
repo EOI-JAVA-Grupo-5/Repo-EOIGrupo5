@@ -20,8 +20,13 @@ public class UsuarioService {
         return usuarioRepo.findAll();
     }
 
-    public Optional<Usuario> obtenerUsuarioPorId(Long id) {
-        return usuarioRepo.findById(id);
+    public Usuario obtenerUsuarioPorId(Long id) {
+        Optional<Usuario> usuario = usuarioRepo.findById(id);
+        if (usuario.isPresent()) {
+            return usuario.get();
+        } else {
+            throw new RuntimeException("Usuario no encontrado");
+        }
     }
 
     public Usuario guardarUsuario(Usuario usuario) {

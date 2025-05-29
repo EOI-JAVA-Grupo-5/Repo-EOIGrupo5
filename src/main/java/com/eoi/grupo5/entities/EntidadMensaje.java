@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity
+@Table(name = "mensajes")
 public class EntidadMensaje {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,5 +23,6 @@ public class EntidadMensaje {
 
     // TODO: Reemplazar con la clase Usuario de Jose Angel cuando esté lista
     @ManyToOne
+    @JoinColumn(name = "autor_id")
     private Usuario autor;
 }

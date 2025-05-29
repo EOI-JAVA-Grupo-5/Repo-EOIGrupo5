@@ -96,7 +96,7 @@ public class SecurityConfig {
                         .requestMatchers("/").permitAll()
                         .requestMatchers("/carrito").permitAll()
                         .requestMatchers("/foro").permitAll()
-                        .requestMatchers("foro/hilo").permitAll()
+                        .requestMatchers("/foro/hilo").permitAll()
                         .requestMatchers("/usuario").permitAll()
                         .requestMatchers("/inicioSesion").permitAll()
                         .requestMatchers("/registro").permitAll()

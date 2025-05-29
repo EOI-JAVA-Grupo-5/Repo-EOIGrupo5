@@ -10,6 +10,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
+@Table(name = "hilos")
 public class EntidadHilo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,8 +23,9 @@ public class EntidadHilo {
 
     // TODO: Reemplazar con la clase Usuario de Jose Angel cuando esté lista
     @ManyToOne
+    @JoinColumn(name = "autor_id") // This is what Hibernate auto-generates anyway
     private Usuario autor;
 
-    @OneToMany(mappedBy = "hilo", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "hilo", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<EntidadMensaje> mensajes;
 }
