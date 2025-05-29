@@ -14,11 +14,17 @@ import java.util.List;
 public class EntidadHilo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
+    @Column (name = "titulo")
     private String titulo;
+    @Column (name =" descripcion")
     private String descripcion;
-    private Long favoritos;
+    @Column (name = "votos")
+    private Long votos;
+    @Column (name = "visitas")
     private Long visitas;
+    @Column (name = "fechacreacion")
     private LocalDateTime fechaCreacion;
 
     // TODO: Reemplazar con la clase Usuario de Jose Angel cuando esté lista

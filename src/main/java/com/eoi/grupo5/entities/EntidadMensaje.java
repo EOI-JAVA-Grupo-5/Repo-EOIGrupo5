@@ -13,9 +13,14 @@ import java.time.LocalDateTime;
 public class EntidadMensaje {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
+    @Column(name = "texto")
     private String contenido;
+    @Column(name = "instantepost")
     private LocalDateTime fechaPublicacion;
+    @Column(name = "votos")
+    private Long votos;
 
     @ManyToOne
     @JoinColumn(name = "hilo_id")
