@@ -232,11 +232,11 @@
                      th:alt="${producto.category}"/>
 
                 <div class="overlay d-flex flex-column justify-content-center align-items-center text-white p-3">
-                    <h5 th:text="${producto.getName()}">Nombre</h5>
-                    <p th:text="${producto.getPrice()}">Precio</p>
-                    <p th:text="${producto.getCategory()}">Categoría</p>
-                    <p th:text="${producto.getSupermarket()}">Supermercado</p>
-                    <p th:text="'CP: ' + ${producto.getZipCode()}">Código Postal</p>
+                    <h5 th:text="${producto.Name()}">Nombre</h5>
+                    <p th:text="${producto.Price()}">Precio</p>
+                    <p th:text="${producto.Category()}">Categoría</p>
+                    <p th:text="${producto.Supermarket()}">Supermercado</p>
+                    <p th:text="'CP: ' + ${producto.ZipCode()}">Código Postal</p>
 
                     <!-- Botón con link externo al producto -->
                     <a th:href="${producto.url}" target="_blank">
