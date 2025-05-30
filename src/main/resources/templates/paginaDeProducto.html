@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<html lang="es">
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -223,190 +222,96 @@
     <!-- Artículos populares -->
 <section class="py-5">
     <div class="container">
-        <h3 class="section-title text-center mb-4">Artículos populares</h3>
         <div class="d-flex justify-content-center flex-wrap">
+            <div class="col-3 mx-2 text-center position-relative product-card"
+                 th:each="producto : ${productos}" style="max-width: 200px;">
 
-            <!-- Frutas -->
-            <div class="col-3 mx-2 text-center position-relative product-card" style="max-width: 200px;">
-                <img src="https://images.unsplash.com/photo-1604908177522-402c11c579da?w=400&h=400&fit=crop" class="d-block w-100 img-fluid" alt="Frutas" />
+                <!-- Imagen: usamos la URL si es de imagen, o una imagen fija -->
+                <img th:src="@{https://images.unsplash.com/photo-1604908177522-402c11c579da?w=400}"
+                     class="d-block w-100 img-fluid"
+                     th:alt="${producto.category}"/>
+
                 <div class="overlay d-flex flex-column justify-content-center align-items-center text-white p-3">
-                    <h5>Frutas frescas</h5>
-                    <p>Mercadona</p>
-                    <p>€2.99</p>
-                    <button class="btn btn-light btn-sm mt-2">Añadir a la cesta</button>
+                    <h5 th:text="${producto.getName()}">Nombre</h5>
+                    <p th:text="${producto.getPrice()}">Precio</p>
+                    <p th:text="${producto.getCategory()}">Categoría</p>
+                    <p th:text="${producto.getSupermarket()}">Supermercado</p>
+                    <p th:text="'CP: ' + ${producto.getZipCode()}">Código Postal</p>
+
+                    <!-- Botón con link externo al producto -->
+                    <a th:href="${producto.url}" target="_blank">
+                        <button class="btn btn-light btn-sm mt-2">Ver producto</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h3 class="section-title text-center">Buscar por categoría</h3>
+        <div id="categoryCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <!-- Grupo 1 -->
+                <div class="carousel-item active">
+                    <div class="row text-center">
+                        <div class="col">
+                            <img src="https://picsum.photos/200/200" class="category-img" alt="Categoría 1">
+                            <p>Aceites</p>
+                        </div>
+                        <div class="col">
+                            <img src="https://picsum.photos/200/200" class="category-img" alt="Categoría 2">
+                            <p>Refrescos</p>
+                        </div>
+                        <div class="col">
+                            <img src="https://picsum.photos/200/200" class="category-img" alt="Categoría 3">
+                            <p>Aves</p>
+                        </div>
+                        <div class="col">
+                            <img src="https://picsum.photos/200/200" class="category-img" alt="Categoría 3">
+                            <p>Carnes</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Grupo 2 -->
+                <div class="carousel-item">
+                    <div class="row text-center">
+                        <div class="col">
+                            <img src="https://picsum.photos/200/200" class="category-img" alt="Categoría 3">
+                            <p>Pasta</p>
+                        </div>
+                        <div class="col">
+                            <img src="https://picsum.photos/200/200" class="category-img" alt="Categoría 3">
+                            <p>Lácteos</p>
+                        </div>
+                        <div class="col">
+                            <img src="https://picsum.photos/200/200" class="category-img" alt="Categoría 3">
+                            <p>Arroz y legumbres</p>
+                        </div>
+                        <div class="col">
+                            <img src="https://picsum.photos/200/200" class="category-img" alt="Categoría 3">
+                            <p>Frutas</p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Verduras -->
-            <div class="col-3 mx-2 text-center position-relative product-card" style="max-width: 200px;">
-                <img src="https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2?w=400&h=400&fit=crop" class="d-block w-100 img-fluid" alt="Verduras" />
-                <div class="overlay d-flex flex-column justify-content-center align-items-center text-white p-3">
-                    <h5>Verduras variadas</h5>
-                    <p>Carrefour</p>
-                    <p>€3.45</p>
-                    <button class="btn btn-light btn-sm mt-2">Añadir a la cesta</button>
-                </div>
-            </div>
+            <!-- Controles de navegación -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#categoryCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Anterior</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#categoryCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Siguiente</span>
+            </button>
 
-            <!-- Pan -->
-            <div class="col-3 mx-2 text-center position-relative product-card" style="max-width: 200px;">
-                <img src="https://images.unsplash.com/photo-1608198093002-ad4e005484f3?w=400&h=400&fit=crop" class="d-block w-100 img-fluid" alt="Pan" />
-                <div class="overlay d-flex flex-column justify-content-center align-items-center text-white p-3">
-                    <h5>Pan integral</h5>
-                    <p>Lidl</p>
-                    <p>€1.30</p>
-                    <button class="btn btn-light btn-sm mt-2">Añadir a la cesta</button>
-                </div>
-            </div>
-
-            <!-- Leche -->
-            <div class="col-3 mx-2 text-center position-relative product-card" style="max-width: 200px;">
-                <img src="https://images.unsplash.com/photo-1627308595229-7830a5c91f9f?w=400&h=400&fit=crop" class="d-block w-100 img-fluid" alt="Leche" />
-                <div class="overlay d-flex flex-column justify-content-center align-items-center text-white p-3">
-                    <h5>Leche entera</h5>
-                    <p>Dia</p>
-                    <p>€0.89</p>
-                    <button class="btn btn-light btn-sm mt-2">Añadir a la cesta</button>
-                </div>
-            </div>
-
-            <!-- Queso -->
-            <div class="col-3 mx-2 text-center position-relative product-card" style="max-width: 200px;">
-                <img src="https://images.unsplash.com/photo-1613145998303-7b0ec3b2a0b6?w=400&h=400&fit=crop" class="d-block w-100 img-fluid" alt="Queso" />
-                <div class="overlay d-flex flex-column justify-content-center align-items-center text-white p-3">
-                    <h5>Queso curado</h5>
-                    <p>Alcampo</p>
-                    <p>€4.50</p>
-                    <button class="btn btn-light btn-sm mt-2">Añadir a la cesta</button>
-                </div>
-            </div>
-
-            <!-- Pollo -->
-            <div class="col-3 mx-2 text-center position-relative product-card" style="max-width: 200px;">
-                <img src="https://images.unsplash.com/photo-1605478055512-1a7ad3c6a2c1?w=400&h=400&fit=crop" class="d-block w-100 img-fluid" alt="Pollo" />
-                <div class="overlay d-flex flex-column justify-content-center align-items-center text-white p-3">
-                    <h5>Pollo troceado</h5>
-                    <p>Mercadona</p>
-                    <p>€5.20</p>
-                    <button class="btn btn-light btn-sm mt-2">Añadir a la cesta</button>
-                </div>
-            </div>
-
-            <!-- Huevos -->
-            <div class="col-3 mx-2 text-center position-relative product-card" style="max-width: 200px;">
-                <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&h=400&fit=crop" class="d-block w-100 img-fluid" alt="Huevos" />
-                <div class="overlay d-flex flex-column justify-content-center align-items-center text-white p-3">
-                    <h5>Huevos camperos</h5>
-                    <p>Dia</p>
-                    <p>€2.50</p>
-                    <button class="btn btn-light btn-sm mt-2">Añadir a la cesta</button>
-                </div>
-            </div>
-
-            <!-- Yogur -->
-            <div class="col-3 mx-2 text-center position-relative product-card" style="max-width: 200px;">
-                <img src="https://images.unsplash.com/photo-1590080875962-e1573ce79f75?w=400&h=400&fit=crop" class="d-block w-100 img-fluid" alt="Yogur" />
-                <div class="overlay d-flex flex-column justify-content-center align-items-center text-white p-3">
-                    <h5>Yogur natural</h5>
-                    <p>Carrefour</p>
-                    <p>€0.60</p>
-                    <button class="btn btn-light btn-sm mt-2">Añadir a la cesta</button>
-                </div>
-            </div>
-
-            <!-- Pasta -->
-            <div class="col-3 mx-2 text-center position-relative product-card" style="max-width: 200px;">
-                <img src="https://images.unsplash.com/photo-1589308078054-8327bdecf69b?w=400&h=400&fit=crop" class="d-block w-100 img-fluid" alt="Pasta" />
-                <div class="overlay d-flex flex-column justify-content-center align-items-center text-white p-3">
-                    <h5>Pasta espagueti</h5>
-                    <p>Lidl</p>
-                    <p>€0.95</p>
-                    <button class="btn btn-light btn-sm mt-2">Añadir a la cesta</button>
-                </div>
-            </div>
-
-            <!-- Tomates -->
-            <div class="col-3 mx-2 text-center position-relative product-card" style="max-width: 200px;">
-                <img src="https://images.unsplash.com/photo-1627308595264-7d2f3c17d36d?w=400&h=400&fit=crop" class="d-block w-100 img-fluid" alt="Tomates" />
-                <div class="overlay d-flex flex-column justify-content-center align-items-center text-white p-3">
-                    <h5>Tomates cherry</h5>
-                    <p>Alcampo</p>
-                    <p>€1.90</p>
-                    <button class="btn btn-light btn-sm mt-2">Añadir a la cesta</button>
-                </div>
-            </div>
         </div>
     </div>
 </section>
 
 
-    <!-- Buscar por categoría -->
-    <section class="py-5">
-        <div class="container">
-            <h3 class="section-title text-center">Buscar por categoría</h3>
-            <div id="categoryCarousel" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    <!-- Grupo 1 -->
-                    <div class="carousel-item active">
-                        <div class="row text-center">
-                            <div class="col">
-                                <img src="https://picsum.photos/200/200" class="category-img" alt="Categoría 1">
-                                <p>Aceites</p>
-                            </div>
-                            <div class="col">
-                                <img src="https://picsum.photos/200/200" class="category-img" alt="Categoría 2">
-                                <p>Refrescos</p>
-                            </div>
-                            <div class="col">
-                                <img src="https://picsum.photos/200/200" class="category-img" alt="Categoría 3">
-                                <p>Aves</p>
-                            </div>
-                            <div class="col">
-                                <img src="https://picsum.photos/200/200" class="category-img" alt="Categoría 3">
-                                <p>Carnes</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Grupo 2 -->
-                    <div class="carousel-item">
-                        <div class="row text-center">
-                            <div class="col">
-                                <img src="https://picsum.photos/200/200" class="category-img" alt="Categoría 3">
-                                <p>Pasta</p>
-                            </div>
-                            <div class="col">
-                                <img src="https://picsum.photos/200/200" class="category-img" alt="Categoría 3">
-                                <p>Lácteos</p>
-                            </div>
-                            <div class="col">
-                                <img src="https://picsum.photos/200/200" class="category-img" alt="Categoría 3">
-                                <p>Arroz y legumbres</p>
-                            </div>
-                            <div class="col">
-                                <img src="https://picsum.photos/200/200" class="category-img" alt="Categoría 3">
-                                <p>Frutas</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Controles de navegación -->
-                <button class="carousel-control-prev" type="button" data-bs-target="#categoryCarousel" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Anterior</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#categoryCarousel" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Siguiente</span>
-                </button>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-   <section id="footer">
+<section id="footer">
        <div class="justify-content-end pt-3">
            <!-- <footer class="bg-light text-center text-dark p-4">
                <p><strong>@ 2025. Todos los derechos reservados.</strong></p>
