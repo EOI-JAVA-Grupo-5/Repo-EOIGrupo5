@@ -31,12 +31,14 @@ public class Usuario implements Serializable {
     private int id;
 
     @NonNull
+    @Column(unique = true)
     private String nick;
 
     @NonNull
     private String password;
 
     @NonNull
+    @Column(unique = true)
     private String  correo;
 
     private String  imagenURL;

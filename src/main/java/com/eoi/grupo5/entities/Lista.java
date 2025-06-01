@@ -31,8 +31,7 @@ public class Lista implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne
-    @JoinColumn(name = "id")
+    @ManyToOne(targetEntity = Usuario.class)
     private Usuario usuario;
 
     private Date fecha;
