@@ -46,6 +46,6 @@ public class RegisterController {
         Usuario guardado = usuarioRepository.save(registro);
         log.info("-Procesando nuevo usuario: " + guardado);
 
-        return "redirect:/login";
+        return "redirect:/inicioSesion";
     }
 }
