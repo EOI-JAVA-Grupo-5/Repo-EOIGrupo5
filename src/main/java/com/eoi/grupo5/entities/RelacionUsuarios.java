@@ -32,11 +32,11 @@ public class RelacionUsuarios implements Serializable {
 
 
     @NonNull
-    @OneToOne(mappedBy = "usuarios", fetch = FetchType.LAZY)
+    @OneToOne(targetEntity = Usuario.class, fetch = FetchType.LAZY)
     private Usuario usuarioQueSigue;
 
 
     @NonNull
-    @OneToOne(mappedBy = "usuarios", fetch = FetchType.LAZY)
+    @OneToOne(targetEntity = Usuario.class, fetch = FetchType.LAZY)
     private Usuario usuarioSeguido;
 }
