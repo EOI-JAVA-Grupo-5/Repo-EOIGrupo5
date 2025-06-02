@@ -32,11 +32,25 @@ public class RegisterController {
         return new Usuario();
     }
 
+    /**
+     * Mapeo GET para la página de registro
+     * @param model
+     * @return
+     */
+
     @GetMapping
     public String mostrarPagina(Model model){
         return "register";
     }
 
+
+    /**
+     * Al hacer POST, se guarda el usuario en la base de datos
+     * @param registro - Usuario a registrar
+     * @param errors
+     * @param model
+     * @return vuelve a "registro" si hay errores, redirige a "login" si todo ha ido bien
+     */
     @PostMapping
     public String procesarNuevoUsuario(@Valid @ModelAttribute(name = "usuario") Usuario registro, Errors errors, Model model){
         if(errors.hasErrors()){
