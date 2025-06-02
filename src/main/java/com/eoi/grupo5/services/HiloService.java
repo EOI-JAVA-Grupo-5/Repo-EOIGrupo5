@@ -31,4 +31,6 @@ public class HiloService {
     public EntidadHilo guardarHilo(EntidadHilo hilo){
         return hiloRepo.save(hilo);
     }
+
+    // TODO get the amount of messages on each hilo before sending LOGIC HERE:
 }

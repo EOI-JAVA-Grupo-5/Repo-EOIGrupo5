@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -18,7 +19,7 @@ public class EntidadHilo {
     private Long id;
     @Column (name = "titulo")
     private String titulo;
-    @Column (name =" descripcion")
+    @Column (name ="descripcion")
     private String descripcion;
     @Column (name = "votos")
     private Long votos;
@@ -29,9 +30,9 @@ public class EntidadHilo {
 
     // TODO: Reemplazar con la clase Usuario de Jose Angel cuando esté lista
     @ManyToOne
-    @JoinColumn(name = "autor_id") // This is what Hibernate auto-generates anyway
+    @JoinColumn(name = "idCreador") // This is what Hibernate auto-generates anyway
     private Usuario autor;
 
-    @OneToMany(mappedBy = "hilo", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<EntidadMensaje> mensajes;
+    @OneToMany(mappedBy = "hilo", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<EntidadMensaje> mensajes = new ArrayList<>();
 }

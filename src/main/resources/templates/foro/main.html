@@ -83,36 +83,37 @@
 
     <div class="row">
       <div class="col-lg-9">
-        <!-- Forum Topic Example -->
-        <div class="card card-hover mb-3 border-warning p-2">
+        <!-- Loop through all hilos -->
+        <div th:each="hilo : ${hilos}" class="card card-hover mb-3 border-warning p-2">
           <div class="row align-items-center">
             <div class="col-md-8">
               <h5>
-                <a class="text-title" th:text="'Ejemplo de título del tema del foro'">Ejemplo de título del tema del
+                <a class="text-title" th:text="${hilo.titulo}">Ejemplo de título del tema del
                   foro</a>
               </h5>
-              <p class="text-sm" th:text="'Este es un resumen o descripción corta del contenido de la publicación.'">
+              <p class="text-sm" th:text="${hilo.descripcion}">
                 Este es un resumen o descripción corta del contenido de la publicación.
               </p>
               <p class="text-sm">
                 Publicado hace
-                <a class="text-black" th:text="'20 minutos'">20 minutos</a> por
-                <a class="text-black" th:text="'Jordan'">Jordan</a>
+                <a class="text-black" th:text="${#dates.format(hilo.fechaCreacion, 'dd/MM/yyyy HH:mm')}">20 minutos</a>
+                por
+                <a class="text-black" th:text="${hilo.autor.nombreUsuario}">Jordan</a>
               </p>
             </div>
             <div class="col-md-4 text-center">
               <div class="row">
                 <div class="col px-1">
                   <i class="fa-solid fa-heart fa-lg"></i>
-                  <span class="d-block text-sm" th:text="'12'">12</span>
+                  <span class="d-block text-sm" th:text="${hilo.votos}">12</span>
                 </div>
                 <div class="col px-1">
                   <i class="fa-solid fa-comment fa-lg"></i>
-                  <span class="d-block text-sm" th:text="'5'">5</span>
+                  <span class="d-block text-sm" th:text="${comentarios}">0</span>
                 </div>
                 <div class="col px-1">
                   <i class="fa-solid fa-eye fa-lg"></i>
-                  <span class="d-block text-sm" th:text="'89'">89</span>
+                  <span class="d-block text-sm" th:text="${hilo.visitas}">89</span>
                 </div>
               </div>
             </div>

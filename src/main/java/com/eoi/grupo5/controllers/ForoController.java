@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/foro")
@@ -35,6 +34,7 @@ public class ForoController {
     @GetMapping
     public String mostrarForo(Model model) {
         List<EntidadHilo> hilos = hiloService.obtenerHilos();
+        // TODO get the amount of messages on each hilo before sending
         model.addAttribute("hilos", hilos);
         model.addAttribute("nuevoHilo", new EntidadHilo());
         return "foro/main";
