@@ -57,9 +57,25 @@ public class RegisterController {
             return "register";
         }
 
-        Usuario guardado = usuarioRepository.save(registro);
-        log.info("-Procesando nuevo usuario: " + guardado);
+        if (usuarioRepository.findByCorreoEquals(registro.getCorreo()).isPresent()){
+            log.info("-EL CORREO YA FUE REGISTRADO-");
 
-        return "redirect:/inicioSesion";
+            return "register";
+
+        } else if (usuarioService.findByNick(registro.getNick()).isPresent()) {
+            log.info("-EL NICK YA ESTÁ EN USO-");
+
+            return "register";
+        } else{
+            registro.setNombre("-");
+            registro.setApellidos("-");
+            registro.setTipo(Usuario.Tipo.USER);
+            Usuario guardado = usuarioRepository.save(registro);
+
+            log.info("-Procesando nuevo usuario: " + guardado);
+
+            return "redirect:/inicioSesion";
+        }
+
     }
 }
