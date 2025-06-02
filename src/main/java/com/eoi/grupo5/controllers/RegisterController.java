@@ -26,7 +26,7 @@ public class RegisterController {
         this.usuarioService = usuarioService;
     }
 
-    @ModelAttribute(name="usuario")
+    @ModelAttribute(name="reg_user")
     public Usuario usuario(){
         log.info("-CREANDO NUEVO USUARIO-");
         return new Usuario();
@@ -52,7 +52,7 @@ public class RegisterController {
      * @return vuelve a "registro" si hay errores, redirige a "login" si todo ha ido bien
      */
     @PostMapping
-    public String procesarNuevoUsuario(@Valid @ModelAttribute(name = "usuario") Usuario registro, Errors errors, Model model){
+    public String procesarNuevoUsuario(@Valid @ModelAttribute(name = "reg_user") Usuario registro, Errors errors, Model model){
         if(errors.hasErrors()){
             return "register";
         }
