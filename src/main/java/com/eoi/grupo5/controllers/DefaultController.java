@@ -80,11 +80,11 @@ public class DefaultController {
         return "carrito"; // View name
     }
 
-    @GetMapping("/inicioSesion")
-    public String login(Model model)
-    {
-        return "login"; // View name
-    }
+//    @GetMapping("/inicioSesion")
+//    public String login(Model model)
+//    {
+//        return "login"; // View name
+//    }
 
 //    @GetMapping("/registro")
 //    public String registro(Model model)
