@@ -28,4 +28,8 @@ public class ProductoSupermercadoService {
     public void deleteById(Long id) {
         productoSupermercadoRepository.deleteById(id);
     }
+
+    public Object findBySupermercadoId(Long id) {
+        return productoSupermercadoRepository.findBySupermercadoId(id);
+    }
 }
