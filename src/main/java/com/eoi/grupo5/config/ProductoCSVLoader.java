@@ -13,32 +13,22 @@ import java.io.InputStreamReader;
 @Component
 public class ProductoCSVLoader implements CommandLineRunner {
 
-    private final ProductoRepository productoRepository;
-
-    public ProductoCSVLoader(ProductoRepository productoRepository) {
-        this.productoRepository = productoRepository;
-    }
+    @Autowired
+    private ProductoRepository productoRepository;
 
     @Override
     public void run(String... args) throws Exception {
         BufferedReader reader = new BufferedReader(new InputStreamReader(
                 new ClassPathResource("productos-de-supermercados-sample.csv").getInputStream()));
-
-        String line = reader.readLine(); // saltar cabecera
-
+        String line;
         while ((line = reader.readLine()) != null) {
-            String[] data = line.split(",");
-
-            if (data.length >= 7) {
+            String[] data = line.split(";");
+            if (data.length >= 4) {
                 Producto p = new Producto();
-                p.setId(Long.parseLong(data[0]));
-                p.setName(data[1]);
-                p.setSupermarket(data[2]);
-                p.setZipCode(Integer.parseInt(data[3]));
-                p.setPrice(Double.parseDouble(data[4]));
-                p.setUrl(data[5]);
-                p.setCategory(data[6]);
-
+                p.setNombre(data[0]);
+                p.setSupermercado(data[1]);
+                p.setPrecio(Double.parseDouble(data[2]));
+                p.setImagenUrl(data[3]);
                 productoRepository.save(p);
             }
         }
