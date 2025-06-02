@@ -12,11 +12,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
 
-  <!--Icono de web-->
   <link rel="apple-touch-icon" sizes="180x180" href="../images/logo-SF.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="../images/logo-SF.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="../images/logo-SF.png" />
   <link rel="shortcut icon" type="image/x-icon" href="../images/logo-SF.png" />
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
   <style>
     body {
@@ -131,12 +132,11 @@
 </head>
 <body>
 
-<!-- NAVBAR -->
 <section id="navbar-section">
   <nav class="navbar navbar-expand-sm primary-navbar">
     <div class="container">
       <a class="navbar-brand d-inline-flex" href="/">
-        <img class="d-inline-block" th:src="@{/images/logo-SF.png}" alt="logo" style="width: 5rem; align-self: center;">
+        <img class="d-inline-block" src="../images/logo-SF.png" alt="logo" style="width: 5rem; align-self: center;" id="main-logo">
         <span class="text-1000 fs-3 fw-bold ms-2">Castañazo <br> Deals</span>
       </a>
 
@@ -202,7 +202,6 @@
   </nav>
 </section>
 
-<!-- CONTENIDO PRINCIPAL -->
 <section class="container-fluid mt-4">
   <div class="row">
     <div class="col-8">
@@ -213,24 +212,19 @@
   </div>
 </section>
 
-
-
-
-<!-- SIDEBAR DEL CARRITO -->
 <div id="cartSidebar">
   <span class="closebtn" onclick="closeCart()">&times;</span>
   <div class="cart-content">
     <h4 class="fw-bold mb-4 text-center">🛒 Tu Carrito de Compras</h4>
 
     <div id="cart-items" class="d-flex flex-column gap-3">
-      <!-- Producto 1 -->
       <div class="card cart-item shadow-sm border-0" data-product-id="1">
         <div class="card-body">
           <div class="product-info">
             <img
               src="https://picsum.photos/100?1"
               alt="Producto 1"
-              class="img-fluid rounded"
+              class="img-fluid rounded product-image"
               style="width: 70px; height: 70px; object-fit: cover;"
             />
             <div>
@@ -252,14 +246,13 @@
         </div>
       </div>
 
-      <!-- Producto 2 -->
       <div class="card cart-item shadow-sm border-0" data-product-id="2">
         <div class="card-body">
           <div class="product-info">
             <img
               src="https://picsum.photos/100?2"
               alt="Producto 2"
-              class="img-fluid rounded"
+              class="img-fluid rounded product-image"
               style="width: 70px; height: 70px; object-fit: cover;"
             />
             <div>
@@ -294,37 +287,26 @@
     </div>
 
     <div class="d-grid">
-      <button class="btn btn-warning text-white fw-bold" onclick="window.location.href='@{/Pago.html}'">
-        <i class="bi bi-bag-check-fill"></i> Ver artículos en el carrito
+      <button class="btn btn-info text-white fw-bold" onclick="generatePdf()">
+        <i class="bi bi-file-earmark-pdf-fill"></i> Generar PDF de la lista
       </button>
     </div>
   </div>
 </div>
 
-   <!-- Aqui terminan los cosos y empieza el footer -->
-
-    <section id="footer">
+   <section id="footer">
         <div class="justify-content-end pt-3">
-            <!-- <footer class="bg-light text-center text-dark p-4">
-                <p><strong>@ 2025. Todos los derechos reservados.</strong></p>
-            </footer> -->
-
             <footer
             class="text-center text-lg-start"
             style="background-color: #efd780"
             >
-                <!-- Section: Social media -->
                 <section
                         class="d-flex justify-content-between p-4"
                         style="background-color: #dba159"
                         >
-                    <!-- Left -->
                     <div class="me-5" style="color: #fcfdaf;">
                         <span><strong>Síguenos en nuestras redes sociales:</strong></span>
                     </div>
-                    <!-- Left -->
-                
-                    <!-- Right -->
                     <div>
                         <a href="" class="icono-red-footer me-4">
                             <i class="fab fa-facebook-f"></i>
@@ -345,18 +327,11 @@
                             <i class="fab fa-github"></i>
                         </a>
                     </div>
-                    <!-- Right -->
-                </section>
-                <!-- Section: Social media -->
-            
-                <!-- Section: Links  -->
+                    </section>
                 <section class="">
                     <div class="container text-center text-md-start mt-5">
-                        <!-- Grid row -->
                         <div class="row mt-3">
-                            <!-- Grid column -->
                             <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-                                <!-- Content -->
                                 <h6 class="text-uppercase fw-bold">Sobre Castañazo Deals</h6>
                                 <hr
                                     class="mb-4 mt-0 d-inline-block mx-auto"
@@ -366,11 +341,7 @@
                                 Aquí va propaganda pura y dura, sin filtrar. Café para los mas cafeteros.
                                 </p>
                             </div>
-                            <!-- Grid column -->
-                
-                            <!-- Grid column -->
                             <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-                                <!-- Links -->
                                 <h6 class="text-uppercase fw-bold">Cosas</h6>
                                 <hr
                                     class="mb-4 mt-0 d-inline-block mx-auto"
@@ -389,11 +360,7 @@
                                 <a href="#!" class="text-blue">Cosa 4</a>
                                 </p>
                             </div>
-                            <!-- Grid column -->
-                
-                            <!-- Grid column -->
                             <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-                                <!-- Links -->
                                 <h6 class="text-uppercase fw-bold">Links Útiles</h6>
                                 <hr
                                     class="mb-4 mt-0 d-inline-block mx-auto"
@@ -412,11 +379,7 @@
                                 <a href="#!" class="text-blue">Link 4</a>
                                 </p>
                             </div>
-                            <!-- Grid column -->
-                
-                            <!-- Grid column -->
                             <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-                                <!-- Links -->
                                 <h6 class="text-uppercase fw-bold">Contacto</h6>
                                 <hr
                                     class="mb-4 mt-0 d-inline-block mx-auto"
@@ -427,14 +390,9 @@
                                 <p><i class="fas fa-phone mr-3"></i> + 01 234 567 88</p>
                                 <p><i class="fas fa-print mr-3"></i> + 01 234 567 89</p>
                             </div>
-                            <!-- Grid column -->
                         </div>
-                        <!-- Grid row -->
                     </div>
                 </section>
-                <!-- Section: Links  -->
-        
-                <!-- Copyright -->
                 <div
                     class="text-center p-3"
                     style="background-color: #dba0598f"
@@ -444,13 +402,11 @@
                     >MDBootstrap.com</a
                     >
                 </div>
-                <!-- Copyright -->
-            </footer>
+                </footer>
         </div>
 
     </section>
 
-    <!-- Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 </body>
 </html>
@@ -480,7 +436,7 @@
 
   // Actualiza el precio total por producto (precio fijo 15€)
   function updateProductTotal(productId, qty) {
-    const pricePerUnit = 15.0;
+    const pricePerUnit = 15.0; // Asumiendo un precio fijo de 15€ por unidad para el ejemplo
     const total = (pricePerUnit * qty).toFixed(2);
     document.getElementById("product-total-" + productId).textContent = total + "€";
   }
@@ -494,8 +450,9 @@
     cartItems.forEach(item => {
       const productId = item.getAttribute("data-product-id");
       const qty = parseInt(document.getElementById("quantity-" + productId).value);
+      
       totalUnits += qty;
-      totalPrice += qty * 15.0;
+      totalPrice += qty * 15.0; // Usa el precio fijo de 15€
     });
 
     document.getElementById("total-units").textContent = totalUnits;
@@ -509,6 +466,121 @@
       item.remove();
       updateCartTotals();
     }
+  }
+
+  // Función para limpiar texto de caracteres problemáticos (opcional, si el problema persiste)
+  function cleanTextForPdf(text) {
+    // Si realmente ves caracteres como "Ø=ÞÒ", puedes intentar eliminarlos o reemplazarlos aquí.
+    // Por ejemplo, para eliminar la cadena literal:
+    // return text.replace(/Ø=ÞÒ/g, "");
+    return text;
+  }
+
+  // Función para generar el PDF
+  async function generatePdf() { // Usamos async/await para manejar la carga de imágenes correctamente
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    // Obtener la URL del logo de la barra de navegación
+    const logoImgElement = document.getElementById('main-logo');
+    const logoUrl = logoImgElement ? logoImgElement.src : null;
+
+    const pageWidth = doc.internal.pageSize.getWidth();
+    let y = 20; // Posición inicial Y para el contenido
+
+    // Añadir el logo principal si existe y es accesible
+    if (logoUrl) {
+      const img = new Image();
+      img.crossOrigin = 'Anonymous'; // Importante para cargar imágenes de otros orígenes (CORS)
+      img.src = logoUrl;
+
+      // Esperar a que la imagen se cargue
+      await new Promise((resolve, reject) => {
+        img.onload = () => {
+          try {
+            const logoWidth = 30; // Ancho del logo en el PDF (ajusta según necesites)
+            const logoHeight = 30; // Alto del logo en el PDF (ajusta según necesites)
+            const logoX = (pageWidth - logoWidth) / 2; // Centrar el logo
+            doc.addImage(img, 'PNG', logoX, 10, logoWidth, logoHeight); // Ajusta 'PNG' al formato real de tu logo
+            y += logoHeight + 10; // Ajusta la posición inicial Y para el título
+            resolve();
+          } catch (e) {
+            console.warn("Error al añadir el logo principal al PDF. Revisar formato de imagen o CORS.", e);
+            resolve(); // Resolvemos para no bloquear la generación del PDF
+          }
+        };
+        img.onerror = (error) => {
+          console.error("No se pudo cargar el logo principal para el PDF. Verifique la ruta: ", logoUrl, error);
+          alert("Error al cargar el logo principal. El PDF se generará sin el logo.");
+          resolve(); // Resolvemos para que el PDF se siga generando
+        };
+      });
+    }
+
+    doc.setFontSize(22);
+    doc.text("Lista de Compras de Castañazo Deals", pageWidth / 2, y, { align: 'center' });
+    y += 20; // Espacio después del título
+
+    const lineHeight = 10;
+    const imageWidth = 20; // Ancho de la imagen del producto en el PDF
+    const imageHeight = 20; // Alto de la imagen del producto en el PDF
+    const textOffset = 25; // Desplazamiento del texto para que no se solape con la imagen
+
+    const cartItems = document.querySelectorAll("#cartSidebar .cart-item");
+
+    if (cartItems.length === 0) {
+      doc.setFontSize(12);
+      doc.text("El carrito está vacío.", 10, y);
+      doc.save("lista_compras_castanazo_deals.pdf");
+      return;
+    }
+
+    doc.setFontSize(14);
+    for (const item of cartItems) { // Usamos for...of para poder usar await dentro del bucle
+      const productName = cleanTextForPdf(item.querySelector('.product-info h6').textContent.trim());
+      const qty = parseInt(item.querySelector('.input-group-sm input').value);
+      const productTotal = cleanTextForPdf(item.querySelector('.price-and-remove strong').textContent.trim());
+      const imageUrl = item.querySelector('.product-info img').src; // Obtiene la URL de la imagen del producto
+
+      // Añade la imagen del producto al PDF
+      if (imageUrl) {
+        const productImg = new Image();
+        productImg.crossOrigin = 'Anonymous';
+        productImg.src = imageUrl;
+
+        await new Promise((resolve) => {
+          productImg.onload = () => {
+            try {
+              // Asegúrate de que el formato de imagen sea correcto. Si es 'picsum.photos', generalmente es JPEG.
+              doc.addImage(productImg, 'JPEG', 10, y, imageWidth, imageHeight);
+            } catch (e) {
+              console.warn(`No se pudo añadir la imagen del producto '${productName}' al PDF. Posible error de CORS o formato incorrecto.`, e);
+            }
+            resolve();
+          };
+          productImg.onerror = () => {
+            console.warn(`Error al cargar la imagen del producto '${productName}'. La imagen no se incluirá en el PDF.`, imageUrl);
+            resolve(); // Continuar aunque la imagen no se cargue
+          };
+        });
+      }
+
+      // Añade el texto del producto al lado de la imagen
+      doc.text(`${productName} - Cantidad: ${qty} - Total: ${productTotal}`, 10 + textOffset, y + (imageHeight / 2));
+      y += (imageHeight > lineHeight ? imageHeight : lineHeight) + 5; // Aumenta 'y' para el siguiente elemento, considerando el tamaño de la imagen
+    }
+
+    y += 10; // Espacio adicional antes de los totales
+
+    const totalUnits = document.getElementById("total-units").textContent;
+    const totalPrice = document.getElementById("total-price").textContent;
+
+    doc.setFontSize(16);
+    doc.text(`Total de Unidades: ${totalUnits}`, 10, y);
+    y += lineHeight;
+    doc.text(`Total a Pagar: ${totalPrice}`, 10, y);
+
+    doc.save("lista_compras_castanazo_deals.pdf");
   }
 
   window.onload = () => updateCartTotals();
