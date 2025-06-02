@@ -28,6 +28,10 @@ public class UsuarioService {
         return usuarioRepository.findByCorreoEquals(correo);
     }
 
+    public Optional<Usuario> findByNick(String nick){
+        return usuarioRepository.findByNick(nick);
+    }
+
     public Usuario save(Usuario usuario){
         return usuarioRepository.save(usuario);
     }
