@@ -2,9 +2,13 @@ package com.eoi.grupo5.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.List;
 
 @Builder
 @AllArgsConstructor
@@ -13,7 +17,7 @@ import java.io.Serializable;
 @Setter
 @Entity
 @Table(name = "usuarios")
-public class Usuario implements Serializable {
+public class Usuario implements UserDetails, Serializable {
 
     /**
      * SerialVersion
@@ -32,7 +36,7 @@ public class Usuario implements Serializable {
 
     @NonNull
     @Column(unique = true)
-    private String nick;
+    private String username;
 
     @NonNull
     private String password;
@@ -60,5 +64,35 @@ public class Usuario implements Serializable {
     public static enum Tipo{
         ADMIN, USER
     }
+
+    /**
+     * MÉTODOS DE UserDetails
+     */
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of();
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return UserDetails.super.isAccountNonExpired();
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return UserDetails.super.isAccountNonLocked();
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return UserDetails.super.isCredentialsNonExpired();
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return UserDetails.super.isEnabled();
+    }
+
 
 }

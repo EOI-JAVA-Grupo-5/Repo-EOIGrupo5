@@ -5,6 +5,7 @@ import com.eoi.grupo5.repositories.UsuarioRepository;
 import com.eoi.grupo5.services.UsuarioService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -62,15 +63,21 @@ public class RegisterController {
 
             return "register";
 
-        } else if (usuarioService.findByNick(registro.getNick()).isPresent()) {
+        } else if (usuarioService.findByUsername(registro.getUsername()).isPresent()) {
             log.info("-EL NICK YA ESTÁ EN USO-");
 
             return "register";
         } else{
+            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
             registro.setNombre("-");
             registro.setApellidos("-");
             registro.setTipo(Usuario.Tipo.USER);
-            Usuario guardado = usuarioRepository.save(registro);
+
+            Usuario guardado = registro;
+            guardado.setPassword(passwordEncoder.encode(registro.getPassword()));
+
+            usuarioRepository.save(guardado);
 
             log.info("-Procesando nuevo usuario: " + guardado);
 
