@@ -79,20 +79,6 @@
             opacity: 1;
             pointer-events: auto;
         }
-        /* Estilo para los botones */
-        .btn-custom {
-            background-color: #dba159;
-            color: rgb(8, 8, 8); 
-            border: none;
-            padding: 10px;
-            width: 100%;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-
-        .btn-custom:hover {
-            background-color: #dba159;
-        }
 
         /* Estilo para los títulos */
         .section-title {
@@ -220,32 +206,21 @@
     </section>
 
     <!-- Artículos populares -->
-<section class="py-5">
-    <div class="container">
-        <div class="d-flex justify-content-center flex-wrap">
-            <div class="col-3 mx-2 text-center position-relative product-card"
-                 th:each="producto : ${productos}" style="max-width: 200px;">
-
-                <!-- Imagen: usamos la URL si es de imagen, o una imagen fija -->
-                <img th:src="@{https://images.unsplash.com/photo-1604908177522-402c11c579da?w=400}"
-                     class="d-block w-100 img-fluid"
-                     th:alt="${producto.category}"/>
-
-                <div class="overlay d-flex flex-column justify-content-center align-items-center text-white p-3">
-                    <h5 th:text="${producto.Name()}">Nombre</h5>
-                    <p th:text="${producto.Price()}">Precio</p>
-                    <p th:text="${producto.Category()}">Categoría</p>
-                    <p th:text="${producto.Supermarket()}">Supermercado</p>
-                    <p th:text="'CP: ' + ${producto.ZipCode()}">Código Postal</p>
-
-                    <!-- Botón con link externo al producto -->
-                    <a th:href="${producto.url}" target="_blank">
-                        <button class="btn btn-light btn-sm mt-2">Ver producto</button>
-                    </a>
-                </div>
-            </div>
+<div class="d-flex justify-content-center flex-wrap">
+    <div class="col-3 mx-2 text-center position-relative product-card"
+         th:each="producto : ${productos}" style="max-width: 200px;">
+        <img th:src="${producto.url}" class="img-fluid" th:alt="${producto.name}" />
+        <div class="overlay text-white p-3">
+            <h5 th:text="${producto.name}">Nombre</h5>
+            <p th:text="'€' + ${producto.price}">Precio</p>
+            <p th:text="${producto.supermarket}">Supermercado</p>
+            <a th:href="@{'/producto/' + ${producto.id}}" class="btn btn-light btn-sm mt-2">
+                Ver más
+            </a>
         </div>
     </div>
+</div>
+
 
     <div class="container">
         <h3 class="section-title text-center">Buscar por categoría</h3>
