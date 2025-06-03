@@ -93,9 +93,13 @@ public class SecurityConfig {
                 .formLogin(Customizer.withDefaults())
                 .formLogin(form -> form
                         .loginPage("/login")
-                        .permitAll())
-//                .logout(logout -> logout
-//                        )
+                        .defaultSuccessUrl("/usuario", true)
+                        .permitAll()
+                )
+                .logout(logout -> logout
+                        .logoutSuccessUrl("/inicioSesion?logout")
+                        .permitAll()
+                )
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/entities").permitAll()
                         .requestMatchers("/").permitAll()
