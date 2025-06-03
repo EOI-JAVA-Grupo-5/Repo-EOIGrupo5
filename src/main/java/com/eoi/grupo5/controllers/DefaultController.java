@@ -118,11 +118,11 @@ public class DefaultController {
         return "paginaDeInicio"; // View name
     }
 
-    @GetMapping("/paginaDeProducto")
-    public String paginaDeProducto(Model model)
-    {
-        return "paginaDeProducto"; // View name
-    }
+//    @GetMapping("/paginaDeProducto")
+//    public String paginaDeProducto(Model model)
+//    {
+//        return "paginaDeProducto"; // View name
+//    }
 
 
 

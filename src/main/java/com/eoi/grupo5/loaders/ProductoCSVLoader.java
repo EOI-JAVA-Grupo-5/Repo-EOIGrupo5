@@ -28,18 +28,24 @@ public class ProductoCSVLoader implements CommandLineRunner {
         while ((line = reader.readLine()) != null) {
             String[] data = line.split(",");
 
-            if (data.length >= 7) {
-                Producto p = new Producto();
-                p.setId(Long.parseLong(data[0]));
-                p.setName(data[1]);
-                p.setSupermarket(data[2]);
-                p.setZipCode(Integer.parseInt(data[3]));
-                p.setPrice(Double.parseDouble(data[4]));
-                p.setUrl(data[5]);
-                p.setCategory(data[6]);
+                if (data.length >= 7) {
+                    try {
+                        Producto p = new Producto();
+                        p.setId(Long.parseLong(data[0]));
+                        p.setName(data[1]);
+                        p.setSupermarket(data[2]);
+                        p.setZipCode(Integer.parseInt(data[3]));
+                        p.setPrice(Double.parseDouble(data[4]));
+                        p.setUrl(data[5]);
+                        p.setCategory(data[6]);
 
-                productoRepository.save(p);
-            }
+                        productoRepository.save(p);
+                    } catch (Exception e) {
+                        System.err.println("Error parsing line: " + line);
+                        e.printStackTrace(); // or use a logger
+                    }
+                }
+
         }
     }
 }
