@@ -2,10 +2,8 @@ package com.eoi.grupo5.controllers;
 
 import com.eoi.grupo5.entities.EntidadHilo;
 import com.eoi.grupo5.entities.EntidadMensaje;
-import com.eoi.grupo5.entities.Usuario;
 import com.eoi.grupo5.services.HiloService;
 import com.eoi.grupo5.services.MensajeService;
-import com.eoi.grupo5.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,13 +20,12 @@ public class ForoController {
     private final MensajeService mensajeService;
 
     // Temporary While Jose Angel makes the main one.
-    private final UsuarioService usuarioService;
+//    private final UsuarioService usuarioService;
 
     @Autowired
-    public ForoController(HiloService hiloService, MensajeService mensajeService, UsuarioService usuarioService) {
+    public ForoController(HiloService hiloService, MensajeService mensajeService) {
         this.hiloService = hiloService;
         this.mensajeService = mensajeService;
-        this.usuarioService = usuarioService;
     }
 
     @GetMapping
@@ -43,8 +40,8 @@ public class ForoController {
     @PostMapping("/crear")
     public String crearHilo(@ModelAttribute("nuevoHilo") EntidadHilo hilo) {
         hilo.setFechaCreacion(LocalDateTime.now());
-        Usuario autor = usuarioService.obtenerUsuarioPorId(1L); // Temporal, until login works
-        hilo.setAutor(autor);
+//        Usuario autor = usuarioService.obtenerUsuarioPorId(1L); // Temporal, until login works
+//        hilo.setAutor(autor);
         hiloService.guardarHilo(hilo);
         return "redirect:/foro/hilo/" + hilo.getId();
     }
@@ -62,9 +59,9 @@ public class ForoController {
     @PostMapping("/hilo/{id}/mensaje")
     public String agregarMensaje(@PathVariable Long id, @ModelAttribute("nuevoMensaje") EntidadMensaje mensaje) {
         EntidadHilo hilo = hiloService.obtenerHiloPorId(id);
-        Usuario autor = usuarioService.obtenerUsuarioPorId(1L); // Temporal, until login works
+//        Usuario autor = usuarioService.obtenerUsuarioPorId(1L); // Temporal, until login works
         mensaje.setHilo(hilo);
-        mensaje.setAutor(autor);
+//        mensaje.setAutor(autor);
         mensaje.setFechaPublicacion(LocalDateTime.now());
         mensajeService.guardarMensaje(mensaje);
         return "redirect:/foro/hilo/" + id;

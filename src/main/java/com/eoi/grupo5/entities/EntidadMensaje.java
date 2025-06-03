@@ -29,9 +29,9 @@ public class EntidadMensaje {
     private EntidadHilo hilo;
 
     // TODO: Reemplazar con la clase Usuario de Jose Angel cuando esté lista
-    @ManyToOne
-    @JoinColumn(name = "id_escritor")
-    private Usuario autor;
+//    @ManyToOne
+//    @JoinColumn(name = "id_escritor")
+//    private Usuario autor;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_citado")

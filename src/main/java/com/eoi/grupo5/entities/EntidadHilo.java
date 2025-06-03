@@ -29,10 +29,10 @@ public class EntidadHilo {
     private LocalDateTime fechaCreacion;
 
     // TODO: Reemplazar con la clase Usuario de Jose Angel cuando esté lista
-    @ManyToOne
-    @JoinColumn(name = "idCreador") // This is what Hibernate auto-generates anyway
-    private Usuario autor;
-
-    @OneToMany(mappedBy = "hilo", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private List<EntidadMensaje> mensajes = new ArrayList<>();
+//    @ManyToOne
+//    @JoinColumn(name = "idCreador") // This is what Hibernate auto-generates anyway
+//    private Usuario autor;
+//
+//    @OneToMany(mappedBy = "hilo", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+//    private List<EntidadMensaje> mensajes = new ArrayList<>();
 }
