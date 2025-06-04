@@ -70,18 +70,19 @@ public class RegisterController {
         } else{
             BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-            registro.setNombre("-");
-            registro.setApellidos("-");
-            registro.setTipo(Usuario.Tipo.USER);
-
             Usuario guardado = registro;
+
+            guardado.setNombre("-");
+            guardado.setApellidos("-");
+            guardado.setTipo(Usuario.Tipo.USER);
+
             guardado.setPassword(passwordEncoder.encode(registro.getPassword()));
 
             usuarioRepository.save(guardado);
 
             log.info("-Procesando nuevo usuario: " + guardado);
 
-            return "redirect:/inicioSesion";
+            return "redirect:/login";
         }
 
     }

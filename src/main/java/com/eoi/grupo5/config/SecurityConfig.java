@@ -11,6 +11,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -50,19 +52,22 @@ public class SecurityConfig {
      *
      * @Author No se especificó autor.
      */
+//    @Bean
+//    public UserDetailsService userDetailsService() {
+//        String name = environment.getProperty("spring.security.user.name", "user");
+//        String password = environment.getProperty("spring.security.user.password", "password");
+//
+//        var user = User.withUsername(name)
+//                .password("{noop}" + password) // {noop} indica que no se usa encoder para simplificar (solo pruebas)
+//                .roles("USER")
+//                .build();
+//
+//        return new InMemoryUserDetailsManager(user);
+//    }
     @Bean
-    public UserDetailsService userDetailsService() {
-        String name = environment.getProperty("spring.security.user.name", "user");
-        String password = environment.getProperty("spring.security.user.password", "password");
-
-        var user = User.withUsername(name)
-                .password("{noop}" + password) // {noop} indica que no se usa encoder para simplificar (solo pruebas)
-                .roles("USER")
-                .build();
-
-        return new InMemoryUserDetailsManager(user);
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
-
     /**
      * Configura una cadena de filtros de seguridad para gestionar la seguridad HTTP de la aplicación.
      * Permite personalizar los comportamientos de seguridad como protección CSRF, autenticación básica,
@@ -93,7 +98,8 @@ public class SecurityConfig {
                 .formLogin(Customizer.withDefaults())
                 .formLogin(form -> form
                         .loginPage("/login")
-                        .defaultSuccessUrl("/usuario", true)
+                        .defaultSuccessUrl("/usuario")
+                        .failureUrl("/login?error")
                         .permitAll()
                 )
                 .logout(logout -> logout
@@ -107,13 +113,15 @@ public class SecurityConfig {
                         .requestMatchers("/foro").permitAll()
                         .requestMatchers("/foro/hilo").permitAll()
                         .requestMatchers("/usuario").permitAll()
-                        .requestMatchers("/inicioSesion").permitAll()
+                        .requestMatchers("/login").permitAll()
                         .requestMatchers("/registro").permitAll()
                         .requestMatchers("/paginaDeProducto").permitAll()
                         .requestMatchers("/perfilSupermercado").permitAll()
-                        .requestMatchers("/entities/*").permitAll()
-                        .requestMatchers("/css/*").permitAll()
-                        .requestMatchers("/images/*").permitAll()
+                        .requestMatchers("/entities/**").permitAll()
+                        .requestMatchers("/css/**").permitAll()
+                        .requestMatchers("/images/**").permitAll()
+                        .requestMatchers(HttpMethod.POST,"/login").permitAll()
+                        .requestMatchers(HttpMethod.POST,"/registro").permitAll()
                         .requestMatchers(HttpMethod.POST,"/entidades/deleteHija/*").authenticated()
                         .anyRequest().authenticated()
                 );

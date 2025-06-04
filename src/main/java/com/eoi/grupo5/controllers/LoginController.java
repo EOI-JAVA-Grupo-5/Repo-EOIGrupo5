@@ -18,16 +18,16 @@ import java.util.Optional;
 
 @Slf4j
 @Controller
-@RequestMapping("/inicioSesion")
+@RequestMapping("/login")
 public class LoginController {
 
-    private UsuarioRepository usuarioRepository;
-    private UsuarioService usuarioService;
+//    private UsuarioRepository usuarioRepository;
+//    private UsuarioService usuarioService;
 
-    public LoginController(UsuarioRepository usuarioRepository, UsuarioService usuarioService){
-        this.usuarioRepository = usuarioRepository;
-        this.usuarioService = usuarioService;
-    }
+//    public LoginController(UsuarioRepository usuarioRepository, UsuarioService usuarioService){
+//        this.usuarioRepository = usuarioRepository;
+//        this.usuarioService = usuarioService;
+//    }
 
     @ModelAttribute(name="usuario")
     public Usuario usuario(){
@@ -46,46 +46,46 @@ public class LoginController {
         return "login";
     }
 
-
-    /**
-     * Al hacer POST, se guarda el usuario en la base de datos
-     * @param usuario - Usuario para iniciar sesion
-     * @param errors
-     * @param model
-     * @return vuelve a "registro" si hay errores, redirige a "login" si todo ha ido bien
-     */
-    @PostMapping
-    public String loginUsuario(@Valid @ModelAttribute(name = "usuario") Usuario usuario, Errors errors, Model model){
-
-        log.info("Intentando LOGIN");
-        if(errors.hasErrors()){
-            log.info("-ERROR EN LOGIN-");
-            return "login";
-        }
-
-        //Buscamos si el correo del usuario proporcionado existe en la BBDD
-        Optional<Usuario> encontrado = usuarioRepository.findByUsername(usuario.getUsername());
-
-        //Si existe
-        if (encontrado.isPresent()){
-            //Pasamos de Optional a Usuario
-            Usuario usuarioBD = encontrado.get();
-
-            //Comprobamos que la contraseña introducida sea igual a la contraseña guardada en BBDD
-            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-            
-            if(encoder.matches(usuario.getPassword(), usuarioBD.getPassword())){
-                log.info("-LOGIN CORRECTO-");
-                return "redirect:/usuario";
-            }else{
-                log.info("-CONTRASEÑA INCORRECTA PARA USUARIO " + usuarioBD.getUsername());
-                return "redirect:/inicioSesion";
-            }
-
-        }else{
-            log.info("-USUARIO NO ENCONTRADO-");
-            return "redirect:/inicioSesion";
-        }
-
-    }
+//
+//    /**
+//     * Al hacer POST, se guarda el usuario en la base de datos
+//     * @param usuario - Usuario para iniciar sesion
+//     * @param errors
+//     * @param model
+//     * @return vuelve a "registro" si hay errores, redirige a "login" si todo ha ido bien
+//     */
+//    @PostMapping
+//    public String loginUsuario(@Valid @ModelAttribute(name = "usuario") Usuario usuario, Errors errors, Model model){
+//
+//        log.info("Intentando LOGIN");
+//        if(errors.hasErrors()){
+//            log.info("-ERROR EN LOGIN-");
+//            return "login";
+//        }
+//
+//        //Buscamos si el correo del usuario proporcionado existe en la BBDD
+//        Optional<Usuario> encontrado = usuarioRepository.findByUsername(usuario.getUsername());
+//
+//        //Si existe
+//        if (encontrado.isPresent()){
+//            //Pasamos de Optional a Usuario
+//            Usuario usuarioBD = encontrado.get();
+//
+//            //Comprobamos que la contraseña introducida sea igual a la contraseña guardada en BBDD
+//            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+//
+//            if(encoder.matches(usuario.getPassword(), usuarioBD.getPassword())){
+//                log.info("-LOGIN CORRECTO-");
+//                return "redirect:/usuario";
+//            }else{
+//                log.info("-CONTRASEÑA INCORRECTA PARA USUARIO " + usuarioBD.getUsername());
+//                return "redirect:/inicioSesion";
+//            }
+//
+//        }else{
+//            log.info("-USUARIO NO ENCONTRADO-");
+//            return "redirect:/inicioSesion";
+//        }
+//
+//    }
 }
