@@ -20,9 +20,17 @@ public class UsuarioDetailsService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Usuario usuario = usuarioRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
+    public UserDetails loadUserByUsername(String credencialUsuario) throws UsernameNotFoundException {
+
+        Usuario usuario;
+
+//        if(credencialUsuario.contains("@")){
+//            usuario = usuarioRepository.findByCorreoEquals(credencialUsuario)
+//                    .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
+//        }else{
+            usuario = usuarioRepository.findByUsername(credencialUsuario)
+                    .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
+//        }
 
 
         log.info("+++++++++++++++ USUARIO " + usuario.getUsername());

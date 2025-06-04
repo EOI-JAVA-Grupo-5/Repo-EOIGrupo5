@@ -1,39 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
-<head th:insert="~{plantillas/header :: head}">
-<!--    <meta charset="UTF-8">-->
-<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perfil del Usuario</title>
 
-<!--    &lt;!&ndash; Bootstrap &ndash;&gt;-->
-<!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">-->
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 
-<!--    &lt;!&ndash;Icono de web&ndash;&gt;-->
-<!--    <link rel="apple-touch-icon" sizes="180x180" th:href="@{/images/logo-SF.png}">-->
-<!--    <link rel="icon" type="image/png" sizes="32x32" th:href="@{/images/logo-SF.png}">-->
-<!--    <link rel="icon" type="image/png" sizes="16x16" th:href="@{/images/logo-SF.png}">-->
-<!--    <link rel="shortcut icon" type="image/x-icon" th:href="@{/images/logo-SF.png}">-->
-<!--    -->
-<!--    &lt;!&ndash; Stylesheets &ndash;&gt;-->
-<!--    <link href="assets/css/theme.min.css" rel="stylesheet" />-->
-<!--    <link th:href="@{css/styles.css}" rel="stylesheet"/>-->
-
-
-
-<!--    &lt;!&ndash; iconos &ndash;&gt;-->
-<!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">-->
-<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">-->
+    <!--Icono de web-->
+    <link rel="apple-touch-icon" sizes="180x180" th:href="@{/images/logo-SF.png}">
+    <link rel="icon" type="image/png" sizes="32x32" th:href="@{/images/logo-SF.png}">
+    <link rel="icon" type="image/png" sizes="16x16" th:href="@{/images/logo-SF.png}">
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/images/logo-SF.png}">
+    
+    <!-- Stylesheets -->
+    <link href="assets/css/theme.min.css" rel="stylesheet" />
+    <link th:href="@{css/styles.css}" rel="stylesheet"/>
 
 
-<!--      &lt;!&ndash; Links para el Font &ndash;&gt;-->
-<!--    <link rel="preconnect" href="https://fonts.googleapis.com">-->
-<!--    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>-->
-<!--    <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,100..900;1,100..900&display=swap"-->
-<!--    rel="stylesheet">-->
-<!--    <style>-->
 
-<!--    </style>-->
-<!--  -->
+    <!-- iconos -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+
+      <!-- Links para el Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
+    <style>
+
+    </style>
+  
 </head>
 <body>
 
@@ -90,15 +90,15 @@
                         </div>
                     </form>
 
-                    <div class="d-grid p-3">
-                        <button
-                            type="button"
-                            name=""
-                            id="btnLog"
-                            class="btn btn-warning rounded-pill"
-                        >
-                            <i class="bi bi-person-circle"></i> Login
-                        </button>
+<!--                    <div class="d-grid p-3">-->
+<!--                        <button-->
+<!--                            type="button"-->
+<!--                            name=""-->
+<!--                            id="btnLog"-->
+<!--                            class="btn btn-warning rounded-pill"-->
+<!--                        >-->
+<!--                            <i class="bi bi-person-circle"></i> Login-->
+<!--                        </button>-->
                     </div>
 
                     <div class="d-grid p-3">
@@ -126,6 +126,9 @@
     <section class="p-3" id="datos-perfil">
         <div class="container">
             <h2>Perfil</h2>
+            <form th:action="@{/logout}" method="POST">
+                <input type="submit" value="Logout"/>
+            </form>
             <div
                 class="row justify-content-center align-items-center g-2"
             >
@@ -135,7 +138,10 @@
                         <img class="card-img-top rounded-circle justify-content-center align-self-center p-2" style="width: 12rem;height: fit-content;" src="https://content.imageresizer.com/images/memes/rizz-apple-meme-5.jpg" alt="Image-Avatar">
                         <div class="card-body text-center">
                             <h4 id="userName" class="card-title"><span th:text="${username}">Usuario</span></h4>
-                            <p class="card-text">Aquí puede haber cosos yoquese</p>
+                            <p class="card-text">
+                                <span sec:authorize="hasAuthority('ADMIN')">ADMINISTRADOR</span>
+                                <span sec:authorize="hasAuthority('USER')">USUARIO BÁSICO</span>
+                            </p>
                         </div>
                     </div>   
                 </div>

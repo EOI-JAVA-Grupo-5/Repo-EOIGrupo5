@@ -123,9 +123,9 @@ public class DefaultController {
             // y acceder a otros campos como correo, nombre real, etc.
             if (userDetails instanceof UsuarioDetailsService) {
                 UsuarioDetailsService usuario = (UsuarioDetailsService) userDetails;
-                model.addAttribute("username", usuario.getUsername());
-                model.addAttribute("email", usuario.getCorreo());      // <- correo
-                model.addAttribute("nombre", usuario.getNombre());    // <- nombre real
+//                model.addAttribute("username", usuario.getUsername());
+//                model.addAttribute("email", usuario.getCorreo());      // <- correo
+//                model.addAttribute("nombre", usuario.getNombre());    // <- nombre real
             } else {
                 model.addAttribute("username", userDetails.getUsername());
             }

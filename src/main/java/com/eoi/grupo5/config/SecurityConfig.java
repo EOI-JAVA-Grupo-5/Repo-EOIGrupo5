@@ -98,12 +98,16 @@ public class SecurityConfig {
                 .formLogin(Customizer.withDefaults())
                 .formLogin(form -> form
                         .loginPage("/login")
-                        .defaultSuccessUrl("/usuario")
+                        .loginProcessingUrl("/login")
+                        .defaultSuccessUrl("/usuario", true)
                         .failureUrl("/login?error")
                         .permitAll()
                 )
                 .logout(logout -> logout
-                        .logoutSuccessUrl("/inicioSesion?logout")
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/")
+                        .invalidateHttpSession(true)
+                        .deleteCookies("JSESSIONID")
                         .permitAll()
                 )
                 .authorizeHttpRequests(authorize -> authorize
