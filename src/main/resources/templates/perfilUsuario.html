@@ -134,7 +134,7 @@
                     <div class="card bg-light">
                         <img class="card-img-top rounded-circle justify-content-center align-self-center p-2" style="width: 12rem;height: fit-content;" src="https://content.imageresizer.com/images/memes/rizz-apple-meme-5.jpg" alt="Image-Avatar">
                         <div class="card-body text-center">
-                            <h4 id="userName" class="card-title">Nick del usuario</h4>
+                            <h4 id="userName" class="card-title"><span th:text="${username}">Usuario</span></h4>
                             <p class="card-text">Aquí puede haber cosos yoquese</p>
                         </div>
                     </div>   
@@ -147,14 +147,14 @@
                                 <div class="col-sm-3">
                                     <p class="mb-0"><strong>Nombre</strong></p>
                                 </div>
-                                <div class="col-sm-9">Paco Pacoles</div>
+                                <div class="col-sm-9"><span th:text="${nombre}">Paco Pacoles</span></div>
                             </div>
                             <hr>
                             <div class="row">
                                 <div class="col-sm-3">
                                     <p class="mb-0"><strong>Correo</strong></p>
                                 </div>
-                                <div class="col-sm-9">correodelusuario@correo.es</div>
+                                <div class="col-sm-9"><span th:text="${email}">correodelusuario@correo.es</span></div>
                             </div>
                             <hr>
                             <div class="row">

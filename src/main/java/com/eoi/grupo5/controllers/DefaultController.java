@@ -1,13 +1,24 @@
 package com.eoi.grupo5.controllers;
 
 
+import com.eoi.grupo5.entities.Usuario;
+import com.eoi.grupo5.security.UsuarioDetailsService;
 import com.eoi.grupo5.services.EntidadHijaService;
 import com.eoi.grupo5.services.EntidadPadreService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.security.Principal;
+import java.util.Collection;
 
 /**
  * Controlador encargado de manejar las solicitudes relacionadas con la entidad principal.
@@ -97,7 +108,30 @@ public class DefaultController {
     @GetMapping("/usuario")
     public String usuario(Model model)
     {
-        return "perfilUsuario"; // View name
+//        model.addAttribute("username", principal.getName());
+//        return "perfilUsuario"; // View name
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Object principal = authentication.getPrincipal();
+
+        if (principal instanceof UserDetails) {
+            UserDetails userDetails = (UserDetails) principal;
+            String username = userDetails.getUsername();         // nombre de usuario
+            String password = userDetails.getPassword();         // contraseña (generalmente cifrada)
+            Collection<? extends GrantedAuthority> roles = userDetails.getAuthorities(); // roles
+
+            // Si usas una clase propia (como Usuario), puedes hacer un cast
+            // y acceder a otros campos como correo, nombre real, etc.
+            if (userDetails instanceof UsuarioDetailsService) {
+                UsuarioDetailsService usuario = (UsuarioDetailsService) userDetails;
+                model.addAttribute("username", usuario.getUsername());
+                model.addAttribute("email", usuario.getCorreo());      // <- correo
+                model.addAttribute("nombre", usuario.getNombre());    // <- nombre real
+            } else {
+                model.addAttribute("username", userDetails.getUsername());
+            }
+        }
+
+        return "perfilUsuario";
     }
 
     @GetMapping("/forum")
@@ -113,7 +147,7 @@ public class DefaultController {
     }
 
     @GetMapping("/paginaDeInicio")
-    public String paginaDeInicio(Model model)
+    public String paginaDeInicio(Principal principal, Model model)
     {
         return "paginaDeInicio"; // View name
     }
