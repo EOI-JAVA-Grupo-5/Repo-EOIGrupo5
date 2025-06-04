@@ -1,13 +1,11 @@
 package com.eoi.grupo5.controllers;
 
 
-import com.eoi.grupo5.services.EntidadHijaService;
-import com.eoi.grupo5.services.EntidadPadreService;
+// import com.eoi.grupo5.services.EntidadHijaService;
+// import com.eoi.grupo5.services.EntidadPadreService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 
 /**
  * Controlador encargado de manejar las solicitudes relacionadas con la entidad principal.
@@ -35,24 +33,24 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class DefaultController {
 
-    private final EntidadHijaService entidadHijaService;
-    private final EntidadPadreService entidadPadreService;
-
-    /**
-     * Constructor de la clase DefaultController.
-     * <p>
-     * Inicializa el controlador principal asignando los servicios
-     * utilizados para gestionar las entidades EntidadPadre y EntidadHija.
-     *
-     * @param entidadHijaService  instancia de {@link EntidadHijaService} que proporciona
-     *                            funcionalidades adicionales relacionadas con la entidad EntidadHija.
-     * @param entidadPadreService instancia de {@link EntidadPadreService} que proporciona
-     *                            funcionalidades adicionales relacionadas con la entidad EntidadPadre.
-     */
-    public DefaultController(EntidadHijaService entidadHijaService, EntidadPadreService entidadPadreService) {
-        this.entidadHijaService = entidadHijaService;
-        this.entidadPadreService = entidadPadreService;
-    }
+//    private final EntidadHijaService entidadHijaService;
+//    private final EntidadPadreService entidadPadreService;
+//
+//    /**
+//     * Constructor de la clase DefaultController.
+//     * <p>
+//     * Inicializa el controlador principal asignando los servicios
+//     * utilizados para gestionar las entidades EntidadPadre y EntidadHija.
+//     *
+//     * @param entidadHijaService  instancia de {@link EntidadHijaService} que proporciona
+//     *                            funcionalidades adicionales relacionadas con la entidad EntidadHija.
+//     * @param entidadPadreService instancia de {@link EntidadPadreService} que proporciona
+//     *                            funcionalidades adicionales relacionadas con la entidad EntidadPadre.
+//     */
+//    public DefaultController(EntidadHijaService entidadHijaService, EntidadPadreService entidadPadreService) {
+//        this.entidadHijaService = entidadHijaService;
+//        this.entidadPadreService = entidadPadreService;
+//    }
 
     /**
      * Método que lista las entidades disponibles y las añade al modelo para ser utilizadas en la vista.
@@ -62,12 +60,12 @@ public class DefaultController {
      *              Aquí se añade un atributo llamado "entities" con la lista obtenida del repositorio.
      * @return Una cadena que representa el nombre de la vista ("entitiesList") donde se renderizarán las entidades.
      */
-    @GetMapping("/entities")
-    public String listEntities(Model model)
-    {
-        model.addAttribute("entidades", entidadHijaService.findAll());
-        return "entidadesHijas"; // View name
-    }
+//    @GetMapping("/entities")
+//    public String listEntities(Model model)
+//    {
+//        model.addAttribute("entidades", entidadHijaService.findAll());
+//        return "entidadesHijas"; // View name
+//    }
 
 
     @GetMapping("/")
@@ -100,11 +98,11 @@ public class DefaultController {
         return "perfilUsuario"; // View name
     }
 
-    @GetMapping("/forum")
-    public String forum(Model model)
-    {
-        return "forum"; // View name
-    }
+//    @GetMapping("/forum")
+//    public String forum(Model model)
+//    {
+//        return "forum"; // View name
+//    }
 
     @GetMapping("/perfilSupermercado")
     public String perfilSupermercado(Model model)
@@ -134,38 +132,38 @@ public class DefaultController {
      *              Contendrá la lista de entidades recuperadas desde el repositorio.
      * @return El nombre de la vista "entitiesList" donde se mostrará la lista de entidades.
      */
-    @GetMapping("/protected")
-    public String protectedList(Model model)
-    {
-        model.addAttribute("entidades", entidadPadreService.findAll());
-        return "entidadesPadre"; // View name
-    }
+//    @GetMapping("/protected")
+//    public String protectedList(Model model)
+//    {
+//        model.addAttribute("entidades", entidadPadreService.findAll());
+//        return "entidadesPadre"; // View name
+//    }
 
 
-    /**
-     * Deletes an EntidadHija entity by its ID using the EntidadHijaService.
-     *
-     * @param id The ID of the EntidadHija to delete.
-     * @return A redirect to the "/protected" endpoint after deletion.
-     */
-    @PostMapping("/entidades/deleteHija/{id}")
-    public String deleteEntidadHija(@PathVariable Long id) {
-        entidadHijaService.deleteById(id);
-        return "redirect:/entities";
-    }
+//    /**
+//     * Deletes an EntidadHija entity by its ID using the EntidadHijaService.
+//     *
+//     * @param id The ID of the EntidadHija to delete.
+//     * @return A redirect to the "/protected" endpoint after deletion.
+//     */
+//    @PostMapping("/entidades/deleteHija/{id}")
+//    public String deleteEntidadHija(@PathVariable Long id) {
+//        entidadHijaService.deleteById(id);
+//        return "redirect:/entities";
+//    }
 
 
 
-    /**
-     * Deletes an EntidadHija entity by its ID using the EntidadHijaService.
-     *
-     * @param id The ID of the EntidadHija to delete.
-     * @return A redirect to the "/protected" endpoint after deletion.
-     */
-    @PostMapping("/entidades/deletePadre/{id}")
-    public String deleteEntidadPadre(@PathVariable Long id) {
-        entidadPadreService.deleteById(id);
-        return "redirect:/entities";
-    }
+//    /**
+//     * Deletes an EntidadHija entity by its ID using the EntidadHijaService.
+//     *
+//     * @param id The ID of the EntidadHija to delete.
+//     * @return A redirect to the "/protected" endpoint after deletion.
+//     */
+//    @PostMapping("/entidades/deletePadre/{id}")
+//    public String deleteEntidadPadre(@PathVariable Long id) {
+//        entidadPadreService.deleteById(id);
+//        return "redirect:/entities";
+//    }
 
 }
