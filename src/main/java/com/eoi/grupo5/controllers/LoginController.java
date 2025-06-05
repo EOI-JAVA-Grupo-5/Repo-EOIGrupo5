@@ -38,7 +38,7 @@ public class LoginController {
     /**
      * Mapeo GET para la página de registro
      * @param model
-     * @return
+     * @return pagina de login
      */
 
     @GetMapping

@@ -63,6 +63,18 @@
                                     <form method="POST" th:object="${reg_user}">
                                         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 
+<!--                                        <div th:if="${param.error == 'username'}">-->
+<!--                                            <p style="color:red;">El nombre de usuario ya está en uso</p>-->
+<!--                                        </div>-->
+
+<!--                                        <div th:if="${param.error == 'mail'}">-->
+<!--                                            <p style="color:red;">El correo electrónico ya fue registrado</p>-->
+<!--                                        </div>-->
+
+                                        <div th:if="${param.error}">
+                                            <p style="color:red;"th:text="${param.error}">ERROR</p>
+                                        </div>
+
                                         <h5>Introduce tus datos:</h5>
 
                                         <div data-mdb-input-init class="form-outline mb-4">
