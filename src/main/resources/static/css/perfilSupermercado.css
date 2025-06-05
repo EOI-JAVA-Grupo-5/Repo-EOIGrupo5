@@ -16,17 +16,13 @@
     position: relative;
 }
 
-.camion-img {
-    position: absolute;
-    bottom: 100px;
-    right: 10px;
-    max-width: 200px;
-    z-index: 10;
-}
-
 .filter-btn, #infoSuper
 {
     background-color: #fcfdaf;
+}
+
+#infoSuper img {
+    max-width: 150px;
 }
 
 .filter-btn:hover
@@ -37,11 +33,33 @@
 #map{
     height: 400px;
     width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    border-radius: 8px;
+    background-color: #e0e0e0;
 }
 
-#transporte{
-    background-color: #dba0598f;
-    border: 1px solid #dba0598f;
-    border-radius: 10px;
-    box-shadow: 0 0 10px #dba0598f;
+.supermercado-card {
+    transition: all 0.3s ease;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: center;
+    background-color: white;
+}
+
+.supermercado-card:hover {
+    border: 2px solid #fcfdaf;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.supermercado-img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    margin-bottom: 10px;
+}
+
+.supermercado-card:hover .supermercado-nombre {
+    color: #dba159;
 }
