@@ -35,8 +35,8 @@ public class RegisterController {
 
     /**
      * Mapeo GET para la página de registro
-     * @param model
-     * @return
+     * @param model - Modelo
+     * @return Pagina de registro
      */
 
     @GetMapping
@@ -46,11 +46,11 @@ public class RegisterController {
 
 
     /**
-     * Al hacer POST, se guarda el usuario en la base de datos
-     * @param registro - Usuario a registrar
-     * @param errors
-     * @param model
-     * @return vuelve a "registro" si hay errores, redirige a "login" si todo ha ido bien
+     * Al hacer POST, se guarda el usuario en la base de datos o vuelve a la pagina de registro si hay errores
+     * @param registro - Usuario a registrar (username, correo y contraseña)
+     * @param errors - Errores
+     * @param model - Modelo
+     * @return redirige a "registro" si hay errores, redirige a "login" si todo ha ido bien
      */
     @PostMapping
     public String procesarNuevoUsuario(@Valid @ModelAttribute(name = "reg_user") Usuario registro, Errors errors, Model model){
@@ -58,15 +58,16 @@ public class RegisterController {
             return "register";
         }
 
+        //Comprueba que el correo y el usuario existan en la BBDD. Si ya existen, devuelve un error. Si no, registra al usuario.
         if (usuarioRepository.findByCorreoEquals(registro.getCorreo()).isPresent()){
             log.info("-EL CORREO YA FUE REGISTRADO-");
 
-            return "register";
+            return "redirect:registro?error=El correo ya fue registrado";
 
         } else if (usuarioService.findByUsername(registro.getUsername()).isPresent()) {
             log.info("-EL NICK YA ESTÁ EN USO-");
 
-            return "register";
+            return "redirect:registro?error=El nombre de usuario ya esta en uso";
         } else{
             BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 

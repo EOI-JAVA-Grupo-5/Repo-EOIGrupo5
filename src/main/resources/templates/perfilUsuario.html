@@ -125,10 +125,22 @@
     <!-- PERFIL -->
     <section class="p-3" id="datos-perfil">
         <div class="container">
-            <h2>Perfil</h2>
-            <form th:action="@{/logout}" method="POST">
-                <input type="submit" value="Logout"/>
-            </form>
+            <div class="row">
+                <div class="col-12">
+                    <h2>Perfil</h2>
+                    <form th:action="@{/logout}" method="POST">
+                        <button
+                                type="submit"
+                                name=""
+                                id="btnLogout"
+                                class="btn btn-outline-danger rounded-pill"
+                        >
+                            Cerrar Sesión
+                        </button>
+                    </form>
+                </div>
+            </div>
+
             <div
                 class="row justify-content-center align-items-center g-2"
             >
