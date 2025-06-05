@@ -94,17 +94,17 @@ public class LocalDataLoader {
     @PostConstruct
     public void loadDataLocal() {
 
-        log.info("Iniciando la carga de datos para el perfil local");
-        int numeroEntidades = 100;
-        EntidadPadre[] entidades = new EntidadPadre[numeroEntidades];
-        Arrays.setAll(entidades, i -> new EntidadPadre("Entidad-" + (Integer.valueOf(i)+1)));
-        repository.saveAll(Arrays.asList(entidades));
-        for (EntidadPadre entidadPadre : entidades) {
-            EntidadHija entidadHija = new EntidadHija("Hija de " + entidadPadre.getNombre());
-            entidadHija.setEntidadPadre(entidadPadre);
-            entidadHijaRepository.save(entidadHija);
-        }
-        log.info("Datos de entidades cargados correctamente.");
+//        log.info("Iniciando la carga de datos para el perfil local");
+//        int numeroEntidades = 100;
+//        EntidadPadre[] entidades = new EntidadPadre[numeroEntidades];
+//        Arrays.setAll(entidades, i -> new EntidadPadre("Entidad-" + (Integer.valueOf(i)+1)));
+//        repository.saveAll(Arrays.asList(entidades));
+//        for (EntidadPadre entidadPadre : entidades) {
+//            EntidadHija entidadHija = new EntidadHija("Hija de " + entidadPadre.getNombre());
+//            entidadHija.setEntidadPadre(entidadPadre);
+//            entidadHijaRepository.save(entidadHija);
+//        }
+//        log.info("Datos de entidades cargados correctamente.");
     }
 
 
