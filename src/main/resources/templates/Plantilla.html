@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -88,14 +88,21 @@
                     </form>
 
                     <div class="d-grid p-3">
-                        <button
-                                type="button"
-                                name=""
-                                id="btnLog"
-                                class="btn btn-warning rounded-pill"
-                        >
-                            <i class="bi bi-person-circle"></i> Login
-                        </button>
+                        <div sec:authorize="isAuthenticated()">
+                            <a th:href="@{/usuario}">
+                                <button type="button" class="btn btn-warning rounded-pill">
+                                    <i class="bi bi-person-circle"></i> Perfil
+                                </button>
+                            </a>
+                        </div>
+
+                        <div sec:authorize="!isAuthenticated()">
+                            <a th:href="@{/login}">
+                                <button type="button" class="btn btn-warning rounded-pill">
+                                    <i class="bi bi-person-circle"></i> Login
+                                </button>
+                            </a>
+                        </div>
                     </div>
 
                     <div class="d-grid p-3">
