@@ -60,28 +60,43 @@
                                         <h3 class="mt-1 mb-5 pb-1"><strong>Castañazo Deals</strong></h3>
                                     </div>
 
-                                    <form>
+                                    <form method="POST" th:object="${reg_user}">
+                                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+
+<!--                                        <div th:if="${param.error == 'username'}">-->
+<!--                                            <p style="color:red;">El nombre de usuario ya está en uso</p>-->
+<!--                                        </div>-->
+
+<!--                                        <div th:if="${param.error == 'mail'}">-->
+<!--                                            <p style="color:red;">El correo electrónico ya fue registrado</p>-->
+<!--                                        </div>-->
+
+                                        <div th:if="${param.error}">
+                                            <p style="color:red;"th:text="${param.error}">ERROR</p>
+                                        </div>
+
                                         <h5>Introduce tus datos:</h5>
 
                                         <div data-mdb-input-init class="form-outline mb-4">
-                                            <label class="form-label" for="form2Example11">Nombre de usuario</label>
-                                            <input type="email" id="form2Example11" class="form-control"
-                                                placeholder="Juan_Platano" />
+                                            <label class="form-label" for="username">Nombre de usuario</label>
+                                            <input type="text" id="username" class="form-control"
+                                                placeholder="Juan_Platano" th:field="*{username}"/>
 
                                         </div>
 
                                         <div data-mdb-input-init class="form-outline mb-4">
-                                            <label class="form-label" for="form2Example12">Correo electrónico</label>
-                                            <input type="email" id="form2Example12" class="form-control"
-                                                placeholder="ejemplo@castañazo.com" />
+                                            <label class="form-label" for="mail">Correo electrónico</label>
+                                            <input type="email" id="mail" class="form-control"
+                                                placeholder="ejemplo@castañazo.com" th:field="*{correo}"/>
                                         </div>
 
                                         <div data-mdb-input-init class="form-outline mb-4">
-                                            <label class="form-label" for="form2Example22">Contraseña</label>
-                                            <input type="password" id="form2Example22" class="form-control"
-                                                placeholder="•••••••••" />
+                                            <label class="form-label" for="password">Contraseña</label>
+                                            <input type="password" id="password" class="form-control"
+                                                placeholder="•••••••••" th:field="*{password}"/>
 
                                         </div>
+
 
                                         <div class="pt-1 mb-5 pb-1">
 <!--                                            NEWSLETTER-->
@@ -93,19 +108,19 @@
 <!--                                            </div>-->
                                             <button id="btnLogin" data-mdb-button-init data-mdb-ripple-init
                                                 class="btn btn-primary btn-block fa-lg mb-3 rounded-pill"
-                                                type="button">Register</button>
+                                                type="submit">Register</button>
 
-                                        </div>
-
-                                        <div class="d-flex align-items-center justify-content-center pb-4">
-                                            <p class="mb-0 me-2">¿Ya tienes cuenta?</p>
-                                            <a th:href="@{/inicioSesion}">
-                                                <button type="button" data-mdb-button-init data-mdb-ripple-init
-                                                        class="btn btn-outline-warning rounded-pill">Inicia sesión</button>
-                                            </a>
                                         </div>
 
                                     </form>
+
+                                    <div class="d-flex align-items-center justify-content-center pb-4">
+                                        <p class="mb-0 me-2">¿Ya tienes cuenta?</p>
+                                        <a th:href="@{/inicioSesion}">
+                                            <button type="button" data-mdb-button-init data-mdb-ripple-init
+                                                    class="btn btn-outline-warning rounded-pill">Inicia sesión</button>
+                                        </a>
+                                    </div>
 
                                 </div>
                             </div>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -170,11 +170,21 @@
                     </div>
                 </form>
                 <div class="d-grid p-3">
-                    <a th:href="@{/inicioSesion}">
-                        <button type="button" class="btn btn-warning rounded-pill">
-                            <i class="bi bi-person-circle"></i> Login
-                        </button>
-                    </a>
+                    <div  sec:authorize="isAuthenticated()">
+                        <a th:href="@{/usuario}">
+                            <button type="button" class="btn btn-warning rounded-pill">
+                                <i class="bi bi-person-circle"></i> Perfil
+                            </button>
+                        </a>
+                    </div>
+
+                    <div  sec:authorize="!isAuthenticated()">
+                        <a th:href="@{/login}">
+                            <button type="button" class="btn btn-warning rounded-pill">
+                                <i class="bi bi-person-circle"></i> Login
+                            </button>
+                        </a>
+                    </div>
                 </div>
                 <div class="d-grid p-3">
                     <a th:href="@{/carrito}">
@@ -355,6 +365,47 @@
         </div>
     </div>
 </section>
+
+<!-- Más productos -->
+
+<div class="text-center mt-3">
+    <button class="btn btn-orange">Ver más</button>
+</div>
+
+
+<!-- Supermercados Cercanos -->
+        <div class="col">
+            <div class="card h-100">
+                <img src="https://picsum.photos/300/200" class="card-img-top" alt="Oferta 2">
+                <div class="card-body text-center">
+                    <h5 class="card-title">10% de descuento</h5>
+                    <p>Artículo 2</p>
+                    <button class="btn" style="background-color: #dba159; color: white;" aria-label="Ver oferta de Artículo 2">Ver oferta</button>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100">
+                <img src="https://picsum.photos/300/200" class="card-img-top" alt="Oferta 3">
+                <div class="card-body text-center">
+                    <h5 class="card-title">20% de descuento</h5>
+                    <p>Artículo 3</p>
+                    <button class="btn" style="background-color: #dba159; color: white;" aria-label="Ver oferta de Artículo 3">Ver oferta</button>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100">
+                <img src="https://picsum.photos/300/200" class="card-img-top" alt="Oferta 3">
+                <div class="card-body text-center">
+                    <h5 class="card-title">50% de descuento</h5>
+                    <p>Artículo 4</p>
+                    <button class="btn" style="background-color: #dba159; color: white;" aria-label="Ver oferta de Artículo 3">Ver oferta</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 <!-- Más productos -->
         </div>
         <div class="text-center mt-3">
@@ -413,130 +464,130 @@
                 <p><strong>@ 2025. Todos los derechos reservados.</strong></p>
             </footer> -->
 
-            <footer
-                    class="text-center text-lg-start"
-                    style="background-color: #efd780"
+        <footer
+                class="text-center text-lg-start"
+                style="background-color: #efd780"
+        >
+            <!-- Section: Social media -->
+            <section
+                    class="d-flex justify-content-between p-4"
+                    style="background-color: #dba159"
             >
-                <!-- Section: Social media -->
-                <section
-                        class="d-flex justify-content-between p-4"
-                        style="background-color: #dba159"
-                >
-                    <!-- Left -->
-                    <div class="me-5" style="color: #fcfdaf;">
-                        <span><strong>Síguenos en nuestras redes sociales:</strong></span>
-                    </div>
-                    <!-- Left -->
+                <!-- Left -->
+                <div class="me-5" style="color: #fcfdaf;">
+                    <span><strong>Síguenos en nuestras redes sociales:</strong></span>
+                </div>
+                <!-- Left -->
 
-                    <!-- Right -->
-                    <div>
-                        <a href="" class="icono-red-footer me-4">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a href="" class="icono-red-footer me-4">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="" class="icono-red-footer me-4">
-                            <i class="fab fa-google"></i>
-                        </a>
-                        <a href="" class="icono-red-footer me-4">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="" class="icono-red-footer me-4">
-                            <i class="fab fa-linkedin"></i>
-                        </a>
-                        <a href="" class="icono-red-footer me-4">
-                            <i class="fab fa-github"></i>
-                        </a>
-                    </div>
-                    <!-- Right -->
-                </section>
-                <!-- Section: Social media -->
+                <!-- Right -->
+                <div>
+                    <a href="" class="icono-red-footer me-4">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="" class="icono-red-footer me-4">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="" class="icono-red-footer me-4">
+                        <i class="fab fa-google"></i>
+                    </a>
+                    <a href="" class="icono-red-footer me-4">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="" class="icono-red-footer me-4">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="" class="icono-red-footer me-4">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </div>
+                <!-- Right -->
+            </section>
+            <!-- Section: Social media -->
 
-                <!-- Section: Links  -->
-                <section class="">
-                    <div class="container text-center text-md-start mt-5">
-                        <!-- Grid row -->
-                        <div class="row mt-3">
-                            <!-- Grid column -->
-                            <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-                                <!-- Content -->
-                                <h6 class="text-uppercase fw-bold">Sobre Castañazo Deals</h6>
-                                <hr
-                                        class="mb-4 mt-0 d-inline-block mx-auto"
-                                        style="width: 60px; background-color: #dba159; height: 2px"
-                                />
-                                <p>
-                                    Aquí va propaganda pura y dura, sin filtrar. Café para los mas cafeteros.
-                                </p>
-                            </div>
-                            <!-- Grid column -->
-
-                            <!-- Grid column -->
-                            <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-                                <!-- Links -->
-                                <h6 class="text-uppercase fw-bold">Cosas</h6>
-                                <hr
-                                        class="mb-4 mt-0 d-inline-block mx-auto"
-                                        style="width: 60px; background-color: #dba159; height: 2px"
-                                />
-                                <p>
-                                    <a href="#!" class="text-blue">Cosa 1</a>
-                                </p>
-                                <p>
-                                    <a href="#!" class="text-blue">Cosa 2</a>
-                                </p>
-                                <p>
-                                    <a href="#!" class="text-blue">Cosa 3</a>
-                                </p>
-                                <p>
-                                    <a href="#!" class="text-blue">Cosa 4</a>
-                                </p>
-                            </div>
-                            <!-- Grid column -->
-
-                            <!-- Grid column -->
-                            <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-                                <!-- Links -->
-                                <h6 class="text-uppercase fw-bold">Links Útiles</h6>
-                                <hr
-                                        class="mb-4 mt-0 d-inline-block mx-auto"
-                                        style="width: 60px; background-color: #dba159; height: 2px"
-                                />
-                                <p>
-                                    <a href="#!" class="text-blue">Link 1</a>
-                                </p>
-                                <p>
-                                    <a href="#!" class="text-blue">Link 2</a>
-                                </p>
-                                <p>
-                                    <a href="#!" class="text-blue">Link 3</a>
-                                </p>
-                                <p>
-                                    <a href="#!" class="text-blue">Link 4</a>
-                                </p>
-                            </div>
-                            <!-- Grid column -->
-
-                            <!-- Grid column -->
-                            <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-                                <!-- Links -->
-                                <h6 class="text-uppercase fw-bold">Contacto</h6>
-                                <hr
-                                        class="mb-4 mt-0 d-inline-block mx-auto"
-                                        style="width: 60px; background-color: #dba059; height: 2px"
-                                />
-                                <p><i class="fas fa-home mr-3"></i> Sevilla, Sevilla, ES</p>
-                                <p><i class="fas fa-envelope mr-3"></i> info@castañazodeals.es</p>
-                                <p><i class="fas fa-phone mr-3"></i> + 01 234 567 88</p>
-                                <p><i class="fas fa-print mr-3"></i> + 01 234 567 89</p>
-                            </div>
-                            <!-- Grid column -->
+            <!-- Section: Links  -->
+            <section class="">
+                <div class="container text-center text-md-start mt-5">
+                    <!-- Grid row -->
+                    <div class="row mt-3">
+                        <!-- Grid column -->
+                        <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                            <!-- Content -->
+                            <h6 class="text-uppercase fw-bold">Sobre Castañazo Deals</h6>
+                            <hr
+                                    class="mb-4 mt-0 d-inline-block mx-auto"
+                                    style="width: 60px; background-color: #dba159; height: 2px"
+                            />
+                            <p>
+                                Aquí va propaganda pura y dura, sin filtrar. Café para los mas cafeteros.
+                            </p>
                         </div>
-                        <!-- Grid row -->
+                        <!-- Grid column -->
+
+                        <!-- Grid column -->
+                        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+                            <!-- Links -->
+                            <h6 class="text-uppercase fw-bold">Cosas</h6>
+                            <hr
+                                    class="mb-4 mt-0 d-inline-block mx-auto"
+                                    style="width: 60px; background-color: #dba159; height: 2px"
+                            />
+                            <p>
+                                <a href="#!" class="text-blue">Cosa 1</a>
+                            </p>
+                            <p>
+                                <a href="#!" class="text-blue">Cosa 2</a>
+                            </p>
+                            <p>
+                                <a href="#!" class="text-blue">Cosa 3</a>
+                            </p>
+                            <p>
+                                <a href="#!" class="text-blue">Cosa 4</a>
+                            </p>
+                        </div>
+                        <!-- Grid column -->
+
+                        <!-- Grid column -->
+                        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                            <!-- Links -->
+                            <h6 class="text-uppercase fw-bold">Links Útiles</h6>
+                            <hr
+                                    class="mb-4 mt-0 d-inline-block mx-auto"
+                                    style="width: 60px; background-color: #dba159; height: 2px"
+                            />
+                            <p>
+                                <a href="#!" class="text-blue">Link 1</a>
+                            </p>
+                            <p>
+                                <a href="#!" class="text-blue">Link 2</a>
+                            </p>
+                            <p>
+                                <a href="#!" class="text-blue">Link 3</a>
+                            </p>
+                            <p>
+                                <a href="#!" class="text-blue">Link 4</a>
+                            </p>
+                        </div>
+                        <!-- Grid column -->
+
+                        <!-- Grid column -->
+                        <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                            <!-- Links -->
+                            <h6 class="text-uppercase fw-bold">Contacto</h6>
+                            <hr
+                                    class="mb-4 mt-0 d-inline-block mx-auto"
+                                    style="width: 60px; background-color: #dba059; height: 2px"
+                            />
+                            <p><i class="fas fa-home mr-3"></i> Sevilla, Sevilla, ES</p>
+                            <p><i class="fas fa-envelope mr-3"></i> info@castañazodeals.es</p>
+                            <p><i class="fas fa-phone mr-3"></i> + 01 234 567 88</p>
+                            <p><i class="fas fa-print mr-3"></i> + 01 234 567 89</p>
+                        </div>
+                        <!-- Grid column -->
                     </div>
-                </section>
-                <!-- Section: Links  -->
+                    <!-- Grid row -->
+                </div>
+            </section>
+            <!-- Section: Links  -->
 
                 <!-- Copyright -->
                 <div
@@ -552,6 +603,166 @@
             </footer>
         </div>
     </section>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+
+<!-- Inicializar Swiper -->
+<script>
+    const swiper = new Swiper('.supermercados-swiper', {
+        loop: true,
+        autoplay: {
+            delay: 4000,
+        },
+        slidesPerView: 1,
+        spaceBetween: 20,
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        breakpoints: {
+            576: {
+                slidesPerView: 2,
+            },
+            768: {
+                slidesPerView: 3,
+            },
+            992: {
+                slidesPerView: 4,
+            }
+        }
+    });
+</script>
+<script>
+    const supermercados = [
+        {
+            nombre: "Mercadona",
+            logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Mercadona.svg/200px-Mercadona.svg.png",
+            lat: 40.4171,
+            lng: -3.7038
+        },
+        {
+            nombre: "Carrefour",
+            logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Logo_Carrefour.svg/200px-Logo_Carrefour.svg.png",
+            lat: 40.4221,
+            lng: -3.7028
+        },
+        {
+            nombre: "Lidl",
+            logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Lidl-Logo.svg/200px-Lidl-Logo.svg.png",
+            lat: 40.4251,
+            lng: -3.6990
+        },
+        {
+            nombre: "DIA",
+            logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Logo_DIA.svg/200px-Logo_DIA.svg.png",
+            lat: 40.4291,
+            lng: -3.7080
+        },
+        {
+            nombre: "Alcampo",
+            logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Alcampo_logo_2022.svg/200px-Alcampo_logo_2022.svg.png",
+            lat: 40.4335,
+            lng: -3.7150
+        },
+        {
+            nombre: "Eroski",
+            logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Logo_eroski.svg/200px-Logo_eroski.svg.png",
+            lat: 40.4198,
+            lng: -3.6985
+        },
+        {
+            nombre: "Aldi",
+            logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/ALDI_Logo_2017.svg/200px-ALDI_Logo_2017.svg.png",
+            lat: 40.4182,
+            lng: -3.7102
+        },
+        {
+            nombre: "El Corte Inglés",
+            logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/El_Corte_Ingl%C3%A9s_logo.svg/200px-El_Corte_Ingl%C3%A9s_logo.svg.png",
+            lat: 40.4209,
+            lng: -3.7044
+        }
+    ];
+
+    function calcularDistancia(lat1, lon1, lat2, lon2) {
+        const R = 6371;
+        const dLat = (lat2 - lat1) * Math.PI / 180;
+        const dLon = (lon2 - lon1) * Math.PI / 180;
+        const a = Math.sin(dLat / 2) ** 2 +
+            Math.cos(lat1 * Math.PI / 180) *
+            Math.cos(lat2 * Math.PI / 180) *
+            Math.sin(dLon / 2) ** 2;
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        return R * c;
+    }
+
+    function mostrarSupermercadosOrdenados(userLat, userLng) {
+        // Calcular distancias
+        const supermercadosConDistancia = supermercados.map(s => ({
+            ...s,
+            distancia: calcularDistancia(userLat, userLng, s.lat, s.lng)
+        }));
+
+        // Ordenar por distancia
+        supermercadosConDistancia.sort((a, b) => a.distancia - b.distancia);
+
+        // Crear HTML dinámicamente
+        const contenedor = document.getElementById("supermercadoSlides");
+        contenedor.innerHTML = supermercadosConDistancia.map(s => `
+      <div class="swiper-slide">
+        <img src="${s.logo}" class="img-fluid mb-2" style="height: 60px;">
+        <p>
+        <strong>${s.nombre}</strong><br>
+        <svg xmlns="http://www.w3.org/2000/svg" height="16" fill="currentColor" viewBox="0 0 16 16" style="vertical-align: middle; margin-right: 4px;">
+        <path d="M8 0a5.53 5.53 0 0 0-5.5 5.5c0 4.412 5.5 10.5 5.5 10.5s5.5-6.088 5.5-10.5A5.53 5.53 0 0 0 8 0Zm0 7.5a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z"/>
+        </svg>
+         ${s.distancia.toFixed(2)} km
+         </p>
+      </div>
+    `).join("");
+
+        // Iniciar Swiper después de insertar contenido
+        new Swiper('.supermercados-swiper', {
+            loop: true,
+            autoplay: { delay: 4000 },
+            slidesPerView: 1,
+            spaceBetween: 20,
+            pagination: { el: '.swiper-pagination', clickable: true },
+            breakpoints: {
+                576: { slidesPerView: 2 },
+                768: { slidesPerView: 3 },
+                992: { slidesPerView: 4 }
+            }
+        });
+    }
+
+    // Obtener ubicación del usuario
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            pos => mostrarSupermercadosOrdenados(pos.coords.latitude, pos.coords.longitude),
+            () => alert("No se pudo obtener tu ubicación.")
+        );
+    } else {
+        alert("Tu navegador no soporta geolocalización.");
+    }
+</script>
+
+            <!-- Copyright -->
+            <div
+                    class="text-center p-3"
+                    style="background-color: #dba0598f"
+            >
+                © 2025 Copyright:
+                <a class="text-blue" href="https://mdbootstrap.com/"
+                >MDBootstrap.com</a
+                >
+            </div>
+            <!-- Copyright -->
+        </footer>
+    </div>
+</section>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Swiper JS -->

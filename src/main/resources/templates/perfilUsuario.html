@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <html lang="en">
 <head th:insert="~{plantillas/header :: head}">
 <!--    <meta charset="UTF-8">-->
@@ -90,15 +94,15 @@
                         </div>
                     </form>
 
-                    <div class="d-grid p-3">
-                        <button
-                            type="button"
-                            name=""
-                            id="btnLog"
-                            class="btn btn-warning rounded-pill"
-                        >
-                            <i class="bi bi-person-circle"></i> Login
-                        </button>
+<!--                    <div class="d-grid p-3">-->
+<!--                        <button-->
+<!--                            type="button"-->
+<!--                            name=""-->
+<!--                            id="btnLog"-->
+<!--                            class="btn btn-warning rounded-pill"-->
+<!--                        >-->
+<!--                            <i class="bi bi-person-circle"></i> Login-->
+<!--                        </button>-->
                     </div>
 
                     <div class="d-grid p-3">
@@ -125,7 +129,22 @@
     <!-- PERFIL -->
     <section class="p-3" id="datos-perfil">
         <div class="container">
-            <h2>Perfil</h2>
+            <div class="row">
+                <div class="col-12">
+                    <h2>Perfil</h2>
+                    <form th:action="@{/logout}" method="POST">
+                        <button
+                                type="submit"
+                                name=""
+                                id="btnLogout"
+                                class="btn btn-outline-danger rounded-pill"
+                        >
+                            Cerrar Sesión
+                        </button>
+                    </form>
+                </div>
+            </div>
+
             <div
                 class="row justify-content-center align-items-center g-2"
             >
@@ -134,8 +153,11 @@
                     <div class="card bg-light">
                         <img class="card-img-top rounded-circle justify-content-center align-self-center p-2" style="width: 12rem;height: fit-content;" src="https://content.imageresizer.com/images/memes/rizz-apple-meme-5.jpg" alt="Image-Avatar">
                         <div class="card-body text-center">
-                            <h4 id="userName" class="card-title">Nick del usuario</h4>
-                            <p class="card-text">Aquí puede haber cosos yoquese</p>
+                            <h4 id="userName" class="card-title"><span th:text="${username}">Usuario</span></h4>
+                            <p class="card-text">
+                                <span sec:authorize="hasAuthority('ADMIN')">ADMINISTRADOR</span>
+                                <span sec:authorize="hasAuthority('USER')">USUARIO BÁSICO</span>
+                            </p>
                         </div>
                     </div>   
                 </div>
@@ -147,14 +169,14 @@
                                 <div class="col-sm-3">
                                     <p class="mb-0"><strong>Nombre</strong></p>
                                 </div>
-                                <div class="col-sm-9">Paco Pacoles</div>
+                                <div class="col-sm-9"><span th:text="${nombre}">Paco Pacoles</span></div>
                             </div>
                             <hr>
                             <div class="row">
                                 <div class="col-sm-3">
                                     <p class="mb-0"><strong>Correo</strong></p>
                                 </div>
-                                <div class="col-sm-9">correodelusuario@correo.es</div>
+                                <div class="col-sm-9"><span th:text="${email}">correodelusuario@correo.es</span></div>
                             </div>
                             <hr>
                             <div class="row">
