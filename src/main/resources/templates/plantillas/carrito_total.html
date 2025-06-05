@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carrito - Castañazo Deals</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+  <link rel="apple-touch-icon" sizes="180x180" th:href="@{/images/logo-SF.png}">
+  <link rel="icon" type="image/png" sizes="32x32" th:href="@{/images/logo-SF.png}">
+  <link rel="icon" type="image/png" sizes="16x16" th:href="@{/images/logo-SF.png}">
+  <link rel="shortcut icon" type="image/x-wa-icon" th:href="@{/images/logo-SF.png}">
+
+  <link href="assets/css/theme.min.css" rel="stylesheet" />
+  <link th:href="@{css/styles.css}" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+  <style>
+    /* Estilos para las imágenes de los productos en la tabla */
+    .table-responsive img {
+      width: 80px; /* Ajusta este valor si necesitas que las imágenes sean más grandes o pequeñas */
+      height: 80px; /* Mantiene la misma altura que el ancho para una proporción cuadrada */
+      object-fit: cover; /* Asegura que la imagen cubra el área sin deformarse */
+      border-radius: 8px; /* Opcional: para esquinas ligeramente redondeadas */
+    }
+    /* Estilo para que la sección de ahorro tenga un poco de padding en el PDF si es necesario */
+    #savings-section-to-pdf {
+      padding-bottom: 20px; /* Ajusta este valor según sea necesario */
+    }
+  </style>
+
+</head>
+<body>
+
+<section id="navbar-section">
+  <nav class="navbar navbar-expand-sm primary-navbar">
+    <div class="container">
+      <a class="navbar-brand d-inline-flex" th:href="@{/}">
+        <img class="d-inline-block" th:src="@{/images/logo-SF.png}"
+             alt="logo" style="width: 5rem; align-self: center;" id="main-logo"> <span class="text-1000 fs-3 fw-bold ms-2">Castañazo <br> Deals</span>
+      </a>
+      <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="collapsibleNavId">
+        <ul class="navbar-nav me-auto mt-2 mt-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" href="paginaDeProducto" aria-current="page">
+              <i class="fa-solid fa-cube"></i> Productos
+              <span class="visually-hidden">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="perfilSupermercado" aria-current="page">
+              <i class="fa-solid fa-store"></i> Supermercados
+              <span class="visually-hidden">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="forum" aria-current="page">
+              <i class="fa-solid fa-comments"></i> Forum
+              <span class="visually-hidden">(current)</span>
+            </a>
+          </li>
+        </ul>
+
+        <form class="d-flex pt-3 my-2 my-lg-0">
+          <div class="input-group mb-3">
+            <input class="form-control input-box bg-100" type="search" placeholder="Buscar" aria-label="Search" style="border-top-left-radius: 20px; border-bottom-left-radius: 20px">
+            <button class="btn btn-outline-warning text-black my-2 my-sm-0 fa-solid fa-magnifying-glass" type="submit" style="border-top-right-radius: 20px; border-bottom-right-radius: 20px">
+            </button>
+          </div>
+        </form>
+
+        <div class="d-grid p-3">
+          <button type="button" name="" id="btnLog" class="btn btn-warning rounded-pill">
+            <i class="bi bi-person-circle"></i> Login
+          </button>
+        </div>
+
+        <div class="d-grid p-3">
+          <a th:href="@{/carrito}">
+            <button type="button" name="" id="btnCarrito" class="btn btn-warning rounded-pill">
+              <i class="bi bi-cart-fill"></i> Carrito
+            </button>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</section>
+
+<div class="container-xxl py-5 h-75" id="cart-content">
+  <div class="table-responsive">
+    <table class="table table-hover align-middle">
+      <thead class="table-warning">
+      <tr>
+        <th>Producto</th>
+        <th>Precio</th>
+        <th>Cantidad</th>
+        <th>Total</th>
+        <th class="pdf-hide"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr data-product-id="prod-cafe" data-supermarket-name="Cafeteros Deluxe" data-price="3.99">
+        <td>
+          <div class="d-flex align-items-center">
+            <img src="https://picsum.photos/70?random=1" class="rounded" alt="Producto" crossorigin="anonymous" />
+            <div class="ms-3">
+              <p class="fw-bold mb-1">Café Molido 500g</p>
+              <p class="text-muted mb-0">Marca: Cafeteros Deluxe</p>
+            </div>
+          </div>
+        </td>
+        <td class="unit-price">3,99 €</td>
+        <td>
+          <input type="number" class="form-control form-control-sm w-50 product-quantity" value="2" min="1">
+        </td>
+        <td class="product-total">7,98 €</td>
+        <td class="pdf-hide"> <button class="btn btn-danger btn-sm remove-product-btn"><i class="fas fa-trash"></i></button>
+        </td>
+      </tr>
+
+      <tr data-product-id="prod-leche" data-supermarket-name="Vaquita Feliz" data-price="0.89">
+        <td>
+          <div class="d-flex align-items-center">
+            <img src="https://picsum.photos/70?random=2" class="rounded" alt="Producto" crossorigin="anonymous" />
+            <div class="ms-3">
+              <p class="fw-bold mb-1">Leche Entera 1L</p>
+              <p class="text-muted mb-0">Marca: Vaquita Feliz</p>
+            </div>
+          </div>
+        </td>
+        <td class="unit-price">0,89 €</td>
+        <td>
+          <input type="number" class="form-control form-control-sm w-50 product-quantity" value="3" min="1">
+        </td>
+        <td><span class="product-total">2,67 €</span></td>
+        <td class="pdf-hide"> <button class="btn btn-danger btn-sm remove-product-btn"><i class="fas fa-trash"></i></button>
+        </td>
+      </tr>
+
+      <tr data-product-id="prod-cafe" data-supermarket-name="Supermercado Ahorro" data-price="3.50">
+        <td>
+          <div class="d-flex align-items-center">
+            <img src="https://picsum.photos/70?random=3" class="rounded" alt="Producto" crossorigin="anonymous" />
+            <div class="ms-3">
+              <p class="fw-bold mb-1">Café Molido 500g</p>
+              <p class="text-muted mb-0">Marca: Supermercado Ahorro</p>
+            </div>
+          </div>
+        </td>
+        <td class="unit-price">3,50 €</td>
+        <td>
+          <input type="number" class="form-control form-control-sm w-50 product-quantity" value="1" min="1">
+        </td>
+        <td><span class="product-total">3,50 €</span></td>
+        <td class="pdf-hide"> <button class="btn btn-danger btn-sm remove-product-btn"><i class="fas fa-trash"></i></button>
+        </td>
+      </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+  <div class="d-flex justify-content-end">
+    <h4 class="fw-bold">Total: <span id="cart-total">10,65 €</span></h4>
+  </div>
+
+  <div id="savings-section-to-pdf">
+    <div class="d-flex justify-content-end mt-2">
+      <h5 class="fw-bold text-success" id="savings-display" style="display: none;"></h5>
+    </div>
+
+    <div class="d-flex justify-content-end mt-1">
+      <ul id="product-savings-list" class="list-unstyled text-success">
+      </ul>
+    </div>
+  </div>
+  <div class="d-flex justify-content-end mt-4">
+    <button id="generate-pdf-btn" class="btn btn-primary rounded-pill">
+      <i class="bi bi-file-earmark-pdf-fill"></i> Generar PDF de la lista
+    </button>
+  </div>
+
+</div>
+
+<section id="footer">
+  <div class="justify-content-end pt-3">
+    <footer class="text-center text-lg-start" style="background-color: #efd780">
+      <section class="d-flex justify-content-between p-4" style="background-color: #dba159">
+        <div class="me-5" style="color: #fcfdaf;">
+          <span><strong>Síguenos en nuestras redes sociales:</strong></span>
+        </div>
+        <div>
+          <a href="" class="icono-red-footer me-4">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="" class="icono-red-footer me-4">
+            <i class="fab fa-twitter"></i>
+          </a>
+          <a href="" class="icono-red-footer me-4">
+            <i class="fab fa-google"></i>
+          </a>
+          <a href="" class="icono-red-footer me-4">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="" class="icono-red-footer me-4">
+            <i class="fab fa-linkedin"></i>
+          </a>
+          <a href="" class="icono-red-footer me-4">
+            <i class="fab fa-github"></i>
+          </a>
+        </div>
+      </section>
+      <section class="">
+        <div class="container text-center text-md-start mt-5">
+          <div class="row mt-3">
+            <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+              <h6 class="text-uppercase fw-bold">Sobre Castañazo Deals</h6>
+              <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 60px; background-color: #dba159; height: 2px" />
+              <p>
+                Aquí va propaganda pura y dura, sin filtrar. Café para los mas cafeteros.
+              </p>
+            </div>
+            <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+              <h6 class="text-uppercase fw-bold">Cosas</h6>
+              <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 60px; background-color: #dba159; height: 2px" />
+              <p>
+                <a href="#!" class="text-blue">Cosa 1</a>
+              </p>
+              <p>
+                <a href="#!" class="text-blue">Cosa 2</a>
+              </p>
+              <p>
+                <a href="#!" class="text-blue">Cosa 3</a>
+              </p>
+              <p>
+                <a href="#!" class="text-blue">Cosa 4</a>
+              </p>
+            </div>
+            <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+              <h6 class="text-uppercase fw-bold">Links Útiles</h6>
+              <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 60px; background-color: #dba159; height: 2px" />
+              <p>
+                <a href="#!" class="text-blue">Link 1</a>
+              </p>
+              <p>
+                <a href="#!" class="text-blue">Link 2</a>
+              </p>
+              <p>
+                <a href="#!" class="text-blue">Link 3</a>
+              </p>
+              <p>
+                <a href="#!" class="text-blue">Link 4</a>
+              </p>
+            </div>
+            <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+              <h6 class="text-uppercase fw-bold">Contacto</h6>
+              <hr class="mb-4 mt-0 d-inline-block mx-auto" style="width: 60px; background-color: #dba059; height: 2px" />
+              <p><i class="fas fa-home mr-3"></i> Sevilla, Sevilla, ES</p>
+              <p><i class="fas fa-envelope mr-3"></i> info@castañazodeals.es</p>
+              <p><i class="fas fa-phone mr-3"></i> + 01 234 567 88</p>
+              <p><i class="fas fa-print mr-3"></i> + 01 234 567 89</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <div class="text-center p-3" style="background-color: #dba0598f">
+        © 2025 Copyright:
+        <a class="text-blue" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+      </div>
+    </footer>
+  </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+  // Función para parsear un precio de texto a número flotante
+  function parsePrice(priceText) {
+    return parseFloat(priceText.replace('€', '').replace(',', '.').trim());
+  }
+
+  // Función para formatear un número a texto de precio
+  function formatPrice(price) {
+    return price.toFixed(2).replace('.', ',') + ' €';
+  }
+
+  // Función para calcular el total de un producto
+  function updateProductTotal(row) {
+    const unitPrice = parsePrice(row.dataset.price); // Usa el data-price de la fila
+    const quantityInput = row.querySelector('.product-quantity');
+    const productTotalElement = row.querySelector('.product-total');
+
+    const quantity = parseInt(quantityInput.value);
+
+    const productTotal = unitPrice * quantity;
+    productTotalElement.textContent = formatPrice(productTotal);
+  }
+
+  // Función para calcular el total general del carrito y el ahorro
+  function updateCartTotal() {
+    let cartTotal = 0;
+    document.querySelectorAll('tbody tr').forEach(row => {
+      const productTotalElement = row.querySelector('.product-total');
+      cartTotal += parsePrice(productTotalElement.textContent);
+    });
+
+    document.getElementById('cart-total').textContent = formatPrice(cartTotal);
+    calculateSavings(); // Llama a la función para calcular el ahorro
+  }
+
+  // Base de datos simulada de productos y sus precios en diferentes supermercados
+  // NOTA: 'id' es el ID único del producto general (ej. Leche Entera), no de una oferta específica.
+  const allAvailableProducts = [
+    {
+      id: "prod-cafe",
+      name: "Café Molido 500g",
+      image: "https://picsum.photos/70?random=1",
+      prices: [
+        { supermarketName: "Cafeteros Deluxe", price: 3.99 },
+        { supermarketName: "Supermercado Ahorro", price: 3.50 },
+        { supermarketName: "El Buen Grano", price: 4.10 }
+      ]
+    },
+    {
+      id: "prod-leche",
+      name: "Leche Entera 1L",
+      image: "https://picsum.photos/70?random=2",
+      prices: [
+        { supermarketName: "Vaquita Feliz", price: 0.89 },
+        { supermarketName: "Láctea Fresca", price: 0.95 }
+      ]
+    },
+    // Puedes añadir más productos aquí si es necesario para el cálculo de ahorro
+    {
+      id: "prod-pan",
+      name: "Pan de Molde Integral",
+      image: "https://picsum.photos/70?random=4",
+      prices: [
+        { supermarketName: "Panadería La Espiga", price: 1.50 },
+        { supermarketName: "Supermercado Ahorro", price: 1.65 }
+      ]
+    }
+  ];
+
+  // Función para obtener el precio más bajo para un producto dado (productId)
+  function getLowestPriceOffer(productId) {
+    const product = allAvailableProducts.find(p => p.id === productId);
+    if (!product || !product.prices || product.prices.length === 0) {
+      return null;
+    }
+
+    let lowestPrice = Infinity;
+    let bestSupermarket = '';
+
+    product.prices.forEach(offer => {
+      if (offer.price < lowestPrice) {
+        lowestPrice = offer.price;
+        bestSupermarket = offer.supermarketName;
+      }
+    });
+    return { price: lowestPrice, supermarketName: bestSupermarket };
+  }
+
+  // Función para calcular y mostrar el ahorro por productos duplicados y el supermercado más barato
+  function calculateSavings() {
+    const savingsDisplay = document.getElementById('savings-display');
+    const productSavingsList = document.getElementById('product-savings-list');
+    let totalSavings = 0;
+    const productsInCart = {}; // Objeto para agrupar productos por su ID
+
+    // Limpiar la lista de ahorros por producto antes de actualizar
+    productSavingsList.innerHTML = '';
+
+    // Recopila todos los productos en el carrito desde el DOM
+    document.querySelectorAll('tbody tr').forEach(row => {
+      const productId = row.dataset.productId;
+      const productName = row.querySelector('.fw-bold').textContent.trim();
+      const supermarketName = row.dataset.supermarketName;
+      const unitPrice = parsePrice(row.dataset.price);
+      const quantity = parseInt(row.querySelector('.product-quantity').value);
+
+      // También necesitamos la URL de la imagen para el PDF
+      const imageUrl = row.querySelector('img').src;
+
+
+      if (!productsInCart[productId]) {
+        productsInCart[productId] = {
+          name: productName,
+          image: imageUrl, // Guardar la imagen del producto general
+          instances: []
+        };
+      }
+      productsInCart[productId].instances.push({
+        unitPrice: unitPrice,
+        quantity: quantity,
+        supermarketName: supermarketName,
+        // No necesitamos la imagen aquí ya que está a nivel de producto principal
+      });
+    });
+
+    // Itera sobre cada tipo de producto para calcular el ahorro
+    for (const productId in productsInCart) {
+      const product = productsInCart[productId];
+      const productInstances = product.instances;
+
+      // Obtener la mejor oferta global para este producto (usando getLowestPriceOffer)
+      const lowestPriceOffer = getLowestPriceOffer(productId);
+
+      if (lowestPriceOffer) { // Solo calcula si hay una oferta más barata disponible
+        productInstances.forEach(instance => {
+          // El ahorro se calcula solo si el precio de esta instancia es mayor que el más barato conocido
+          if (instance.unitPrice > lowestPriceOffer.price) {
+            const currentSavings = (instance.unitPrice - lowestPriceOffer.price) * instance.quantity;
+            totalSavings += currentSavings;
+            // Añadir detalle del ahorro por producto a la lista
+            const listItem = document.createElement('li');
+            listItem.textContent = `Ahorro en ${product.name} de ${instance.supermarketName}: ${formatPrice(currentSavings)} (mejor en ${lowestPriceOffer.supermarketName} a ${formatPrice(lowestPriceOffer.price)})`;
+            productSavingsList.appendChild(listItem);
+          }
+        });
+      }
+    }
+
+    // Actualizar el mensaje de ahorro total
+    if (totalSavings > 0) {
+      savingsDisplay.textContent = `¡Total potencial ahorrado: ${formatPrice(totalSavings)}!`;
+      savingsDisplay.style.display = 'block';
+    } else {
+      savingsDisplay.textContent = '';
+      savingsDisplay.style.display = 'none';
+    }
+
+    // Muestra/oculta la lista de ahorros por producto
+    if (productSavingsList.children.length > 0) {
+      productSavingsList.style.display = 'block';
+    } else {
+      productSavingsList.style.display = 'none';
+    }
+  }
+
+  // Nueva función para generar el PDF usando html2pdf.js
+  async function generatePDF() {
+    const element = document.getElementById('cart-content');
+    const pdfButton = document.getElementById('generate-pdf-btn');
+
+    // Función para restaurar los elementos, se llama en el 'finally'
+    const restoreElements = () => {
+      pdfButton.style.display = 'block';
+      document.querySelectorAll('.pdf-hide').forEach(el => {
+        el.style.display = ''; // Restaura el display original
+      });
+    };
+
+    // Ocultar elementos para el PDF
+    pdfButton.style.display = 'none';
+    document.querySelectorAll('.pdf-hide').forEach(el => {
+      el.style.display = 'none';
+    });
+
+    // URL pública de tu logo
+    const logoUrl = document.getElementById('main-logo').src;
+
+    // Crear un contenedor para el encabezado del PDF (Logo y Título)
+    const headerContent = document.createElement('div');
+    headerContent.style.textAlign = 'center';
+    headerContent.style.marginBottom = '20px';
+
+    const logoImg = document.createElement('img');
+    logoImg.src = logoUrl;
+    logoImg.setAttribute('crossOrigin', 'anonymous');
+    logoImg.style.width = '100px';
+    logoImg.style.marginBottom = '10px';
+
+    const titleElement = document.createElement('h2');
+    titleElement.textContent = "Lista de Compras de Castañazo Deals";
+    titleElement.style.color = '#dba159';
+    titleElement.style.fontFamily = '"Albert Sans", sans-serif';
+
+    headerContent.appendChild(logoImg);
+    headerContent.appendChild(titleElement);
+
+    // Asegurar que la imagen del logo se ha cargado
+    await new Promise(resolve => {
+      logoImg.onload = resolve;
+      logoImg.onerror = () => {
+        console.warn("Error al cargar la imagen del logo para el PDF. Continuará sin el logo.");
+        resolve();
+      };
+    });
+
+    // Opciones de configuración para html2pdf
+    const options = {
+      margin: 10,
+      filename: 'Lista_de_Compras_Castañazo_Deals.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: {
+        scale: 2,
+        useCORS: true,
+        dpi: 192,
+        letterRendering: true
+      },
+      jsPDF: {
+        unit: 'mm',
+        format: 'a4',
+        orientation: 'portrait'
+      }
+    };
+
+    // Crear un contenedor temporal para el contenido que se va a imprimir
+    const pdfContent = document.createElement('div');
+    pdfContent.appendChild(headerContent);
+
+    // Clonar el contenido del carrito (la tabla y los totales)
+    const clonedCartContent = element.cloneNode(true);
+
+    // Quitar el botón de PDF clonado
+    const clonedPdfButton = clonedCartContent.querySelector('#generate-pdf-btn');
+    if (clonedPdfButton) {
+      clonedPdfButton.remove();
+    }
+
+    // Ocultar las columnas/celdas pdf-hide en el CLON
+    clonedCartContent.querySelectorAll('.pdf-hide').forEach(el => {
+      el.style.display = 'none';
+    });
+
+    // Obtener la sección de ahorro clonada y añadirle un margen inferior específico
+    const clonedSavingsSection = clonedCartContent.querySelector('#savings-section-to-pdf');
+    if (clonedSavingsSection) {
+      clonedSavingsSection.style.paddingBottom = '20px'; // Asegura espacio extra al final
+    }
+
+    pdfContent.appendChild(clonedCartContent);
+
+    // Generar y guardar el PDF
+    html2pdf().set(options).from(pdfContent).save()
+            .then(() => {
+              console.log("PDF generado correctamente.");
+            })
+            .catch(error => {
+              console.error("Error al generar el PDF:", error);
+            })
+            .finally(() => {
+              restoreElements(); // Asegura que los elementos se restauren siempre
+            });
+  }
+
+  // Añade event listeners
+  document.addEventListener('DOMContentLoaded', () => {
+    // Event listener para los cambios en la cantidad de productos
+    const quantityInputs = document.querySelectorAll('.product-quantity');
+    quantityInputs.forEach(input => {
+      input.addEventListener('change', (event) => {
+        const row = event.target.closest('tr');
+        updateProductTotal(row);
+        updateCartTotal();
+      });
+
+      const row = input.closest('tr');
+      updateProductTotal(row);
+    });
+
+    // Event listener para el botón de eliminar producto
+    const removeButtons = document.querySelectorAll('.remove-product-btn');
+    removeButtons.forEach(button => {
+      button.addEventListener('click', (event) => {
+        const row = event.target.closest('tr');
+        row.remove();
+        updateCartTotal();
+      });
+    });
+
+    // Event listener para el nuevo botón de Generar PDF
+    document.getElementById('generate-pdf-btn').addEventListener('click', generatePDF);
+
+    // Calcula el total inicial del carrito y el ahorro al cargar la página
+    updateCartTotal();
+  });
+</script>
+</body>
+</html>
