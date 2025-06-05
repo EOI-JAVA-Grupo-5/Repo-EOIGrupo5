@@ -48,4 +48,9 @@ public class ProductoService {
     public Optional<Producto> obtenerProductoPorId(Long id) {
         return productoRepository.findById(id);
     }
+
+    public List<Producto> findBySupermercado(String nombreSupermercado) {
+        return productoRepository.findBySupermarketIgnoreCase(nombreSupermercado.toLowerCase());
+    }
+
 }
