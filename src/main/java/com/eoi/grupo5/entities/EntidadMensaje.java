@@ -28,13 +28,12 @@ public class EntidadMensaje {
     @JoinColumn(name = "id_hilo")
     private EntidadHilo hilo;
 
-    // TODO: Reemplazar con la clase Usuario de Jose Angel cuando esté lista
     @ManyToOne
-    @JoinColumn(name = "id_escritor")
+    @JoinColumn(name = "id_escritor") // This is what Hibernate auto-generates anyway
     private Usuario autor;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_citado")
+    @JoinColumn(name = "id_citado") // This is what Hibernate auto-generates anyway
     private EntidadMensaje citado;
 
     @OneToMany(mappedBy = "citado", cascade = CascadeType.ALL)

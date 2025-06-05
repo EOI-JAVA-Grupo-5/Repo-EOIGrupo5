@@ -25,12 +25,13 @@ public class EntidadHilo {
     private Long votos;
     @Column (name = "visitas")
     private Long visitas;
-    @Column (name = "fechacreacion")
+    @Column (name = "fecha_creacion")
     private LocalDateTime fechaCreacion;
+    @Column (name = "mensaje_count")
+    private Long mensajeCount;
 
-    // TODO: Reemplazar con la clase Usuario de Jose Angel cuando esté lista
     @ManyToOne
-    @JoinColumn(name = "idCreador") // This is what Hibernate auto-generates anyway
+    @JoinColumn(name = "id_creador") // This is what Hibernate auto-generates anyway
     private Usuario autor;
 
     @OneToMany(mappedBy = "hilo", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)

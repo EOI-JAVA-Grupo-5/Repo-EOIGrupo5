@@ -10,39 +10,33 @@ import java.util.Optional;
 @Service
 public class UsuarioService {
 
-    private final UsuarioRepository usuarioRepo;
+    private final UsuarioRepository usuarioRepository;
 
-    public UsuarioService(UsuarioRepository usuarioRepo) {
-        this.usuarioRepo = usuarioRepo;
+    public UsuarioService(UsuarioRepository usuarioRepository) {
+        this.usuarioRepository = usuarioRepository;
     }
 
-    public List<Usuario> obtenerTodosLosUsuarios() {
-        return usuarioRepo.findAll();
+    public List<Usuario> findAll(){
+        return usuarioRepository.findAll();
     }
 
-    public Usuario obtenerUsuarioPorId(Long id) {
-        Optional<Usuario> usuario = usuarioRepo.findById(id);
-        if (usuario.isPresent()) {
-            return usuario.get();
-        } else {
-            throw new RuntimeException("Usuario no encontrado");
-        }
+    public Optional<Usuario> findById(Long id){
+        return usuarioRepository.findById(id);
     }
 
-    public Usuario guardarUsuario(Usuario usuario) {
-        return usuarioRepo.save(usuario);
+    public Optional<Usuario> findByEmail(String correo){
+        return usuarioRepository.findByCorreoEquals(correo);
     }
 
-    public void borrarUsuario(Long id) {
-        usuarioRepo.deleteById(id);
+    public Optional<Usuario> findByUsername(String username){
+        return usuarioRepository.findByUsername(username);
     }
 
-    public boolean existeUsuario(Long id) {
-        return usuarioRepo.existsById(id);
+    public Usuario save(Usuario usuario){
+        return usuarioRepository.save(usuario);
     }
 
-    public Optional<Usuario> obtenerUsuarioPorNombreUsuario(String nombreUsuario) {
-        return usuarioRepo.findUsuarioByNombreUsuario(nombreUsuario);
+    public void delete(Usuario usuario){
+        usuarioRepository.delete(usuario);
     }
-
 }
