@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+<<<<<<< HEAD
 @Repository
 public interface ProductoRepository extends JpaRepository<Producto, Long> {
 
@@ -24,4 +25,8 @@ public interface ProductoRepository extends JpaRepository<Producto, Long> {
     Page<Producto> findByFiltros(@Param("category") String category,
                                  @Param("supermarket") String supermarket,
                                  Pageable pageable);
+=======
+public interface ProductoRepository extends JpaRepository<Producto, Long> {
+    List<Producto> findBySupermarketIgnoreCase(String supermarket);
+>>>>>>> 35d22f10dae7c0885c392240ae884fb8f945c63f
 }
