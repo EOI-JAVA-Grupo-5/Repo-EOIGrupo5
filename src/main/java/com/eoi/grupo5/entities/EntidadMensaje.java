@@ -15,13 +15,9 @@ import java.util.List;
 public class EntidadMensaje {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
-    @Column(name = "texto")
     private String contenido;
-    @Column(name = "instante_post")
     private LocalDateTime fechaPublicacion;
-    @Column(name = "votos")
     private Long votos;
 
     @ManyToOne
@@ -29,11 +25,11 @@ public class EntidadMensaje {
     private EntidadHilo hilo;
 
     @ManyToOne
-    @JoinColumn(name = "id_escritor") // This is what Hibernate auto-generates anyway
+    @JoinColumn(name = "id_escritor")
     private Usuario autor;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_citado") // This is what Hibernate auto-generates anyway
+    @JoinColumn(name = "id_citado")
     private EntidadMensaje citado;
 
     @OneToMany(mappedBy = "citado", cascade = CascadeType.ALL)
