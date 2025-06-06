@@ -94,13 +94,13 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(Customizer.withDefaults()) // deshabilitado para pruebas o APIs
-//                .httpBasic(Customizer.withDefaults())
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/entities").permitAll()
                         .requestMatchers("/").permitAll()
                         .requestMatchers("/carrito").permitAll()
                         .requestMatchers("/forum").permitAll()
-                        .requestMatchers("/usuario").permitAll()
+                        .requestMatchers("/usuario").authenticated()
+                        .requestMatchers("/usuario/modificar").authenticated()
                         .requestMatchers("/login").permitAll()
                         .requestMatchers("/registro").permitAll()
                         .requestMatchers("/paginaDeProducto").permitAll()

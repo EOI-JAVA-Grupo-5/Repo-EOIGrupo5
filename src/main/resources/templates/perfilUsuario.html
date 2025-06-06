@@ -39,87 +39,91 @@
 
     <!-- NAVBAR -->
     <section id="navbar-section">
-        <nav
-            class="navbar navbar-expand-sm primary-navbar"
-        >
-            <div class="container">
-                <a class="navbar-brand d-inline-flex" th:href="@{/}">
-                    <img class="d-inline-block" th:src="@{/images/logo-SF.png}"
-                         alt="logo" style="width: 5rem; align-self: center;">
-                    <span class="text-1000 fs-3 fw-bold ms-2">Castañazo <br> Deals</span>
-                </a>
-                <button
-                    class="navbar-toggler d-lg-none"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#collapsibleNavId"
-                    aria-controls="collapsibleNavId"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation"
-                >
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="collapsibleNavId">
-                    <ul class="navbar-nav me-auto mt-2 mt-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="paginaDeProducto" aria-current="page">
-                                <i class="fa-solid fa-cube"></i> Productos
-                                <span class="visually-hidden">(current)</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="perfilSupermercado" aria-current="page">
-                                <i class="fa-solid fa-store"></i> Supermercados
-                                <span class="visually-hidden">(current)</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="forum" aria-current="page">
-                                <i class="fa-solid fa-comments"></i> Forum
-                                <span class="visually-hidden">(current)</span>
-                            </a>
-                        </li>
-                    </ul>
+        <div th:insert="~{plantillas/navbar :: navbar}"></div>
+    </section>
+
+<!--    &lt;!&ndash; NAVBAR &ndash;&gt;-->
+<!--    <section id="navbar-section">-->
+<!--        <nav-->
+<!--            class="navbar navbar-expand-sm primary-navbar"-->
+<!--        >-->
+<!--            <div class="container">-->
+<!--                <a class="navbar-brand d-inline-flex" th:href="@{/}">-->
+<!--                    <img class="d-inline-block" th:src="@{/images/logo-SF.png}"-->
+<!--                         alt="logo" style="width: 5rem; align-self: center;">-->
+<!--                    <span class="text-1000 fs-3 fw-bold ms-2">Castañazo <br> Deals</span>-->
+<!--                </a>-->
+<!--                <button-->
+<!--                    class="navbar-toggler d-lg-none"-->
+<!--                    type="button"-->
+<!--                    data-bs-toggle="collapse"-->
+<!--                    data-bs-target="#collapsibleNavId"-->
+<!--                    aria-controls="collapsibleNavId"-->
+<!--                    aria-expanded="false"-->
+<!--                    aria-label="Toggle navigation"-->
+<!--                >-->
+<!--                    <span class="navbar-toggler-icon"></span>-->
+<!--                </button>-->
+<!--                <div class="collapse navbar-collapse" id="collapsibleNavId">-->
+<!--                    <ul class="navbar-nav me-auto mt-2 mt-lg-0">-->
+<!--                        <li class="nav-item">-->
+<!--                            <a class="nav-link active" href="paginaDeProducto" aria-current="page">-->
+<!--                                <i class="fa-solid fa-cube"></i> Productos-->
+<!--                                <span class="visually-hidden">(current)</span>-->
+<!--                            </a>-->
+<!--                        </li>-->
+<!--                        <li class="nav-item">-->
+<!--                            <a class="nav-link active" href="perfilSupermercado" aria-current="page">-->
+<!--                                <i class="fa-solid fa-store"></i> Supermercados-->
+<!--                                <span class="visually-hidden">(current)</span>-->
+<!--                            </a>-->
+<!--                        </li>-->
+<!--                        <li class="nav-item">-->
+<!--                            <a class="nav-link active" href="forum" aria-current="page">-->
+<!--                                <i class="fa-solid fa-comments"></i> Forum-->
+<!--                                <span class="visually-hidden">(current)</span>-->
+<!--                            </a>-->
+<!--                        </li>-->
+<!--                    </ul>-->
 
 
-                    <form class="d-flex pt-3 my-2 my-lg-0">
-                        <div class="input-group mb-3">
-                            <input class="form-control input-box bg-100" type="search" placeholder="Buscar" aria-label="Search" style="border-top-left-radius: 20px; border-bottom-left-radius: 20px">
-                            <button class="btn btn-outline-warning text-black my-2 my-sm-0 fa-solid fa-magnifying-glass" type="submit" style="border-top-right-radius: 20px; border-bottom-right-radius: 20px">
-                            </button>
-                        </div>
-                    </form>
+<!--                    <form class="d-flex pt-3 my-2 my-lg-0">-->
+<!--                        <div class="input-group mb-3">-->
+<!--                            <input class="form-control input-box bg-100" type="search" placeholder="Buscar" aria-label="Search" style="border-top-left-radius: 20px; border-bottom-left-radius: 20px">-->
+<!--                            <button class="btn btn-outline-warning text-black my-2 my-sm-0 fa-solid fa-magnifying-glass" type="submit" style="border-top-right-radius: 20px; border-bottom-right-radius: 20px">-->
+<!--                            </button>-->
+<!--                        </div>-->
+<!--                    </form>-->
+
+<!--&lt;!&ndash;                    <div class="d-grid p-3">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <button&ndash;&gt;-->
+<!--&lt;!&ndash;                            type="button"&ndash;&gt;-->
+<!--&lt;!&ndash;                            name=""&ndash;&gt;-->
+<!--&lt;!&ndash;                            id="btnLog"&ndash;&gt;-->
+<!--&lt;!&ndash;                            class="btn btn-warning rounded-pill"&ndash;&gt;-->
+<!--&lt;!&ndash;                        >&ndash;&gt;-->
+<!--&lt;!&ndash;                            <i class="bi bi-person-circle"></i> Login&ndash;&gt;-->
+<!--&lt;!&ndash;                        </button>&ndash;&gt;-->
+<!--                    </div>-->
 
 <!--                    <div class="d-grid p-3">-->
-<!--                        <button-->
-<!--                            type="button"-->
-<!--                            name=""-->
-<!--                            id="btnLog"-->
-<!--                            class="btn btn-warning rounded-pill"-->
-<!--                        >-->
-<!--                            <i class="bi bi-person-circle"></i> Login-->
-<!--                        </button>-->
-                    </div>
+<!--                        <a th:href="@{/carrito}">-->
+<!--                            <button-->
+<!--                                    type="button"-->
+<!--                                    name=""-->
+<!--                                    id="btnCarrito"-->
+<!--                                    class="btn btn-warning rounded-pill"-->
+<!--                            >-->
+<!--                                <i class="bi bi-cart-fill"></i> Carrito-->
+<!--                            </button>-->
+<!--                        </a>-->
 
-                    <div class="d-grid p-3">
-                        <a th:href="@{/carrito}">
-                            <button
-                                    type="button"
-                                    name=""
-                                    id="btnCarrito"
-                                    class="btn btn-warning rounded-pill"
-                            >
-                                <i class="bi bi-cart-fill"></i> Carrito
-                            </button>
-                        </a>
+<!--                    </div>-->
 
-                    </div>
-
-                </div>
-            </div>
-        </nav>
-        
-    </section>
+<!--                </div>-->
+<!--        </nav>-->
+<!--        -->
+<!--    </section>-->
 
 
     <!-- PERFIL -->
@@ -144,12 +148,12 @@
             <div
                 class="row justify-content-center align-items-center g-2"
             >
-                <div class="col-md-3">
+                <div class="col-md-3 pt-2">
 
                     <div class="card bg-light">
                         <img class="card-img-top rounded-circle justify-content-center align-self-center p-2" style="width: 12rem;height: fit-content;" src="https://content.imageresizer.com/images/memes/rizz-apple-meme-5.jpg" alt="Image-Avatar">
                         <div class="card-body text-center">
-                            <h4 id="userName" class="card-title"><span th:text="${username}">Usuario</span></h4>
+                            <h4 id="userName" class="card-title"><span th:text="${usuario.username}">Usuario</span></h4>
                             <p class="card-text">
                                 <span sec:authorize="hasAuthority('ADMIN')">ADMINISTRADOR</span>
                                 <span sec:authorize="hasAuthority('USER')">USUARIO BÁSICO</span>
@@ -158,45 +162,44 @@
                     </div>   
                 </div>
 
-                <div class="col-md-9 align-self-start">
+                <div class="col-md-9 align-self-start pt-2">
                     <div class="card bg-light">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-sm-3">
                                     <p class="mb-0"><strong>Nombre</strong></p>
                                 </div>
-                                <div class="col-sm-9"><span th:text="${nombre}">Paco Pacoles</span></div>
+                                <div class="col-sm-9"><span th:text="${usuario.nombre}">Paco Pacoles</span></div>
                             </div>
                             <hr>
                             <div class="row">
                                 <div class="col-sm-3">
                                     <p class="mb-0"><strong>Correo</strong></p>
                                 </div>
-                                <div class="col-sm-9"><span th:text="${email}">correodelusuario@correo.es</span></div>
+                                <div class="col-sm-9"><span th:text="${usuario.correo}">correodelusuario@correo.es</span></div>
                             </div>
                             <hr>
                             <div class="row">
                                 <div class="col-sm-3">
                                     <p class="mb-0"><strong>Teléfono</strong></p>
                                 </div>
-                                <div class="col-sm-9">654 32 10 98</div>
+                                <div class="col-sm-9"><span th:text="${usuario.telefono}">Número de teléfono</span></div>
                             </div>
                             <hr>
                             <div class="row">
                                 <div class="col-sm-3">
                                     <p class="mb-0"><strong>Contraseña</strong></p>
                                 </div>
-                                <div class="col-sm-9">*******nosesabe******</div>
+                                <div class="col-sm-9">**********</div>
                             </div>
                             <div class="row pt-3 justify-content-end">
-                                <div class="col-md-2">
+                                <div class="col-md-3">
                                     <a
                                         class="btn btn-primary"
-                                        href="#"
+                                        th:href="@{/usuario/modificar}"
                                         role="button"
-                                        >Modificar</a
+                                        >Modificar datos</a
                                     >
-                                    
                                 </div>
                             </div>
                         </div>

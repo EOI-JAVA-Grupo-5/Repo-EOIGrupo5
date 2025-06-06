@@ -75,6 +75,7 @@ public class RegisterController {
 
             guardado.setNombre("-");
             guardado.setApellidos("-");
+            guardado.setTelefono("-");
             guardado.setTipo(Usuario.Tipo.USER);
 
             guardado.setPassword(passwordEncoder.encode(registro.getPassword()));
