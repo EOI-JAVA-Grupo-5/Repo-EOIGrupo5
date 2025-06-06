@@ -4,6 +4,7 @@ import com.eoi.grupo5.entities.EntidadHilo;
 import com.eoi.grupo5.entities.EntidadMensaje;
 import com.eoi.grupo5.services.HiloService;
 import com.eoi.grupo5.services.MensajeService;
+import com.eoi.grupo5.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
