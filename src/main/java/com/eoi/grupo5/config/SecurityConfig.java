@@ -9,7 +9,6 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -95,22 +94,23 @@ public class SecurityConfig {
         http
                 .csrf(Customizer.withDefaults()) // deshabilitado para pruebas o APIs
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/entities").permitAll()
-                        .requestMatchers("/").permitAll()
-                        .requestMatchers("/carrito").permitAll()
-                        .requestMatchers("/forum").permitAll()
-                        .requestMatchers("/usuario").authenticated()
-                        .requestMatchers("/usuario/modificar").authenticated()
-                        .requestMatchers("/login").permitAll()
-                        .requestMatchers("/registro").permitAll()
-                        .requestMatchers("/paginaDeProducto").permitAll()
-                        .requestMatchers("/perfilSupermercado").permitAll()
-                        .requestMatchers("/entities/**").permitAll()
-                        .requestMatchers("/css/**").permitAll()
-                        .requestMatchers("/images/**").permitAll()
+//                        .requestMatchers("/entities").permitAll()
+//                        .requestMatchers("/").permitAll()
+//                        .requestMatchers("/carrito").permitAll()
+//                        .requestMatchers("/foro").permitAll()
+//                        .requestMatchers("/foro/hilo").permitAll()
+//                        .requestMatchers("/usuario").permitAll()
+//                        .requestMatchers("/inicioSesion").permitAll()
+//                        .requestMatchers("/registro").permitAll()
+//                        .requestMatchers("/paginaDeProducto").permitAll()
+//                        .requestMatchers("/perfilSupermercado").permitAll()
+                        .requestMatchers("/**").permitAll()
+                        .requestMatchers("/entities/*").permitAll()
+                        .requestMatchers("/css/*").permitAll()
+                        .requestMatchers("/images/*").permitAll()
                         .requestMatchers(HttpMethod.POST,"/login").permitAll()
                         .requestMatchers(HttpMethod.POST,"/registro").permitAll()
-//                        .requestMatchers(HttpMethod.POST,"/entidades/deleteHija/*").authenticated()
+                        .requestMatchers(HttpMethod.POST,"/entidades/deleteHija/*").authenticated()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form

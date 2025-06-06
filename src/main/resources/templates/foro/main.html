@@ -66,17 +66,25 @@
 
     <!-- Barra de búsqueda y filtros -->
     <div class="d-flex justify-content-start align-items-center mb-4">
-      <form class="d-flex me-1" method="get">
+      <form class="d-flex me-1" method="get"
+        th:action="@{/foro(page=${currentPage}, sort='votos', keyword=${keyword})}">
         <div class="input-group">
-          <input class="form-control  input-box bg-100" type="search" placeholder="Buscar" aria-label="Search">
-          <button class="btn btn-outline-secondary my-2 my-sm-0 fa-solid fa-magnifying-glass" type="submit">
-          </button>
+          <input class="form-control input-box bg-100" type="search" name="keyword" placeholder="Buscar"
+            aria-label="Search" th:value="${keyword}">
+          <button class="btn btn-outline-secondary my-2 my-sm-0 fa-solid fa-magnifying-glass" type="submit"></button>
         </div>
       </form>
-      <button class="btn btn-outline-secondary me-1"><i class="fa-solid fa-heart"></i></button>
-      <button class="btn btn-outline-secondary me-1"><i class="fa-solid fa-comment"></i></button>
-      <button class="btn btn-outline-secondary me-1"><i class="fa-solid fa-eye"></i></button>
-      <a class="btn btn-outline-dark me-2">
+      <a class="btn btn-outline-secondary me-1"
+        th:href="@{/foro(page=${currentPage}, sort='votos', keyword=${keyword})}"
+        th:classappend="${selectedSort == 'votos'} ? ' active'"><i class="fa-solid fa-heart"></i></a>
+      <a class="btn btn-outline-secondary me-1"
+        th:href="@{/foro(page=${currentPage}, sort='mensajes', keyword=${keyword})}"
+        th:classappend="${selectedSort == 'mensajes'} ? ' active'"><i class="fa-solid fa-comment"></i></a>
+      <a class="btn btn-outline-secondary me-1"
+        th:href="@{/foro(page=${currentPage}, sort='visitas', keyword=${keyword})}"
+        th:classappend="${selectedSort == 'visitas'} ? ' active'"><i class="fa-solid fa-eye"></i></a>
+      <a class="btn btn-outline-dark me-2" th:href="@{/foro(page=${currentPage}, sort='autor', keyword=${keyword})}"
+        th:classappend="${selectedSort == 'autor'} ? ' active'">
         <i class="fa-solid fa-user"></i> Mis Hilos
       </a>
     </div>
@@ -88,32 +96,31 @@
           <div class="row align-items-center">
             <div class="col-md-8">
               <h5>
-                <a class="text-title" th:text="${hilo.titulo}">Ejemplo de título del tema del
-                  foro</a>
+                <a class="text-title" th:text="${hilo.titulo}">Titulo</a>
               </h5>
               <p class="text-sm" th:text="${hilo.descripcion}">
-                Este es un resumen o descripción corta del contenido de la publicación.
+                Descripcion
               </p>
               <p class="text-sm">
-                Publicado hace
-                <a class="text-black" th:text="${#dates.format(hilo.fechaCreacion, 'dd/MM/yyyy HH:mm')}">20 minutos</a>
+                Publicado
+                <a class="text-black" th:text="${@dateUtil.format(hilo.fechaCreacion, 'dd/MM/yyyy HH:mm')}">xx</a>
                 por
-                <a class="text-black" th:text="${hilo.autor.nombreUsuario}">Jordan</a>
+                <a class="text-black" th:text="${hilo.autor.username}">Nombre</a>
               </p>
             </div>
             <div class="col-md-4 text-center">
               <div class="row">
                 <div class="col px-1">
                   <i class="fa-solid fa-heart fa-lg"></i>
-                  <span class="d-block text-sm" th:text="${hilo.votos}">12</span>
+                  <span class="d-block text-sm" th:text="${hilo.votos}">--</span>
                 </div>
                 <div class="col px-1">
                   <i class="fa-solid fa-comment fa-lg"></i>
-                  <span class="d-block text-sm" th:text="${comentarios}">0</span>
+                  <span class="d-block text-sm" th:text="${hilo.mensajeCount}">--</span>
                 </div>
                 <div class="col px-1">
                   <i class="fa-solid fa-eye fa-lg"></i>
-                  <span class="d-block text-sm" th:text="${hilo.visitas}">89</span>
+                  <span class="d-block text-sm" th:text="${hilo.visitas}">--</span>
                 </div>
               </div>
             </div>
@@ -123,23 +130,31 @@
 
       <!-- Sidebar (3 columns) -->
       <div class="col-lg-3 rounded">
-        <div class="bg-white mb-3 rounded border">
-          <div class="text-center">
-            <h5 class="px-3 pt-2">Temas Recientes</h5>
-          </div>
-          <hr>
-          <div class="side-hover px-3 py-3">
-            <h6><a class="text-title" th:href="@{/forum}" th:text="'Título del tema aquí...'">Placeholder</a></h6>
-            <p class="text-sm">Publicado hace <a class="text-black" th:text="'10 minutos'"> X minutos</a> por
-              <a class="text-black" th:text="'Usuario 1'">...</a>
+        <div class="text-center bg-white rounded border">
+          <h5 class="pt-3 pb-1">Temas Recientes</h5>
+        </div>
+        <div class="bg-white rounded border" th:each="hilo : ${hilosRecientes.content}">
+          <div class="side-card px-3 py-3">
+            <h6><a class="text-title" th:text="${hilo.titulo}"> Placeholder </a></h6>
+            <p class="text-black"> Publicado <a class="text-black"
+                th:text="${@dateUtil.tiempoDesde(hilo.fechaCreacion)}"> X minutos</a> por
+              <a class="text-black" th:text="${hilo.autor.username}">...</a>
             </p>
           </div>
-          <hr>
-          <div class="side-hover px-3 py-3">
-            <h6><a th:href="@{/forum}" th:text="'Título del tema aquí...'" class="text-title">Placeholder</a></h6>
-            <p class="text-sm">Publicado hace <a class="text-black" th:text="'20 minutos'"> X minutos</a> por
-              <a class="text-black" th:text="'Usuario 2'">...</a>
-            </p>
+        </div>
+        <!-- Pagination controls -->
+        <div class="d-flex justify-content-center text-center bg-white rounded border">
+          <div class="px-3 py-3">
+            <a class="btn btn-sm py-2 px-3 btn-outline-dark me-2"
+              th:href="@{/foro(page=${currentPage - 1}, sort=${selectedSort}, keyword=${keyword})}"
+              th:if="${currentPage > 0}">
+              &lt;
+            </a>
+            <a class="btn btn-sm py-2 px-3 btn-outline-dark"
+              th:href="@{/foro(page=${currentPage + 1}, sort=${selectedSort}, keyword=${keyword})}"
+              th:if="${currentPage < totalPages - 1}">
+              &gt;
+            </a>
           </div>
         </div>
       </div>

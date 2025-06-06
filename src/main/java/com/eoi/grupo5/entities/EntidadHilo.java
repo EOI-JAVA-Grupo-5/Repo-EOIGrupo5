@@ -15,24 +15,19 @@ import java.util.List;
 public class EntidadHilo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
-    @Column (name = "titulo")
-    private String titulo;
-    @Column (name ="descripcion")
-    private String descripcion;
-    @Column (name = "votos")
-    private Long votos;
-    @Column (name = "visitas")
-    private Long visitas;
-    @Column (name = "fechacreacion")
-    private LocalDateTime fechaCreacion;
 
-    // TODO: Reemplazar con la clase Usuario de Jose Angel cuando esté lista
-//    @ManyToOne
-//    @JoinColumn(name = "idCreador") // This is what Hibernate auto-generates anyway
-//    private Usuario autor;
-//
-//    @OneToMany(mappedBy = "hilo", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-//    private List<EntidadMensaje> mensajes = new ArrayList<>();
+    private String titulo;
+    private String descripcion;
+    private Long votos;
+    private Long visitas;
+    private LocalDateTime fechaCreacion;
+    private Long mensajeCount;
+
+    @ManyToOne
+    @JoinColumn(name = "id_creador")
+    private Usuario autor;
+
+    @OneToMany(mappedBy = "hilo", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<EntidadMensaje> mensajes = new ArrayList<>();
 }
