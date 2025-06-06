@@ -144,12 +144,12 @@
             <div
                 class="row justify-content-center align-items-center g-2"
             >
-                <div class="col-md-3">
+                <div class="col-md-3 pt-2">
 
                     <div class="card bg-light">
                         <img class="card-img-top rounded-circle justify-content-center align-self-center p-2" style="width: 12rem;height: fit-content;" src="https://content.imageresizer.com/images/memes/rizz-apple-meme-5.jpg" alt="Image-Avatar">
                         <div class="card-body text-center">
-                            <h4 id="userName" class="card-title"><span th:text="${username}">Usuario</span></h4>
+                            <h4 id="userName" class="card-title"><span th:text="${usuario.username}">Usuario</span></h4>
                             <p class="card-text">
                                 <span sec:authorize="hasAuthority('ADMIN')">ADMINISTRADOR</span>
                                 <span sec:authorize="hasAuthority('USER')">USUARIO BÁSICO</span>
@@ -158,7 +158,7 @@
                     </div>   
                 </div>
 
-                <div class="col-md-9 align-self-start">
+                <div class="col-md-9 align-self-start pt-2">
                     <div class="card bg-light">
                         <div class="card-body">
                             <div class="row">
