@@ -7,7 +7,6 @@ import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ProductoService {
@@ -19,38 +18,42 @@ public class ProductoService {
         this.productoRepository = productoRepository;
     }
 
-    public List<String> obtenerCategory() {
-        return productoRepository.findDistinctCategories();
-    }
-
-    public List<String> obtenerSupermercados() {
-        return productoRepository.findDistinctSupermarkets();
-    }
-
-    public Page<Producto> buscarConFiltros(String category, String supermarket, String orden, int page, int size) {
-        Pageable pageable;
-
-        if ("precio_asc".equalsIgnoreCase(orden)) {
-            pageable = PageRequest.of(page, size, Sort.by("price").ascending());
-        } else if ("precio_desc".equalsIgnoreCase(orden)) {
-            pageable = PageRequest.of(page, size, Sort.by("price").descending());
+    // 🔹 Obtener productos paginados y filtrados
+    public Page<Producto> getProductosFiltrados(String categoria, String supermercado, int page, int size, String orden) {
+        Sort sort = Sort.by("price");
+        if ("desc".equalsIgnoreCase(orden)) {
+            sort = sort.descending();
         } else {
-            pageable = PageRequest.of(page, size);
+            sort = sort.ascending();
         }
 
+        Pageable pageable = PageRequest.of(page, size, sort);
+
         return productoRepository.findByFiltros(
-                (category != null && !category.isBlank()) ? category : null,
-                (supermarket != null && !supermarket.isBlank()) ? supermarket : null,
+                categoria == null || categoria.isEmpty() ? null : categoria,
+                supermercado == null || supermercado.isEmpty() ? null : supermercado,
                 pageable
         );
     }
 
-    public Optional<Producto> obtenerProductoPorId(Long id) {
-        return productoRepository.findById(id);
+    public List<String> getCategoryDisponibles() {
+        return productoRepository.findDistinctCategories();
+    }
+
+    public List<String> getSupermercadosDisponibles() {
+        return productoRepository.findDistinctSupermarkets();
+    }
+
+    public List<Producto> getAllProductos() {
+        return productoRepository.findAll();
+    }
+
+    public Producto getProductoPorId(Long id) {
+        return productoRepository.findById(id).orElse(null);
     }
 
     public List<Producto> findBySupermercado(String nombreSupermercado) {
         return productoRepository.findBySupermarketIgnoreCase(nombreSupermercado.toLowerCase());
     }
-
 }
+

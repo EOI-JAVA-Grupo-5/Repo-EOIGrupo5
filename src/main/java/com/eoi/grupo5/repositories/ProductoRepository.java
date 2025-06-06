@@ -9,24 +9,28 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-<<<<<<< HEAD
 @Repository
 public interface ProductoRepository extends JpaRepository<Producto, Long> {
 
+    // 🔹 Para el filtro por supermercado individual
+    List<Producto> findBySupermarketIgnoreCase(String supermarket);
+
+    // 🔹 Para obtener categorías únicas
     @Query("SELECT DISTINCT p.category FROM Producto p")
     List<String> findDistinctCategories();
 
+    // 🔹 Para obtener supermercados únicos
     @Query("SELECT DISTINCT p.supermarket FROM Producto p")
     List<String> findDistinctSupermarkets();
 
+    // 🔹 Para obtener productos con filtros, paginación y orden
     @Query("SELECT p FROM Producto p WHERE " +
             "(:category IS NULL OR p.category = :category) AND " +
             "(:supermarket IS NULL OR p.supermarket = :supermarket)")
     Page<Producto> findByFiltros(@Param("category") String category,
                                  @Param("supermarket") String supermarket,
                                  Pageable pageable);
-=======
-public interface ProductoRepository extends JpaRepository<Producto, Long> {
-    List<Producto> findBySupermarketIgnoreCase(String supermarket);
->>>>>>> 35d22f10dae7c0885c392240ae884fb8f945c63f
 }
+
+
+

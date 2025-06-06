@@ -2,13 +2,14 @@ package com.eoi.grupo5.controllers;
 
 import com.eoi.grupo5.entities.Producto;
 import com.eoi.grupo5.services.ProductoService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class ProductoController {
@@ -20,46 +21,42 @@ public class ProductoController {
         this.productoService = productoService;
     }
 
+    // 🟢 Página principal: con filtros, orden y paginación
     @GetMapping("/paginaDeProducto")
-    public String listarProductos(
+    public String mostrarProductos(
             @RequestParam(required = false) String category,
             @RequestParam(required = false) String supermarket,
-            @RequestParam(required = false) String orden,
+            @RequestParam(defaultValue = "asc") String orden,
             @RequestParam(defaultValue = "0") int page,
             Model model
     ) {
         int pageSize = 5;
 
-        Page<Producto> productos = productoService.buscarConFiltros(category, supermarket, orden, page, pageSize);
+        Page<Producto> productosPage = productoService.getProductosFiltrados(category, supermarket, page, pageSize, orden);
 
-        // Productos paginados
-        model.addAttribute("productos", productos.getContent());
-        model.addAttribute("hasMore", productos.hasNext());
-        model.addAttribute("paginaActual", page);
+        model.addAttribute("productos", productosPage.getContent());
+        model.addAttribute("pagina", page);
+        model.addAttribute("hasMore", productosPage.hasNext());
 
-        // Filtros disponibles
-        List<String> categorias = productoService.obtenerCategory();
-        List<String> supermercados = productoService.obtenerSupermercados();
+        model.addAttribute("category", productoService.getCategoryDisponibles());
+        model.addAttribute("supermercados", productoService.getSupermercadosDisponibles());
 
-        model.addAttribute("categorias", categorias);
-        model.addAttribute("supermercados", supermercados);
-
-        // Valores seleccionados (para mantenerlos en el formulario)
-        model.addAttribute("categoriaSeleccionada", category);
-        model.addAttribute("supermercadoSeleccionado", supermarket);
-        model.addAttribute("orden", orden);
-
-        return "paginaDeProducto"; // HTML en templates/
+        return "paginaDeProducto";
     }
 
-    // 🔵 Página de detalle (si decides mantenerla en el futuro)
-    @GetMapping("/producto/{id}")
-    public String mostrarDetalleProducto(@PathVariable Long id, Model model) {
-        return productoService.obtenerProductoPorId(id)
-                .map(producto -> {
-                    model.addAttribute("producto", producto);
-                    return "producto/detalle";
-                })
-                .orElse("redirect:/paginaDeProducto");
+    // 🔵 Añadir producto al carrito
+    @PostMapping("/carrito/agregar")
+    public String agregarAlCarrito(@RequestParam("productoId") Long productoId, HttpSession session) {
+        Producto producto = productoService.getProductoPorId(productoId);
+        if (producto != null) {
+            List<Producto> carrito = (List<Producto>) session.getAttribute("carrito");
+            if (carrito == null) {
+                carrito = new ArrayList<>();
+            }
+            carrito.add(producto);
+            session.setAttribute("carrito", carrito);
+        }
+        return "redirect:/Carrito.html";
     }
 }
+
