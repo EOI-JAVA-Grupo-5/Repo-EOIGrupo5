@@ -105,34 +105,34 @@ public class DefaultController {
 //        return "register"; // View name
 //    }
 
-    @GetMapping("/usuario")
-    public String usuario(Model model)
-    {
-//        model.addAttribute("username", principal.getName());
-//        return "perfilUsuario"; // View name
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Object principal = authentication.getPrincipal();
-
-        if (principal instanceof UserDetails) {
-            UserDetails userDetails = (UserDetails) principal;
-            String username = userDetails.getUsername();         // nombre de usuario
-            String password = userDetails.getPassword();         // contraseña (generalmente cifrada)
-            Collection<? extends GrantedAuthority> roles = userDetails.getAuthorities(); // roles
-
-            // Si usas una clase propia (como Usuario), puedes hacer un cast
-            // y acceder a otros campos como correo, nombre real, etc.
-            if (userDetails instanceof UsuarioDetailsService) {
-                UsuarioDetailsService usuario = (UsuarioDetailsService) userDetails;
-//                model.addAttribute("username", usuario.getUsername());
-//                model.addAttribute("email", usuario.getCorreo());      // <- correo
-//                model.addAttribute("nombre", usuario.getNombre());    // <- nombre real
-            } else {
-                model.addAttribute("username", userDetails.getUsername());
-            }
-        }
-
-        return "perfilUsuario";
-    }
+//    @GetMapping("/usuario")
+//    public String usuario(Model model)
+//    {
+////        model.addAttribute("username", principal.getName());
+////        return "perfilUsuario"; // View name
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        Object principal = authentication.getPrincipal();
+//
+//        if (principal instanceof UserDetails) {
+//            UserDetails userDetails = (UserDetails) principal;
+//            String username = userDetails.getUsername();         // nombre de usuario
+//            String password = userDetails.getPassword();         // contraseña (generalmente cifrada)
+//            Collection<? extends GrantedAuthority> roles = userDetails.getAuthorities(); // roles
+//
+//            // Si usas una clase propia (como Usuario), puedes hacer un cast
+//            // y acceder a otros campos como correo, nombre real, etc.
+//            if (userDetails instanceof UsuarioDetailsService) {
+//                UsuarioDetailsService usuario = (UsuarioDetailsService) userDetails;
+////                model.addAttribute("username", usuario.getUsername());
+////                model.addAttribute("email", usuario.getCorreo());      // <- correo
+////                model.addAttribute("nombre", usuario.getNombre());    // <- nombre real
+//            } else {
+//                model.addAttribute("username", userDetails.getUsername());
+//            }
+//        }
+//
+//        return "perfilUsuario";
+//    }
 
     @GetMapping("/forum")
     public String forum(Model model)

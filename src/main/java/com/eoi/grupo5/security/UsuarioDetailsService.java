@@ -36,7 +36,7 @@ public class UsuarioDetailsService implements UserDetailsService {
         log.info("+++++++++++++++ USUARIO " + usuario.getUsername());
         return User.withUsername(usuario.getUsername())
                 .password(usuario.getPassword())
-                .roles(usuario.getTipo().toString())
+                .authorities(usuario.getTipo().toString())
                 .build();
     }
 }
