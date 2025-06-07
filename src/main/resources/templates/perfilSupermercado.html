@@ -60,19 +60,19 @@
             <div class="collapse navbar-collapse" id="collapsibleNavId">
                 <ul class="navbar-nav me-auto mt-2 mt-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" href="paginaDeProducto" aria-current="page">
+                        <a class="nav-link active" href="@{/paginaDeProducto}" aria-current="page">
                             <i class="fa-solid fa-cube"></i> Productos
                             <span class="visually-hidden">(current)</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="supermercados" aria-current="page">
+                        <a class="nav-link active" href="@{/supermercados}" aria-current="page">
                             <i class="fa-solid fa-store"></i> Supermercados
                             <span class="visually-hidden">(current)</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="forum" aria-current="page">
+                        <a class="nav-link active" href="@{/forum}" aria-current="page">
                             <i class="fa-solid fa-comments"></i> Forum
                             <span class="visually-hidden">(current)</span>
                         </a>
@@ -135,7 +135,7 @@
         <div class="d-flex gap-4 p-4 bg-white rounded-3 shadow w-100" style="max-width: 1000px;">
             <!-- Logo -->
             <div class="img-wrapper" style="flex-shrink: 0;">
-                <img src="https://placehold.co/150x150" alt="Logo del supermercado" class="img-fluid">
+                <img th:src="${supermercado.logoURL}" alt="Logo del supermercado" class="img-fluid">
             </div>
 
             <!-- Contenido -->
@@ -182,22 +182,27 @@
     </div>
     <div class="row">
         <!-- Producto -->
-        <div th:each="producto : ${productos}" class="col-md-2 col-sm-6 mb-4" style="min-width: 200px">
+        <div th:each="producto : ${productosPage.content}" class="col-md-3 col-sm-6 mb-4" style="min-width: 200px">
             <div
-                    class="card text-center p-2"
+                    class="card text-center p-2 h-100 d-flex flex-column"
                     data-bs-toggle="modal"
                     data-bs-target="#productModal1"
             >
-                <img
-                        src="https://placehold.co/150x150"
-                        class="card-img-top"
-                        alt="Producto"
-                />
-                <div class="card-body">
+<!--                <img-->
+<!--                        th:src="${producto.url}"-->
+<!--                        class="card-img-top"-->
+<!--                        alt="Producto"-->
+<!--                />-->
+                <div class="card-body d-flex flex-column justify-content-between">
                     <h5 class="card-title" th:text="${producto.name}">Producto 1</h5>
-                    <p class="text-warning">★★★★★</p>
-                    <p class="fw-bold" th:text="${producto.price}">10.99 €</p>
-                    <button class="btn btn-outline-danger btn-sm mb-2">❤</button>
+<!--                    <p class="text-warning">★★★★★</p>-->
+                    <p class="fw-bold" th:text="${producto.price + '€'}">10.99 €</p>
+                    <div class="d-flex justify-content-center mb-2">
+                        <button class="btn btn-outline-danger btn-sm p-0" style="width: 2rem; height: 2rem;">
+                            ❤
+                        </button>
+                    </div>
+
                     <div
                             class="d-flex justify-content-center align-items-center mb-2"
                     >
@@ -211,79 +216,102 @@
         </div>
 
         <!-- Modal -->
-        <div
-                class="modal fade"
-                id="productModal1"
-                tabindex="-1"
-                aria-labelledby="productModalLabel"
-                aria-hidden="true"
-        >
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="productModalLabel">Producto 1</h5>
-                        <button
-                                type="button"
-                                class="btn-close"
-                                data-bs-dismiss="modal"
-                                aria-label="Cerrar"
-                        ></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div
-                                    class="col-md-6 d-flex justify-content-center align-items-center"
-                            >
-                                <img
-                                        src="https://placehold.co/150x150"
-                                        class="img-fluid"
-                                        alt="Producto"
-                                />
-                            </div>
-                            <div class="col-md-6">
-                                <h5>Descripción:</h5>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                    Phasellus imperdiet, nulla et dictum interdum, nisi lorem
-                                    egestas odio, vitae scelerisque enim ligula venenatis
-                                    dolor. Maecenas nisl est, ultrices nec congue eget, auctor
-                                    vitae massa.
-                                </p>
-                                <h5>Reseñas:</h5>
-                                <div>
-                                    <p>
-                                        <strong>Usuario 1:</strong> ★★★★★ Me encanta este
-                                        producto, es de excelente calidad.
-                                    </p>
-                                    <p>
-                                        <strong>Usuario 2:</strong> ★★★★☆ Muy bueno, pero la
-                                        talla no es precisa.
-                                    </p>
-                                    <p>
-                                        <strong>Usuario 3:</strong> ★★★☆☆ Cumple su función,
-                                        pero esperaba más.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button
-                                type="button"
-                                class="btn btn-secondary"
-                                data-bs-dismiss="modal"
-                        >
-                            Cerrar
-                        </button>
-                        <button type="button" class="btn btn-success">
-                            Añadir al carrito
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
+<!--        <div-->
+<!--                class="modal fade"-->
+<!--                id="productModal1"-->
+<!--                tabindex="-1"-->
+<!--                aria-labelledby="productModalLabel"-->
+<!--                aria-hidden="true"-->
+<!--        >-->
+<!--            <div class="modal-dialog modal-lg">-->
+<!--                <div class="modal-content">-->
+<!--                    <div class="modal-header">-->
+<!--                        <h5 class="modal-title" id="productModalLabel">Producto 1</h5>-->
+<!--                        <button-->
+<!--                                type="button"-->
+<!--                                class="btn-close"-->
+<!--                                data-bs-dismiss="modal"-->
+<!--                                aria-label="Cerrar"-->
+<!--                        ></button>-->
+<!--                    </div>-->
+<!--                    <div class="modal-body">-->
+<!--                        <div class="row">-->
+<!--                            <div-->
+<!--                                    class="col-md-6 d-flex justify-content-center align-items-center"-->
+<!--                            >-->
+<!--                                <img-->
+<!--                                        src="https://placehold.co/150x150"-->
+<!--                                        class="img-fluid"-->
+<!--                                        alt="Producto"-->
+<!--                                />-->
+<!--                            </div>-->
+<!--                            <div class="col-md-6">-->
+<!--                                <h5>Descripción:</h5>-->
+<!--                                <p>-->
+<!--                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.-->
+<!--                                    Phasellus imperdiet, nulla et dictum interdum, nisi lorem-->
+<!--                                    egestas odio, vitae scelerisque enim ligula venenatis-->
+<!--                                    dolor. Maecenas nisl est, ultrices nec congue eget, auctor-->
+<!--                                    vitae massa.-->
+<!--                                </p>-->
+<!--                                <h5>Reseñas:</h5>-->
+<!--                                <div>-->
+<!--                                    <p>-->
+<!--                                        <strong>Usuario 1:</strong> ★★★★★ Me encanta este-->
+<!--                                        producto, es de excelente calidad.-->
+<!--                                    </p>-->
+<!--                                    <p>-->
+<!--                                        <strong>Usuario 2:</strong> ★★★★☆ Muy bueno, pero la-->
+<!--                                        talla no es precisa.-->
+<!--                                    </p>-->
+<!--                                    <p>-->
+<!--                                        <strong>Usuario 3:</strong> ★★★☆☆ Cumple su función,-->
+<!--                                        pero esperaba más.-->
+<!--                                    </p>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="modal-footer">-->
+<!--                        <button-->
+<!--                                type="button"-->
+<!--                                class="btn btn-secondary"-->
+<!--                                data-bs-dismiss="modal"-->
+<!--                        >-->
+<!--                            Cerrar-->
+<!--                        </button>-->
+<!--                        <button type="button" class="btn btn-success">-->
+<!--                            Añadir al carrito-->
+<!--                        </button>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
 
     </div>
+    <!-- Paginación -->
+    <div class="d-flex justify-content-center mt-4">
+        <nav>
+            <ul class="pagination">
+                <li class="page-item" th:classappend="${productosPage.first} ? 'disabled'">
+                    <a class="page-link"
+                       th:href="@{/supermercados/{id}(id=${supermercado.id}, page=${productosPage.number - 1})}">Anterior</a>
+                </li>
+
+                <li class="page-item disabled">
+                <span class="page-link"
+                      th:text="'Página ' + (${productosPage.number + 1}) + ' de ' + ${productosPage.totalPages}"></span>
+                </li>
+
+                <li class="page-item" th:classappend="${productosPage.last} ? 'disabled'">
+                    <a class="page-link"
+                       th:href="@{/supermercados/{id}(id=${supermercado.id}, page=${productosPage.number + 1})}">Siguiente</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+
 </section>
 
 <footer class="text-center text-lg-start" style="background-color: #efd780">

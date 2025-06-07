@@ -13,7 +13,7 @@ import java.util.List;
 public interface ProductoRepository extends JpaRepository<Producto, Long> {
 
     // 🔹 Para el filtro por supermercado individual
-    List<Producto> findBySupermarketIgnoreCase(String supermarket);
+    Page<Producto> findBySupermarketIgnoreCaseContaining(String supermarket, Pageable pageable);
 
     // 🔹 Para obtener categorías únicas
     @Query("SELECT DISTINCT p.category FROM Producto p")

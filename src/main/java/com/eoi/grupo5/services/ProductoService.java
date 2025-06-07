@@ -52,8 +52,8 @@ public class ProductoService {
         return productoRepository.findById(id).orElse(null);
     }
 
-    public List<Producto> findBySupermercado(String nombreSupermercado) {
-        return productoRepository.findBySupermarketIgnoreCase(nombreSupermercado.toLowerCase());
+    public Page<Producto> findBySupermercado(String nombreSupermercado, Pageable pageable) {
+        return productoRepository.findBySupermarketIgnoreCaseContaining(nombreSupermercado.toLowerCase(), pageable);
     }
 }
 
