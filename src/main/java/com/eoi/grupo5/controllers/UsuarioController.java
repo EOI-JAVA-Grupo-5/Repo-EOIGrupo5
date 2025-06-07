@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
 
@@ -112,7 +113,7 @@ public class UsuarioController {
 
 
     @PostMapping("/usuario/modificar/password")
-    public String modificarPasswordUsuario(@Valid @ModelAttribute(name = "passwords") PasswordModDTO passwords, Principal principal, Errors errors, Model model){
+    public String modificarPasswordUsuario(@Valid @ModelAttribute(name = "passwords") PasswordModDTO passwords, Principal principal, RedirectAttributes redirectAttributes , Errors errors, Model model){
         if(errors.hasErrors()){
             return "register";
         }
@@ -126,21 +127,23 @@ public class UsuarioController {
 
         if(!encoder.matches(passwords.getClaveActual(), usuario.getPassword())){
             log.info("CONTRASEÑA ACTUAL INCORRECTA");
-            model.addAttribute("fallo", "Contraseña actual incorrecta");
-            return "redirect:/usuario/modificar/password";
+            redirectAttributes.addFlashAttribute("fallo", "Contraseña actual incorrecta");
+
+            return "redirect:/usuario/modificar/password?error";
         }
         else if(!passwords.getClaveNueva().equals(passwords.getClaveNuevaRepe())){
             log.info("CONTRASEÑAS NUEVAS INCORRECTA");
-            model.addAttribute("fallo", "Los campos de nueva contraseña no coinciden");
-            return "redirect:/usuario/modificar/password";
+            redirectAttributes.addFlashAttribute("fallo","Los campos de nueva contraseña no coinciden");
+
+            return "redirect:/usuario/modificar/password?error";
         }
         else {
             usuario.setPassword(encoder.encode(passwords.getClaveNuevaRepe()));
             usuarioRepository.save(usuario);
-            model.addAttribute("exito", "Contraseña actualizada");
-            log.info("CONTRASEÑA ACTUALIZADA");
-        }
+            redirectAttributes.addFlashAttribute("exito","Contraseña actualizada");
 
-        return "redirect:/usuario/modificar/password";
+            log.info("CONTRASEÑA ACTUALIZADA");
+            return "redirect:/usuario/modificar/password?exito";
+        }
     }
 }
