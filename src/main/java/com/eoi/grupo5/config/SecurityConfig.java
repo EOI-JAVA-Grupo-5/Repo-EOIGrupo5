@@ -103,6 +103,7 @@ public class SecurityConfig {
                         .requestMatchers("/forum").permitAll()
                         .requestMatchers("/usuario").authenticated()
                         .requestMatchers("/usuario/modificar").authenticated()
+                        .requestMatchers("/usuario/modificar/password").authenticated()
                         .requestMatchers("/login").permitAll()
                         .requestMatchers("/registro").permitAll()
                         .requestMatchers("/paginaDeProducto").permitAll()

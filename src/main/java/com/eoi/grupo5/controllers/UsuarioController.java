@@ -1,5 +1,6 @@
 package com.eoi.grupo5.controllers;
 
+import com.eoi.grupo5.dtos.PasswordModDTO;
 import com.eoi.grupo5.entities.Usuario;
 import com.eoi.grupo5.repositories.UsuarioRepository;
 import jakarta.validation.Valid;
@@ -94,5 +95,52 @@ public class UsuarioController {
         usuarioRepository.save(usuario);
 
         return "redirect:/usuario";
+    }
+
+
+
+    @GetMapping("/usuario/modificar/password")
+    public String modificarPasswordUsuario(@AuthenticationPrincipal UserDetails userDetails, Model model){
+        String username = userDetails.getUsername();
+
+        Usuario usuario = usuarioRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
+
+        model.addAttribute("usuario", usuario);
+        return "modificarPassword";
+    }
+
+
+    @PostMapping("/usuario/modificar/password")
+    public String modificarPasswordUsuario(@Valid @ModelAttribute(name = "passwords") PasswordModDTO passwords, Principal principal, Errors errors, Model model){
+        if(errors.hasErrors()){
+            return "register";
+        }
+
+        log.info(passwords.getClaveActual() + " " + passwords.getClaveNueva() + " " + passwords.getClaveNuevaRepe());
+
+        Usuario usuario = usuarioRepository.findByUsername(principal.getName())
+                .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
+
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+        if(!encoder.matches(passwords.getClaveActual(), usuario.getPassword())){
+            log.info("CONTRASEÑA ACTUAL INCORRECTA");
+            model.addAttribute("fallo", "Contraseña actual incorrecta");
+            return "redirect:/usuario/modificar/password";
+        }
+        else if(!passwords.getClaveNueva().equals(passwords.getClaveNuevaRepe())){
+            log.info("CONTRASEÑAS NUEVAS INCORRECTA");
+            model.addAttribute("fallo", "Los campos de nueva contraseña no coinciden");
+            return "redirect:/usuario/modificar/password";
+        }
+        else {
+            usuario.setPassword(encoder.encode(passwords.getClaveNuevaRepe()));
+            usuarioRepository.save(usuario);
+            model.addAttribute("exito", "Contraseña actualizada");
+            log.info("CONTRASEÑA ACTUALIZADA");
+        }
+
+        return "redirect:/usuario/modificar/password";
     }
 }
