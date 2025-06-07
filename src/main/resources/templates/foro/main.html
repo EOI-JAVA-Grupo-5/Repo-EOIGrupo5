@@ -45,19 +45,19 @@
 
     <!-- Modal/Popup para crear nuevo hilo -->
     <div class="modal fade" id="nuevoHiloModal" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog">
+      <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <form th:action="@{/foro/crear}" th:object="${nuevoHilo}" method="post">
-            <div class="modal-header">
-              <h5 class="modal-title">Nuevo Hilo</h5>
+            <div class="modal-header justify-content-center">
+              <h3 class="modal-title"><strong>Nuevo Hilo!</strong> <i class="fa-solid fa-pencil"></i></h3>
             </div>
             <div class="modal-body">
-              <input type="text" th:field="*{titulo}" class="form-control" placeholder="Título del hilo" required />
-              <textarea th:field="*{descripcion}" class="form-control mt-2" placeholder="Contenido" rows="4"
+              <input type="text" th:field="*{titulo}" class="form-control" placeholder="Título del hilo..." required />
+              <textarea th:field="*{descripcion}" class="form-control mt-2 pb-2" placeholder="Contenido..." rows="4"
                 required></textarea>
             </div>
-            <div class="modal-footer">
-              <button type="submit" class="btn btn-success">Publicar</button>
+            <div class="modal-footer justify-content-center">
+              <button type="submit" class="btn btn-success btn-lg">Publicar <i class="fa-solid fa-rocket"></i></button>
             </div>
           </form>
         </div>
