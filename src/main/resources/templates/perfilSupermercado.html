@@ -80,13 +80,27 @@
                 Filtrar
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <li><a class="dropdown-item" href="#">Nombre (A-Z)</a></li>
-                <li><a class="dropdown-item" href="#">Nombre (Z-A)</a></li>
-                <li>
-                    <a class="dropdown-item" href="#">Precio (Menor a Mayor)</a>
+                <li><a class="dropdown-item"
+                       th:href="@{|/supermercados/${supermercado.id}?orden=asc&page=${productosPage.number}|}">
+                    Nombre (A-Z)
+                </a>
+                </li>
+                <li><a class="dropdown-item"
+                       th:href="@{|/supermercados/${supermercado.id}?orden=desc&page=${productosPage.number}|}">
+                    Nombre (Z-A)
+                </a>
                 </li>
                 <li>
-                    <a class="dropdown-item" href="#">Precio (Mayor a Menor)</a>
+                    <a class="dropdown-item"
+                       th:href="@{|/supermercados/${supermercado.id}?orden=precio_asc&page=${productosPage.number}|}">
+                        Precio (Menor a Mayor)
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item"
+                       th:href="@{|/supermercados/${supermercado.id}?orden=precio_desc&page=${productosPage.number}|}">
+                        Precio (Mayor a Menor)
+                    </a>
                 </li>
                 <li><a class="dropdown-item" href="#">Categoría</a></li>
             </ul>

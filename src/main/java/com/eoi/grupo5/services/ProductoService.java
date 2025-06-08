@@ -55,5 +55,21 @@ public class ProductoService {
     public Page<Producto> findBySupermercado(String nombreSupermercado, Pageable pageable) {
         return productoRepository.findBySupermarketIgnoreCaseContaining(nombreSupermercado.toLowerCase(), pageable);
     }
+
+    public Page<Producto> productoSupermercadoByNameAsc(Pageable pageable){
+        return productoRepository.findAllByOrderByNameAsc(pageable);
+    }
+
+    public Page<Producto> productoSupermercadoByNameDesc(Pageable pageable){
+        return productoRepository.findAllByOrderByNameDesc(pageable);
+    }
+
+    public Page<Producto> productoSupermercadoByPriceAsc(Pageable pageable){
+        return productoRepository.findAllByOrderByPriceAsc(pageable);
+    }
+
+    public Page<Producto> productoSupermercadoByPriceDesc(Pageable pageable){
+        return productoRepository.findAllByOrderByPriceDesc(pageable);
+    }
 }
 
