@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Supermercados</title>
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+    />
+
+    <!--Icono de web-->
+    <link rel="apple-touch-icon" sizes="180x180" th:href="@{/images/logo-SF.png}">
+    <link rel="icon" type="image/png" sizes="32x32" th:href="@{/images/logo-SF.png}">
+    <link rel="icon" type="image/png" sizes="16x16" th:href="@{/images/logo-SF.png}">
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/images/logo-SF.png}">
+
+    <!-- Stylesheets -->
+    <link th:href="@{css/styles.css}" rel="stylesheet" />
+    <link th:href="@{css/perfilSupermercado.css}" rel="stylesheet">
+
+    <!-- iconos -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+
+    <!-- Links para el Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+            href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+            rel="stylesheet"
+    />
+
+</head>
+
+<body>
+<!-- NAVBAR -->
+<section id="navbar-section">
+    <nav
+            class="navbar navbar-expand-sm primary-navbar"
+    >
+        <div class="container">
+            <a class="navbar-brand d-inline-flex" th:href="@{/}">
+                <img class="d-inline-block" src="../images/logo-SF.png"
+                     alt="logo" style="width: 5rem; align-self: center;">
+                <span class="text-1000 fs-3 fw-bold ms-2">Castañazo <br> Deals</span>
+            </a>
+            <button
+                    class="navbar-toggler d-lg-none"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapsibleNavId"
+                    aria-controls="collapsibleNavId"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+            >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="collapsibleNavId">
+                <ul class="navbar-nav me-auto mt-2 mt-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="paginaDeProducto" aria-current="page">
+                            <i class="fa-solid fa-cube"></i> Productos
+                            <span class="visually-hidden">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="supermercados" aria-current="page">
+                            <i class="fa-solid fa-store"></i> Supermercados
+                            <span class="visually-hidden">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="forum" aria-current="page">
+                            <i class="fa-solid fa-comments"></i> Forum
+                            <span class="visually-hidden">(current)</span>
+                        </a>
+                    </li>
+                </ul>
+
+
+                <form class="d-flex pt-3 my-2 my-lg-0">
+
+                    <div class="input-group mb-3">
+                            <span class="input-group-text" id="search-icon">
+                                <i class="bi bi-search"></i>
+                            </span>
+                        <input class="form-control  input-box bg-100" type="search" placeholder="Buscar" aria-label="Search">
+                        <button
+                                class="btn btn-outline-warning text-black my-2 my-sm-0"
+                                type="submit"
+                        >
+                            Buscar
+                        </button>
+                    </div>
+
+                </form>
+
+                <div class="d-grid p-3">
+                    <a th:href="@{/inicioSesion}">
+                        <button
+                                type="button"
+                                name=""
+                                id=""
+                                class="btn btn-warning"
+                        >
+                            <i class="bi bi-person-circle"></i> Login
+                        </button>
+                    </a>
+                </div>
+
+                <div class="d-grid p-3">
+                    <a th:href="@{/carrito}">
+                        <button
+                                type="button"
+                                name=""
+                                id=""
+                                class="btn btn-warning"
+                        >
+                            <i class="bi bi-basket2"></i> Carrito
+                        </button>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </nav>
+</section>
+
+<div class="container py-5">
+    <h1 class="mb-4 text-center">Listado de Supermercados</h1>
+
+    <div class="row g-4">
+        <div class="col-6 col-sm-4 col-md-3 col-lg-2" th:each="supermercado : ${supermercados}">
+            <a th:href="@{/supermercados/{id}(id=${supermercado.id})}" class="text-decoration-none">
+                <div class="supermercado-card shadow-sm">
+                    <img th:src="${supermercado.logoURL}" alt="Logo" class="supermercado-img img-thumbnail border-0">
+                    <h4 th:text="${supermercado.nombre}" class="mt-2 mb-0 supermercado-nombre"></h4>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+
+
+<footer class="text-center text-lg-start" style="background-color: #efd780">
+    <!-- Section: Social media -->
+    <section
+            class="d-flex justify-content-between p-4"
+            style="background-color: #dba159"
+    >
+        <!-- Left -->
+        <div class="me-5" style="color: #fcfdaf">
+            <span><strong>Síguenos en nuestras redes sociales:</strong></span>
+        </div>
+        <!-- Left -->
+
+        <!-- Right -->
+        <div>
+            <a href="" class="icono-red-footer me-4">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="" class="icono-red-footer me-4">
+                <i class="fab fa-twitter"></i>
+            </a>
+            <a href="" class="icono-red-footer me-4">
+                <i class="fab fa-google"></i>
+            </a>
+            <a href="" class="icono-red-footer me-4">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="" class="icono-red-footer me-4">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="" class="icono-red-footer me-4">
+                <i class="fab fa-github"></i>
+            </a>
+        </div>
+        <!-- Right -->
+    </section>
+    <!-- Section: Social media -->
+
+    <!-- Section: Links  -->
+    <section class="">
+        <div class="container text-center text-md-start mt-5">
+            <!-- Grid row -->
+            <div class="row mt-3">
+                <!-- Grid column -->
+                <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                    <!-- Content -->
+                    <h6 class="text-uppercase fw-bold">Sobre Castañazo Deals</h6>
+                    <hr
+                            class="mb-4 mt-0 d-inline-block mx-auto"
+                            style="width: 60px; background-color: #dba159; height: 2px"
+                    />
+                    <p>
+                        Aquí va propaganda pura y dura, sin filtrar. Café para los mas
+                        cafeteros.
+                    </p>
+                </div>
+                <!-- Grid column -->
+
+                <!-- Grid column -->
+                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+                    <!-- Links -->
+                    <h6 class="text-uppercase fw-bold">Cosas</h6>
+                    <hr
+                            class="mb-4 mt-0 d-inline-block mx-auto"
+                            style="width: 60px; background-color: #dba159; height: 2px"
+                    />
+                    <p>
+                        <a href="#!" class="text-blue">Cosa 1</a>
+                    </p>
+                    <p>
+                        <a href="#!" class="text-blue">Cosa 2</a>
+                    </p>
+                    <p>
+                        <a href="#!" class="text-blue">Cosa 3</a>
+                    </p>
+                    <p>
+                        <a href="#!" class="text-blue">Cosa 4</a>
+                    </p>
+                </div>
+                <!-- Grid column -->
+
+                <!-- Grid column -->
+                <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                    <!-- Links -->
+                    <h6 class="text-uppercase fw-bold">Links Útiles</h6>
+                    <hr
+                            class="mb-4 mt-0 d-inline-block mx-auto"
+                            style="width: 60px; background-color: #dba159; height: 2px"
+                    />
+                    <p>
+                        <a href="#!" class="text-blue">Link 1</a>
+                    </p>
+                    <p>
+                        <a href="#!" class="text-blue">Link 2</a>
+                    </p>
+                    <p>
+                        <a href="#!" class="text-blue">Link 3</a>
+                    </p>
+                    <p>
+                        <a href="#!" class="text-blue">Link 4</a>
+                    </p>
+                </div>
+                <!-- Grid column -->
+
+                <!-- Grid column -->
+                <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                    <!-- Links -->
+                    <h6 class="text-uppercase fw-bold">Contacto</h6>
+                    <hr
+                            class="mb-4 mt-0 d-inline-block mx-auto"
+                            style="width: 60px; background-color: #dba059; height: 2px"
+                    />
+                    <p><i class="fas fa-home mr-3"></i> Sevilla, Sevilla, ES</p>
+                    <p><i class="fas fa-envelope mr-3"></i> info@castañazodeals.es</p>
+                    <p><i class="fas fa-phone mr-3"></i> + 01 234 567 88</p>
+                    <p><i class="fas fa-print mr-3"></i> + 01 234 567 89</p>
+                </div>
+                <!-- Grid column -->
+            </div>
+            <!-- Grid row -->
+        </div>
+    </section>
+    <!-- Section: Links  -->
+
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: #dba0598f">
+        © 2025 Copyright:
+        <a class="text-blue" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+    </div>
+    <!-- Copyright -->
+</footer>
+</body>
+
+<!-- Bootstrap -->
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"
+></script>
+
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

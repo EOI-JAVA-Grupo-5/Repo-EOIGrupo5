@@ -2,40 +2,61 @@ package com.eoi.grupo5.controllers;
 
 import com.eoi.grupo5.entities.Producto;
 import com.eoi.grupo5.services.ProductoService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class ProductoController {
 
     private final ProductoService productoService;
 
+    @Autowired
     public ProductoController(ProductoService productoService) {
         this.productoService = productoService;
     }
 
-    // 🟢 Página principal: muestra todos los productos
+    // 🟢 Página principal: con filtros, orden y paginación
     @GetMapping("/paginaDeProducto")
-    public String mostrarTodosLosProductos(Model model) {
-        List<Producto> productos = productoService.getAllProductos();
-        model.addAttribute("productos", productos);
-        return "paginaDeProducto"; // corresponde al archivo paginaDeProducto.html
+    public String mostrarProductos(
+            @RequestParam(required = false) String category,
+            @RequestParam(required = false) String supermarket,
+            @RequestParam(defaultValue = "asc") String orden,
+            @RequestParam(defaultValue = "0") int page,
+            Model model
+    ) {
+        int pageSize = 5;
+
+        Page<Producto> productosPage = productoService.getProductosFiltrados(category, supermarket, page, pageSize, orden);
+
+        model.addAttribute("productos", productosPage.getContent());
+        model.addAttribute("pagina", page);
+        model.addAttribute("hasMore", productosPage.hasNext());
+
+        model.addAttribute("category", productoService.getCategoryDisponibles());
+        model.addAttribute("supermercados", productoService.getSupermercadosDisponibles());
+
+        return "paginaDeProducto";
     }
 
-    // 🔵 Página de detalle: muestra un producto por ID
-    @GetMapping("/producto/{id}")
-    public String mostrarDetalleProducto(@PathVariable Long id, Model model) {
-        Producto producto = productoService.getProductoPorId(id);
+    // 🔵 Añadir producto al carrito
+    @PostMapping("/carrito/agregar")
+    public String agregarAlCarrito(@RequestParam("productoId") Long productoId, HttpSession session) {
+        Producto producto = productoService.getProductoPorId(productoId);
         if (producto != null) {
-            model.addAttribute("producto", producto);
-            return "producto/detalle"; // corresponde a producto/detalle.html
-        } else {
-            // si el producto no existe, redirige a la página principal
-            return "redirect:/paginaDeProducto";
+            List<Producto> carrito = (List<Producto>) session.getAttribute("carrito");
+            if (carrito == null) {
+                carrito = new ArrayList<>();
+            }
+            carrito.add(producto);
+            session.setAttribute("carrito", carrito);
         }
+        return "redirect:/Carrito.html";
     }
 }
+

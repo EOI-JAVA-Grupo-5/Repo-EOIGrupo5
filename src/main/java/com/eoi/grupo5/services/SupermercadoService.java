@@ -15,11 +15,23 @@ public class SupermercadoService {
     public SupermercadoService(SupermercadoRepository supermercadoRepository) { this.supermercadoRepository = supermercadoRepository; }
 
     public List<Supermercado> findAll() {
-        return supermercadoRepository.findAll();
+        // Add debug logging
+        List<Supermercado> result = supermercadoRepository.findAll();
+        System.out.println("SupermercadoService.findAll() - Resultados: " +
+                (result != null ? result.size() : "null"));
+        return result;
+
+        //return supermercadoRepository.findAll();
     }
 
-    public Optional<Supermercado> findById(Long id) {
-        return supermercadoRepository.findById(id);
+    public Supermercado findById(Long id) {
+        // Add debug logging
+        Optional<Supermercado> result = supermercadoRepository.findById(id);
+        System.out.println("SupermercadoService.findById(" + id + ") - Encontrado: " +
+                result.isPresent());
+        return result.orElse(null);
+
+        //return supermercadoRepository.findById(id);
     }
 
     public Supermercado save(Supermercado supermercado) {
