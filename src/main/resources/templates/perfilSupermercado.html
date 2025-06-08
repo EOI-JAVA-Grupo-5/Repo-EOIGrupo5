@@ -69,43 +69,82 @@
 <section class="container my-5">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2>Listado de Productos</h2>
-        <div class="dropdown">
+
+        <div class="d-flex gap-2">
+            <!--Categorias-->
             <button
                     class="filter-btn btn btn-warning dropdown-toggle"
                     type="button"
-                    id="dropdownMenuButton"
+                    id="dropdownCategoryButton"
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
             >
-                Filtrar
+                Categorías
             </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <li><a class="dropdown-item"
-                       th:href="@{|/supermercados/${supermercado.id}?orden=asc&page=${productosPage.number}|}">
-                    Nombre (A-Z)
-                </a>
-                </li>
-                <li><a class="dropdown-item"
-                       th:href="@{|/supermercados/${supermercado.id}?orden=desc&page=${productosPage.number}|}">
-                    Nombre (Z-A)
-                </a>
-                </li>
+            <ul class="dropdown-menu" aria-labelledby="dropdownCategoryButton">
                 <li>
-                    <a class="dropdown-item"
-                       th:href="@{|/supermercados/${supermercado.id}?orden=precio_asc&page=${productosPage.number}|}">
-                        Precio (Menor a Mayor)
+                    <a class="dropdown-item text-danger fw-bold"
+                       th:href="@{|/supermercados/${supermercado.id}?page=0|}">
+                        Mostrar todos
                     </a>
                 </li>
-                <li>
+                <li><hr class="dropdown-divider"></li>
+                <li th:each="cat : ${categorias}">
                     <a class="dropdown-item"
-                       th:href="@{|/supermercados/${supermercado.id}?orden=precio_desc&page=${productosPage.number}|}">
-                        Precio (Mayor a Menor)
-                    </a>
+                       th:href="@{|/supermercados/${supermercado.id}?categoria=${cat}&page=0|}"
+                       th:text="${cat}">Categoría</a>
                 </li>
-                <li><a class="dropdown-item" href="#">Categoría</a></li>
             </ul>
+
+
+            <!--Filtrar-->
+            <div class="dropdown">
+                <button
+                        class="filter-btn btn btn-warning dropdown-toggle"
+                        type="button"
+                        id="dropdownMenuButton"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                >
+                    Filtros
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <li>
+                        <a class="dropdown-item text-danger fw-bold"
+                           th:href="@{|/supermercados/${supermercado.id}?page=0|}">
+                            Quitar filtros
+                        </a>
+                    </li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item"
+                           th:href="@{|/supermercados/${supermercado.id}?orden=asc&page=${productosPage.number}|}">
+                        Nombre (A-Z)
+                    </a>
+                    </li>
+                    <li><a class="dropdown-item"
+                           th:href="@{|/supermercados/${supermercado.id}?orden=desc&page=${productosPage.number}|}">
+                        Nombre (Z-A)
+                    </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item"
+                           th:href="@{|/supermercados/${supermercado.id}?orden=precio_asc&page=${productosPage.number}|}">
+                            Precio (Menor a Mayor)
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item"
+                           th:href="@{|/supermercados/${supermercado.id}?orden=precio_desc&page=${productosPage.number}|}">
+                            Precio (Mayor a Menor)
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
+
+
+
     <div class="row">
         <!-- Producto -->
         <div th:each="producto : ${productosPage.content}" class="col-md-3 col-sm-6 mb-4" style="min-width: 200px">

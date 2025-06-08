@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 
 @Controller
@@ -36,8 +39,12 @@ public class SupermercadoController {
     }
 
     @GetMapping("/supermercados/{id}")
-    public String verProductosDeSupermercado(@PathVariable Long id, Model model, @RequestParam(defaultValue = "0") int page, @RequestParam(required = false) String orden) {
+    public String verProductosDeSupermercado(@PathVariable Long id, Model model,
+                                             @RequestParam(defaultValue = "0") int page, @RequestParam(required = false) String orden,
+                                             @RequestParam(required = false) String categoria) {
+
         Supermercado supermercado = supermercadoService.findById(id);
+
 
         Pageable pageable = PageRequest.of(page, 20);
 
@@ -55,9 +62,17 @@ public class SupermercadoController {
             productosPage = productoService.findBySupermercado(supermercado.getNombre(), pageable);
         }
 
+        List<Producto> todosLosProductos = productoService.findBySupermercado(supermercado.getNombre());
+
+        Set<String> categorias = todosLosProductos.stream()
+                .map(Producto::getCategory)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toSet());
+
         model.addAttribute("supermercado", supermercado);
         model.addAttribute("productosPage", productosPage);
         model.addAttribute("orden", orden);
+        model.addAttribute("categorias", categorias);
 
         return "perfilSupermercado";
     }
