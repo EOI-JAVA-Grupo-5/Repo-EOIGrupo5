@@ -22,13 +22,8 @@ public class SupermercadoDataLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        // Add debug logging
-        System.out.println("SupermercadoDataLoader - Inicio de carga");
-        System.out.println("SupermercadoDataLoader - Número actual de supermercados: " + supermercadoRepository.count());
 
-        // Check if we already have data
         if (supermercadoRepository.count() == 0) {
-            System.out.println("Cargando datos de prueba de supermercados...");
 
             Supermercado s1 = new Supermercado();
             s1.setNombre("Mercadona");
@@ -49,9 +44,7 @@ public class SupermercadoDataLoader implements CommandLineRunner {
             s3.setZona("Centro");
 
             supermercadoRepository.saveAll(Arrays.asList(s1, s2, s3));
-            System.out.println("Datos de prueba cargados correctamente");
-        }
-        System.out.println("SupermercadoDataLoader - Fin de carga. Total supermercados: " + supermercadoRepository.count());
 
+        }
     }
 }
