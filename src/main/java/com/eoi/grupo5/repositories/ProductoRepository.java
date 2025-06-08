@@ -37,6 +37,10 @@ public interface ProductoRepository extends JpaRepository<Producto, Long> {
     Page<Producto> findAllByOrderByNameDesc(Pageable pageable);
     Page<Producto> findAllByOrderByPriceAsc(Pageable pageable);
     Page<Producto> findAllByOrderByPriceDesc(Pageable pageable);
+
+    //Método para filtrar por categoría
+    Page<Producto> findBySupermarketIgnoreCaseContainingAndCategory(String nombre, String categoria, Pageable pageable);
+
 }
 
 

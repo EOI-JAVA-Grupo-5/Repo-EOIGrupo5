@@ -39,31 +39,44 @@ public class SupermercadoController {
     }
 
     @GetMapping("/supermercados/{id}")
-    public String verProductosDeSupermercado(@PathVariable Long id, Model model,
-                                             @RequestParam(defaultValue = "0") int page, @RequestParam(required = false) String orden,
+    public String verProductosDeSupermercado(@PathVariable Long id,
+                                             Model model,
+                                             @RequestParam(defaultValue = "0") int page,
+                                             @RequestParam(required = false) String orden,
                                              @RequestParam(required = false) String categoria) {
 
         Supermercado supermercado = supermercadoService.findById(id);
-
-
         Pageable pageable = PageRequest.of(page, 20);
 
         Page<Producto> productosPage;
 
-        if ("asc".equals(orden)) {
-            productosPage = productoService.productoSupermercadoByNameAsc(pageable);
-        }else if ("desc".equals(orden)) {
-            productosPage = productoService.productoSupermercadoByNameDesc(pageable);
-        } else if ("precio_asc".equals(orden)) {
-            productosPage = productoService.productoSupermercadoByPriceAsc(pageable);
-        } else if ("precio_desc".equals(orden)) {
-            productosPage = productoService.productoSupermercadoByPriceDesc(pageable);
+        System.out.println("Filtrando por categoría: " + categoria);
+
+        if (categoria != null && !categoria.isEmpty()) {
+            productosPage = switch (orden) {
+                case "asc" ->
+                        productoService.productoSupermercadoByNameAscAndCategoria(supermercado.getNombre(), categoria, pageable);
+                case "desc" ->
+                        productoService.productoSupermercadoByNameDescAndCategoria(supermercado.getNombre(), categoria, pageable);
+                case "precio_asc" ->
+                        productoService.productoSupermercadoByPriceAscAndCategoria(supermercado.getNombre(), categoria, pageable);
+                case "precio_desc" ->
+                        productoService.productoSupermercadoByPriceDescAndCategoria(supermercado.getNombre(), categoria, pageable);
+                case null, default ->
+                        productoService.findBySupermercadoAndCategoria(supermercado.getNombre(), categoria, pageable);
+            };
         } else {
-            productosPage = productoService.findBySupermercado(supermercado.getNombre(), pageable);
+            productosPage = switch (orden) {
+                case "asc" -> productoService.productoSupermercadoByNameAsc(pageable);
+                case "desc" -> productoService.productoSupermercadoByNameDesc(pageable);
+                case "precio_asc" -> productoService.productoSupermercadoByPriceAsc(pageable);
+                case "precio_desc" -> productoService.productoSupermercadoByPriceDesc(pageable);
+                case null, default -> productoService.findBySupermercado(supermercado.getNombre(), pageable);
+            };
         }
 
-        List<Producto> todosLosProductos = productoService.findBySupermercado(supermercado.getNombre());
 
+        List<Producto> todosLosProductos = productoService.findBySupermercado(supermercado.getNombre());
         Set<String> categorias = todosLosProductos.stream()
                 .map(Producto::getCategory)
                 .filter(Objects::nonNull)
@@ -72,10 +85,12 @@ public class SupermercadoController {
         model.addAttribute("supermercado", supermercado);
         model.addAttribute("productosPage", productosPage);
         model.addAttribute("orden", orden);
+        model.addAttribute("categoria", categoria);
         model.addAttribute("categorias", categorias);
 
         return "perfilSupermercado";
     }
+
 
 }
 

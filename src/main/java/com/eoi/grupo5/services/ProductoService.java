@@ -52,6 +52,8 @@ public class ProductoService {
         return productoRepository.findById(id).orElse(null);
     }
 
+
+
     public List<Producto> findBySupermercado(String nombreSupermercado) {
         return productoRepository.findBySupermarketIgnoreCaseContaining(nombreSupermercado);
     }
@@ -75,5 +77,30 @@ public class ProductoService {
     public Page<Producto> productoSupermercadoByPriceDesc(Pageable pageable){
         return productoRepository.findAllByOrderByPriceDesc(pageable);
     }
+
+    public Page<Producto> findBySupermercadoAndCategoria(String nombre, String categoria, Pageable pageable) {
+        return productoRepository.findBySupermarketIgnoreCaseContainingAndCategory(nombre, categoria, pageable);
+    }
+
+    public Page<Producto> productoSupermercadoByNameAscAndCategoria(String nombre, String categoria, Pageable pageable) {
+        return productoRepository.findBySupermarketIgnoreCaseContainingAndCategory(nombre, categoria,
+                PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by("name").ascending()));
+    }
+
+    public Page<Producto> productoSupermercadoByNameDescAndCategoria(String nombre, String categoria, Pageable pageable) {
+        return productoRepository.findBySupermarketIgnoreCaseContainingAndCategory(nombre, categoria,
+                PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by("name").descending()));
+    }
+
+    public Page<Producto> productoSupermercadoByPriceAscAndCategoria(String nombre, String categoria, Pageable pageable) {
+        return productoRepository.findBySupermarketIgnoreCaseContainingAndCategory(nombre, categoria,
+                PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by("price").ascending()));
+    }
+
+    public Page<Producto> productoSupermercadoByPriceDescAndCategoria(String nombre, String categoria, Pageable pageable) {
+        return productoRepository.findBySupermarketIgnoreCaseContainingAndCategory(nombre, categoria,
+                PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by("price").descending()));
+    }
 }
+
 

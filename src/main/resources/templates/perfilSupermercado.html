@@ -91,7 +91,7 @@
                 <li><hr class="dropdown-divider"></li>
                 <li th:each="cat : ${categorias}">
                     <a class="dropdown-item"
-                       th:href="@{|/supermercados/${supermercado.id}?categoria=${cat}&page=0|}"
+                       th:href="@{|/supermercados/${supermercado.id}?categoria=${#strings.replace(cat, '|', '%7C')}&page=0|}"
                        th:text="${cat}">Categoría</a>
                 </li>
             </ul>
