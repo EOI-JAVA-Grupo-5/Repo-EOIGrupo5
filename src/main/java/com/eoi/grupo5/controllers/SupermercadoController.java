@@ -67,10 +67,10 @@ public class SupermercadoController {
             };
         } else {
             productosPage = switch (orden) {
-                case "asc" -> productoService.productoSupermercadoByNameAsc(pageable);
-                case "desc" -> productoService.productoSupermercadoByNameDesc(pageable);
-                case "precio_asc" -> productoService.productoSupermercadoByPriceAsc(pageable);
-                case "precio_desc" -> productoService.productoSupermercadoByPriceDesc(pageable);
+                case "asc" -> productoService.productoSupermercadoByNameAsc(pageable, supermercado.getNombre());
+                case "desc" -> productoService.productoSupermercadoByNameDesc(pageable, supermercado.getNombre());
+                case "precio_asc" -> productoService.productoSupermercadoByPriceAsc(pageable, supermercado.getNombre());
+                case "precio_desc" -> productoService.productoSupermercadoByPriceDesc(pageable, supermercado.getNombre());
                 case null, default -> productoService.findBySupermercado(supermercado.getNombre(), pageable);
             };
         }

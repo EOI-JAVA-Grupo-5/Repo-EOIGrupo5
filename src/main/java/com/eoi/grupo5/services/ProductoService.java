@@ -62,20 +62,24 @@ public class ProductoService {
         return productoRepository.findBySupermarketIgnoreCaseContaining(nombreSupermercado.toLowerCase(), pageable);
     }
 
-    public Page<Producto> productoSupermercadoByNameAsc(Pageable pageable){
-        return productoRepository.findAllByOrderByNameAsc(pageable);
+    public Page<Producto> productoSupermercadoByNameAsc(Pageable pageable, String nombre){
+        return productoRepository.findBySupermarketIgnoreCaseContaining(nombre,
+                PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by("name").ascending()));
     }
 
-    public Page<Producto> productoSupermercadoByNameDesc(Pageable pageable){
-        return productoRepository.findAllByOrderByNameDesc(pageable);
+    public Page<Producto> productoSupermercadoByNameDesc(Pageable pageable, String nombre){
+        return productoRepository.findBySupermarketIgnoreCaseContaining(nombre,
+                PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by("name").descending()));
     }
 
-    public Page<Producto> productoSupermercadoByPriceAsc(Pageable pageable){
-        return productoRepository.findAllByOrderByPriceAsc(pageable);
+    public Page<Producto> productoSupermercadoByPriceAsc(Pageable pageable, String nombre){
+        return productoRepository.findBySupermarketIgnoreCaseContaining(nombre,
+                PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by("price").ascending()));
     }
 
-    public Page<Producto> productoSupermercadoByPriceDesc(Pageable pageable){
-        return productoRepository.findAllByOrderByPriceDesc(pageable);
+    public Page<Producto> productoSupermercadoByPriceDesc(Pageable pageable, String nombre){
+        return productoRepository.findBySupermarketIgnoreCaseContaining(nombre,
+                PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by("price").descending()));
     }
 
     public Page<Producto> findBySupermercadoAndCategoria(String nombre, String categoria, Pageable pageable) {
