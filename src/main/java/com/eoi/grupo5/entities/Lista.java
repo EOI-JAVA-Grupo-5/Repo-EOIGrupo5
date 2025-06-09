@@ -5,6 +5,7 @@ import lombok.*;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Builder
@@ -29,14 +30,14 @@ public class Lista implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @ManyToOne(targetEntity = Usuario.class)
     private Usuario usuario;
 
     private Date fecha;
 
-    private float costeTotal;
+    private BigDecimal costeTotal;
 
-    private float dineroAhorrado;
+    private BigDecimal dineroAhorrado;
 }

@@ -28,10 +28,14 @@ public class ItemLista implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @ManyToOne(targetEntity = Lista.class)
     private Lista lista;
 
     private int cantidadComprada;
+
+    @ManyToOne
+    @JoinColumn(name = "producto_id")
+    private Producto producto;
 }
