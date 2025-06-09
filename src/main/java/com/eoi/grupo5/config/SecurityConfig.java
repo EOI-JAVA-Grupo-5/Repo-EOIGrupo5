@@ -91,6 +91,15 @@ public class SecurityConfig {
                 .csrf(Customizer.withDefaults()) // deshabilitado para pruebas o APIs
                 .httpBasic(Customizer.withDefaults())
                 .formLogin(Customizer.withDefaults())
+                .formLogin(form -> form
+                        .loginPage("/login")
+                        .defaultSuccessUrl("/usuario", true)
+                        .permitAll()
+                )
+                .logout(logout -> logout
+                        .logoutSuccessUrl("/inicioSesion?logout")
+                        .permitAll()
+                )
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/entities").permitAll()
                         .requestMatchers("/").permitAll()
@@ -100,7 +109,8 @@ public class SecurityConfig {
                         .requestMatchers("/inicioSesion").permitAll()
                         .requestMatchers("/registro").permitAll()
                         .requestMatchers("/paginaDeProducto").permitAll()
-                        .requestMatchers("/perfilSupermercado").permitAll()
+                        .requestMatchers("/supermercados").permitAll()
+                        .requestMatchers("/supermercados/*").permitAll()
                         .requestMatchers("/entities/*").permitAll()
                         .requestMatchers("/css/*").permitAll()
                         .requestMatchers("/images/*").permitAll()

@@ -106,11 +106,11 @@ public class DefaultController {
         return "forum"; // View name
     }
 
-    @GetMapping("/perfilSupermercado")
-    public String perfilSupermercado(Model model)
-    {
-        return "perfilSupermercado"; // View name
-    }
+//    @GetMapping("/supermercados")
+//    public String perfilSupermercado(Model model)
+//    {
+//        return "supermercados"; // View name
+//    }
 
     @GetMapping("/paginaDeInicio")
     public String paginaDeInicio(Model model)
@@ -118,11 +118,11 @@ public class DefaultController {
         return "paginaDeInicio"; // View name
     }
 
-    @GetMapping("/paginaDeProducto")
-    public String paginaDeProducto(Model model)
-    {
-        return "paginaDeProducto"; // View name
-    }
+//    @GetMapping("/paginaDeProducto")
+//    public String paginaDeProducto(Model model)
+//    {
+//        return "paginaDeProducto"; // View name
+//    }
 
 
 

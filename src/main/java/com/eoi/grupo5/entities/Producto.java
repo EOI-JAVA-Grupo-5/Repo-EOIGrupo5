@@ -1,28 +1,25 @@
 package com.eoi.grupo5.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
-@Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
+@Getter
 @Entity
 public class Producto {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Categoria categoria;
+    private String name;
+    private String supermarket;
+    private Integer zipCode;
+    private Double price;
+    private String url;
+    private String category;
 
-    private String nombre;
-    private String descripcion;
-    private String imagenURL;
+    // Getters y Setters
 
 }
+
