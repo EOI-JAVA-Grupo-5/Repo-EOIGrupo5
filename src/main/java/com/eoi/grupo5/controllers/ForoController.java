@@ -8,6 +8,8 @@ import com.eoi.grupo5.services.MensajeService;
 import com.eoi.grupo5.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -54,14 +56,22 @@ public class ForoController {
     }
 
     @PostMapping("/crear")
-    public String crearHilo(@ModelAttribute("nuevoHilo") EntidadHilo hilo) {
+    public String crearHilo(@ModelAttribute("nuevoHilo") EntidadHilo hilo,
+                            @AuthenticationPrincipal UserDetails userDetails) {
         hilo.setFechaCreacion(LocalDateTime.now());
-        Optional<Usuario> autor = usuarioService.findById(1L);
-        if (autor.isPresent()) {
-            hilo.setAutor(autor.get());
+
+        if (userDetails != null) {
+            String username = userDetails.getUsername();
+            Optional<Usuario> usuarioOpt = usuarioService.findByUsername(username);
+
+            if (usuarioOpt.isPresent()) {
+                hilo.setAutor(usuarioOpt.get());
+                hiloService.guardarHilo(hilo);
+                return "redirect:/foro/hilo/" + hilo.getId();
+            }
         }
-        hiloService.guardarHilo(hilo);
-        return "redirect:/foro/hilo/" + hilo.getId();
+        // Fallback (shouldn't happen if Security is configured properly)
+        return "redirect:/login";
     }
 
     @GetMapping("/hilo/{id}")
