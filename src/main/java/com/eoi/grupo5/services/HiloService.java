@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,7 +32,34 @@ public class HiloService {
         return hiloRepository.findAllByOrderByFechaCreacionDesc(pageable);
     }
 
-    public List<EntidadHilo> buscarYOrdenarHilos(String keyword, String sortType) {
+    public List<EntidadHilo> buscarYOrdenarHilos(String keyword, String sortType, UserDetails userDetails, boolean misHilos) {
+        Sort sortCriteria = buildSortCriteria(sortType);
+
+        if (userDetails == null) {
+            misHilos = false;
+        }
+
+        if (keyword == null || keyword.trim().isEmpty()) {
+            if (misHilos) {
+                String usuarioUsername = userDetails.getUsername();
+                return hiloRepository.findByAutor_Username(usuarioUsername, sortCriteria);
+            }
+            return hiloRepository.findAll(sortCriteria);
+        } else {
+            // Keyword provided: return filtered and sorted
+            if (misHilos) {
+                String usuarioUsername = userDetails.getUsername();
+                return hiloRepository.findByAutor_UsernameAndTituloContainingIgnoreCase(usuarioUsername, keyword, sortCriteria);
+            }
+            return hiloRepository.findByTituloContainingIgnoreCase(keyword, sortCriteria);
+        }
+    }
+
+    public EntidadHilo obtenerHiloPorId(Long id) {
+        return hiloRepository.findById(id).orElse(null);
+    }
+
+    private Sort buildSortCriteria (String sortType) {
         Sort sortCriteria;
 
         switch (sortType) {
@@ -48,14 +76,7 @@ public class HiloService {
                 sortCriteria = Sort.by(Sort.Direction.DESC, "fechaCreacion");
                 break;
         }
-
-        if (keyword == null || keyword.trim().isEmpty()) {
-            // No keyword: return all, sorted
-            return hiloRepository.findAll(sortCriteria);
-        } else {
-            // Keyword provided: return filtered and sorted
-            return hiloRepository.findByTituloContainingIgnoreCase(keyword, sortCriteria);
-        }
+        return sortCriteria;
     }
 }
 
