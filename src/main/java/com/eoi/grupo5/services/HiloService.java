@@ -57,5 +57,9 @@ public class HiloService {
             return hiloRepository.findByTituloContainingIgnoreCase(keyword, sortCriteria);
         }
     }
+
+    public EntidadHilo obtenerHiloPorId(Long id) {
+        return hiloRepository.findById(id).orElse(null);
+    }
 }
 

@@ -2,6 +2,7 @@ package com.eoi.grupo5.controllers;
 
 import com.eoi.grupo5.entities.EntidadHilo;
 import com.eoi.grupo5.entities.EntidadMensaje;
+import com.eoi.grupo5.entities.Usuario;
 import com.eoi.grupo5.services.HiloService;
 import com.eoi.grupo5.services.MensajeService;
 import com.eoi.grupo5.services.UsuarioService;
@@ -11,7 +12,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/foro")
@@ -50,24 +53,26 @@ public class ForoController {
         return "foro/main";
     }
 
-//    @PostMapping("/crear")
-//    public String crearHilo(@ModelAttribute("nuevoHilo") EntidadHilo hilo) {
-//        hilo.setFechaCreacion(LocalDateTime.now());
-//        Usuario autor = usuarioService.findById(); // Temporal, until login works
-//        hilo.setAutor(autor);
-//        hiloService.guardarHilo(hilo);
-//        return "redirect:/foro/hilo/" + hilo.getId();
-//    }
+    @PostMapping("/crear")
+    public String crearHilo(@ModelAttribute("nuevoHilo") EntidadHilo hilo) {
+        hilo.setFechaCreacion(LocalDateTime.now());
+        Optional<Usuario> autor = usuarioService.findById(1L);
+        if (autor.isPresent()) {
+            hilo.setAutor(autor.get());
+        }
+        hiloService.guardarHilo(hilo);
+        return "redirect:/foro/hilo/" + hilo.getId();
+    }
 
-//    @GetMapping("/hilo/{id}")
-//    public String obtenerHilo(@PathVariable Long id, Model model) {
-//        EntidadHilo hilo = hiloService.obtenerHiloPorId(id);
-//        List<EntidadMensaje> mensajes = mensajeService.findMessagesByHiloId(id);
-//        model.addAttribute("hilo", hilo);
-//        model.addAttribute("mensajes", mensajes);
-//        model.addAttribute("nuevoMensaje", new EntidadMensaje());
-//        return "foro/hilo";
-//    }
+    @GetMapping("/hilo/{id}")
+    public String obtenerHilo(@PathVariable Long id, Model model) {
+        EntidadHilo hilo = hiloService.obtenerHiloPorId(id);
+        List<EntidadMensaje> mensajes = mensajeService.findMessagesByHiloId(id);
+        model.addAttribute("hilo", hilo);
+        model.addAttribute("mensajes", mensajes);
+        model.addAttribute("nuevoMensaje", new EntidadMensaje());
+        return "foro/hilo";
+    }
 
 //    @PostMapping("/hilo/{id}/mensaje")
 //    public String agregarMensaje(@PathVariable Long id, @ModelAttribute("nuevoMensaje") EntidadMensaje mensaje) {

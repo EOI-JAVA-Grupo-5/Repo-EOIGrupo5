@@ -20,15 +20,15 @@ create table usuarios
 INSERT INTO usuarios (id, apellidos, correo, imagenurl, nombre, password, telefono, tipo, username)
 VALUES
 -- Admin users
-(1,'García Pérez', 'admin1@example.com', 'https://example.com/images/admin1.jpg', 'Carlos', 'admin123', '600123456', 'ADMIN', 'cgarcia'),
-(2,'López Díaz', 'admin2@example.com', 'https://example.com/images/admin2.jpg', 'Lucía', 'admin456', '600654321', 'ADMIN', 'ldiaz'),
+(1,'García Pérez', 'admin1@example.com', 'https://example.com/images/admin1.jpg', 'Carlos', 'admin123', '600123456', 0, 'cgarcia'),
+(2,'López Díaz', 'admin2@example.com', 'https://example.com/images/admin2.jpg', 'Lucía', 'admin456', '600654321', 0, 'ldiaz'),
 
 -- Regular users
-(4,'Martínez Gómez', 'user1@example.com', 'https://example.com/images/user1.jpg', 'Elena', 'user123', '611111111', 'USER', 'emartinez'),
-(5,'Sánchez Ruiz', 'user2@example.com', 'https://example.com/images/user2.jpg', 'Pablo', 'user456', '622222222', 'USER', 'psanchez'),
-(6,'Fernández Torres', 'user3@example.com', 'https://example.com/images/user3.jpg', 'Laura', 'user789', '633333333', 'USER', 'lfernandez'),
-(7,'Jiménez Romero', 'user4@example.com', 'https://example.com/images/user4.jpg', 'Jorge', 'user321', '644444444', 'USER', 'jjimenez'),
-(8,'Navarro Morales', 'user5@example.com', 'https://example.com/images/user5.jpg', 'Ana', 'user654', '655555555', 'USER', 'anavarro');
+(4,'Martínez Gómez', 'user1@example.com', 'https://example.com/images/user1.jpg', 'Elena', 'user123', '611111111', 1, 'emartinez'),
+(5,'Sánchez Ruiz', 'user2@example.com', 'https://example.com/images/user2.jpg', 'Pablo', 'user456', '622222222', 1, 'psanchez'),
+(6,'Fernández Torres', 'user3@example.com', 'https://example.com/images/user3.jpg', 'Laura', 'user789', '633333333', 1, 'lfernandez'),
+(7,'Jiménez Romero', 'user4@example.com', 'https://example.com/images/user4.jpg', 'Jorge', 'user321', '644444444', 1, 'jjimenez'),
+(8,'Navarro Morales', 'user5@example.com', 'https://example.com/images/user5.jpg', 'Ana', 'user654', '655555555', 1, 'anavarro');
 
 
 create table hilos
