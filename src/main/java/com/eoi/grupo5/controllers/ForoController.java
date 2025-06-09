@@ -37,13 +37,18 @@ public class ForoController {
     public String mostrarForo(@RequestParam(defaultValue = "0") int page,
                               @RequestParam(defaultValue = "votos") String sort,
                               @RequestParam(defaultValue = "") String keyword,
-                              Model model) {
-        int size = 3; // Show 3 items in sidebar
+                              @RequestParam(defaultValue = "false") boolean misHilos,
+                              Model model,
+                              @AuthenticationPrincipal UserDetails userDetails) {
+
+        // Sidebar items
+        int size = 3;
         Page<EntidadHilo> hilosRecientes = hiloService.obtenerHilosRecientesPaginado(page, size);
 
-        List<EntidadHilo> hilosOrdenados = hiloService.buscarYOrdenarHilos(keyword, sort);
+        // Main Content cards
+        List<EntidadHilo> hilosOrdenados = hiloService.buscarYOrdenarHilos(keyword, sort, userDetails, misHilos);
 
-
+        // Models
         model.addAttribute("hilos", hilosOrdenados);
         model.addAttribute("hilosRecientes", hilosRecientes);
         model.addAttribute("totalPages", hilosRecientes.getTotalPages());
@@ -51,6 +56,7 @@ public class ForoController {
         model.addAttribute("nuevoHilo", new EntidadHilo());
         model.addAttribute("selectedSort", sort);
         model.addAttribute("keyword", keyword);
+        model.addAttribute("misHilos", misHilos);
 
         return "foro/main";
     }

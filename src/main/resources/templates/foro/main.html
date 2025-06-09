@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 
 <head>
   <meta charset="UTF-8">
@@ -75,18 +76,28 @@
         </div>
       </form>
       <a class="btn btn-outline-secondary me-1"
-        th:href="@{/foro(page=${currentPage}, sort='votos', keyword=${keyword})}"
+        th:href="@{/foro(page=${currentPage}, sort='votos', keyword=${keyword}, misHilos=${misHilos})}"
         th:classappend="${selectedSort == 'votos'} ? ' active'"><i class="fa-solid fa-heart"></i></a>
       <a class="btn btn-outline-secondary me-1"
-        th:href="@{/foro(page=${currentPage}, sort='mensajes', keyword=${keyword})}"
+        th:href="@{/foro(page=${currentPage}, sort='mensajes', keyword=${keyword}, misHilos=${misHilos})}"
         th:classappend="${selectedSort == 'mensajes'} ? ' active'"><i class="fa-solid fa-comment"></i></a>
       <a class="btn btn-outline-secondary me-1"
-        th:href="@{/foro(page=${currentPage}, sort='visitas', keyword=${keyword})}"
+        th:href="@{/foro(page=${currentPage}, sort='visitas', keyword=${keyword}, misHilos=${misHilos})}"
         th:classappend="${selectedSort == 'visitas'} ? ' active'"><i class="fa-solid fa-eye"></i></a>
-      <a class="btn btn-outline-dark me-2" th:href="@{/foro(page=${currentPage}, sort='autor', keyword=${keyword})}"
-        th:classappend="${selectedSort == 'autor'} ? ' active'">
-        <i class="fa-solid fa-user"></i> Mis Hilos
-      </a>
+
+      <div sec:authorize="isAuthenticated()">
+        <a class="btn btn-outline-dark me-2"
+          th:href="@{/foro(page=${currentPage}, sort=${selectedSort}, keyword=${keyword}, misHilos=${!misHilos})}"
+          th:classappend="${misHilos} ? ' active'">
+          <i class="fa-solid fa-user"></i> Mis Hilos
+        </a>
+      </div>
+
+      <div sec:authorize="isAnonymous()">
+        <a class="btn btn-outline-dark me-2" th:href="@{/login}">
+          <i class="fa-solid fa-user"></i> Mis Hilos
+        </a>
+      </div>
     </div>
 
     <div class="row">
