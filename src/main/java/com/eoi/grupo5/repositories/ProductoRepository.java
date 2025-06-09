@@ -32,4 +32,7 @@ public interface ProductoRepository extends JpaRepository<Producto, Long> {
 
     // 🔹 Búsqueda libre por nombre del supermercado
     Page<Producto> findBySupermarketIgnoreCaseContaining(String supermarket, Pageable pageable);
+
+    // 🔹 Productos destacados: los 4 más baratos
+    List<Producto> findTop4ByOrderByPriceAsc();
 }

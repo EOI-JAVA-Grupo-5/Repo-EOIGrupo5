@@ -36,6 +36,11 @@ public class ProductoService {
         return productoRepository.findByFiltros(categoryFiltrada, supermercadoFiltrado, nameFiltrado, pageable);
     }
 
+    // ✅ Productos destacados para la página de inicio
+    public List<Producto> getProductosDestacados() {
+        return productoRepository.findTop4ByOrderByPriceAsc();
+    }
+
     // 🔹 Categorías únicas
     public List<String> getCategoryDisponibles() {
         return productoRepository.findDistinctCategories();
