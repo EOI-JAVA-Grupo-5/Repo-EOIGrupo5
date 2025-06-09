@@ -1,11 +1,12 @@
 package com.eoi.grupo5.entities;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
 
-@Setter
 @Getter
+@Setter
 @Entity
 public class Producto {
 
@@ -19,7 +20,19 @@ public class Producto {
     private String url;
     private String category;
 
-    // Getters y Setters
+    // Constructor vacío obligatorio para JPA
+    public Producto() {
+    }
 
+    // Constructor completo (opcional, útil para pruebas o carga manual)
+    public Producto(Long id, String name, String supermarket, Integer zipCode, Double price, String url, String category) {
+        this.id = id;
+        this.name = name;
+        this.supermarket = supermarket;
+        this.zipCode = zipCode;
+        this.price = price;
+        this.url = url;
+        this.category = category;
+    }
 }
 

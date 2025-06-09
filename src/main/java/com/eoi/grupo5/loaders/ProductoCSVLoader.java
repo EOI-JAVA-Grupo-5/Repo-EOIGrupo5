@@ -21,31 +21,37 @@ public class ProductoCSVLoader implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         BufferedReader reader = new BufferedReader(new InputStreamReader(
-                new ClassPathResource("productos-de-supermercados-sample.csv").getInputStream()));
+                new ClassPathResource("productos-de-supermercados-sample.csv").getInputStream(), "UTF-8"));
 
         String line = reader.readLine(); // saltar cabecera
 
         while ((line = reader.readLine()) != null) {
-            String[] data = line.split(",");
+            try {
+                // Expresión segura que respeta comas entre comillas
+                String[] data = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
 
-                if (data.length >= 7) {
-                    try {
-                        Producto p = new Producto();
-                        p.setId(Long.parseLong(data[0]));
-                        p.setName(data[1]);
-                        p.setSupermarket(data[2]);
-                        p.setZipCode(Integer.parseInt(data[3]));
-                        p.setPrice(Double.parseDouble(data[4]));
-                        p.setUrl(data[5]);
-                        p.setCategory(data[6]);
-
-                        productoRepository.save(p);
-                    } catch (Exception e) {
-                        System.err.println("Error parsing line: " + line);
-                        e.printStackTrace(); // or use a logger
-                    }
+                if (data.length < 7) {
+                    System.err.println("Línea con datos incompletos: " + line);
+                    continue;
                 }
 
+                Producto p = new Producto();
+                p.setId(Long.parseLong(data[0].trim()));
+                p.setName(data[1].trim().replaceAll("^\"|\"$", "")); // quitar comillas externas
+                p.setSupermarket(data[2].trim());
+                p.setZipCode(Integer.parseInt(data[3].trim()));
+                p.setPrice(Double.parseDouble(data[4].trim()));
+                p.setUrl(data[5].trim());
+                p.setCategory(data[6].trim());
+
+                productoRepository.save(p);
+            } catch (Exception e) {
+                System.err.println("Error parsing line: " + line);
+                e.printStackTrace();
+            }
         }
+
+        reader.close();
     }
 }
+
