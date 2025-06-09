@@ -74,7 +74,7 @@ public class UsuarioController {
      * @return
      */
     @PostMapping("/usuario/modificar")
-    public String modificarDatosUsuario(@Valid @ModelAttribute(name = "datos_usuario") Usuario datos, Principal principal, Errors errors, Model model){
+    public String modificarDatosUsuario(@Valid @ModelAttribute(name = "datos_usuario") Usuario datos, Principal principal,RedirectAttributes redirectAttributes, Errors errors, Model model){
         if(errors.hasErrors()){
             return "register";
         }
@@ -94,12 +94,18 @@ public class UsuarioController {
         }
 
         usuarioRepository.save(usuario);
+        redirectAttributes.addFlashAttribute("modificado", "Los datos del usuario fueron modificados");
 
-        return "redirect:/usuario";
+        return "redirect:/usuario/modificar";
     }
 
 
-
+    /**
+     * Muestra la página de modificación de contraseña
+     * @param userDetails - Detalles del usuario
+     * @param model - Modelo
+     * @return Página de modificación de contraseña
+     */
     @GetMapping("/usuario/modificar/password")
     public String modificarPasswordUsuario(@AuthenticationPrincipal UserDetails userDetails, Model model){
         String username = userDetails.getUsername();
@@ -112,13 +118,20 @@ public class UsuarioController {
     }
 
 
+    /**
+     * Método que modifica la contraseña del usuario
+     * @param passwords - DTO con tres contraseñas: la actual, la nueva y la nueva repetida
+     * @param principal - Usuario principal
+     * @param redirectAttributes - Atributos usados para los mensajes de error
+     * @param errors - Errores
+     * @param model - Modelo
+     * @return Redirecciones a la página con un mensaje de error o mensaje de éxito (cambia la contraseña)
+     */
     @PostMapping("/usuario/modificar/password")
     public String modificarPasswordUsuario(@Valid @ModelAttribute(name = "passwords") PasswordModDTO passwords, Principal principal, RedirectAttributes redirectAttributes , Errors errors, Model model){
         if(errors.hasErrors()){
             return "register";
         }
-
-        log.info(passwords.getClaveActual() + " " + passwords.getClaveNueva() + " " + passwords.getClaveNuevaRepe());
 
         Usuario usuario = usuarioRepository.findByUsername(principal.getName())
                 .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));

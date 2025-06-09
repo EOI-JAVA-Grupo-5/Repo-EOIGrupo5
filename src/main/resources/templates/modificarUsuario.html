@@ -33,6 +33,10 @@
                                             <h5 class="mt-1 mb-5 pb-1"><strong>Datos</strong></h5>
                                         </div>
 
+                                        <div th:if="${modificado}">
+                                            <p style="color:limegreen; font-weight: bold;" th:text="${modificado}">Texto de exito</p>
+                                        </div>
+
                                         <form th:action="@{/usuario/modificar}" method="POST"  th:object="${datos_usuario}" autocomplete="off">
                                             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 
