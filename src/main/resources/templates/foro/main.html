@@ -157,12 +157,12 @@
         <div class="d-flex justify-content-center text-center bg-white rounded border">
           <div class="px-3 py-3">
             <a class="btn btn-sm py-2 px-3 btn-outline-dark me-2"
-              th:href="@{/foro(page=${currentPage - 1}, sort=${selectedSort}, keyword=${keyword})}"
+              th:href="@{/foro(page=${currentPage - 1}, sort=${selectedSort}, keyword=${keyword}, misHilos=${misHilos})}"
               th:if="${currentPage > 0}">
               &lt;
             </a>
             <a class="btn btn-sm py-2 px-3 btn-outline-dark"
-              th:href="@{/foro(page=${currentPage + 1}, sort=${selectedSort}, keyword=${keyword})}"
+              th:href="@{/foro(page=${currentPage + 1}, sort=${selectedSort}, keyword=${keyword}, misHilos=${misHilos})}"
               th:if="${currentPage < totalPages - 1}">
               &gt;
             </a>
