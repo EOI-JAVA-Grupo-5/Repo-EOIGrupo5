@@ -30,19 +30,10 @@
             margin-bottom: 50px; /* Aumenta este valor según lo que necesites */
         }
 
-        .hero {
-            background: #fcfdaf;
-            color: rgb(0, 0, 0);
-            text-align: center;
-            padding: 50px 20px;
-        }
         .card img {
             border-radius: 10px;
         }
-        .btn-orange {
-            background-color: #fcfdaf;
-            color: rgb(0, 0, 0);
-        }
+
         .primary-navbar {
             background-color: #dba159;
         }
@@ -107,18 +98,6 @@
             margin-top: 25px;
         }
 
-        .paso {
-            width: 14px;
-            height: 14px;
-            border-radius: 50%;
-            background-color: #ccc;
-            transition: background-color 0.3s ease;
-            cursor: pointer;
-        }
-
-        .paso.activo {
-            background-color: #dba159;
-        }
         .benefit-card {
             background: white;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -133,6 +112,14 @@
             .benefit-card i {
                 font-size: 3.2rem !important;
             }
+        }
+
+        .texto-centrado {
+            text-align: center;
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 1em auto;
+            line-height: 1.5;
         }
     </style>
 </head>
@@ -197,16 +184,6 @@
         </p>
         <div class="barra-progreso" id="barraProgreso"></div>
     </div>
-
-    <style>
-        .texto-centrado {
-            text-align: center;
-            font-size: 1.3rem;
-            max-width: 800px;
-            margin: 1em auto;
-            line-height: 1.5;
-        }
-    </style>
 
     <script>
         const pasos = [
