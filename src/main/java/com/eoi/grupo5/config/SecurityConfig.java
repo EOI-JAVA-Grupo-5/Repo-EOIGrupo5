@@ -9,11 +9,14 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.session.HttpSessionEventPublisher;
 
 /**
  * Clase de configuración de seguridad para la aplicación.
@@ -94,23 +97,23 @@ public class SecurityConfig {
         http
                 .csrf(Customizer.withDefaults()) // deshabilitado para pruebas o APIs
                 .authorizeHttpRequests(authorize -> authorize
-//                        .requestMatchers("/entities").permitAll()
-//                        .requestMatchers("/").permitAll()
-//                        .requestMatchers("/carrito").permitAll()
-//                        .requestMatchers("/foro").permitAll()
-//                        .requestMatchers("/foro/hilo").permitAll()
-//                        .requestMatchers("/usuario").permitAll()
-//                        .requestMatchers("/inicioSesion").permitAll()
-//                        .requestMatchers("/registro").permitAll()
-//                        .requestMatchers("/paginaDeProducto").permitAll()
-//                        .requestMatchers("/perfilSupermercado").permitAll()
-                        .requestMatchers("/**").permitAll()
-                        .requestMatchers("/entities/*").permitAll()
-                        .requestMatchers("/css/*").permitAll()
-                        .requestMatchers("/images/*").permitAll()
+                        .requestMatchers("/entities").permitAll()
+                        .requestMatchers("/").permitAll()
+                        .requestMatchers("/carrito").permitAll()
+                        .requestMatchers("/forum").permitAll()
+                        .requestMatchers("/usuario").authenticated()
+                        .requestMatchers("/usuario/modificar").authenticated()
+                        .requestMatchers("/usuario/modificar/password").authenticated()
+                        .requestMatchers("/login").permitAll()
+                        .requestMatchers("/registro").permitAll()
+                        .requestMatchers("/paginaDeProducto").permitAll()
+                        .requestMatchers("/perfilSupermercado").permitAll()
+                        .requestMatchers("/entities/**").permitAll()
+                        .requestMatchers("/css/**").permitAll()
+                        .requestMatchers("/images/**").permitAll()
                         .requestMatchers(HttpMethod.POST,"/login").permitAll()
                         .requestMatchers(HttpMethod.POST,"/registro").permitAll()
-                        .requestMatchers(HttpMethod.POST,"/entidades/deleteHija/*").authenticated()
+//                        .requestMatchers(HttpMethod.POST,"/entidades/deleteHija/*").authenticated()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
@@ -127,6 +130,10 @@ public class SecurityConfig {
                         .deleteCookies("JSESSIONID")
                         .permitAll()
                 )
+                .sessionManagement(session -> session
+                        .invalidSessionUrl("/login?expired")
+                )
+
         ;
 
 
@@ -154,6 +161,16 @@ public class SecurityConfig {
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
         return authConfig.getAuthenticationManager();
+    }
+
+    /**
+     * Registra un listener para detectar eventos de expiración de sesión
+     *
+     * @return instancia de HttpSessionEventPublisher
+     */
+    @Bean
+    public HttpSessionEventPublisher httpSessionEventPublisher() {
+        return new HttpSessionEventPublisher();
     }
 
 }

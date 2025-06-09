@@ -169,7 +169,14 @@
                                 <div class="col-sm-3">
                                     <p class="mb-0"><strong>Nombre</strong></p>
                                 </div>
-                                <div class="col-sm-9"><span th:text="${usuario.nombre}">Paco Pacoles</span></div>
+                                <div class="col-sm-9"><span th:text="${usuario.nombre}">Paco</span></div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0"><strong>Apellidos</strong></p>
+                                </div>
+                                <div class="col-sm-9"><span th:text="${usuario.apellidos}">Pacoles</span></div>
                             </div>
                             <hr>
                             <div class="row">
@@ -186,16 +193,10 @@
                                 <div class="col-sm-9"><span th:text="${usuario.telefono}">Número de teléfono</span></div>
                             </div>
                             <hr>
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <p class="mb-0"><strong>Contraseña</strong></p>
-                                </div>
-                                <div class="col-sm-9">**********</div>
-                            </div>
                             <div class="row pt-3 justify-content-end">
                                 <div class="col-md-3">
                                     <a
-                                        class="btn btn-primary"
+                                        class="btn btn-primary rounded-pill"
                                         th:href="@{/usuario/modificar}"
                                         role="button"
                                         >Modificar datos</a

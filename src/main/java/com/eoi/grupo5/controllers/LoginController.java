@@ -9,10 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -42,7 +39,10 @@ public class LoginController {
      */
 
     @GetMapping
-    public String mostrarPagina(Model model){
+    public String mostrarPagina(@RequestParam(value = "expired", required = false) String error, Model model){
+//        if("session".equals(error)){
+//            model.addAttribute("sessionExpired", true);
+//        }
         return "login";
     }
 
