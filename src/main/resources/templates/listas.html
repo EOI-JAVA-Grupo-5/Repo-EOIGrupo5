@@ -42,7 +42,27 @@
     <div th:insert="~{plantillas/navbar :: navbar}"></div>
 </section>
 
-<h2>Listas</h2>
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead class="table-dark">
+        <tr>
+            <th>id</th>
+            <th>fecha</th>
+            <th>costeTotal</th>
+            <th>dineroAhorrado</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="lista : ${listasUsuario}">
+            <td th:text="${lista.getId()}"></td>
+            <td th:text="${lista.getFecha()}"></td>
+            <td th:text="${lista.getCosteTotal()}"></td>
+            <td th:text="${lista.getDineroAhorrado()}"></td>
+        </tr>
+        </tbody>
+
+    </table>
+</div>
 
 
 <section id="footer-section">

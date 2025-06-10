@@ -32,13 +32,13 @@ public class ListaController {
     /**
      * Muestra la página principal del carrito.
      */
-    @GetMapping("/Listas")
+    @GetMapping("/listas")
     public String verListas(@AuthenticationPrincipal UserDetails userDetails, Model model) {
         String username = userDetails.getUsername();
         Usuario usuario = usuarioService.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
-//        List<Lista> listasUsuario = listaService.getListasDeUsuario(usuario).orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
-//        model.addAttribute("listasUsuario", listasUsuario);
+        List<Lista> listasUsuario = listaService.getListasDeUsuario(usuario).orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
+        model.addAttribute("listasUsuario", listasUsuario);
         return "listas";
     }
 
