@@ -12,27 +12,32 @@ import java.util.List;
 @Repository
 public interface ProductoRepository extends JpaRepository<Producto, Long> {
 
-    // 🔹 Para el filtro por supermercado individual
-    List<Producto> findBySupermarketIgnoreCaseContaining(String supermarket);
-    Page<Producto> findBySupermarketIgnoreCaseContaining(String supermarket, Pageable pageable);
+    // 🔹 Filtro principal: categoría, supermercado y búsqueda parcial por nombre
+    @Query("SELECT p FROM Producto p " +
+            "WHERE (:category IS NULL OR LOWER(p.category) = LOWER(:category)) " +
+            "AND (:supermarket IS NULL OR LOWER(p.supermarket) = LOWER(:supermarket)) " +
+            "AND (:name IS NULL OR LOWER(p.name) LIKE %:name%)")
+    Page<Producto> findByFiltros(@Param("category") String category,
+                                 @Param("supermarket") String supermarket,
+                                 @Param("name") String name,
+                                 Pageable pageable);
 
-    // 🔹 Para obtener categorías únicas
+    // 🔹 Categorías únicas
     @Query("SELECT DISTINCT p.category FROM Producto p")
     List<String> findDistinctCategories();
 
-    // 🔹 Para obtener supermercados únicos
+    // 🔹 Supermercados únicos
     @Query("SELECT DISTINCT p.supermarket FROM Producto p")
     List<String> findDistinctSupermarkets();
 
-    // 🔹 Para obtener productos con filtros, paginación y orden
-    @Query("SELECT p FROM Producto p WHERE " +
-            "(:category IS NULL OR p.category = :category) AND " +
-            "(:supermarket IS NULL OR p.supermarket = :supermarket)")
-    Page<Producto> findByFiltros(@Param("category") String category,
-                                 @Param("supermarket") String supermarket,
-                                 Pageable pageable);
+    // 🔹 Búsqueda libre por nombre del supermercado
+    Page<Producto> findBySupermarketIgnoreCaseContaining(String supermarket, Pageable pageable);
 
-    //Métodos para filtrar por orden alfabético y precio
+    // 🔹 Productos destacados: los 4 más baratos
+    List<Producto> findTop4ByOrderByPriceAsc();
+
+
+//Métodos para filtrar por orden alfabético y precio
     Page<Producto> findAllByOrderByNameAsc(Pageable pageable);
     Page<Producto> findAllByOrderByNameDesc(Pageable pageable);
     Page<Producto> findAllByOrderByPriceAsc(Pageable pageable);

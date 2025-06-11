@@ -18,8 +18,8 @@ public class ProductoService {
         this.productoRepository = productoRepository;
     }
 
-    // 🔹 Obtener productos paginados y filtrados
-    public Page<Producto> getProductosFiltrados(String categoria, String supermercado, int page, int size, String orden) {
+    // ✅ Método principal con todos los filtros aplicados: categoría, supermercado, nombre y orden
+    public Page<Producto> getProductosFiltrados(String category, String supermarket, String name, int page, int size, String orden) {
         Sort sort = Sort.by("price");
         if ("desc".equalsIgnoreCase(orden)) {
             sort = sort.descending();
@@ -29,34 +29,39 @@ public class ProductoService {
 
         Pageable pageable = PageRequest.of(page, size, sort);
 
-        return productoRepository.findByFiltros(
-                categoria == null || categoria.isEmpty() ? null : categoria,
-                supermercado == null || supermercado.isEmpty() ? null : supermercado,
-                pageable
-        );
+        String categoryFiltrada = (category == null || category.isBlank()) ? null : category;
+        String supermercadoFiltrado = (supermarket == null || supermarket.isBlank()) ? null : supermarket;
+        String nameFiltrado = (name == null || name.isBlank()) ? null : name.toLowerCase();
+
+        return productoRepository.findByFiltros(categoryFiltrada, supermercadoFiltrado, nameFiltrado, pageable);
     }
 
+    // ✅ Productos destacados para la página de inicio
+    public List<Producto> getProductosDestacados() {
+        return productoRepository.findTop4ByOrderByPriceAsc();
+    }
+
+    // 🔹 Categorías únicas
     public List<String> getCategoryDisponibles() {
         return productoRepository.findDistinctCategories();
     }
 
+    // 🔹 Supermercados únicos
     public List<String> getSupermercadosDisponibles() {
         return productoRepository.findDistinctSupermarkets();
     }
 
-    public List<Producto> getAllProductos() {
-        return productoRepository.findAll();
-    }
-
+    // 🔹 Buscar producto por ID (para el carrito)
     public Producto getProductoPorId(Long id) {
         return productoRepository.findById(id).orElse(null);
     }
 
-
-
-    public List<Producto> findBySupermercado(String nombreSupermercado) {
-        return productoRepository.findBySupermarketIgnoreCaseContaining(nombreSupermercado);
+    // 🔹 Obtener todos (por si los necesitas para otras funciones)
+    public List<Producto> getAllProductos() {
+        return productoRepository.findAll();
     }
+
+
 
     public Page<Producto> findBySupermercado(String nombreSupermercado, Pageable pageable) {
         return productoRepository.findBySupermarketIgnoreCaseContaining(nombreSupermercado.toLowerCase(), pageable);
