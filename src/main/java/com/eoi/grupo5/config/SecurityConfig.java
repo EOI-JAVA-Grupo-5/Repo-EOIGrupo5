@@ -101,6 +101,7 @@ public class SecurityConfig {
                         .requestMatchers("/").permitAll()
                         .requestMatchers("/carrito").permitAll()
                                 .requestMatchers("/listas").authenticated()
+                                .requestMatchers("/listas/*").authenticated()
                         .requestMatchers("/forum").permitAll()
                         .requestMatchers("/usuario").authenticated()
                         .requestMatchers("/usuario/modificar").authenticated()

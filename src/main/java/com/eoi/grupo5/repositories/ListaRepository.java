@@ -12,4 +12,6 @@ import java.util.Optional;
 public interface ListaRepository extends JpaRepository<Lista, Integer> {
     Optional<List<Lista>> findAllByUsuario(Usuario usuario);
 
+    Optional<Lista> findListaById(Long id);
+
 }
