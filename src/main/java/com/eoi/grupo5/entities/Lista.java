@@ -2,6 +2,7 @@ package com.eoi.grupo5.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -40,4 +41,8 @@ public class Lista implements Serializable {
     private BigDecimal costeTotal;
 
     private BigDecimal dineroAhorrado;
+
+    private boolean cerrada;
+
+
 }

@@ -9,24 +9,30 @@
     <div th:insert="~{plantillas/navbar :: navbar}"></div>
 </section>
 
-<div class="table-responsive">
-    <table class="table table-bordered">
-        <thead class="table-dark">
-        <tr>
-            <th>Producto</th>
-            <th>Cantidad Comprada</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="item : ${itemsLista}">
-            <td th:text="${item.getProducto().getName()}"></td>
-            <td th:text="${item.getCantidadComprada()}"></td>
-        </tr>
-        </tbody>
+<section>
+    <div class="container">
+        <h2 class="p-3">Lista</h2>
+        <div class="row p-3">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead class="table-dark">
+                    <tr>
+                        <th>Producto</th>
+                        <th>Cantidad Comprada</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="item : ${itemsLista}">
+                        <td th:text="${item.getProducto().getName()}"></td>
+                        <td th:text="${item.getCantidadComprada()}"></td>
+                    </tr>
+                    </tbody>
 
-    </table>
-</div>
-
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
 
 <section id="footer-section">
     <div th:insert="~{plantillas/footer :: footer}"></div>
