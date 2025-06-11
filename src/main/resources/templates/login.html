@@ -50,7 +50,16 @@
                                             style="width: 150px;" alt="logo">
                                         <h3 class="mt-1 mb-5 pb-1"><strong>Castañazo Deals</strong></h3>
                                     </div>
-                    
+
+                                    <div th:if="${param.error}">
+                                        <p style="color:red;">Usuario o contraseña inválidos</p>
+                                    </div>
+                                    <div th:if="${param.expired}">
+                                        <p style="color:red;">Tu sesión ha expirado</p>
+                                        <p style="color:red;">Por favor, inicia sesión de nuevo</p>
+                                    </div>
+
+
                                     <form th:action="@{/login}" method="POST"  autocomplete="off">
                                         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                                         <h5>Introduce tus datos</h5>
@@ -80,11 +89,6 @@
                                             </a>
                                         </div>
                                     </form>
-
-                                    <div th:if="${param.error}">
-                                        <p style="color:red;">Usuario o contraseña inválidos</p>
-                                    </div>
-
                                 </div>
                             </div>
 

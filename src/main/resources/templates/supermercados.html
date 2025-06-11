@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Supermercados</title>
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+    />
+
+    <!--Icono de web-->
+    <link rel="apple-touch-icon" sizes="180x180" th:href="@{/images/logo-SF.png}">
+    <link rel="icon" type="image/png" sizes="32x32" th:href="@{/images/logo-SF.png}">
+    <link rel="icon" type="image/png" sizes="16x16" th:href="@{/images/logo-SF.png}">
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/images/logo-SF.png}">
+
+    <!-- Stylesheets -->
+    <link th:href="@{css/styles.css}" rel="stylesheet" />
+    <link th:href="@{css/perfilSupermercado.css}" rel="stylesheet">
+
+    <!-- iconos -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+
+    <!-- Links para el Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+            href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+            rel="stylesheet"
+    />
+
+</head>
+
+<body>
+<!-- NAVBAR -->
+<section id="navbar-section">
+    <div th:insert="~{plantillas/navbar :: navbar}"></div>
+</section>
+
+
+<div class="container py-5">
+    <h1 class="mb-4 text-center">Listado de Supermercados</h1>
+
+    <div class="row g-4">
+        <div class="col-6 col-sm-4 col-md-3 col-lg-2" th:each="supermercado : ${supermercados}">
+            <a th:href="@{/supermercados/{id}(id=${supermercado.id})}" class="text-decoration-none">
+                <div class="supermercado-card shadow-sm">
+                    <img th:src="${supermercado.logoURL}" alt="Logo" class="supermercado-img img-thumbnail border-0">
+                    <h4 th:text="${supermercado.nombre}" class="mt-2 mb-0 supermercado-nombre"></h4>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+
+
+<section id="footer">
+    <div  th:insert="~{plantillas/footer :: footer}" class="justify-content-end pt-3">
+    </div>
+</section>
+</body>
+
+<!-- Bootstrap -->
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"
+></script>
+
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

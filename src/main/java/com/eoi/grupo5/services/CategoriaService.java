@@ -2,9 +2,7 @@ package com.eoi.grupo5.services;
 
 
 import com.eoi.grupo5.entities.Categoria;
-import com.eoi.grupo5.entities.EntidadHija;
 import com.eoi.grupo5.repositories.CategoriaRepository;
-import com.eoi.grupo5.repositories.EntidadHijaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

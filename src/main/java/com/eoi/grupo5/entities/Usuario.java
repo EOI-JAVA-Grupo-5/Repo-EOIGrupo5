@@ -55,6 +55,7 @@ public class Usuario implements UserDetails, Serializable {
     private String  telefono;
 
     @NonNull
+    @Enumerated(EnumType.ORDINAL)
     private Tipo tipo;
 
 

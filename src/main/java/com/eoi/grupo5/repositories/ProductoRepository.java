@@ -12,24 +12,36 @@ import java.util.List;
 @Repository
 public interface ProductoRepository extends JpaRepository<Producto, Long> {
 
-    // 🔹 Buscar productos por nombre de supermercado (ignorando mayúsculas)
-    List<Producto> findBySupermarketIgnoreCase(String supermarket);
+    // 🔹 Para el filtro por supermercado individual
+    List<Producto> findBySupermarketIgnoreCaseContaining(String supermarket);
+    Page<Producto> findBySupermarketIgnoreCaseContaining(String supermarket, Pageable pageable);
 
-    // 🔹 Obtener todas las categorías únicas
+    // 🔹 Para obtener categorías únicas
     @Query("SELECT DISTINCT p.category FROM Producto p")
     List<String> findDistinctCategories();
 
-    // 🔹 Obtener todos los supermercados únicos
+    // 🔹 Para obtener supermercados únicos
     @Query("SELECT DISTINCT p.supermarket FROM Producto p")
     List<String> findDistinctSupermarkets();
 
-    // 🔹 Buscar productos con filtros (permitiendo nulos o vacíos), paginación y orden
+    // 🔹 Para obtener productos con filtros, paginación y orden
     @Query("SELECT p FROM Producto p WHERE " +
-            "(:category IS NULL OR :category = '' OR p.category = :category) AND " +
-            "(:supermarket IS NULL OR :supermarket = '' OR p.supermarket = :supermarket)")
+            "(:category IS NULL OR p.category = :category) AND " +
+            "(:supermarket IS NULL OR p.supermarket = :supermarket)")
     Page<Producto> findByFiltros(@Param("category") String category,
                                  @Param("supermarket") String supermarket,
                                  Pageable pageable);
+
+    //Métodos para filtrar por orden alfabético y precio
+    Page<Producto> findAllByOrderByNameAsc(Pageable pageable);
+    Page<Producto> findAllByOrderByNameDesc(Pageable pageable);
+    Page<Producto> findAllByOrderByPriceAsc(Pageable pageable);
+    Page<Producto> findAllByOrderByPriceDesc(Pageable pageable);
+
+    //Método para filtrar por categoría
+    Page<Producto> findBySupermarketIgnoreCaseContainingAndCategory(String nombre, String categoria, Pageable pageable);
+
 }
+
 
 

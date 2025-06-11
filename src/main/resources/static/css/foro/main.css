@@ -39,6 +39,28 @@ a {
     color: #ff6f00
 }
 
-.side-hover:hover .text-title {
-    color: #ff6f00
+/* SIDE BAR  */
+
+.side-card {
+    height: 150px;
+    /* Or height: 120px to force exact size */
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.side-card:hover .text-title {
+    color: #ff6f00;
+
+}
+
+.modal-header {
+    background-color: #FCFDAF;
+}
+
+.modal-body {
+    background-color: burlywood;
+}
+
+.modal-footer {
+    background-color: #FCFDAF;
 }

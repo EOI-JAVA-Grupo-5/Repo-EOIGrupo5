@@ -21,8 +21,6 @@ public class ProductoService {
     // 🔹 Obtener productos paginados y filtrados
     public Page<Producto> getProductosFiltrados(String categoria, String supermercado, int page, int size, String orden) {
         Sort sort = Sort.by("price");
-
-        // Determinar el orden ascendente o descendente por precio
         if ("desc".equalsIgnoreCase(orden)) {
             sort = sort.descending();
         } else {
@@ -31,36 +29,82 @@ public class ProductoService {
 
         Pageable pageable = PageRequest.of(page, size, sort);
 
-        // Sustituir cadenas vacías por null para evitar filtros incorrectos
-        String categoriaFiltrada = (categoria == null || categoria.trim().isEmpty()) ? null : categoria;
-        String supermercadoFiltrado = (supermercado == null || supermercado.trim().isEmpty()) ? null : supermercado;
-
-        return productoRepository.findByFiltros(categoriaFiltrada, supermercadoFiltrado, pageable);
+        return productoRepository.findByFiltros(
+                categoria == null || categoria.isEmpty() ? null : categoria,
+                supermercado == null || supermercado.isEmpty() ? null : supermercado,
+                pageable
+        );
     }
 
-    // 🔹 Obtener todas las categorías disponibles
     public List<String> getCategoryDisponibles() {
         return productoRepository.findDistinctCategories();
     }
 
-    // 🔹 Obtener todos los supermercados disponibles
     public List<String> getSupermercadosDisponibles() {
         return productoRepository.findDistinctSupermarkets();
     }
 
-    // 🔹 Obtener todos los productos sin paginación
     public List<Producto> getAllProductos() {
         return productoRepository.findAll();
     }
 
-    // 🔹 Obtener un producto por su ID
     public Producto getProductoPorId(Long id) {
         return productoRepository.findById(id).orElse(null);
     }
 
-    // 🔹 Obtener productos por nombre del supermercado (ignorando mayúsculas)
+
+
     public List<Producto> findBySupermercado(String nombreSupermercado) {
-        return productoRepository.findBySupermarketIgnoreCase(nombreSupermercado.toLowerCase());
+        return productoRepository.findBySupermarketIgnoreCaseContaining(nombreSupermercado);
+    }
+
+    public Page<Producto> findBySupermercado(String nombreSupermercado, Pageable pageable) {
+        return productoRepository.findBySupermarketIgnoreCaseContaining(nombreSupermercado.toLowerCase(), pageable);
+    }
+
+    public Page<Producto> productoSupermercadoByNameAsc(Pageable pageable, String nombre){
+        return productoRepository.findBySupermarketIgnoreCaseContaining(nombre,
+                PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by("name").ascending()));
+    }
+
+    public Page<Producto> productoSupermercadoByNameDesc(Pageable pageable, String nombre){
+        return productoRepository.findBySupermarketIgnoreCaseContaining(nombre,
+                PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by("name").descending()));
+    }
+
+    public Page<Producto> productoSupermercadoByPriceAsc(Pageable pageable, String nombre){
+        return productoRepository.findBySupermarketIgnoreCaseContaining(nombre,
+                PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by("price").ascending()));
+    }
+
+    public Page<Producto> productoSupermercadoByPriceDesc(Pageable pageable, String nombre){
+        return productoRepository.findBySupermarketIgnoreCaseContaining(nombre,
+                PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by("price").descending()));
+    }
+
+    public Page<Producto> findBySupermercadoAndCategoria(String nombre, String categoria, Pageable pageable) {
+        return productoRepository.findBySupermarketIgnoreCaseContainingAndCategory(nombre, categoria, pageable);
+    }
+
+    public Page<Producto> productoSupermercadoByNameAscAndCategoria(String nombre, String categoria, Pageable pageable) {
+        return productoRepository.findBySupermarketIgnoreCaseContainingAndCategory(nombre, categoria,
+                PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by("name").ascending()));
+    }
+
+    public Page<Producto> productoSupermercadoByNameDescAndCategoria(String nombre, String categoria, Pageable pageable) {
+        return productoRepository.findBySupermarketIgnoreCaseContainingAndCategory(nombre, categoria,
+                PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by("name").descending()));
+    }
+
+    public Page<Producto> productoSupermercadoByPriceAscAndCategoria(String nombre, String categoria, Pageable pageable) {
+        return productoRepository.findBySupermarketIgnoreCaseContainingAndCategory(nombre, categoria,
+                PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by("price").ascending()));
+    }
+
+    public Page<Producto> productoSupermercadoByPriceDescAndCategoria(String nombre, String categoria, Pageable pageable) {
+        return productoRepository.findBySupermarketIgnoreCaseContainingAndCategory(nombre, categoria,
+                PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by("price").descending()));
     }
 }
+
 

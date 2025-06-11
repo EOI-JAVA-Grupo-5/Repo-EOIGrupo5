@@ -13,6 +13,9 @@ services:
       POSTGRES_USER: 'localuser'
       # Contraseña del usuario creado
       POSTGRES_PASSWORD: 'password123'
+
+    volumes:
+      - ./sql/foro.sql:/docker-entrypoint-initdb.d/foro.sql
     ports:
       # Mapea el puerto 5432 del contenedor al puerto 5432 del anfitrión
       - '5432:5432'

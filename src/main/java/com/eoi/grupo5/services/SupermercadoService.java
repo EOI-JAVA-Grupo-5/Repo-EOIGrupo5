@@ -15,11 +15,15 @@ public class SupermercadoService {
     public SupermercadoService(SupermercadoRepository supermercadoRepository) { this.supermercadoRepository = supermercadoRepository; }
 
     public List<Supermercado> findAll() {
-        return supermercadoRepository.findAll();
+
+        List<Supermercado> result = supermercadoRepository.findAll();
+        return result;
     }
 
-    public Optional<Supermercado> findById(Long id) {
-        return supermercadoRepository.findById(id);
+    public Supermercado findById(Long id) {
+        Optional<Supermercado> result = supermercadoRepository.findById(id);
+
+        return result.orElse(null);
     }
 
     public Supermercado save(Supermercado supermercado) {
