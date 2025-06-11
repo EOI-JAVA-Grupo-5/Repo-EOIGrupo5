@@ -12,6 +12,10 @@ import java.util.List;
 @Repository
 public interface ProductoRepository extends JpaRepository<Producto, Long> {
 
+    // 🔹 Para el filtro por supermercado individual
+    List<Producto> findBySupermarketIgnoreCaseContaining(String supermarket);
+
+
     // 🔹 Filtro principal: categoría, supermercado y búsqueda parcial por nombre
     @Query("SELECT p FROM Producto p " +
             "WHERE (:category IS NULL OR LOWER(p.category) = LOWER(:category)) " +

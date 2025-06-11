@@ -75,7 +75,6 @@ public class SupermercadoController {
             };
         }
 
-
         List<Producto> todosLosProductos = productoService.findBySupermercado(supermercado.getNombre());
         Set<String> categorias = todosLosProductos.stream()
                 .map(Producto::getCategory)

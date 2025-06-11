@@ -110,6 +110,10 @@ public class ProductoService {
         return productoRepository.findBySupermarketIgnoreCaseContainingAndCategory(nombre, categoria,
                 PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by("price").descending()));
     }
+
+    public List<Producto> findBySupermercado(String nombreSupermercado) {
+        return productoRepository.findBySupermarketIgnoreCaseContaining(nombreSupermercado);
+    }
 }
 
 
