@@ -30,30 +30,17 @@
             margin-bottom: 50px; /* Aumenta este valor según lo que necesites */
         }
 
-        .hero {
-            background: #fcfdaf;
-            color: rgb(0, 0, 0);
-            text-align: center;
-            padding: 50px 20px;
-        }
         .card img {
             border-radius: 10px;
         }
-        .btn-orange {
-            background-color: #fcfdaf;
-            color: rgb(0, 0, 0);
-        }
+
         .primary-navbar {
             background-color: #dba159;
         }
         .primary-navbar span {
             color: #fcfdaf;
         }
-        #search-icon {
-            background-color: #fcfdaf;
-            border-color: orange;
-            color: black;
-        }
+
         .primary-navbar div button {
             background-color: #fcfdaf;
         }
@@ -107,18 +94,6 @@
             margin-top: 25px;
         }
 
-        .paso {
-            width: 14px;
-            height: 14px;
-            border-radius: 50%;
-            background-color: #ccc;
-            transition: background-color 0.3s ease;
-            cursor: pointer;
-        }
-
-        .paso.activo {
-            background-color: #dba159;
-        }
         .benefit-card {
             background: white;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -134,82 +109,7 @@
                 font-size: 3.2rem !important;
             }
         }
-    </style>
-</head>
-<body>
-<!-- NAVBAR -->
-<section id="navbar-section">
-    <nav class="navbar navbar-expand-sm primary-navbar">
-        <div class="container">
-            <a class="navbar-brand d-inline-flex" href="#">
-                <img class="d-inline-block" src="../images/logo-SF.png" alt="logo" style="width: 5rem; align-self: center;">
-                <span class="text-1000 fs-3 fw-bold ms-2">Castañazo <br> Deals</span>
-            </a>
-            <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="collapsibleNavId">
-                <ul class="navbar-nav me-auto mt-2 mt-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="paginaDeProducto"><i class="fa-solid fa-cube"></i> Productos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="perfilSupermercado"><i class="fa-solid fa-store"></i> Supermercados</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="forum"><i class="fa-solid fa-comments"></i> Forum</a>
-                    </li>
-                </ul>
-                <form class="d-flex pt-3 my-2 my-lg-0">
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="search-icon">
-                            <i class="bi bi-search"></i>
-                        </span>
-                        <input class="form-control  input-box bg-100" type="search" placeholder="Buscar" aria-label="Search">
-                        <button class="btn btn-outline-warning text-black my-2 my-sm-0" type="submit">Buscar</button>
-                    </div>
-                </form>
-                <div class="d-grid p-3">
-                    <div  sec:authorize="isAuthenticated()">
-                        <a th:href="@{/usuario}">
-                            <button type="button" class="btn btn-warning rounded-pill">
-                                <i class="bi bi-person-circle"></i> Perfil
-                            </button>
-                        </a>
-                    </div>
 
-                    <div  sec:authorize="!isAuthenticated()">
-                        <a th:href="@{/login}">
-                            <button type="button" class="btn btn-warning rounded-pill">
-                                <i class="bi bi-person-circle"></i> Login
-                            </button>
-                        </a>
-                    </div>
-                </div>
-                <div class="d-grid p-3">
-                    <a th:href="@{/carrito}">
-                        <button type="button" class="btn btn-warning rounded-pill">
-                            <i class="bi bi-cart-fill"></i> Carrito
-                        </button>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </nav>
-</section>
-
-<!-- TUTORIAL / ¿CÓMO FUNCIONA? -->
-<section id="tutorial" role="region">
-    <div class="tutorial-container">
-        <h2 id="tituloTutorial">¿Cómo funciona?</h2>
-        <img id="imagenTutorial" src="img/tutorial0.png" alt="Introducción" />
-        <p id="textoTutorial" class="texto-centrado">
-            ¿Quieres ahorrar dinero en la cesta de la compra? Nuestro comparador de precios investiga miles de productos cada día y encuentra los mejores precios en los principales supermercados de España. Castañazo Deals te permite comparar precios buscando por categoría, producto o supermercado.
-        </p>
-        <div class="barra-progreso" id="barraProgreso"></div>
-    </div>
-
-    <style>
         .texto-centrado {
             text-align: center;
             font-size: 1.3rem;
@@ -218,38 +118,130 @@
             line-height: 1.5;
         }
     </style>
+</head>
+<body>
+<!-- NAVBAR -->
+<!-- NAVBAR -->
+<section id="navbar-section">
+    <nav
+            class="navbar navbar-expand-sm primary-navbar"
+    >
+        <div class="container">
+            <a class="navbar-brand d-inline-flex" th:href="@{/}">
+                <img class="d-inline-block" th:src="@{/images/logo-SF.png}"
+                     alt="logo" style="width: 5rem; align-self: center;">
+                <span class="text-1000 fs-3 fw-bold ms-2">Castañazo <br> Deals</span>
+            </a>
+            <button
+                    class="navbar-toggler d-lg-none"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapsibleNavId"
+                    aria-controls="collapsibleNavId"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+            >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="collapsibleNavId">
+                <ul class="navbar-nav me-auto mt-2 mt-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="paginaDeProducto" aria-current="page">
+                            <i class="fa-solid fa-cube"></i> Productos
+                            <span class="visually-hidden">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="supermercados" aria-current="page">
+                            <i class="fa-solid fa-store"></i> Supermercados
+                            <span class="visually-hidden">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="forum" aria-current="page">
+                            <i class="fa-solid fa-comments"></i> Forum
+                            <span class="visually-hidden">(current)</span>
+                        </a>
+                    </li>
+                </ul>
+
+
+                <form class="d-flex pt-3 my-2 my-lg-0">
+                    <div class="input-group mb-3">
+                        <input class="form-control input-box bg-100" type="search" placeholder="Buscar" aria-label="Search" style="border-top-left-radius: 20px; border-bottom-left-radius: 20px">
+                        <button class="btn btn-outline-warning text-black my-2 my-sm-0 fa-solid fa-magnifying-glass" type="submit" style="border-top-right-radius: 20px; border-bottom-right-radius: 20px">
+                        </button>
+                    </div>
+                </form>
+
+                <div class="d-grid p-3">
+                    <div sec:authorize="isAuthenticated()">
+                        <a th:href="@{/usuario}">
+                            <button type="button" class="btn btn-warning rounded-pill">
+                                <i class="bi bi-person-circle"></i> Perfil
+                            </button>
+                        </a>
+                    </div>
+
+                    <div sec:authorize="!isAuthenticated()">
+                        <a th:href="@{/login}">
+                            <button type="button" class="btn btn-warning rounded-pill">
+                                <i class="bi bi-person-circle"></i> Login
+                            </button>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="d-grid p-3">
+                    <a th:href="@{/carrito}">
+                        <button
+                                type="button"
+                                name=""
+                                id="btnCarrito"
+                                class="btn btn-warning rounded-pill"
+                        >
+                            <i class="bi bi-cart-fill"></i> Carrito
+                        </button>
+                    </a>
+
+                </div>
+
+            </div>
+        </div>
+    </nav>
+
+</section>
+
+
+<!-- TUTORIAL / ¿CÓMO FUNCIONA? -->
+<section id="tutorial" role="region">
+    <div class="tutorial-container">
+        <h2 id="tituloTutorial">¿Cómo funciona?</h2>
+        <p id="textoTutorial" class="texto-centrado">
+            ¿Quieres ahorrar dinero en la cesta de la compra? Nuestro comparador de precios investiga miles de productos cada día y encuentra los mejores precios en los principales supermercados de España. Castañazo Deals te permite comparar precios buscando por categoría, producto o supermercado.
+        </p>
+        <div class="barra-progreso" id="barraProgreso"></div>
+    </div>
 
     <script>
         const pasos = [
             {
                 texto: "¿Quieres ahorrar dinero en la cesta de la compra? Nuestro comparador de precios investiga miles de productos cada día y encuentra los mejores precios en los principales supermercados de España. Castañazo Deals te permite comparar precios buscando por categoría, producto o supermercado.",
-                imagen: "img/tutorial0.png",
-                alt: "Introducción"
             },
             {
-                texto: "Busca el producto que deseas comprar usando la barra de búsqueda o navegando por las categorías.",
-                imagen: "img/tutorial1.png",
-                alt: "Paso 1"
+                texto: "Pasa 1: Busca el producto que deseas comprar usando la barra de búsqueda o navegando por la sección de productos. También puedes filtrar por categoría, supermercado u organizar de menor a mayor precio.",
             },
             {
-                texto: "Haz clic en el producto para ver los detalles y opciones disponibles.",
-                imagen: "img/tutorial2.png",
-                alt: "Paso 2"
+                texto: "Paso 2: Haz clic en el producto para ver los detalles y su precio",
             },
             {
-                texto: "Añade el producto a tu carrito haciendo clic en 'Añadir al carrito'.",
-                imagen: "img/tutorial3.png",
-                alt: "Paso 3"
+                texto: "Paso 3: Añade el producto a tu carrito haciendo clic en 'Añadir al carrito'.",
             },
             {
-                texto: "Accede a tu carrito y revisa tu pedido antes de finalizar la compra.",
-                imagen: "img/tutorial4.png",
-                alt: "Paso 4"
+                texto: "Paso 4: Accede a tu carrito y descubre tu ahorro.",
             },
             {
-                texto: "Rellena tus datos y selecciona el método de pago para finalizar la compra.",
-                imagen: "img/tutorial5.png",
-                alt: "Paso 5"
+                texto: "Paso 5: Si lo deseas, imprime tu lista en PDF y llevala contigo al supermercado",
             }
         ];
 
@@ -320,115 +312,119 @@
 
 
 <!-- Ofertas destacadas -->
-<section class="container py-5">
-    <h3 class="text-center fw-bold">Tus ofertas destacadas</h3>
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4">
-        <div class="col">
-            <div class="card h-100">
-                <img src="https://picsum.photos/300/200" class="card-img-top" alt="Oferta 1">
-                <div class="card-body text-center">
-                    <h5 class="card-title">15% de descuento</h5>
-                    <p>Artículo 1</p>
-                    <button class="btn" style="background-color: #dba159; color: white;" aria-label="Ver oferta de Artículo 1">Ver oferta</button>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card h-100">
-                <img src="https://picsum.photos/300/200" class="card-img-top" alt="Oferta 2">
-                <div class="card-body text-center">
-                    <h5 class="card-title">10% de descuento</h5>
-                    <p>Artículo 2</p>
-                    <button class="btn" style="background-color: #dba159; color: white;" aria-label="Ver oferta de Artículo 2">Ver oferta</button>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card h-100">
-                <img src="https://picsum.photos/300/200" class="card-img-top" alt="Oferta 3">
-                <div class="card-body text-center">
-                    <h5 class="card-title">20% de descuento</h5>
-                    <p>Artículo 3</p>
-                    <button class="btn" style="background-color: #dba159; color: white;" aria-label="Ver oferta de Artículo 3">Ver oferta</button>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card h-100">
-                <img src="https://picsum.photos/300/200" class="card-img-top" alt="Oferta 3">
-                <div class="card-body text-center">
-                    <h5 class="card-title">50% de descuento</h5>
-                    <p>Artículo 4</p>
-                    <button class="btn" style="background-color: #dba159; color: white;" aria-label="Ver oferta de Artículo 3">Ver oferta</button>
-                </div>
+<div class="row row-cols-1 row-cols-md-4 g-4 mt-2">
+    <div class="col" th:each="producto : ${productosDestacados}">
+        <div class="card h-100 shadow-sm">
+            <img th:src="${producto.url}" class="card-img-top" th:alt="${producto.name}" style="object-fit: cover; height: 200px;">
+            <div class="card-body text-center">
+                <h5 class="card-title" th:text="${producto.name}">Nombre</h5>
+                <p class="card-text fw-bold" th:text="'€' + ${producto.price}">Precio</p>
+                <p class="card-text" th:text="${producto.supermarket}">Supermercado</p>
+                <form th:action="@{/carrito/agregar}" method="post">
+                    <input type="hidden" name="productoId" th:value="${producto.id}" />
+                    <button type="submit" class="btn btn-success btn-sm">Añadir a la cesta</button>
+                </form>
             </div>
         </div>
     </div>
-</section>
-
-<!-- Más productos -->
-
-<div class="text-center mt-3">
-    <button class="btn btn-orange">Ver más</button>
 </div>
 
 
 <!-- Supermercados Cercanos -->
-        <div class="col">
-            <div class="card h-100">
-                <img src="https://picsum.photos/300/200" class="card-img-top" alt="Oferta 2">
-                <div class="card-body text-center">
-                    <h5 class="card-title">10% de descuento</h5>
-                    <p>Artículo 2</p>
-                    <button class="btn" style="background-color: #dba159; color: white;" aria-label="Ver oferta de Artículo 2">Ver oferta</button>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card h-100">
-                <img src="https://picsum.photos/300/200" class="card-img-top" alt="Oferta 3">
-                <div class="card-body text-center">
-                    <h5 class="card-title">20% de descuento</h5>
-                    <p>Artículo 3</p>
-                    <button class="btn" style="background-color: #dba159; color: white;" aria-label="Ver oferta de Artículo 3">Ver oferta</button>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card h-100">
-                <img src="https://picsum.photos/300/200" class="card-img-top" alt="Oferta 3">
-                <div class="card-body text-center">
-                    <h5 class="card-title">50% de descuento</h5>
-                    <p>Artículo 4</p>
-                    <button class="btn" style="background-color: #dba159; color: white;" aria-label="Ver oferta de Artículo 3">Ver oferta</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- Más productos -->
-        </div>
-        <div class="text-center mt-3">
-            <button class="btn btn-orange">Ver más</button>
-        </div>
-    </section>
-
-<!-- Supermercados Cercanos -->
+<!-- Contenedor -->
 <section class="container py-5">
     <h2 class="text-center mb-4">Supermercados Cercanos</h2>
-
-    <div class="swiper supermercados-swiper">
-        <div class="swiper-wrapper text-center" id="supermercadoSlides">
-            <!-- Aquí JS insertará los supermercados ordenados -->
-        </div>
-        <div class="swiper-pagination mt-4"></div>
-    </div>
+    <div id="map" style="height: 400px; width: 100%; border-radius: 12px;"></div>
+    <div id="listaSupermercados" class="mt-4"></div>
 </section>
 
-<!-- Swiper JS y CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
-<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+<!-- Script de Google Maps con tu API KEY -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCngS5G3YCImc00eJLYBGT_moQWBb-AdSA&callback=inicializarMapa" async defer></script>
 
+<script>
+    const supermercados = [
+        { nombre: "Mercadona", lat: 40.4171, lng: -3.7038 },
+        { nombre: "Carrefour", lat: 40.4221, lng: -3.7028 },
+        { nombre: "Lidl", lat: 40.4251, lng: -3.6990 },
+        { nombre: "DIA", lat: 40.4291, lng: -3.7080 },
+        { nombre: "Alcampo", lat: 40.4335, lng: -3.7150 },
+        { nombre: "Eroski", lat: 40.4198, lng: -3.6985 },
+        { nombre: "Aldi", lat: 40.4182, lng: -3.7102 },
+        { nombre: "El Corte Inglés", lat: 40.4209, lng: -3.7044 }
+    ];
+
+    function calcularDistancia(lat1, lon1, lat2, lon2) {
+        const R = 6371;
+        const dLat = (lat2 - lat1) * Math.PI / 180;
+        const dLon = (lon2 - lon1) * Math.PI / 180;
+        const a = Math.sin(dLat / 2) ** 2 +
+            Math.cos(lat1 * Math.PI / 180) *
+            Math.cos(lat2 * Math.PI / 180) *
+            Math.sin(dLon / 2) ** 2;
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        return R * c;
+    }
+
+    function inicializarMapa() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(pos => {
+                const userPos = {
+                    lat: pos.coords.latitude,
+                    lng: pos.coords.longitude
+                };
+
+                const mapa = new google.maps.Map(document.getElementById('map'), {
+                    center: userPos,
+                    zoom: 13
+                });
+
+                // Marcador del usuario
+                new google.maps.Marker({
+                    position: userPos,
+                    map: mapa,
+                    title: "Tu ubicación",
+                    icon: {
+                        url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
+                    }
+                });
+
+                // Calcular distancia y ordenar
+                const supermercadosConDistancia = supermercados.map(s => ({
+                    ...s,
+                    distancia: calcularDistancia(userPos.lat, userPos.lng, s.lat, s.lng)
+                })).sort((a, b) => a.distancia - b.distancia);
+
+                // Mostrar en mapa y en lista
+                const contenedorLista = document.getElementById("listaSupermercados");
+                contenedorLista.innerHTML = "<h5>Ordenados por cercanía:</h5><ul class='list-group'>";
+
+                supermercadosConDistancia.forEach(s => {
+                    // Marcador en el mapa
+                    new google.maps.Marker({
+                        position: { lat: s.lat, lng: s.lng },
+                        map: mapa,
+                        title: s.nombre
+                    });
+
+                    // Elemento de la lista
+                    contenedorLista.innerHTML += `
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            ${s.nombre}
+                            <span class="badge bg-primary rounded-pill">${s.distancia.toFixed(2)} km</span>
+                        </li>
+                    `;
+                });
+
+                contenedorLista.innerHTML += "</ul>";
+
+            }, () => {
+                alert("No se pudo obtener tu ubicación.");
+            });
+        } else {
+            alert("Tu navegador no soporta geolocalización.");
+        }
+    }
+</script>
 
 
 <!-- Beneficios -->
@@ -455,14 +451,14 @@
         </div>
     </div>
 </section>
-    
-    
-    <!-- Footer -->
-    <section id="footer">
-        <div class="justify-content-end pt-3">
-            <!-- <footer class="bg-light text-center text-dark p-4">
-                <p><strong>@ 2025. Todos los derechos reservados.</strong></p>
-            </footer> -->
+
+
+<!-- Footer -->
+<section id="footer">
+    <div class="justify-content-end pt-3">
+        <!-- <footer class="bg-light text-center text-dark p-4">
+            <p><strong>@ 2025. Todos los derechos reservados.</strong></p>
+        </footer> -->
 
         <footer
                 class="text-center text-lg-start"
@@ -589,166 +585,6 @@
             </section>
             <!-- Section: Links  -->
 
-                <!-- Copyright -->
-                <div
-                        class="text-center p-3"
-                        style="background-color: #dba0598f"
-                >
-                    © 2025 Copyright:
-                    <a class="text-blue" href="https://mdbootstrap.com/"
-                    >MDBootstrap.com</a
-                    >
-                </div>
-                <!-- Copyright -->
-            </footer>
-        </div>
-    </section>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<!-- Swiper JS -->
-<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
-
-<!-- Inicializar Swiper -->
-<script>
-    const swiper = new Swiper('.supermercados-swiper', {
-        loop: true,
-        autoplay: {
-            delay: 4000,
-        },
-        slidesPerView: 1,
-        spaceBetween: 20,
-        pagination: {
-            el: '.swiper-pagination',
-            clickable: true,
-        },
-        breakpoints: {
-            576: {
-                slidesPerView: 2,
-            },
-            768: {
-                slidesPerView: 3,
-            },
-            992: {
-                slidesPerView: 4,
-            }
-        }
-    });
-</script>
-<script>
-    const supermercados = [
-        {
-            nombre: "Mercadona",
-            logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Mercadona.svg/200px-Mercadona.svg.png",
-            lat: 40.4171,
-            lng: -3.7038
-        },
-        {
-            nombre: "Carrefour",
-            logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Logo_Carrefour.svg/200px-Logo_Carrefour.svg.png",
-            lat: 40.4221,
-            lng: -3.7028
-        },
-        {
-            nombre: "Lidl",
-            logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Lidl-Logo.svg/200px-Lidl-Logo.svg.png",
-            lat: 40.4251,
-            lng: -3.6990
-        },
-        {
-            nombre: "DIA",
-            logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Logo_DIA.svg/200px-Logo_DIA.svg.png",
-            lat: 40.4291,
-            lng: -3.7080
-        },
-        {
-            nombre: "Alcampo",
-            logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Alcampo_logo_2022.svg/200px-Alcampo_logo_2022.svg.png",
-            lat: 40.4335,
-            lng: -3.7150
-        },
-        {
-            nombre: "Eroski",
-            logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Logo_eroski.svg/200px-Logo_eroski.svg.png",
-            lat: 40.4198,
-            lng: -3.6985
-        },
-        {
-            nombre: "Aldi",
-            logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/ALDI_Logo_2017.svg/200px-ALDI_Logo_2017.svg.png",
-            lat: 40.4182,
-            lng: -3.7102
-        },
-        {
-            nombre: "El Corte Inglés",
-            logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/El_Corte_Ingl%C3%A9s_logo.svg/200px-El_Corte_Ingl%C3%A9s_logo.svg.png",
-            lat: 40.4209,
-            lng: -3.7044
-        }
-    ];
-
-    function calcularDistancia(lat1, lon1, lat2, lon2) {
-        const R = 6371;
-        const dLat = (lat2 - lat1) * Math.PI / 180;
-        const dLon = (lon2 - lon1) * Math.PI / 180;
-        const a = Math.sin(dLat / 2) ** 2 +
-            Math.cos(lat1 * Math.PI / 180) *
-            Math.cos(lat2 * Math.PI / 180) *
-            Math.sin(dLon / 2) ** 2;
-        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        return R * c;
-    }
-
-    function mostrarSupermercadosOrdenados(userLat, userLng) {
-        // Calcular distancias
-        const supermercadosConDistancia = supermercados.map(s => ({
-            ...s,
-            distancia: calcularDistancia(userLat, userLng, s.lat, s.lng)
-        }));
-
-        // Ordenar por distancia
-        supermercadosConDistancia.sort((a, b) => a.distancia - b.distancia);
-
-        // Crear HTML dinámicamente
-        const contenedor = document.getElementById("supermercadoSlides");
-        contenedor.innerHTML = supermercadosConDistancia.map(s => `
-      <div class="swiper-slide">
-        <img src="${s.logo}" class="img-fluid mb-2" style="height: 60px;">
-        <p>
-        <strong>${s.nombre}</strong><br>
-        <svg xmlns="http://www.w3.org/2000/svg" height="16" fill="currentColor" viewBox="0 0 16 16" style="vertical-align: middle; margin-right: 4px;">
-        <path d="M8 0a5.53 5.53 0 0 0-5.5 5.5c0 4.412 5.5 10.5 5.5 10.5s5.5-6.088 5.5-10.5A5.53 5.53 0 0 0 8 0Zm0 7.5a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z"/>
-        </svg>
-         ${s.distancia.toFixed(2)} km
-         </p>
-      </div>
-    `).join("");
-
-        // Iniciar Swiper después de insertar contenido
-        new Swiper('.supermercados-swiper', {
-            loop: true,
-            autoplay: { delay: 4000 },
-            slidesPerView: 1,
-            spaceBetween: 20,
-            pagination: { el: '.swiper-pagination', clickable: true },
-            breakpoints: {
-                576: { slidesPerView: 2 },
-                768: { slidesPerView: 3 },
-                992: { slidesPerView: 4 }
-            }
-        });
-    }
-
-    // Obtener ubicación del usuario
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-            pos => mostrarSupermercadosOrdenados(pos.coords.latitude, pos.coords.longitude),
-            () => alert("No se pudo obtener tu ubicación.")
-        );
-    } else {
-        alert("Tu navegador no soporta geolocalización.");
-    }
-</script>
-
             <!-- Copyright -->
             <div
                     class="text-center p-3"
@@ -762,152 +598,10 @@
             <!-- Copyright -->
         </footer>
     </div>
+
 </section>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<!-- Swiper JS -->
-<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
-
-<!-- Inicializar Swiper -->
-<script>
-    const swiper = new Swiper('.supermercados-swiper', {
-        loop: true,
-        autoplay: {
-            delay: 4000,
-        },
-        slidesPerView: 1,
-        spaceBetween: 20,
-        pagination: {
-            el: '.swiper-pagination',
-            clickable: true,
-        },
-        breakpoints: {
-            576: {
-                slidesPerView: 2,
-            },
-            768: {
-                slidesPerView: 3,
-            },
-            992: {
-                slidesPerView: 4,
-            }
-        }
-    });
-</script>
-<script>
-    const supermercados = [
-        {
-            nombre: "Mercadona",
-            logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Mercadona.svg/200px-Mercadona.svg.png",
-            lat: 40.4171,
-            lng: -3.7038
-        },
-        {
-            nombre: "Carrefour",
-            logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Logo_Carrefour.svg/200px-Logo_Carrefour.svg.png",
-            lat: 40.4221,
-            lng: -3.7028
-        },
-        {
-            nombre: "Lidl",
-            logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Lidl-Logo.svg/200px-Lidl-Logo.svg.png",
-            lat: 40.4251,
-            lng: -3.6990
-        },
-        {
-            nombre: "DIA",
-            logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Logo_DIA.svg/200px-Logo_DIA.svg.png",
-            lat: 40.4291,
-            lng: -3.7080
-        },
-        {
-            nombre: "Alcampo",
-            logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Alcampo_logo_2022.svg/200px-Alcampo_logo_2022.svg.png",
-            lat: 40.4335,
-            lng: -3.7150
-        },
-        {
-            nombre: "Eroski",
-            logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Logo_eroski.svg/200px-Logo_eroski.svg.png",
-            lat: 40.4198,
-            lng: -3.6985
-        },
-        {
-            nombre: "Aldi",
-            logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/ALDI_Logo_2017.svg/200px-ALDI_Logo_2017.svg.png",
-            lat: 40.4182,
-            lng: -3.7102
-        },
-        {
-            nombre: "El Corte Inglés",
-            logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/El_Corte_Ingl%C3%A9s_logo.svg/200px-El_Corte_Ingl%C3%A9s_logo.svg.png",
-            lat: 40.4209,
-            lng: -3.7044
-        }
-    ];
-
-    function calcularDistancia(lat1, lon1, lat2, lon2) {
-        const R = 6371;
-        const dLat = (lat2 - lat1) * Math.PI / 180;
-        const dLon = (lon2 - lon1) * Math.PI / 180;
-        const a = Math.sin(dLat / 2) ** 2 +
-            Math.cos(lat1 * Math.PI / 180) *
-            Math.cos(lat2 * Math.PI / 180) *
-            Math.sin(dLon / 2) ** 2;
-        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        return R * c;
-    }
-
-    function mostrarSupermercadosOrdenados(userLat, userLng) {
-        // Calcular distancias
-        const supermercadosConDistancia = supermercados.map(s => ({
-            ...s,
-            distancia: calcularDistancia(userLat, userLng, s.lat, s.lng)
-        }));
-
-        // Ordenar por distancia
-        supermercadosConDistancia.sort((a, b) => a.distancia - b.distancia);
-
-        // Crear HTML dinámicamente
-        const contenedor = document.getElementById("supermercadoSlides");
-        contenedor.innerHTML = supermercadosConDistancia.map(s => `
-      <div class="swiper-slide">
-        <img src="${s.logo}" class="img-fluid mb-2" style="height: 60px;">
-        <p>
-        <strong>${s.nombre}</strong><br>
-        <svg xmlns="http://www.w3.org/2000/svg" height="16" fill="currentColor" viewBox="0 0 16 16" style="vertical-align: middle; margin-right: 4px;">
-        <path d="M8 0a5.53 5.53 0 0 0-5.5 5.5c0 4.412 5.5 10.5 5.5 10.5s5.5-6.088 5.5-10.5A5.53 5.53 0 0 0 8 0Zm0 7.5a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z"/>
-        </svg>
-         ${s.distancia.toFixed(2)} km
-         </p>
-      </div>
-    `).join("");
-
-        // Iniciar Swiper después de insertar contenido
-        new Swiper('.supermercados-swiper', {
-            loop: true,
-            autoplay: { delay: 4000 },
-            slidesPerView: 1,
-            spaceBetween: 20,
-            pagination: { el: '.swiper-pagination', clickable: true },
-            breakpoints: {
-                576: { slidesPerView: 2 },
-                768: { slidesPerView: 3 },
-                992: { slidesPerView: 4 }
-            }
-        });
-    }
-
-    // Obtener ubicación del usuario
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-            pos => mostrarSupermercadosOrdenados(pos.coords.latitude, pos.coords.longitude),
-            () => alert("No se pudo obtener tu ubicación.")
-        );
-    } else {
-        alert("Tu navegador no soporta geolocalización.");
-    }
-</script>
-
+<!-- Bootstrap -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 </body>
 </html>
