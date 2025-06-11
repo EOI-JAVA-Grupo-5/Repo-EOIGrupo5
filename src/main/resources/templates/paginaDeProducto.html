@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -25,26 +25,6 @@
 
     <style>
 
-        /* Ajustamos las imágenes para que se adapten mejor */
-        .product-img {
-            width: 100%;
-            height: auto;
-        }
-        .product-card {
-            cursor: pointer;
-            /* eliminar border-radius para que no tengan esquinas redondeadas */
-            border-radius: 0;
-            overflow: hidden;
-            margin: 10px; /* añade separación por todos lados */
-            width: 200px;  /* fija ancho */
-            height: 200px; /* fija altura igual para que sean cuadrados */
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #000; /* para que se vea bien el overlay */
-        }
-
         .product-card img {
             transition: 0.3s ease;
             border-radius: 0; /* sin bordes redondeados */
@@ -54,54 +34,10 @@
             display: block;
         }
 
-        .product-card .overlay {
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background-color: rgba(0, 0, 0, 0.7);
-            border-radius: 0; /* sin bordes redondeados */
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            pointer-events: none;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 15px;
-            text-align: center;
-            color: white;
-        }
-
         .product-card:hover img {
             opacity: 0.3;
         }
 
-        .product-card:hover .overlay {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        /* Estilo para los títulos */
-        .section-title {
-            font-weight: bold;
-            margin-bottom: 30px;
-        }
-
-        /* Ajustamos la disposición de las categorías */
-        .category-img {
-            width: 100%;
-            height: auto;
-            border-radius: 50%; /* Hace que las imágenes sean redondeadas */
-        }
-
-        /* Estilo para las imágenes de categorías */
-        .category-img {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            object-fit: cover;
-            display: block;
-            margin: auto;
-        }
 
         .icono-red-footer
         {
@@ -121,12 +57,6 @@
             color: #fcfdaf;
         }
 
-        #search-icon {
-            background-color: #fcfdaf;
-            border-color: orange;
-            color: black;
-        }
-
         .primary-navbar div button {
             background-color: #fcfdaf;
         }
@@ -135,36 +65,10 @@
             background-color: #efd780;
         }
 
-        .product-card {
-            position: relative;
-            overflow: hidden;
-            margin-bottom: 20px;
-        }
-
         .product-card img {
             width: 100%;
             height: auto;
             border-radius: 8px;
-        }
-
-        .overlay {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            font-weight: bold;
-            padding: 1rem;
-            border-radius: 8px;
-        }
-
-        .product-card:hover .overlay {
-            opacity: 1;
         }
 
     </style>
@@ -174,106 +78,160 @@
 
 <!-- NAVBAR -->
 <section id="navbar-section">
-    <nav class="navbar navbar-expand-sm primary-navbar">
+    <nav
+            class="navbar navbar-expand-sm primary-navbar"
+    >
         <div class="container">
-            <a class="navbar-brand d-inline-flex" href="#">
-                <img class="d-inline-block" src="../images/logo-SF.png" alt="logo" style="width: 5rem; align-self: center;">
+            <a class="navbar-brand d-inline-flex" th:href="@{/}">
+                <img class="d-inline-block" th:src="@{/images/logo-SF.png}"
+                     alt="logo" style="width: 5rem; align-self: center;">
                 <span class="text-1000 fs-3 fw-bold ms-2">Castañazo <br> Deals</span>
             </a>
-            <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation">
+            <button
+                    class="navbar-toggler d-lg-none"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapsibleNavId"
+                    aria-controls="collapsibleNavId"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+            >
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="collapsibleNavId">
                 <ul class="navbar-nav me-auto mt-2 mt-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" href="paginaDeProducto"><i class="fa-solid fa-cube"></i> Productos</a>
+                        <a class="nav-link active" href="paginaDeProducto" aria-current="page">
+                            <i class="fa-solid fa-cube"></i> Productos
+                            <span class="visually-hidden">(current)</span>
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="supermercados"><i class="fa-solid fa-store"></i> Supermercados</a>
+                        <a class="nav-link active" href="supermercados" aria-current="page">
+                            <i class="fa-solid fa-store"></i> Supermercados
+                            <span class="visually-hidden">(current)</span>
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="forum"><i class="fa-solid fa-comments"></i> Forum</a>
+                        <a class="nav-link active" href="forum" aria-current="page">
+                            <i class="fa-solid fa-comments"></i> Forum
+                            <span class="visually-hidden">(current)</span>
+                        </a>
                     </li>
                 </ul>
+
+
                 <form class="d-flex pt-3 my-2 my-lg-0">
                     <div class="input-group mb-3">
-                        <span class="input-group-text" id="search-icon">
-                            <i class="bi bi-search"></i>
-                        </span>
-                        <input class="form-control  input-box bg-100" type="search" placeholder="Buscar" aria-label="Search">
-                        <button class="btn btn-outline-warning text-black my-2 my-sm-0" type="submit">Buscar</button>
+                        <input class="form-control input-box bg-100" type="search" placeholder="Buscar" aria-label="Search" style="border-top-left-radius: 20px; border-bottom-left-radius: 20px">
+                        <button class="btn btn-outline-warning text-black my-2 my-sm-0 fa-solid fa-magnifying-glass" type="submit" style="border-top-right-radius: 20px; border-bottom-right-radius: 20px">
+                        </button>
                     </div>
                 </form>
+
                 <div class="d-grid p-3">
-                    <a th:href="@{/inicioSesion}">
-                        <button type="button" class="btn btn-warning rounded-pill">
-                            <i class="bi bi-person-circle"></i> Login
-                        </button>
-                    </a>
+                    <div sec:authorize="isAuthenticated()">
+                        <a th:href="@{/usuario}">
+                            <button type="button" class="btn btn-warning rounded-pill">
+                                <i class="bi bi-person-circle"></i> Perfil
+                            </button>
+                        </a>
+                    </div>
+
+                    <div sec:authorize="!isAuthenticated()">
+                        <a th:href="@{/login}">
+                            <button type="button" class="btn btn-warning rounded-pill">
+                                <i class="bi bi-person-circle"></i> Login
+                            </button>
+                        </a>
+                    </div>
                 </div>
+
                 <div class="d-grid p-3">
                     <a th:href="@{/carrito}">
-                        <button type="button" class="btn btn-warning rounded-pill">
+                        <button
+                                type="button"
+                                name=""
+                                id="btnCarrito"
+                                class="btn btn-warning rounded-pill"
+                        >
                             <i class="bi bi-cart-fill"></i> Carrito
                         </button>
                     </a>
+
                 </div>
+
             </div>
         </div>
     </nav>
+
 </section>
+
 
 <!-- Sección ¡Vamos de compras! -->
 <section class="text-white py-5" style="background-color: #fcfdaf;">
     <div class="container text-center">
         <h2 class="fw-bold text-dark">¡Vamos de compras!</h2>
         <p class="text-dark">Encuentra los productos más baratos cerca de ti.</p>
-        <div class="input-group w-75 w-md-50 mx-auto">
-            <input type="text" class="form-control" placeholder="Buscar ítem" aria-label="Buscar ítem">
-            <button class="btn btn-dark">
+        <form method="get" th:action="@{/paginaDeProducto}" class="input-group w-75 w-md-50 mx-auto">
+            <label>
+                <input type="text" class="form-control" name="nombre" placeholder="Buscar ítem" th:value="${param.nombre}" />
+            </label>
+            <button type="submit" class="btn btn-dark">
                 <i class="bi bi-search"></i> Buscar
             </button>
-        </div>
+        </form>
     </div>
 </section>
 
 
+
 <!-- PRODUCTOS -->
 <div class="container mt-4">
+    <!-- Filtros -->
     <div class="d-flex justify-content-between mb-3">
         <form method="get" th:action="@{/paginaDeProducto}" class="d-flex gap-2">
-            <select class="form-select" name="category">
-                <option value="">Todas las categorías</option>
-                <option th:each="cat : ${category}" th:value="${cat}" th:text="${cat}">Categoría</option>
-            </select>
-            <select class="form-select" name="supermarket">
-                <option value="">Todos los supermercados</option>
-                <option th:each="sup : ${supermercados}" th:value="${sup}" th:text="${sup}">Supermercado</option>
-            </select>
-            <select class="form-select" name="orden">
-                <option value="asc">Precio: menor a mayor</option>
-                <option value="desc" th:selected="${orden == 'desc'}">Precio: mayor a menor</option>
-            </select>
+            <label>
+                <select class="form-select" name="category">
+                    <option value="">Todas las categorías</option>
+                    <option th:each="cat : ${category}" th:value="${cat}" th:text="${cat}">Categoría</option>
+                </select>
+            </label>
+            <label>
+                <select class="form-select" name="supermarket">
+                    <option value="">Todos los supermercados</option>
+                    <option th:each="sup : ${supermercados}" th:value="${sup}" th:text="${sup}">Supermercado</option>
+                </select>
+            </label>
+            <label>
+                <select class="form-select" name="orden">
+                    <option value="asc" th:selected="${orden == 'asc'}">Precio: menor a mayor</option>
+                    <option value="desc" th:selected="${orden == 'desc'}">Precio: mayor a menor</option>
+                </select>
+            </label>
             <button type="submit" class="btn btn-primary">Filtrar</button>
         </form>
     </div>
 
-    <div class="d-flex justify-content-center flex-wrap">
-        <div class="col-3 mx-2 text-center position-relative product-card mb-4"
-             th:each="producto : ${productos}" style="max-width: 200px;">
-            <img th:src="${producto.url}" class="img-fluid" th:alt="${producto.name}" />
-            <div class="overlay text-white p-2">
-                <h6 class="fw-bold" th:text="${producto.name}" style="font-size: 0.9rem;">Nombre</h6>
-                <p class="fw-bold" th:text="'€' + ${producto.price}" style="font-size: 0.8rem;">Precio</p>
-                <p class="fw-bold" th:text="${producto.supermarket}" style="font-size: 0.8rem;">Supermercado</p>
-                <form th:action="@{/carrito/agregar}" method="post" class="mt-2">
-                    <input type="hidden" name="productoId" th:value="${producto.id}" />
-                    <button type="submit" class="btn btn-success btn-sm">Añadir a la cesta</button>
-                </form>
+    <!-- Productos -->
+    <div class="row justify-content-center">
+        <div class="col-6 col-md-3 text-center mb-4" th:each="producto : ${productos}">
+            <div class="card h-100 shadow-sm">
+                <img th:src="${producto.url}" class="card-img-top img-fluid" th:alt="${producto.name}" style="object-fit: cover; height: 200px;" />
+                <div class="card-body">
+                    <h6 class="card-title fw-bold" th:text="${producto.name}" style="font-size: 0.9rem;">Nombre</h6>
+                    <p class="card-text mb-1" th:text="'€' + ${producto.price}" style="font-size: 0.85rem;">Precio</p>
+                    <p class="card-text" th:text="${producto.supermarket}" style="font-size: 0.8rem;">Supermercado</p>
+                    <form th:action="@{/carrito/agregar}" method="post">
+                        <input type="hidden" name="productoId" th:value="${producto.id}" />
+                        <button type="submit" class="btn btn-success btn-sm">Añadir a la cesta</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 
+    <!-- Botón Ver Más -->
     <div class="text-center mt-4" th:if="${hasMore}">
         <form method="get" th:action="@{/paginaDeProducto}">
             <input type="hidden" name="page" th:value="${pagina + 1}" />
@@ -284,71 +242,6 @@
         </form>
     </div>
 </div>
-
-
-
-<div class="container">
-    <h3 class="section-title text-center">Buscar por categoría</h3>
-    <div id="categoryCarousel" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-            <!-- Grupo 1 -->
-            <div class="carousel-item active">
-                <div class="row text-center">
-                    <div class="col">
-                        <img src="https://picsum.photos/200/200" class="category-img" alt="Categoría 1">
-                        <p>Aceites</p>
-                    </div>
-                    <div class="col">
-                        <img src="https://picsum.photos/200/200" class="category-img" alt="Categoría 2">
-                        <p>Refrescos</p>
-                    </div>
-                    <div class="col">
-                        <img src="https://picsum.photos/200/200" class="category-img" alt="Categoría 3">
-                        <p>Aves</p>
-                    </div>
-                    <div class="col">
-                        <img src="https://picsum.photos/200/200" class="category-img" alt="Categoría 3">
-                        <p>Carnes</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Grupo 2 -->
-            <div class="carousel-item">
-                <div class="row text-center">
-                    <div class="col">
-                        <img src="https://picsum.photos/200/200" class="category-img" alt="Categoría 3">
-                        <p>Pasta</p>
-                    </div>
-                    <div class="col">
-                        <img src="https://picsum.photos/200/200" class="category-img" alt="Categoría 3">
-                        <p>Lácteos</p>
-                    </div>
-                    <div class="col">
-                        <img src="https://picsum.photos/200/200" class="category-img" alt="Categoría 3">
-                        <p>Arroz y legumbres</p>
-                    </div>
-                    <div class="col">
-                        <img src="https://picsum.photos/200/200" class="category-img" alt="Categoría 3">
-                        <p>Frutas</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Controles de navegación -->
-        <button class="carousel-control-prev" type="button" data-bs-target="#categoryCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Anterior</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#categoryCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Siguiente</span>
-        </button>
-
-    </div>
-</div>
-</section>
 
 
 <section id="footer">
@@ -498,7 +391,7 @@
 
 </section>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Bootstrap -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 </body>
-
 </html>
