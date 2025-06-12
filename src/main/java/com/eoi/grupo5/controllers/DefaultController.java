@@ -81,11 +81,11 @@ public class DefaultController {
 //    }
 
 
-    @GetMapping("/")
-    public String index(Model model)
-    {
-        return "paginaDeInicio"; // View name
-    }
+//    @GetMapping("/")
+//    public String index(Model model)
+//    {
+//        return "paginaDeInicio"; // View name
+//    }
 
     @GetMapping("/carrito")
     public String carrito(Model model)
