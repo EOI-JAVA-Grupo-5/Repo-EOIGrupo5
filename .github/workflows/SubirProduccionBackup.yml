@@ -2,7 +2,7 @@ name: Subida a Producción (Sin Cache Manual)
 
 on:
   push:
-    tags: [ "v*" ]
+    tags: [ "backup*" ]
 
 jobs:
 
