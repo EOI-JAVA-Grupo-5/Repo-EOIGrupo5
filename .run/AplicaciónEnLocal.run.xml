@@ -1,11 +1,10 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="AplicaciónEnLocal" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
     <option name="ACTIVE_PROFILES" value="local" />
-    <option name="ALTERNATIVE_JRE_PATH" value="21" />
+    <option name="ALTERNATIVE_JRE_PATH" value="openjdk-24" />
     <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
     <module name="grupo5proyecto" />
     <option name="SPRING_BOOT_MAIN_CLASS" value="com.eoi.grupo5.Application" />
-    <module name="grupo5proyecto" />
     <method v="2">
       <option name="Make" enabled="true" />
     </method>

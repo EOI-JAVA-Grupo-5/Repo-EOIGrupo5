@@ -9,10 +9,14 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.session.HttpSessionEventPublisher;
 
 /**
  * Clase de configuración de seguridad para la aplicación.
@@ -50,19 +54,22 @@ public class SecurityConfig {
      *
      * @Author No se especificó autor.
      */
+//    @Bean
+//    public UserDetailsService userDetailsService() {
+//        String name = environment.getProperty("spring.security.user.name", "user");
+//        String password = environment.getProperty("spring.security.user.password", "password");
+//
+//        var user = User.withUsername(name)
+//                .password("{noop}" + password) // {noop} indica que no se usa encoder para simplificar (solo pruebas)
+//                .roles("USER")
+//                .build();
+//
+//        return new InMemoryUserDetailsManager(user);
+//    }
     @Bean
-    public UserDetailsService userDetailsService() {
-        String name = environment.getProperty("spring.security.user.name", "user");
-        String password = environment.getProperty("spring.security.user.password", "password");
-
-        var user = User.withUsername(name)
-                .password("{noop}" + password) // {noop} indica que no se usa encoder para simplificar (solo pruebas)
-                .roles("USER")
-                .build();
-
-        return new InMemoryUserDetailsManager(user);
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
-
     /**
      * Configura una cadena de filtros de seguridad para gestionar la seguridad HTTP de la aplicación.
      * Permite personalizar los comportamientos de seguridad como protección CSRF, autenticación básica,
@@ -89,20 +96,43 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(Customizer.withDefaults()) // deshabilitado para pruebas o APIs
-                .httpBasic(Customizer.withDefaults())
-                .formLogin(Customizer.withDefaults())
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/entities").permitAll()
-                        .requestMatchers("/").permitAll()
+                        .requestMatchers("/", "/login", "/registro", "/foro", "/foro/hilo/**").permitAll()
                         .requestMatchers("/carrito").permitAll()
-                        .requestMatchers("/forum").permitAll()
-                        .requestMatchers("/usuario").permitAll()
-                        .requestMatchers("/inicioSesion").permitAll()
-                        .requestMatchers("/entities/*").permitAll()
-                        .requestMatchers("/css/*").permitAll()
-                        .requestMatchers(HttpMethod.POST,"/entidades/deleteHija/*").authenticated()
+                        .requestMatchers("/paginaDeProducto").permitAll()
+                        .requestMatchers("/perfilSupermercado").permitAll()
+
+                        .requestMatchers("/entities/**").permitAll()
+                        .requestMatchers("/css/**", "/images/**").permitAll()
+
+                        .requestMatchers("/usuario", "/usuario/modificar", "/usuario/modificar/password").authenticated()
+
+                        .requestMatchers(HttpMethod.POST, "/login", "/registro").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/foro/crear").authenticated()
+//                        .requestMatchers(HttpMethod.POST, "/entidades/deleteHija/*").authenticated()
+
                         .anyRequest().authenticated()
-                );
+
+                )
+                .formLogin(form -> form
+                        .loginPage("/login")
+                        .loginProcessingUrl("/login")
+                        .defaultSuccessUrl("/usuario", true)
+                        .failureUrl("/login?error")
+                        .permitAll()
+                )
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/")
+                        .invalidateHttpSession(true)
+                        .deleteCookies("JSESSIONID")
+                        .permitAll()
+                )
+                .sessionManagement(session -> session
+                        .invalidSessionUrl("/login?expired")
+                )
+
+        ;
 
 
         return http.build();
@@ -129,6 +159,16 @@ public class SecurityConfig {
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
         return authConfig.getAuthenticationManager();
+    }
+
+    /**
+     * Registra un listener para detectar eventos de expiración de sesión
+     *
+     * @return instancia de HttpSessionEventPublisher
+     */
+    @Bean
+    public HttpSessionEventPublisher httpSessionEventPublisher() {
+        return new HttpSessionEventPublisher();
     }
 
 }

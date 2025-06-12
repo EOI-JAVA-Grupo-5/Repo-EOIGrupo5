@@ -1,0 +1,66 @@
+* {
+    font-family: "Albert Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+body {
+    background: #FCFDAF;
+}
+
+.icon-1x {
+    font-size: 24px !important;
+}
+
+a {
+    text-decoration: none;
+}
+
+.text-black,
+.text-hover-black:hover {
+    color: #000 !important;
+}
+
+.font-weight-bold {
+    font-weight: 700 !important;
+}
+
+.card-hover:hover {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    transition: box-shadow 0.1s linear;
+}
+
+.text-title {
+    color: #000;
+    font-size: x-large;
+}
+
+.card-hover:hover .text-title {
+    color: #ff6f00
+}
+
+/* SIDE BAR  */
+
+.side-card {
+    height: 150px;
+    /* Or height: 120px to force exact size */
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.side-card:hover .text-title {
+    color: #ff6f00;
+
+}
+
+.modal-header {
+    background-color: #FCFDAF;
+}
+
+.modal-body {
+    background-color: burlywood;
+}
+
+.modal-footer {
+    background-color: #FCFDAF;
+}

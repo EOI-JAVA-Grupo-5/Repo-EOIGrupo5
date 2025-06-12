@@ -16,8 +16,8 @@
     <link rel="shortcut icon" type="image/x-icon" th:href="@{/images/logo-SF.png}">
 
     <!-- Stylesheets -->
-    <link th:href="@{css/styles.css}" rel="stylesheet" />
-    <link th:href="@{css/perfilSupermercado.css}" rel="stylesheet">
+    <link th:href="@{/css/styles.css}" rel="stylesheet" />
+    <link th:href="@{/css/perfilSupermercado.css}" rel="stylesheet">
 
     <!-- iconos -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -37,161 +37,31 @@
 <body>
 <!-- NAVBAR -->
 <section id="navbar-section">
-    <nav
-            class="navbar navbar-expand-sm primary-navbar"
-    >
-        <div class="container">
-            <a class="navbar-brand d-inline-flex" th:href="@{/}">
-                <img class="d-inline-block" src="../images/logo-SF.png"
-                     alt="logo" style="width: 5rem; align-self: center;">
-                <span class="text-1000 fs-3 fw-bold ms-2">Castañazo <br> Deals</span>
-            </a>
-            <button
-                    class="navbar-toggler d-lg-none"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#collapsibleNavId"
-                    aria-controls="collapsibleNavId"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation"
-            >
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="collapsibleNavId">
-                <ul class="navbar-nav me-auto mt-2 mt-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" th:href="@{/paginaDeProducto}" aria-current="page"
-                        >Productos
-                            <span class="visually-hidden">(current)</span></a
-                        >
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" th:href="@{/perfilSupermercado}" aria-current="page"
-                        >Supermercado
-                            <span class="visually-hidden">(current)</span></a
-                        >
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" th:href="@{/forum}" aria-current="page"
-                        >Forum
-                            <span class="visually-hidden">(current)</span></a
-                        >
-                    </li>
-                </ul>
-
-
-                <form class="d-flex pt-3 my-2 my-lg-0">
-
-                    <div class="input-group mb-3">
-                            <span class="input-group-text" id="search-icon">
-                                <i class="bi bi-search"></i>
-                            </span>
-                        <input class="form-control  input-box bg-100" type="search" placeholder="Buscar" aria-label="Search">
-                        <button
-                                class="btn btn-outline-warning text-black my-2 my-sm-0"
-                                type="submit"
-                        >
-                            Buscar
-                        </button>
-                    </div>
-
-                </form>
-
-                <div class="d-grid p-3">
-                    <a th:href="@{/inicioSesion}">
-                        <button
-                                type="button"
-                                name=""
-                                id=""
-                                class="btn btn-warning"
-                        >
-                            <i class="bi bi-person-circle"></i> Login
-                        </button>
-                    </a>
-                </div>
-
-                <div class="d-grid p-3">
-                    <a th:href="@{/carrito}">
-                        <button
-                                type="button"
-                                name=""
-                                id=""
-                                class="btn btn-warning"
-                        >
-                            <i class="bi bi-basket2"></i> Carrito
-                        </button>
-                    </a>
-                </div>
-
-            </div>
-        </div>
-    </nav>
-
+    <div th:insert="~{plantillas/navbar :: navbar}"></div>
 </section>
 
+
 <!--Supermarket Info-->
-<section id="infoSuper" class="py-3">
-    <div class="container-fluid">
-        <div class="row justify-content-center">
-            <div class="col-md-10">
+<section id="infoSuper" class="py-5">
+    <div class="container d-flex justify-content-center">
+        <div class="d-flex gap-4 p-4 bg-white rounded-3 shadow w-100" style="max-width: 1000px;">
+            <!-- Logo -->
+            <div class="img-wrapper" style="flex-shrink: 0;">
+                <img th:src="${supermercado.logoURL}" alt="Logo del supermercado" class="img-fluid">
+            </div>
 
-                <div class="banner-blocks d-flex align-items-stretch gap-4">
+            <!-- Contenido -->
+            <div class="flex-grow-1">
+                <h3 class="display-5 mb-2" id="nombreSuper" th:text="${supermercado?.nombre}">Lidl</h3>
+                <p class="mb-4">¿Dónde encontrar su tienda más cercana?</p>
 
-                    <div class="banner-ad h-100 d-flex flex-column large bg-custom block-1 rounded-3">
-                        <div class="row banner-content p-5">
-                            <div class="img-wrapper col-2">
-                                <img src="https://placehold.co/150x150" class="img-fluid">
-                            </div>
-                            <div class="content-wrapper col-10 d-flex flex-column">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <h3 class="display-4" id="nombreSuper">Lidl</h3>
-                                        <p>Dónde encontrar su tienda más cercana:</p>
-                                    </div>
-                                </div>
-                                <div class="row mt-3">
-                                    <div class="col-12">
-                                        <div  id="map">
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="banner-ad d-flex flex-column bg-custom block-3 rounded-3 position-relative" id="transporte" >
-                        <div class="row banner-content flex-grow-1 p-3 pb-0">
-                            <div class="container" style="margin-top: 100px">
-                                    <div class="text-center">
-                                     <h3 class="item-title">Envío A Domicilio</h3>
-
-                                        <div class="fw-bold mb-3 p-3 pe-3 border border-dark rounded bg-success d-inline-block" style="color: #fff;">
-                                            Disponible
-                                        </div>
-                                    </div>
-                                    <div class="d-flex align-items-center flex-column text-center">
-                                        <span class="fw-bold fs-4">4.99€</span>
-                                        <div>
-                                            Compra superior a 50€ ⟶
-
-                                            <span class="fw-bold">GRATIS</span>
-                                        </div>
-                                    </div>
-                            </div>
-                        </div>
-                        <img src="/images/camion.png" alt="Camión de transporte" class="camion-img">
-                    </div>
-
-
-
-
-                </div>
-
+                <!-- Mapa -->
+                <div id="map" style="height: 400px; border-radius: 8px; background-color: #e0e0e0;"></div>
             </div>
         </div>
     </div>
 </section>
+
 
 
 
@@ -199,47 +69,105 @@
 <section class="container my-5">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2>Listado de Productos</h2>
-        <div class="dropdown">
+
+        <div class="d-flex gap-2">
+            <!--Categorias-->
             <button
                     class="filter-btn btn btn-warning dropdown-toggle"
                     type="button"
-                    id="dropdownMenuButton"
+                    id="dropdownCategoryButton"
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
             >
-                Filtrar
+                Categorías
             </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <li><a class="dropdown-item" href="#">Nombre (A-Z)</a></li>
-                <li><a class="dropdown-item" href="#">Nombre (Z-A)</a></li>
+            <ul class="dropdown-menu" aria-labelledby="dropdownCategoryButton">
                 <li>
-                    <a class="dropdown-item" href="#">Precio (Menor a Mayor)</a>
+                    <a class="dropdown-item text-danger fw-bold"
+                       th:href="@{|/supermercados/${supermercado.id}?page=0|}">
+                        Mostrar todos
+                    </a>
                 </li>
-                <li>
-                    <a class="dropdown-item" href="#">Precio (Mayor a Menor)</a>
+                <li><hr class="dropdown-divider"></li>
+                <li th:each="cat : ${categorias}">
+                    <a class="dropdown-item"
+                       th:href="@{|/supermercados/${supermercado.id}?categoria=${#strings.replace(cat, '|', '%7C')}&page=0|}"
+                       th:text="${cat}">Categoría</a>
                 </li>
-                <li><a class="dropdown-item" href="#">Categoría</a></li>
             </ul>
+
+
+            <!--Filtrar-->
+            <div class="dropdown">
+                <button
+                        class="filter-btn btn btn-warning dropdown-toggle"
+                        type="button"
+                        id="dropdownMenuButton"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                >
+                    Filtros
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <li>
+                        <a class="dropdown-item text-danger fw-bold"
+                           th:href="@{|/supermercados/${supermercado.id}?page=0|}">
+                            Quitar filtros
+                        </a>
+                    </li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item"
+                           th:href="@{|/supermercados/${supermercado.id}?orden=asc&page=${productosPage.number}|}">
+                        Nombre (A-Z)
+                    </a>
+                    </li>
+                    <li><a class="dropdown-item"
+                           th:href="@{|/supermercados/${supermercado.id}?orden=desc&page=${productosPage.number}|}">
+                        Nombre (Z-A)
+                    </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item"
+                           th:href="@{|/supermercados/${supermercado.id}?orden=precio_asc&page=${productosPage.number}|}">
+                            Precio (Menor a Mayor)
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item"
+                           th:href="@{|/supermercados/${supermercado.id}?orden=precio_desc&page=${productosPage.number}|}">
+                            Precio (Mayor a Menor)
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
+
+
+
     <div class="row">
         <!-- Producto -->
-        <div class="col-md-2 col-sm-6 mb-4" style="min-width: 200px">
+        <div th:each="producto : ${productosPage.content}" class="col-md-3 col-sm-6 mb-4" style="min-width: 200px">
             <div
-                    class="card text-center p-2"
+                    class="card text-center p-2 h-100 d-flex flex-column"
                     data-bs-toggle="modal"
                     data-bs-target="#productModal1"
             >
-                <img
-                        src="https://placehold.co/150x150"
-                        class="card-img-top"
-                        alt="Producto"
-                />
-                <div class="card-body">
-                    <h5 class="card-title">Producto 1</h5>
-                    <p class="text-warning">★★★★★</p>
-                    <p class="fw-bold">10.99 €</p>
-                    <button class="btn btn-outline-danger btn-sm mb-2">❤</button>
+<!--                <img-->
+<!--                        th:src="${producto.url}"-->
+<!--                        class="card-img-top"-->
+<!--                        alt="Producto"-->
+<!--                />-->
+                <div class="card-body d-flex flex-column justify-content-between">
+                    <h5 class="card-title" th:text="${producto.name}">Producto 1</h5>
+<!--                    <p class="text-warning">★★★★★</p>-->
+                    <p class="fw-bold" th:text="${producto.price + '€'}">10.99 €</p>
+                    <div class="d-flex justify-content-center mb-2">
+                        <button class="btn btn-outline-danger btn-sm p-0" style="width: 2rem; height: 2rem;">
+                            ❤
+                        </button>
+                    </div>
+
                     <div
                             class="d-flex justify-content-center align-items-center mb-2"
                     >
@@ -253,552 +181,108 @@
         </div>
 
         <!-- Modal -->
-        <div
-                class="modal fade"
-                id="productModal1"
-                tabindex="-1"
-                aria-labelledby="productModalLabel"
-                aria-hidden="true"
-        >
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="productModalLabel">Producto 1</h5>
-                        <button
-                                type="button"
-                                class="btn-close"
-                                data-bs-dismiss="modal"
-                                aria-label="Cerrar"
-                        ></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div
-                                    class="col-md-6 d-flex justify-content-center align-items-center"
-                            >
-                                <img
-                                        src="https://placehold.co/150x150"
-                                        class="img-fluid"
-                                        alt="Producto"
-                                />
-                            </div>
-                            <div class="col-md-6">
-                                <h5>Descripción:</h5>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                    Phasellus imperdiet, nulla et dictum interdum, nisi lorem
-                                    egestas odio, vitae scelerisque enim ligula venenatis
-                                    dolor. Maecenas nisl est, ultrices nec congue eget, auctor
-                                    vitae massa.
-                                </p>
-                                <h5>Reseñas:</h5>
-                                <div>
-                                    <p>
-                                        <strong>Usuario 1:</strong> ★★★★★ Me encanta este
-                                        producto, es de excelente calidad.
-                                    </p>
-                                    <p>
-                                        <strong>Usuario 2:</strong> ★★★★☆ Muy bueno, pero la
-                                        talla no es precisa.
-                                    </p>
-                                    <p>
-                                        <strong>Usuario 3:</strong> ★★★☆☆ Cumple su función,
-                                        pero esperaba más.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button
-                                type="button"
-                                class="btn btn-secondary"
-                                data-bs-dismiss="modal"
-                        >
-                            Cerrar
-                        </button>
-                        <button type="button" class="btn btn-success">
-                            Añadir al carrito
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
+<!--        <div-->
+<!--                class="modal fade"-->
+<!--                id="productModal1"-->
+<!--                tabindex="-1"-->
+<!--                aria-labelledby="productModalLabel"-->
+<!--                aria-hidden="true"-->
+<!--        >-->
+<!--            <div class="modal-dialog modal-lg">-->
+<!--                <div class="modal-content">-->
+<!--                    <div class="modal-header">-->
+<!--                        <h5 class="modal-title" id="productModalLabel">Producto 1</h5>-->
+<!--                        <button-->
+<!--                                type="button"-->
+<!--                                class="btn-close"-->
+<!--                                data-bs-dismiss="modal"-->
+<!--                                aria-label="Cerrar"-->
+<!--                        ></button>-->
+<!--                    </div>-->
+<!--                    <div class="modal-body">-->
+<!--                        <div class="row">-->
+<!--                            <div-->
+<!--                                    class="col-md-6 d-flex justify-content-center align-items-center"-->
+<!--                            >-->
+<!--                                <img-->
+<!--                                        src="https://placehold.co/150x150"-->
+<!--                                        class="img-fluid"-->
+<!--                                        alt="Producto"-->
+<!--                                />-->
+<!--                            </div>-->
+<!--                            <div class="col-md-6">-->
+<!--                                <h5>Descripción:</h5>-->
+<!--                                <p>-->
+<!--                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.-->
+<!--                                    Phasellus imperdiet, nulla et dictum interdum, nisi lorem-->
+<!--                                    egestas odio, vitae scelerisque enim ligula venenatis-->
+<!--                                    dolor. Maecenas nisl est, ultrices nec congue eget, auctor-->
+<!--                                    vitae massa.-->
+<!--                                </p>-->
+<!--                                <h5>Reseñas:</h5>-->
+<!--                                <div>-->
+<!--                                    <p>-->
+<!--                                        <strong>Usuario 1:</strong> ★★★★★ Me encanta este-->
+<!--                                        producto, es de excelente calidad.-->
+<!--                                    </p>-->
+<!--                                    <p>-->
+<!--                                        <strong>Usuario 2:</strong> ★★★★☆ Muy bueno, pero la-->
+<!--                                        talla no es precisa.-->
+<!--                                    </p>-->
+<!--                                    <p>-->
+<!--                                        <strong>Usuario 3:</strong> ★★★☆☆ Cumple su función,-->
+<!--                                        pero esperaba más.-->
+<!--                                    </p>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="modal-footer">-->
+<!--                        <button-->
+<!--                                type="button"-->
+<!--                                class="btn btn-secondary"-->
+<!--                                data-bs-dismiss="modal"-->
+<!--                        >-->
+<!--                            Cerrar-->
+<!--                        </button>-->
+<!--                        <button type="button" class="btn btn-success">-->
+<!--                            Añadir al carrito-->
+<!--                        </button>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
 
-        <!-- Producto -->
-        <div class="col-md-2 col-sm-6 mb-4" style="min-width: 200px">
-            <div class="card text-center p-2">
-                <img
-                        src="https://placehold.co/150x150"
-                        class="card-img-top"
-                        alt="Producto"
-                />
-                <div class="card-body">
-                    <h5 class="card-title">Producto 1</h5>
-                    <p class="text-warning">★★★★★</p>
-                    <p class="fw-bold">10.99 €</p>
-                    <button class="btn btn-outline-danger btn-sm mb-2">❤</button>
-                    <div
-                            class="d-flex justify-content-center align-items-center mb-2"
-                    >
-                        <button class="btn btn-outline-secondary btn-sm">-</button>
-                        <span class="mx-2">1</span>
-                        <button class="btn btn-outline-secondary btn-sm">+</button>
-                    </div>
-                    <button class="btn btn-success btn-sm">Añadir al carrito</button>
-                </div>
-            </div>
-        </div>
-        <!-- Producto -->
-        <div class="col-md-2 col-sm-6 mb-4" style="min-width: 200px">
-            <div class="card text-center p-2">
-                <img
-                        src="https://placehold.co/150x150"
-                        class="card-img-top"
-                        alt="Producto"
-                />
-                <div class="card-body">
-                    <h5 class="card-title">Producto 1</h5>
-                    <p class="text-warning">★★★★★</p>
-                    <p class="fw-bold">10.99 €</p>
-                    <button class="btn btn-outline-danger btn-sm mb-2">❤</button>
-                    <div
-                            class="d-flex justify-content-center align-items-center mb-2"
-                    >
-                        <button class="btn btn-outline-secondary btn-sm">-</button>
-                        <span class="mx-2">1</span>
-                        <button class="btn btn-outline-secondary btn-sm">+</button>
-                    </div>
-                    <button class="btn btn-success btn-sm">Añadir al carrito</button>
-                </div>
-            </div>
-        </div>
-        <!-- Producto -->
-        <div class="col-md-2 col-sm-6 mb-4" style="min-width: 200px">
-            <div class="card text-center p-2">
-                <img
-                        src="https://placehold.co/150x150"
-                        class="card-img-top"
-                        alt="Producto"
-                />
-                <div class="card-body">
-                    <h5 class="card-title">Producto 1</h5>
-                    <p class="text-warning">★★★★★</p>
-                    <p class="fw-bold">10.99 €</p>
-                    <button class="btn btn-outline-danger btn-sm mb-2">❤</button>
-                    <div
-                            class="d-flex justify-content-center align-items-center mb-2"
-                    >
-                        <button class="btn btn-outline-secondary btn-sm">-</button>
-                        <span class="mx-2">1</span>
-                        <button class="btn btn-outline-secondary btn-sm">+</button>
-                    </div>
-                    <button class="btn btn-success btn-sm">Añadir al carrito</button>
-                </div>
-            </div>
-        </div>
-        <!-- Producto -->
-        <div class="col-md-2 col-sm-6 mb-4" style="min-width: 200px">
-            <div class="card text-center p-2">
-                <img
-                        src="https://placehold.co/150x150"
-                        class="card-img-top"
-                        alt="Producto"
-                />
-                <div class="card-body">
-                    <h5 class="card-title">Producto 1</h5>
-                    <p class="text-warning">★★★★★</p>
-                    <p class="fw-bold">10.99 €</p>
-                    <button class="btn btn-outline-danger btn-sm mb-2">❤</button>
-                    <div
-                            class="d-flex justify-content-center align-items-center mb-2"
-                    >
-                        <button class="btn btn-outline-secondary btn-sm">-</button>
-                        <span class="mx-2">1</span>
-                        <button class="btn btn-outline-secondary btn-sm">+</button>
-                    </div>
-                    <button class="btn btn-success btn-sm">Añadir al carrito</button>
-                </div>
-            </div>
-        </div>
     </div>
-    <div class="row">
-        <!-- Producto -->
-        <div class="col-md-2 col-sm-6 mb-4" style="min-width: 200px">
-            <div class="card text-center p-2">
-                <img
-                        src="https://placehold.co/150x150"
-                        class="card-img-top"
-                        alt="Producto"
-                />
-                <div class="card-body">
-                    <h5 class="card-title">Producto 1</h5>
-                    <p class="text-warning">★★★★★</p>
-                    <p class="fw-bold">10.99 €</p>
-                    <button class="btn btn-outline-danger btn-sm mb-2">❤</button>
-                    <div
-                            class="d-flex justify-content-center align-items-center mb-2"
-                    >
-                        <button class="btn btn-outline-secondary btn-sm">-</button>
-                        <span class="mx-2">1</span>
-                        <button class="btn btn-outline-secondary btn-sm">+</button>
-                    </div>
-                    <button class="btn btn-success btn-sm">Añadir al carrito</button>
-                </div>
-            </div>
-        </div>
+    <!-- Paginación -->
+    <div class="d-flex justify-content-center mt-4">
+        <nav>
+            <ul class="pagination">
+                <li class="page-item" th:classappend="${productosPage.first} ? 'disabled'">
+                    <a class="page-link"
+                       th:href="@{/supermercados/{id}(id=${supermercado.id}, page=${productosPage.number - 1})}">Anterior</a>
+                </li>
 
-        <!-- Producto -->
-        <div class="col-md-2 col-sm-6 mb-4" style="min-width: 200px">
-            <div class="card text-center p-2">
-                <img
-                        src="https://placehold.co/150x150"
-                        class="card-img-top"
-                        alt="Producto"
-                />
-                <div class="card-body">
-                    <h5 class="card-title">Producto 1</h5>
-                    <p class="text-warning">★★★★★</p>
-                    <p class="fw-bold">10.99 €</p>
-                    <button class="btn btn-outline-danger btn-sm mb-2">❤</button>
-                    <div
-                            class="d-flex justify-content-center align-items-center mb-2"
-                    >
-                        <button class="btn btn-outline-secondary btn-sm">-</button>
-                        <span class="mx-2">1</span>
-                        <button class="btn btn-outline-secondary btn-sm">+</button>
-                    </div>
-                    <button class="btn btn-success btn-sm">Añadir al carrito</button>
-                </div>
-            </div>
-        </div>
-        <!-- Producto -->
-        <div class="col-md-2 col-sm-6 mb-4" style="min-width: 200px">
-            <div class="card text-center p-2">
-                <img
-                        src="https://placehold.co/150x150"
-                        class="card-img-top"
-                        alt="Producto"
-                />
-                <div class="card-body">
-                    <h5 class="card-title">Producto 1</h5>
-                    <p class="text-warning">★★★★★</p>
-                    <p class="fw-bold">10.99 €</p>
-                    <button class="btn btn-outline-danger btn-sm mb-2">❤</button>
-                    <div
-                            class="d-flex justify-content-center align-items-center mb-2"
-                    >
-                        <button class="btn btn-outline-secondary btn-sm">-</button>
-                        <span class="mx-2">1</span>
-                        <button class="btn btn-outline-secondary btn-sm">+</button>
-                    </div>
-                    <button class="btn btn-success btn-sm">Añadir al carrito</button>
-                </div>
-            </div>
-        </div>
-        <!-- Producto -->
-        <div class="col-md-2 col-sm-6 mb-4" style="min-width: 200px">
-            <div class="card text-center p-2">
-                <img
-                        src="https://placehold.co/150x150"
-                        class="card-img-top"
-                        alt="Producto"
-                />
-                <div class="card-body">
-                    <h5 class="card-title">Producto 1</h5>
-                    <p class="text-warning">★★★★★</p>
-                    <p class="fw-bold">10.99 €</p>
-                    <button class="btn btn-outline-danger btn-sm mb-2">❤</button>
-                    <div
-                            class="d-flex justify-content-center align-items-center mb-2"
-                    >
-                        <button class="btn btn-outline-secondary btn-sm">-</button>
-                        <span class="mx-2">1</span>
-                        <button class="btn btn-outline-secondary btn-sm">+</button>
-                    </div>
-                    <button class="btn btn-success btn-sm">Añadir al carrito</button>
-                </div>
-            </div>
-        </div>
-        <!-- Producto -->
-        <div class="col-md-2 col-sm-6 mb-4" style="min-width: 200px">
-            <div class="card text-center p-2">
-                <img
-                        src="https://placehold.co/150x150"
-                        class="card-img-top"
-                        alt="Producto"
-                />
-                <div class="card-body">
-                    <h5 class="card-title">Producto 1</h5>
-                    <p class="text-warning">★★★★★</p>
-                    <p class="fw-bold">10.99 €</p>
-                    <button class="btn btn-outline-danger btn-sm mb-2">❤</button>
-                    <div
-                            class="d-flex justify-content-center align-items-center mb-2"
-                    >
-                        <button class="btn btn-outline-secondary btn-sm">-</button>
-                        <span class="mx-2">1</span>
-                        <button class="btn btn-outline-secondary btn-sm">+</button>
-                    </div>
-                    <button class="btn btn-success btn-sm">Añadir al carrito</button>
-                </div>
-            </div>
-        </div>
+                <li class="page-item disabled">
+                <span class="page-link"
+                      th:text="'Página ' + (${productosPage.number + 1}) + ' de ' + ${productosPage.totalPages}"></span>
+                </li>
+
+                <li class="page-item" th:classappend="${productosPage.last} ? 'disabled'">
+                    <a class="page-link"
+                       th:href="@{/supermercados/{id}(id=${supermercado.id}, page=${productosPage.number + 1})}">Siguiente</a>
+                </li>
+            </ul>
+        </nav>
     </div>
-    <div class="row">
-        <!-- Producto -->
-        <div class="col-md-2 col-sm-6 mb-4" style="min-width: 200px">
-            <div class="card text-center p-2">
-                <img
-                        src="https://placehold.co/150x150"
-                        class="card-img-top"
-                        alt="Producto"
-                />
-                <div class="card-body">
-                    <h5 class="card-title">Producto 1</h5>
-                    <p class="text-warning">★★★★★</p>
-                    <p class="fw-bold">10.99 €</p>
-                    <button class="btn btn-outline-danger btn-sm mb-2">❤</button>
-                    <div
-                            class="d-flex justify-content-center align-items-center mb-2"
-                    >
-                        <button class="btn btn-outline-secondary btn-sm">-</button>
-                        <span class="mx-2">1</span>
-                        <button class="btn btn-outline-secondary btn-sm">+</button>
-                    </div>
-                    <button class="btn btn-success btn-sm">Añadir al carrito</button>
-                </div>
-            </div>
-        </div>
-        <!-- Producto -->
-        <div class="col-md-2 col-sm-6 mb-4" style="min-width: 200px">
-            <div class="card text-center p-2">
-                <img
-                        src="https://placehold.co/150x150"
-                        class="card-img-top"
-                        alt="Producto"
-                />
-                <div class="card-body">
-                    <h5 class="card-title">Producto 1</h5>
-                    <p class="text-warning">★★★★★</p>
-                    <p class="fw-bold">10.99 €</p>
-                    <button class="btn btn-outline-danger btn-sm mb-2">❤</button>
-                    <div
-                            class="d-flex justify-content-center align-items-center mb-2"
-                    >
-                        <button class="btn btn-outline-secondary btn-sm">-</button>
-                        <span class="mx-2">1</span>
-                        <button class="btn btn-outline-secondary btn-sm">+</button>
-                    </div>
-                    <button class="btn btn-success btn-sm">Añadir al carrito</button>
-                </div>
-            </div>
-        </div>
-        <!-- Producto -->
-        <div class="col-md-2 col-sm-6 mb-4" style="min-width: 200px">
-            <div class="card text-center p-2">
-                <img
-                        src="https://placehold.co/150x150"
-                        class="card-img-top"
-                        alt="Producto"
-                />
-                <div class="card-body">
-                    <h5 class="card-title">Producto 1</h5>
-                    <p class="text-warning">★★★★★</p>
-                    <p class="fw-bold">10.99 €</p>
-                    <button class="btn btn-outline-danger btn-sm mb-2">❤</button>
-                    <div
-                            class="d-flex justify-content-center align-items-center mb-2"
-                    >
-                        <button class="btn btn-outline-secondary btn-sm">-</button>
-                        <span class="mx-2">1</span>
-                        <button class="btn btn-outline-secondary btn-sm">+</button>
-                    </div>
-                    <button class="btn btn-success btn-sm">Añadir al carrito</button>
-                </div>
-            </div>
-        </div>
-        <!-- Producto -->
-        <div class="col-md-2 col-sm-6 mb-4" style="min-width: 200px">
-            <div class="card text-center p-2">
-                <img
-                        src="https://placehold.co/150x150"
-                        class="card-img-top"
-                        alt="Producto"
-                />
-                <div class="card-body">
-                    <h5 class="card-title">Producto 1</h5>
-                    <p class="text-warning">★★★★★</p>
-                    <p class="fw-bold">10.99 €</p>
-                    <button class="btn btn-outline-danger btn-sm mb-2">❤</button>
-                    <div
-                            class="d-flex justify-content-center align-items-center mb-2"
-                    >
-                        <button class="btn btn-outline-secondary btn-sm">-</button>
-                        <span class="mx-2">1</span>
-                        <button class="btn btn-outline-secondary btn-sm">+</button>
-                    </div>
-                    <button class="btn btn-success btn-sm">Añadir al carrito</button>
-                </div>
-            </div>
-        </div>
-        <!-- Producto -->
-        <div class="col-md-2 col-sm-6 mb-4" style="min-width: 200px">
-            <div class="card text-center p-2">
-                <img
-                        src="https://placehold.co/150x150"
-                        class="card-img-top"
-                        alt="Producto"
-                />
-                <div class="card-body">
-                    <h5 class="card-title">Producto 1</h5>
-                    <p class="text-warning">★★★★★</p>
-                    <p class="fw-bold">10.99 €</p>
-                    <button class="btn btn-outline-danger btn-sm mb-2">❤</button>
-                    <div
-                            class="d-flex justify-content-center align-items-center mb-2"
-                    >
-                        <button class="btn btn-outline-secondary btn-sm">-</button>
-                        <span class="mx-2">1</span>
-                        <button class="btn btn-outline-secondary btn-sm">+</button>
-                    </div>
-                    <button class="btn btn-success btn-sm">Añadir al carrito</button>
-                </div>
-            </div>
-        </div>
-    </div>
+
+
 </section>
 
-<footer class="text-center text-lg-start" style="background-color: #efd780">
-    <!-- Section: Social media -->
-    <section
-            class="d-flex justify-content-between p-4"
-            style="background-color: #dba159"
-    >
-        <!-- Left -->
-        <div class="me-5" style="color: #fcfdaf">
-            <span><strong>Síguenos en nuestras redes sociales:</strong></span>
-        </div>
-        <!-- Left -->
-
-        <!-- Right -->
-        <div>
-            <a href="" class="icono-red-footer me-4">
-                <i class="fab fa-facebook-f"></i>
-            </a>
-            <a href="" class="icono-red-footer me-4">
-                <i class="fab fa-twitter"></i>
-            </a>
-            <a href="" class="icono-red-footer me-4">
-                <i class="fab fa-google"></i>
-            </a>
-            <a href="" class="icono-red-footer me-4">
-                <i class="fab fa-instagram"></i>
-            </a>
-            <a href="" class="icono-red-footer me-4">
-                <i class="fab fa-linkedin"></i>
-            </a>
-            <a href="" class="icono-red-footer me-4">
-                <i class="fab fa-github"></i>
-            </a>
-        </div>
-        <!-- Right -->
-    </section>
-    <!-- Section: Social media -->
-
-    <!-- Section: Links  -->
-    <section class="">
-        <div class="container text-center text-md-start mt-5">
-            <!-- Grid row -->
-            <div class="row mt-3">
-                <!-- Grid column -->
-                <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-                    <!-- Content -->
-                    <h6 class="text-uppercase fw-bold">Sobre Castañazo Deals</h6>
-                    <hr
-                            class="mb-4 mt-0 d-inline-block mx-auto"
-                            style="width: 60px; background-color: #dba159; height: 2px"
-                    />
-                    <p>
-                        Aquí va propaganda pura y dura, sin filtrar. Café para los mas
-                        cafeteros.
-                    </p>
-                </div>
-                <!-- Grid column -->
-
-                <!-- Grid column -->
-                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-                    <!-- Links -->
-                    <h6 class="text-uppercase fw-bold">Cosas</h6>
-                    <hr
-                            class="mb-4 mt-0 d-inline-block mx-auto"
-                            style="width: 60px; background-color: #dba159; height: 2px"
-                    />
-                    <p>
-                        <a href="#!" class="text-blue">Cosa 1</a>
-                    </p>
-                    <p>
-                        <a href="#!" class="text-blue">Cosa 2</a>
-                    </p>
-                    <p>
-                        <a href="#!" class="text-blue">Cosa 3</a>
-                    </p>
-                    <p>
-                        <a href="#!" class="text-blue">Cosa 4</a>
-                    </p>
-                </div>
-                <!-- Grid column -->
-
-                <!-- Grid column -->
-                <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-                    <!-- Links -->
-                    <h6 class="text-uppercase fw-bold">Links Útiles</h6>
-                    <hr
-                            class="mb-4 mt-0 d-inline-block mx-auto"
-                            style="width: 60px; background-color: #dba159; height: 2px"
-                    />
-                    <p>
-                        <a href="#!" class="text-blue">Link 1</a>
-                    </p>
-                    <p>
-                        <a href="#!" class="text-blue">Link 2</a>
-                    </p>
-                    <p>
-                        <a href="#!" class="text-blue">Link 3</a>
-                    </p>
-                    <p>
-                        <a href="#!" class="text-blue">Link 4</a>
-                    </p>
-                </div>
-                <!-- Grid column -->
-
-                <!-- Grid column -->
-                <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-                    <!-- Links -->
-                    <h6 class="text-uppercase fw-bold">Contacto</h6>
-                    <hr
-                            class="mb-4 mt-0 d-inline-block mx-auto"
-                            style="width: 60px; background-color: #dba059; height: 2px"
-                    />
-                    <p><i class="fas fa-home mr-3"></i> Sevilla, Sevilla, ES</p>
-                    <p><i class="fas fa-envelope mr-3"></i> info@castañazodeals.es</p>
-                    <p><i class="fas fa-phone mr-3"></i> + 01 234 567 88</p>
-                    <p><i class="fas fa-print mr-3"></i> + 01 234 567 89</p>
-                </div>
-                <!-- Grid column -->
-            </div>
-            <!-- Grid row -->
-        </div>
-    </section>
-    <!-- Section: Links  -->
-
-    <!-- Copyright -->
-    <div class="text-center p-3" style="background-color: #dba0598f">
-        © 2025 Copyright:
-        <a class="text-blue" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+<section id="footer">
+    <div  th:insert="~{plantillas/footer :: footer}" class="justify-content-end pt-3">
     </div>
-    <!-- Copyright -->
-</footer>
+</section>
 </body>
 
 <!-- Bootstrap -->

@@ -12,40 +12,61 @@
 }
 
 /* Navbar principal */
-.primary-navbar
-{
+.primary-navbar {
     background-color: #dba159;
 }
 
-.primary-navbar span
-{
+.primary-navbar span {
     color: #fcfdaf;
 }
 
-#search-icon
-{
+#search-icon {
     background-color: #fcfdaf;
     border-color: orange;
     color: black;
 }
 
-.primary-navbar div button
-{
+.primary-navbar div button,
+#btnUser-Login,
+.primary-navbar div .dropdown-menu,
+.primary-navbar div .dropdown-item{
     background-color: #fcfdaf;
 }
 
-.primary-navbar div button:hover
-{
+.primary-navbar div button:hover,
+#btnUser-Login:hover,
+.primary-navbar div .dropdown-item:hover{
     background-color: #efd780;
 }
 
+
+.nav-item .nav-link {
+    color: #333;
+    font-size: medium;
+    transition: color 0.3s ease, border-bottom 0.3s ease;
+    border-bottom: 1px solid transparent;
+}
+
+.nav-item .nav-link:hover {
+    color: #fcfdaf;
+    /* or any highlight color */
+    border-bottom: 1px solid #fcfdaf;
+    transition: color 0.3s ease, border-bottom 0.3s ease;
+    text-decoration: none;
+}
+
+/*.nav-item .nav-link:active {*/
+/*    color: #fcfdaf;*/
+/*    !* or any highlight color *!*/
+/*    border-bottom: 1px solid #fcfdaf;*/
+/*    text-decoration: none;*/
+/*}*/
+
 /* Iconos de redes sociales del footer */
-.icono-red-footer
-{
+.icono-red-footer {
     color: #fcfdaf;
 }
 
-.icono-red-footer:hover
-{
+.icono-red-footer:hover {
     color: #efd780;
 }

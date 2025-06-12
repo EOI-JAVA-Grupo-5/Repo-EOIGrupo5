@@ -16,17 +16,13 @@
     position: relative;
 }
 
-.camion-img {
-    position: absolute;
-    bottom: 100px;
-    right: 10px;
-    max-width: 200px;
-    z-index: 10;
-}
-
 .filter-btn, #infoSuper
 {
     background-color: #fcfdaf;
+}
+
+#infoSuper img {
+    max-width: 150px;
 }
 
 .filter-btn:hover
@@ -37,11 +33,73 @@
 #map{
     height: 400px;
     width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    border-radius: 8px;
+    background-color: #e0e0e0;
 }
 
-#transporte{
-    background-color: #dba0598f;
-    border: 1px solid #dba0598f;
-    border-radius: 10px;
-    box-shadow: 0 0 10px #dba0598f;
+.supermercado-card {
+    transition: all 0.3s ease;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: center;
+    background-color: white;
+}
+
+.supermercado-card:hover {
+    border: 2px solid #fcfdaf;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.supermercado-img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    margin-bottom: 10px;
+}
+
+.supermercado-card:hover .supermercado-nombre {
+    color: #dba159;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1rem 0;
+}
+
+.pagination .page-link {
+    font-family: "Albert Sans", sans-serif;
+    background-color: #fcfdaf; /* amarillo pastel claro */
+    color: #5a4a00; /* marrón oscuro para el texto */
+    border: 1px solid #dcdca7;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    user-select: none;
+}
+
+.pagination .page-link:hover:not(.disabled):not(.active) {
+    background-color: #efd780; /* amarillo pastel oscuro en hover */
+    box-shadow: 0 0 8px rgba(223, 215, 128, 0.7);
+    color: #4b3a00;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #dba159; /* color naranja pastel */
+    color: white;
+    font-weight: 700;
+    box-shadow: 0 0 10px rgba(219, 161, 89, 0.8);
+    cursor: default;
+}
+
+.pagination .page-item.disabled .page-link {
+    background-color: #f5f5d3;
+    color: #b0af81;
+    cursor: not-allowed;
+    box-shadow: none;
 }

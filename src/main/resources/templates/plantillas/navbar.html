@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navbar</title>
+</head>
+<body>
+    <div th:fragment="navbar">
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg primary-navbar">
+            <div class="container">
+                <a class="navbar-brand d-inline-flex" th:href="@{/}">
+                    <img class="d-inline-block align-middle" style="width: 5rem;" th:src="@{/images/logo-SF.png}"
+                        alt="logo">
+                    <span class="text-1000 fs-3 fw-bold ms-2">Castañazo <br> Deals</span>
+                </a>
+                <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="collapsibleNavId">
+                    <ul class="navbar-nav me-auto mt-2 mt-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" th:href="@{/paginaDeProducto}" aria-current="page">
+                                <i class="fa-solid fa-cube"></i> Productos
+                                <span class="visually-hidden">(current)</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" th:href="@{/supermercados}" aria-current="page">
+                                <i class="fa-solid fa-store"></i> Supermercados
+                                <span class="visually-hidden">(current)</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" th:href="@{/foro}" aria-current="page">
+                                <i class="fa-solid fa-comments"></i> Foro
+                                <span class="visually-hidden">(current)</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <form class="d-flex pt-3 my-2 my-lg-0">
+                        <div class="input-group mb-3">
+                            <input class="form-control input-box bg-100" type="search" placeholder="Buscar" aria-label="Search" style="border-top-left-radius: 20px; border-bottom-left-radius: 20px">
+                            <button class="btn btn-outline-warning text-black my-2 my-sm-0 fa-solid fa-magnifying-glass" type="submit" style="border-top-right-radius: 20px; border-bottom-right-radius: 20px">
+                            </button>
+                        </div>
+                    </form>
+                    <div class="d-grid p-3">
+                        <div  sec:authorize="isAuthenticated()">
+<!--                            <a th:href="@{/usuario}">-->
+<!--                                <button type="button" class="btn btn-warning rounded-pill">-->
+<!--                                    <i class="bi bi-person-circle"></i> Perfil-->
+<!--                                </button>-->
+<!--                            </a>-->
+                            <div class="dropdown">
+                                <a id="btnUser-Login" class="btn btn-warning rounded-pill dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-person-circle"></i>
+                                    <span class="text-black" sec:authentication="name"></span>
+                                </a>
+
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" th:href="@{/usuario}">Ver perfil</a></li>
+                                    <li>
+                                        <form th:action="@{/logout}" method="post" style="margin: 0;">
+                                            <button type="submit" class="dropdown-item">Cerrar sesión</button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div  sec:authorize="!isAuthenticated()">
+                            <a th:href="@{/login}">
+                                <button type="button" class="btn btn-warning rounded-pill">
+                                    <i class="bi bi-person-circle"></i> Login
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="d-grid p-3">
+                        <a th:href="@{/carrito}">
+                            <button type="button" name="" id="" class="btn btn-warning rounded-pill">
+                                <i class="bi bi-cart-fill"></i> Carrito
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+</body>
+</html>
