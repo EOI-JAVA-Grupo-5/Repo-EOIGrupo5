@@ -1,5 +1,6 @@
 package com.eoi.grupo5.services;
 
+import com.eoi.grupo5.entities.ItemLista;
 import com.eoi.grupo5.entities.Lista;
 import com.eoi.grupo5.entities.Usuario;
 import com.eoi.grupo5.repositories.ListaRepository;
@@ -39,6 +40,28 @@ public class ListaService {
         }else{
             return null;
         }
+    }
+
+    public Lista getListaAbierta(Usuario usuario){
+        Optional <List<Lista>> listasUsuario = getListasDeUsuario(usuario);
+        Lista listaAbierta = new Lista();
+
+        if(listasUsuario.isPresent()) {
+            List<Lista> listas = listasUsuario.get();
+
+            for (int i = 0; i < listas.size(); i++) {
+                if (!listas.get(i).isCerrada()) {
+                    listaAbierta = listas.get(i);
+                    i = listas.size();
+                }
+            }
+        }
+        return listaAbierta;
+    }
+
+    public void addItemListaALista(ItemLista itemLista, Usuario usuario){
+        Lista listaAbierta = getListaAbierta(usuario);
+        itemLista.setLista(listaAbierta);
     }
 
     public void crearListaParaUsuario(Usuario usuario){
