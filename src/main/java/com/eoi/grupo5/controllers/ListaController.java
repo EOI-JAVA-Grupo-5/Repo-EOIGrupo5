@@ -2,11 +2,14 @@ package com.eoi.grupo5.controllers;
 
 import com.eoi.grupo5.entities.ItemLista;
 import com.eoi.grupo5.entities.Lista;
+import com.eoi.grupo5.entities.Producto;
 import com.eoi.grupo5.entities.Usuario;
 import com.eoi.grupo5.services.ItemListaService;
 import com.eoi.grupo5.services.ListaService;
+import com.eoi.grupo5.services.ProductoService;
 import com.eoi.grupo5.services.UsuarioService;
 import com.eoi.grupo5.utils.exceptions.ItemsListaNotFoundException;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -14,6 +17,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,12 +29,14 @@ public class ListaController {
     private final UsuarioService usuarioService;
     private final ListaService listaService;
     private final ItemListaService itemListaService;
+    private final ProductoService productoService;
 
 
-    public ListaController(UsuarioService usuarioService, ListaService listaService, ItemListaService itemListaService) {
+    public ListaController(UsuarioService usuarioService, ListaService listaService, ItemListaService itemListaService, ProductoService productoService) {
         this.usuarioService = usuarioService;
         this.listaService = listaService;
         this.itemListaService = itemListaService;
+        this.productoService = productoService;
     }
 
 
@@ -50,7 +57,7 @@ public class ListaController {
     }
 
     @GetMapping("/listas/verLista/{id}")
-    public String deleteEntidadHija(@PathVariable Long id, @AuthenticationPrincipal UserDetails userDetails, Model model) {
+    public String verListaIndividual(@PathVariable Long id, @AuthenticationPrincipal UserDetails userDetails, Model model) {
         String username = userDetails.getUsername();
         Usuario usuario = usuarioService.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
@@ -63,6 +70,20 @@ public class ListaController {
         }
 
         return "verLista";
+    }
+
+    @PostMapping("/listas/addProducto")
+    public String agregarProductoComoItem(@RequestParam("productoId") Long productoId, @AuthenticationPrincipal UserDetails userDetails, Model model){
+        Producto producto = productoService.getProductoPorId(productoId);
+
+        String username = userDetails.getUsername();
+        Usuario usuario = usuarioService.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
+
+        itemListaService.addProductoALista(producto, usuario);
+
+        return "listas";
+
     }
 
     /**

@@ -56,7 +56,7 @@ public class ItemListaService {
                 ItemLista itemActual = items.get(i);
 
 
-                if(itemActual.getProducto().equals(producto)){
+                if(itemActual.getProducto().getId().equals(producto.getId())){
                     productoEncontrado = true;
                     itemActual.setCantidadComprada(itemActual.getCantidadComprada() + 1);
                     save(itemActual);

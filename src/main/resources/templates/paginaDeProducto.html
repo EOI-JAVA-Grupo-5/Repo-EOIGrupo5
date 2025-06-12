@@ -266,7 +266,7 @@
                 <h6 class="fw-bold" th:text="${producto.name}" style="font-size: 0.9rem;">Nombre</h6>
                 <p class="fw-bold" th:text="'€' + ${producto.price}" style="font-size: 0.8rem;">Precio</p>
                 <p class="fw-bold" th:text="${producto.supermarket}" style="font-size: 0.8rem;">Supermercado</p>
-                <form th:action="@{/carrito/agregar}" method="post" class="mt-2">
+                <form th:action="@{/listas/addProducto}" method="post" class="mt-2">
                     <input type="hidden" name="productoId" th:value="${producto.id}" />
                     <button type="submit" class="btn btn-success btn-sm">Añadir a la cesta</button>
                 </form>
