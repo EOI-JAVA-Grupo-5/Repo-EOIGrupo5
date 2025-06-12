@@ -84,17 +84,20 @@
             <ul class="dropdown-menu" aria-labelledby="dropdownCategoryButton">
                 <li>
                     <a class="dropdown-item text-danger fw-bold"
-                       th:href="@{|/supermercados/${supermercado.id}?page=0|}">
+                       th:href="@{/supermercados/{id}(id=${supermercado.id}, page=0)}">
                         Mostrar todos
                     </a>
                 </li>
                 <li><hr class="dropdown-divider"></li>
                 <li th:each="cat : ${categorias}">
                     <a class="dropdown-item"
-                       th:href="@{|/supermercados/${supermercado.id}?categoria=${#strings.replace(cat, '|', '%7C')}&page=0|}"
-                       th:text="${cat}">Categoría</a>
+                       th:href="@{/supermercados/{id}(id=${supermercado.id}, categoria=${cat}, orden=${orden}, page=0)}"
+                       th:text="${cat}">
+                        Categoría
+                    </a>
                 </li>
             </ul>
+
 
 
             <!--Filtrar-->
@@ -111,33 +114,27 @@
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <li>
                         <a class="dropdown-item text-danger fw-bold"
-                           th:href="@{|/supermercados/${supermercado.id}?page=0|}">
+                           th:href="@{/supermercados/{id}(id=${supermercado.id}, page=0)}">
                             Quitar filtros
                         </a>
                     </li>
                     <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item"
-                           th:href="@{|/supermercados/${supermercado.id}?orden=asc&page=${productosPage.number}|}">
+                           th:href="@{/supermercados/{id}(id=${supermercado.id}, orden='asc', categoria=${categoria}, page=${productosPage.number})}">
                         Nombre (A-Z)
-                    </a>
-                    </li>
+                    </a></li>
                     <li><a class="dropdown-item"
-                           th:href="@{|/supermercados/${supermercado.id}?orden=desc&page=${productosPage.number}|}">
+                           th:href="@{/supermercados/{id}(id=${supermercado.id}, orden='desc', categoria=${categoria}, page=${productosPage.number})}">
                         Nombre (Z-A)
-                    </a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item"
-                           th:href="@{|/supermercados/${supermercado.id}?orden=precio_asc&page=${productosPage.number}|}">
-                            Precio (Menor a Mayor)
-                        </a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item"
-                           th:href="@{|/supermercados/${supermercado.id}?orden=precio_desc&page=${productosPage.number}|}">
-                            Precio (Mayor a Menor)
-                        </a>
-                    </li>
+                    </a></li>
+                    <li><a class="dropdown-item"
+                           th:href="@{/supermercados/{id}(id=${supermercado.id}, orden='precio_asc', categoria=${categoria}, page=${productosPage.number})}">
+                        Precio (Menor a Mayor)
+                    </a></li>
+                    <li><a class="dropdown-item"
+                           th:href="@{/supermercados/{id}(id=${supermercado.id}, orden='precio_desc', categoria=${categoria}, page=${productosPage.number})}">
+                        Precio (Mayor a Menor)
+                    </a></li>
                 </ul>
             </div>
         </div>
@@ -150,110 +147,42 @@
         <div th:each="producto : ${productosPage.content}" class="col-md-3 col-sm-6 mb-4" style="min-width: 200px">
             <div
                     class="card text-center p-2 h-100 d-flex flex-column"
-                    data-bs-toggle="modal"
-                    data-bs-target="#productModal1"
             >
-<!--                <img-->
-<!--                        th:src="${producto.url}"-->
-<!--                        class="card-img-top"-->
-<!--                        alt="Producto"-->
-<!--                />-->
+                <img
+                        th:src="${producto.url}"
+                        class="card-img-top"
+                        alt="Producto"
+                />
                 <div class="card-body d-flex flex-column justify-content-between">
                     <h5 class="card-title" th:text="${producto.name}">Producto 1</h5>
 <!--                    <p class="text-warning">★★★★★</p>-->
                     <p class="fw-bold" th:text="${producto.price + '€'}">10.99 €</p>
-                    <div class="d-flex justify-content-center mb-2">
-                        <button class="btn btn-outline-danger btn-sm p-0" style="width: 2rem; height: 2rem;">
-                            ❤
-                        </button>
+<!--                    <div class="d-flex justify-content-center mb-2">-->
+<!--                        <button class="btn btn-outline-danger btn-sm p-0" style="width: 2rem; height: 2rem;">-->
+<!--                            ❤-->
+<!--                        </button>-->
+<!--                    </div>-->
+
+                    <div class="d-flex justify-content-center align-items-center mb-2">
+                        <button class="btn btn-outline-secondary btn-sm btn-decrease" th:attr="data-product-id=${producto.id}">-</button>
+                        <span class="mx-2 cantidad" th:attr="data-product-id=${producto.id}">1</span>
+                        <button class="btn btn-outline-secondary btn-sm btn-increase" th:attr="data-product-id=${producto.id}">+</button>
                     </div>
 
-                    <div
-                            class="d-flex justify-content-center align-items-center mb-2"
-                    >
-                        <button class="btn btn-outline-secondary btn-sm">-</button>
-                        <span class="mx-2">1</span>
-                        <button class="btn btn-outline-secondary btn-sm">+</button>
-                    </div>
-                    <button class="btn btn-success btn-sm">Añadir al carrito</button>
+                    <form method="post" action="/Carrito/agregar" class="add-to-cart-form">
+                        <input type="hidden" name="productoId" th:value="${producto.id}" />
+                        <input type="hidden" name="cantidad" value="1" class="input-cantidad" th:attr="data-product-id=${producto.id}" />
+                        <input type="hidden" name="supermercadoId" th:value="${supermercado.id}" />
+                        <button type="submit" class="btn btn-success btn-sm">
+                            Añadir al carrito
+                        </button>
+                    </form>
+
                 </div>
             </div>
         </div>
-
-        <!-- Modal -->
-<!--        <div-->
-<!--                class="modal fade"-->
-<!--                id="productModal1"-->
-<!--                tabindex="-1"-->
-<!--                aria-labelledby="productModalLabel"-->
-<!--                aria-hidden="true"-->
-<!--        >-->
-<!--            <div class="modal-dialog modal-lg">-->
-<!--                <div class="modal-content">-->
-<!--                    <div class="modal-header">-->
-<!--                        <h5 class="modal-title" id="productModalLabel">Producto 1</h5>-->
-<!--                        <button-->
-<!--                                type="button"-->
-<!--                                class="btn-close"-->
-<!--                                data-bs-dismiss="modal"-->
-<!--                                aria-label="Cerrar"-->
-<!--                        ></button>-->
-<!--                    </div>-->
-<!--                    <div class="modal-body">-->
-<!--                        <div class="row">-->
-<!--                            <div-->
-<!--                                    class="col-md-6 d-flex justify-content-center align-items-center"-->
-<!--                            >-->
-<!--                                <img-->
-<!--                                        src="https://placehold.co/150x150"-->
-<!--                                        class="img-fluid"-->
-<!--                                        alt="Producto"-->
-<!--                                />-->
-<!--                            </div>-->
-<!--                            <div class="col-md-6">-->
-<!--                                <h5>Descripción:</h5>-->
-<!--                                <p>-->
-<!--                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.-->
-<!--                                    Phasellus imperdiet, nulla et dictum interdum, nisi lorem-->
-<!--                                    egestas odio, vitae scelerisque enim ligula venenatis-->
-<!--                                    dolor. Maecenas nisl est, ultrices nec congue eget, auctor-->
-<!--                                    vitae massa.-->
-<!--                                </p>-->
-<!--                                <h5>Reseñas:</h5>-->
-<!--                                <div>-->
-<!--                                    <p>-->
-<!--                                        <strong>Usuario 1:</strong> ★★★★★ Me encanta este-->
-<!--                                        producto, es de excelente calidad.-->
-<!--                                    </p>-->
-<!--                                    <p>-->
-<!--                                        <strong>Usuario 2:</strong> ★★★★☆ Muy bueno, pero la-->
-<!--                                        talla no es precisa.-->
-<!--                                    </p>-->
-<!--                                    <p>-->
-<!--                                        <strong>Usuario 3:</strong> ★★★☆☆ Cumple su función,-->
-<!--                                        pero esperaba más.-->
-<!--                                    </p>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="modal-footer">-->
-<!--                        <button-->
-<!--                                type="button"-->
-<!--                                class="btn btn-secondary"-->
-<!--                                data-bs-dismiss="modal"-->
-<!--                        >-->
-<!--                            Cerrar-->
-<!--                        </button>-->
-<!--                        <button type="button" class="btn btn-success">-->
-<!--                            Añadir al carrito-->
-<!--                        </button>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-
     </div>
+
     <!-- Paginación -->
     <div class="d-flex justify-content-center mt-4">
         <nav>
@@ -298,7 +227,6 @@
         async
         defer
 ></script>
-
 
 <script>
     function initMap() {
@@ -372,4 +300,36 @@
     }
     window.initMap = initMap;
 </script>
+
+<!--Carrito-->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".btn-increase").forEach(btn => {
+            btn.addEventListener("click", function () {
+                const productId = this.getAttribute("data-product-id");
+                const cantidadSpan = document.querySelector(`.cantidad[data-product-id="${productId}"]`);
+                const inputCantidad = document.querySelector(`.input-cantidad[data-product-id="${productId}"]`);
+                let cantidad = parseInt(cantidadSpan.textContent);
+                cantidad++;
+                cantidadSpan.textContent = cantidad;
+                inputCantidad.value = cantidad;
+            });
+        });
+
+        document.querySelectorAll(".btn-decrease").forEach(btn => {
+            btn.addEventListener("click", function () {
+                const productId = this.getAttribute("data-product-id");
+                const cantidadSpan = document.querySelector(`.cantidad[data-product-id="${productId}"]`);
+                const inputCantidad = document.querySelector(`.input-cantidad[data-product-id="${productId}"]`);
+                let cantidad = parseInt(cantidadSpan.textContent);
+                if (cantidad > 1) {
+                    cantidad--;
+                    cantidadSpan.textContent = cantidad;
+                    inputCantidad.value = cantidad;
+                }
+            });
+        });
+    });
+</script>
+
 </html>

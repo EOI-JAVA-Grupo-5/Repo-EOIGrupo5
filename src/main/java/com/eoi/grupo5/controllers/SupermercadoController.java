@@ -5,18 +5,16 @@ import com.eoi.grupo5.entities.Producto;
 import com.eoi.grupo5.entities.Supermercado;
 import com.eoi.grupo5.services.ProductoService;
 import com.eoi.grupo5.services.SupermercadoService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -25,10 +23,12 @@ public class SupermercadoController {
 
     private final SupermercadoService supermercadoService;
     private final ProductoService productoService;
+    private final CarritoService carritoService;
 
-    public SupermercadoController(SupermercadoService supermercadoService, ProductoService productoService) {
+    public SupermercadoController(SupermercadoService supermercadoService, ProductoService productoService, CarritoService carritoService) {
         this.supermercadoService = supermercadoService;
         this.productoService = productoService;
+        this.carritoService = carritoService;
     }
 
     @GetMapping("/supermercados")
@@ -49,8 +49,6 @@ public class SupermercadoController {
         Pageable pageable = PageRequest.of(page, 20);
 
         Page<Producto> productosPage;
-
-        System.out.println("Filtrando por categoría: " + categoria);
 
         if (categoria != null && !categoria.isEmpty()) {
             productosPage = switch (orden) {
@@ -89,6 +87,30 @@ public class SupermercadoController {
 
         return "perfilSupermercado";
     }
+
+
+    @PostMapping("/Carrito/agregarProducto")
+    public String agregarAlCarrito(@RequestParam("productoId") Long productoId,
+                                   @RequestParam("cantidad") int cantidad,
+                                   @RequestParam("supermercadoId") Long supermercadoId,
+                                   HttpSession session) {
+        Producto producto = productoService.getProductoPorId(productoId);
+        if (producto != null) {
+            List<Producto> carrito = (List<Producto>) session.getAttribute("Carrito");
+            if (carrito == null) {
+                carrito = new ArrayList<>();
+            }
+
+            for (int i = 0; i < cantidad; i++) {
+                carrito.add(producto);
+            }
+
+            session.setAttribute("Carrito", carrito);
+        }
+
+        return "redirect:/supermercado/" + supermercadoId;
+    }
+
 
 
 }
