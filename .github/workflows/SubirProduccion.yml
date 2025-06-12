@@ -51,7 +51,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ vars.SONAR_HOST_URL }}
           VERSION: ${{ github.ref_type == 'tag' && github.ref_name || 'snapshot' }}
-        run: mvn -T24 clean verify
+        run: mvn -B clean package -DskipTests
 
   # --------------------- CREAR IMAGEN DOCKER ---------------------
   crear_imagen_docker:
@@ -61,7 +61,8 @@ jobs:
       VERSION: ${{ github.ref_type == 'tag' && github.ref_name || 'snapshot' }}
     steps:
       - name: Construir imagen Docker con versión dinámica
-        run: mvn spring-boot:build-image -DskipTests
+        run: |
+          mvn -B -DskipTests spring-boot:build-image
 
   # --------------------- DESPLEGAR EN SERVIDOR ---------------------
 
