@@ -17,7 +17,7 @@ public class EntidadMensaje {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String contenido;
-    private LocalDateTime fechaPublicacion;
+    private LocalDateTime fechaCreacion;
     private Long votos;
 
     @ManyToOne
