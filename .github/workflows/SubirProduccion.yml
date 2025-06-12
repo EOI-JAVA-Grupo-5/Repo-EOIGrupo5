@@ -46,12 +46,12 @@ jobs:
           VERSION: ${{ github.ref_type == 'tag' && github.ref_name || 'snapshot' }}
         run: mvn versions:set "-DnewVersion=${{ env.VERSION }}"
 
-      - name: Ejecutar Tests, JaCoCo y enviar a SonarQube
+      - name: Ejecutar Tests, JaCoCo
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ vars.SONAR_HOST_URL }}
           VERSION: ${{ github.ref_type == 'tag' && github.ref_name || 'snapshot' }}
-        run: mvn -T24 clean verify sonar:sonar -Dsonar:sonar:sonar.projectVersion=${VERSION}
+        run: mvn -T24 clean verify
 
   # --------------------- CREAR IMAGEN DOCKER ---------------------
   crear_imagen_docker:
