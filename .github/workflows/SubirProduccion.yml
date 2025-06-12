@@ -8,27 +8,34 @@ jobs:
 
   # --------------------- PREPARAR ENTORNO ---------------------
   preparar_entorno:
-    concurrency:
-      group: produccion
-      cancel-in-progress: true
     runs-on: self-hosted
+
+    env:
+      CURSO: ${{ vars.CURSO }}
+      GRUPO: ${{ vars.GRUPO }}
+      PROJECT_NAME: ${{ vars.PROJECT_NAME }}
+      JAVA_VERSION: ${{ vars.JAVA_VERSION }}
+      PUERTO_DB_DESARROLLO: ${{ vars.PUERTO_DB_DESARROLLO }}
+      PUERTO_DESARROLLO: ${{ vars.PUERTO_DESARROLLO }}
+      PUERTO_PRODUCCION: ${{ vars.PUERTO_PRODUCCION }}
+      SONAR_HOST_URL: ${{ vars.SONAR_HOST_URL }}
+      VERSION: snapshot
+
     steps:
       - name: Checkout código
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
-      - name: Configurar JDK ${{ vars.JAVA_VERSION }}
+      - name: Configurar JDK ${{ env.JAVA_VERSION }}
         uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
-          java-version: '${{ vars.JAVA_VERSION }}'
-          check-latest: false
+          distribution: temurin
+          java-version: '${{ env.JAVA_VERSION }}'
 
   # --------------------- COMPILAR CÓDIGO ---------------------
   ejecucion_tests_y_sonarqube:
     needs: preparar_entorno
     runs-on: self-hosted
+
     steps:
       - name: Establecer versión de proyecto para CI
         env:
