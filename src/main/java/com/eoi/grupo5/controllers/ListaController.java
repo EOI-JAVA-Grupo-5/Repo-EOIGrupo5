@@ -4,10 +4,7 @@ import com.eoi.grupo5.entities.ItemLista;
 import com.eoi.grupo5.entities.Lista;
 import com.eoi.grupo5.entities.Producto;
 import com.eoi.grupo5.entities.Usuario;
-import com.eoi.grupo5.services.ItemListaService;
-import com.eoi.grupo5.services.ListaService;
-import com.eoi.grupo5.services.ProductoService;
-import com.eoi.grupo5.services.UsuarioService;
+import com.eoi.grupo5.services.*;
 import com.eoi.grupo5.utils.exceptions.ItemsListaNotFoundException;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -30,13 +27,15 @@ public class ListaController {
     private final ListaService listaService;
     private final ItemListaService itemListaService;
     private final ProductoService productoService;
+    private final CarritoService carritoService;
 
 
-    public ListaController(UsuarioService usuarioService, ListaService listaService, ItemListaService itemListaService, ProductoService productoService) {
+    public ListaController(UsuarioService usuarioService, ListaService listaService, ItemListaService itemListaService, ProductoService productoService, CarritoService carritoService) {
         this.usuarioService = usuarioService;
         this.listaService = listaService;
         this.itemListaService = itemListaService;
         this.productoService = productoService;
+        this.carritoService = carritoService;
     }
 
 
@@ -81,6 +80,7 @@ public class ListaController {
                 .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
 
         itemListaService.addProductoALista(producto, usuario);
+        carritoService.ajustarCuentasLista(listaService.getListaAbierta(usuario));
 
         return "listas";
 
