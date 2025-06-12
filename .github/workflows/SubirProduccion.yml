@@ -1,4 +1,4 @@
-name: Subida a Produccion
+name: Subida a Producción (Sin Cache Manual) version final
 
 on:
   push:
@@ -6,63 +6,62 @@ on:
 
 jobs:
 
-  # --------------------- CREAR IMAGEN ---------------------
-  construir_imagen_snapshot:
+  # --------------------- PREPARAR ENTORNO ---------------------
+  preparar_entorno:
+    concurrency:
+      group: produccion
+      cancel-in-progress: true
     runs-on: self-hosted
-    # ← Mantengo aquí todas las vars del runner
-    env:
-      CURSO: ${{ vars.CURSO }}
-      GRUPO: ${{ vars.GRUPO }}
-      PROJECT_NAME: ${{ vars.PROJECT_NAME }}
-      JAVA_VERSION: ${{ vars.JAVA_VERSION }}
-      PUERTO_DB_DESARROLLO: ${{ vars.PUERTO_DB_DESARROLLO }}
-      PUERTO_DESARROLLO: ${{ vars.PUERTO_DESARROLLO }}
-      PUERTO_PRODUCCION: ${{ vars.PUERTO_PRODUCCION }}
-      SONAR_HOST_URL: ${{ vars.SONAR_HOST_URL }}
-      VERSION: snapshot
-
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout código
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      # 1) Setup-Java con cache de Maven integrado
-      - name: Configurar JDK ${{ env.JAVA_VERSION }} y cache de dependencias
+      - name: Configurar JDK ${{ vars.JAVA_VERSION }}
         uses: actions/setup-java@v4
         with:
-          distribution: temurin
-          java-version: '${{ env.JAVA_VERSION }}'
-          cache: maven                         # activa cache de ~/.m2/repository automáticamente :contentReference[oaicite:0]{index=0}
+          distribution: 'temurin'
+          java-version: '${{ vars.JAVA_VERSION }}'
+          check-latest: false
 
-      # 2) Refuerzo cache manualmente (ruta Windows)
-      - name: Cache Maven local repository
-        uses: actions/cache@v4
-        with:
-          path: C:\Users\runner\.m2\repository
-          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-m2-
+      - name: Verify Java version
+        run: java -version
 
+      - name: Verify Maven is using correct JDK
+        run: mvn -version
+
+
+  # --------------------- COMPILAR CÓDIGO ---------------------
+  ejecucion_tests_y_sonarqube:
+    needs: preparar_entorno
+    runs-on: self-hosted
+    steps:
       - name: Establecer versión de proyecto para CI
         env:
           VERSION: ${{ github.ref_type == 'tag' && github.ref_name || 'snapshot' }}
+          PROJECT_NAME: ${{ vars.PROJECT_NAME }}
         run: mvn versions:set "-DnewVersion=${{ env.VERSION }}"
 
-      - name: Ejecutar Tests, JaCoCo
+      - name: Ejecutar Tests, JaCoCo y enviar a SonarQube
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ vars.SONAR_HOST_URL }}
           VERSION: ${{ github.ref_type == 'tag' && github.ref_name || 'snapshot' }}
-        run: mvn -B clean package -DskipTests
+          PROJECT_NAME: ${{ vars.PROJECT_NAME }}
+        run: mvn clean verify sonar:sonar -Dsonar:sonar:sonar.projectVersion=${VERSION}
 
   # --------------------- CREAR IMAGEN DOCKER ---------------------
   crear_imagen_docker:
-    needs: construir_imagen_snapshot
+    needs: ejecucion_tests_y_sonarqube
     runs-on: self-hosted
     env:
       VERSION: ${{ github.ref_type == 'tag' && github.ref_name || 'snapshot' }}
+      PROJECT_NAME: ${{ vars.PROJECT_NAME }}
     steps:
       - name: Construir imagen Docker con versión dinámica
-        run: |
-          mvn -B -DskipTests spring-boot:build-image
+        run: mvn spring-boot:build-image -DskipTests
+
 
   # --------------------- DESPLEGAR EN SERVIDOR ---------------------
 
@@ -77,3 +76,83 @@ jobs:
           VERSION: ${{ github.ref_type == 'tag' && github.ref_name || 'snapshot' }}
           PUERTO_PRODUCCION: ${{ vars.PUERTO_PRODUCCION }}
         run: docker compose -f compose-produccion.yaml up -d
+
+#name: Subida a Produccion
+#
+#on:
+#  push:
+#    tags: [ "v*" ]
+#
+#jobs:
+#
+#  # --------------------- CREAR IMAGEN ---------------------
+#  construir_imagen_snapshot:
+#    runs-on: self-hosted
+#    # ← Mantengo aquí todas las vars del runner
+#    env:
+#      CURSO: ${{ vars.CURSO }}
+#      GRUPO: ${{ vars.GRUPO }}
+#      PROJECT_NAME: ${{ vars.PROJECT_NAME }}
+#      JAVA_VERSION: ${{ vars.JAVA_VERSION }}
+#      PUERTO_DB_DESARROLLO: ${{ vars.PUERTO_DB_DESARROLLO }}
+#      PUERTO_DESARROLLO: ${{ vars.PUERTO_DESARROLLO }}
+#      PUERTO_PRODUCCION: ${{ vars.PUERTO_PRODUCCION }}
+#      SONAR_HOST_URL: ${{ vars.SONAR_HOST_URL }}
+#      VERSION: snapshot
+#
+#    steps:
+#      - uses: actions/checkout@v4
+#
+#      # 1) Setup-Java con cache de Maven integrado
+#      - name: Configurar JDK ${{ env.JAVA_VERSION }} y cache de dependencias
+#        uses: actions/setup-java@v4
+#        with:
+#          distribution: temurin
+#          java-version: '${{ env.JAVA_VERSION }}'
+#          cache: maven                         # activa cache de ~/.m2/repository automáticamente :contentReference[oaicite:0]{index=0}
+#
+#      # 2) Refuerzo cache manualmente (ruta Windows)
+#      - name: Cache Maven local repository
+#        uses: actions/cache@v4
+#        with:
+#          path: C:\Users\runner\.m2\repository
+#          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+#          restore-keys: |
+#            ${{ runner.os }}-m2-
+#
+#      - name: Establecer versión de proyecto para CI
+#        env:
+#          VERSION: ${{ github.ref_type == 'tag' && github.ref_name || 'snapshot' }}
+#        run: mvn versions:set "-DnewVersion=${{ env.VERSION }}"
+#
+#      - name: Ejecutar Tests, JaCoCo
+#        env:
+#          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+#          SONAR_HOST_URL: ${{ vars.SONAR_HOST_URL }}
+#          VERSION: ${{ github.ref_type == 'tag' && github.ref_name || 'snapshot' }}
+#        run: mvn -B clean package -DskipTests
+#
+#  # --------------------- CREAR IMAGEN DOCKER ---------------------
+#  crear_imagen_docker:
+#    needs: construir_imagen_snapshot
+#    runs-on: self-hosted
+#    env:
+#      VERSION: ${{ github.ref_type == 'tag' && github.ref_name || 'snapshot' }}
+#    steps:
+#      - name: Construir imagen Docker con versión dinámica
+#        run: |
+#          mvn -B -DskipTests spring-boot:build-image
+#
+#  # --------------------- DESPLEGAR EN SERVIDOR ---------------------
+#
+#  desplegar_en_servidor:
+#    needs: crear_imagen_docker
+#    runs-on: self-hosted
+#    steps:
+#      - name: Desplegar contenedor en servidor
+#        env:
+#          COMPOSE_NAME: ${{ vars.CURSO }}-${{ vars.GRUPO }}-prod
+#          PROJECT_NAME: ${{ vars.PROJECT_NAME }}
+#          VERSION: ${{ github.ref_type == 'tag' && github.ref_name || 'snapshot' }}
+#          PUERTO_PRODUCCION: ${{ vars.PUERTO_PRODUCCION }}
+#        run: docker compose -f compose-produccion.yaml up -d
