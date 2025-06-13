@@ -37,9 +37,14 @@
     <div class="container mt-3">
         <!-- Buttons -->
         <div th:if="${usuarioActual.id == hilo.autor.id}">
-            <a class="btn btn-outline-dark me-1"> Editar </a>
-            <a class="btn btn-outline-danger me-1" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"> Borrar
-            </a>
+            <button href="#" type="button" class="btn btn-outline-dark me-1" data-bs-toggle="modal"
+                data-bs-target="#editarHiloModal">
+                Editar
+            </button>
+            <button type="button" class="btn btn-outline-danger me-1" data-bs-toggle="modal"
+                data-bs-target="#confirmDeleteModal">
+                Borrar
+            </button>
         </div>
         <!-- Thread Header -->
         <section class="thread-header mt-2 mb-2">
@@ -66,6 +71,18 @@
             </div>
         </section>
 
+        <!-- Flash success message -->
+        <div th:if="${success}" class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+            <span th:text="${success}">Mensaje de éxito</span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+
+        <!-- Flash error message -->
+        <div th:if="${error}" class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+            <span th:text="${error}">Algo salió mal</span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
 
         <!-- Messages List -->
         <section class="thread-replies mt-4">
@@ -109,7 +126,7 @@
         </section>
     </div>
 
-    <!-- Modal -->
+    <!-- Modal para confirmar eliminación -->
     <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel"
         aria-hidden="true">
         <div class="modal-dialog">
@@ -123,11 +140,45 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <a class="btn btn-danger">Borrar</a>
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                        data-bs-target="#confirmarBorrarModal">
+                        Borrar
+                    </button>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Modal para editar hilo -->
+    <div class="modal fade" id="editarHiloModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <form th:action="@{'/foro/editar/' + ${hilo.id}}" method="post">
+                    <div class="modal-header justify-content-center">
+                        <h3 class="modal-title">
+                            <strong>Editar Hilo</strong> <i class="fa-solid fa-pen-to-square"></i>
+                        </h3>
+                    </div>
+
+                    <div class="modal-body">
+                        <input type="text" name="titulo" class="form-control" th:value="${hilo.titulo}"
+                            placeholder="Título del hilo..." required />
+
+                        <textarea name="descripcion" class="form-control mt-2 pb-2" placeholder="Contenido..." rows="4"
+                            required th:text="${hilo.descripcion}"></textarea>
+                    </div>
+
+                    <div class="modal-footer justify-content-center">
+                        <button type="submit" class="btn btn-success btn-lg">
+                            Guardar Cambios <i class="fa-solid fa-floppy-disk"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
 
 
     <!-- Incluir footer -->

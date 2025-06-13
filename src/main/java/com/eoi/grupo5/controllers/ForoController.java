@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -113,11 +114,7 @@ public class ForoController {
             if (usuarioOpt.isPresent()) {
                 Usuario autor = usuarioOpt.get();
 
-                System.out.println(">>> ID del mensaje antes de setId: " + mensaje.getId());
-
                 mensaje.setId(null);
-
-                System.out.println(">>> ID del mensaje despues de setId: " + mensaje.getId());
                 mensaje.setAutor(autor);
                 mensaje.setHilo(hilo);
                 mensaje.setFechaCreacion(LocalDateTime.now());
@@ -127,5 +124,26 @@ public class ForoController {
             }
         }
         return "redirect:/login";
+    }
+
+    @PostMapping("/editar/{id}")
+    public String editarHilo(@PathVariable Long id,
+                             @RequestParam String titulo,
+                             @RequestParam String descripcion,
+                             RedirectAttributes redirectAttributes) {
+
+        try {
+            EntidadHilo hilo = hiloService.obtenerHiloPorId(id);
+            hilo.setTitulo(titulo);
+            hilo.setDescripcion(descripcion);
+            hiloService.guardarHilo(hilo);
+
+            redirectAttributes.addFlashAttribute("success", "Hilo editado correctamente.");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "No se pudo editar el hilo.");
+        }
+
+
+        return "redirect:/foro/hilo/" + id;
     }
 }
