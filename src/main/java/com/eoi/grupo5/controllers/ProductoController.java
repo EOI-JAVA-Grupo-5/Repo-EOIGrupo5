@@ -34,7 +34,7 @@ public class ProductoController {
         int pageSize = 15;
 
         // Llamamos al servicio con todos los filtros
-        Page<Producto> productosPage = productoService.getProductosFiltrados(category, supermarket, name, page, pageSize, orden);
+        Page<Producto> productosPage = productoService.getProductosFiltrados(category, supermarket, page, pageSize, orden);
 
         model.addAttribute("productos", productosPage.getContent());
         model.addAttribute("pagina", page);
