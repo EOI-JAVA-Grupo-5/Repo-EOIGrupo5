@@ -138,13 +138,14 @@
                 <div class="modal-body">
                     ¿Estás seguro de que deseas borrar este hilo? Esta acción no se puede deshacer.
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                        data-bs-target="#confirmarBorrarModal">
-                        Borrar
-                    </button>
-                </div>
+                <form th:action="@{'/foro/eliminar/' + ${hilo.id}}" method="post">
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-danger">
+                            Borrar
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

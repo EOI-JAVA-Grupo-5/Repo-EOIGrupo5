@@ -146,4 +146,18 @@ public class ForoController {
 
         return "redirect:/foro/hilo/" + id;
     }
+
+    @PostMapping("/eliminar/{id}")
+    public String eliminarHilo(@PathVariable Long id,
+                               RedirectAttributes redirectAttributes) {
+
+
+        try {
+            hiloService.eliminarHiloYMensajes(id);
+            redirectAttributes.addFlashAttribute("success", "Hilo eliminado correctamente.");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Error al eliminar el hilo.");
+        }
+        return "redirect:/foro";
+    }
 }
