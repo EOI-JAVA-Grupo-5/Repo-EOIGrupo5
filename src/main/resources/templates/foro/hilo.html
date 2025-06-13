@@ -77,7 +77,7 @@
 
                     <div class="d-flex align-items-center gap-3 text-muted small">
                         <span th:text="${mensaje.autor.username}">Usuario</span>
-                        <time th:text="${@dateUtil.format(hilo.fechaPublicacion, 'dd/MM/yyyy HH:mm')}">
+                        <time th:text="${@dateUtil.format(hilo.fechaCreacion, 'dd/MM/yyyy HH:mm')}">
                             Fecha
                         </time>
                     </div>
@@ -88,10 +88,10 @@
         <!-- Reply Form -->
         <section class="reply-form">
             <h2 class="h4 mb-2">Responde a este hilo</h2>
-            <form action="/post-reply" method="post">
+            <form method="post" th:action="@{/foro/hilo/{id}(id=${hilo.id})}" th:object="${nuevoMensaje}">
                 <div class="mb-2">
-                    <textarea name="reply" rows="5" class="form-control" placeholder="Escribe tu respuesta aqui..."
-                        required></textarea>
+                    <textarea name="contenido" th:field="*{contenido}" rows="5" class="form-control"
+                        placeholder="Escribe tu respuesta aquí..." required></textarea>
                 </div>
                 <button type="submit" class="btn btn-success px-4 mb-3">Enviar ></button>
             </form>
