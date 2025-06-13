@@ -97,7 +97,7 @@ public class SecurityConfig {
         http
                 .csrf(Customizer.withDefaults()) // deshabilitado para pruebas o APIs
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/", "/login", "/registro", "/foro", "/foro/hilo/**").permitAll()
+                        .requestMatchers("/", "/login", "/registro", "/foro/**", "/foro", "/foro/hilo/**").permitAll()
                         .requestMatchers("/carrito").permitAll()
                         .requestMatchers("/paginaDeProducto").permitAll()
                         .requestMatchers("/perfilSupermercado").permitAll()

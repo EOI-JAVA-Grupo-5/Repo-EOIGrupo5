@@ -17,10 +17,7 @@ public class MensajeService {
     }
 
     public List<EntidadMensaje> findMessagesByHiloId(Long hiloId) {
-        // Write logic to populate the List of messages
-
-        // Return populated List of messages
-        return null;
+        return mensajeRepo.findByHilo_IdOrderByFechaCreacionAsc(hiloId);
     }
 
     public EntidadMensaje guardarMensaje(EntidadMensaje mensaje) {
