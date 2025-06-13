@@ -1,9 +1,6 @@
 package com.eoi.grupo5.controllers;
 
-import com.eoi.grupo5.entities.ItemLista;
-import com.eoi.grupo5.entities.Lista;
-import com.eoi.grupo5.entities.Producto;
-import com.eoi.grupo5.entities.Usuario;
+import com.eoi.grupo5.entities.*;
 import com.eoi.grupo5.services.*;
 import com.eoi.grupo5.utils.exceptions.ItemsListaNotFoundException;
 import jakarta.servlet.http.HttpSession;
@@ -32,14 +29,16 @@ public class ListaController {
     private final ItemListaService itemListaService;
     private final ProductoService productoService;
     private final CarritoService carritoService;
+    private final SupermercadoService supermercadoService;
 
 
-    public ListaController(UsuarioService usuarioService, ListaService listaService, ItemListaService itemListaService, ProductoService productoService, CarritoService carritoService) {
+    public ListaController(UsuarioService usuarioService, ListaService listaService, ItemListaService itemListaService, ProductoService productoService, CarritoService carritoService, SupermercadoService supermercadoService) {
         this.usuarioService = usuarioService;
         this.listaService = listaService;
         this.itemListaService = itemListaService;
         this.productoService = productoService;
         this.carritoService = carritoService;
+        this.supermercadoService = supermercadoService;
     }
 
 
@@ -95,6 +94,9 @@ public class ListaController {
                 .orElseThrow(() -> new ItemsListaNotFoundException("No se encontraron items para la lista nº"+listaAbierta.getId().toString()));;
         itemListaService.ordenarItems(itemsListaAbierta);
 
+        List<Supermercado> supermercados = supermercadoService.findAll();
+
+        model.addAttribute("supermercados", supermercados);
         model.addAttribute("listaAbierta", listaAbierta);
         model.addAttribute("itemsListaAbierta", itemsListaAbierta);
 
@@ -116,6 +118,9 @@ public class ListaController {
                 .orElseThrow(() -> new ItemsListaNotFoundException("No se encontraron items para la lista nº"+listaAbierta.getId().toString()));;
         itemListaService.ordenarItems(itemsListaAbierta);
 
+        List<Supermercado> supermercados = supermercadoService.findAll();
+
+        model.addAttribute("supermercados", supermercados);
         model.addAttribute("listaAbierta", listaAbierta);
         model.addAttribute("itemsListaAbierta", itemsListaAbierta);
 

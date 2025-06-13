@@ -18,13 +18,33 @@
                     <thead class="table-dark">
                     <tr>
                         <th>Producto</th>
+                        <th>Precio Unitario</th>
                         <th>Cantidad Comprada</th>
+                        <th>Precio Total</th>
+                        <th>Supermercado</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="item : ${itemsLista}">
-                        <td th:text="${item.getProducto().getName()}"></td>
-                        <td th:text="${item.getCantidadComprada()}"></td>
+                        <td th:text="${item.producto.name}"></td>
+                        <td th:text="${T(java.lang.String).format('%.2f €', item.producto.price)}"></td>
+                        <td th:text="${item.cantidadComprada}"></td>
+                        <td th:text="${T(java.lang.String).format('%.2f €', item.cantidadComprada * item.producto.price)}"></td>
+                        <th:block th:if="${item.producto.supermarket == 'mercadona.es'}">
+                            <td>
+                                <a th:href="@{/supermercados/1}">Mercadona</a>
+                            </td>
+                        </th:block>
+                        <th:block th:if="${item.producto.supermarket == 'carrefour.es'}">
+                            <td>
+                                <a th:href="@{/supermercados/2}">Carrefour</a>
+                            </td>
+                        </th:block>
+                        <th:block th:if="${item.producto.supermarket == 'dia.es'}">
+                            <td>
+                                <a th:href="@{/supermercados/3}">Dia</a>
+                            </td>
+                        </th:block>
                     </tr>
                     </tbody>
 
