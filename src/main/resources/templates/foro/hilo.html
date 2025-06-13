@@ -38,7 +38,8 @@
         <!-- Buttons -->
         <div th:if="${usuarioActual.id == hilo.autor.id}">
             <a class="btn btn-outline-dark me-1"> Editar </a>
-            <a class="btn btn-outline-danger me-1"> Borrar </a>
+            <a class="btn btn-outline-danger me-1" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"> Borrar
+            </a>
         </div>
         <!-- Thread Header -->
         <section class="thread-header mt-2 mb-2">
@@ -76,6 +77,11 @@
 
             <div class="list-group">
                 <div class="list-group-item mb-3" th:each="mensaje : ${mensajes}">
+                    <div th:if="${usuarioActual.id == hilo.autor.id}">
+                        <a class="btn btn-sm btn-outline-dark me-1"> Editar </a>
+                        <a class="btn btn-sm btn-outline-danger me-1" data-bs-toggle="modal"
+                            data-bs-target="#confirmDeleteModal"> Borrar </a>
+                    </div>
                     <p class="mb-2" th:text="${mensaje.contenido}">
                         Este es un mensaje de ejemplo que responde al hilo.
                     </p>
@@ -102,6 +108,27 @@
             </form>
         </section>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmDeleteModalLabel">Confirmar eliminación</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    ¿Estás seguro de que deseas borrar este hilo? Esta acción no se puede deshacer.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <a class="btn btn-danger">Borrar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <!-- Incluir footer -->
     <div th:replace="plantillas/footer :: footer"></div>
