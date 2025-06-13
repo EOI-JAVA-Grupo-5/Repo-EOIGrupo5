@@ -79,10 +79,33 @@ public class ListaController {
         Usuario usuario = usuarioService.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
 
+        Lista listaAbierta = listaService.getListaAbierta(usuario);
         itemListaService.addProductoALista(producto, usuario);
-        carritoService.ajustarCuentasLista(listaService.getListaAbierta(usuario));
+        carritoService.ajustarCuentasLista(listaAbierta);
+        listaService.save(listaAbierta);
 
-        return "listas";
+        List<ItemLista> itemsListaAbierta = itemListaService.getItemsDeLista(listaAbierta)
+                .orElseThrow(() -> new ItemsListaNotFoundException("No se encontraron items para la lista nº"+listaAbierta.getId().toString()));;
+
+        model.addAttribute("listaAbierta", listaAbierta);
+        model.addAttribute("itemslistaAbierta", itemsListaAbierta);
+
+        return "listaAbierta";
+
+    }
+
+    @GetMapping("/listas/addProducto")
+    public String verCarrito(@AuthenticationPrincipal UserDetails userDetails, Model model){
+        String username = userDetails.getUsername();
+        Usuario usuario = usuarioService.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
+
+        Lista listaAbierta = listaService.getListaAbierta(usuario);
+
+        model.addAttribute("listaAbierta", listaAbierta);
+        model.addAttribute("itemslistaAbierta", itemListaService.getItemsDeLista(listaAbierta));
+
+        return "listaAbierta";
 
     }
 
