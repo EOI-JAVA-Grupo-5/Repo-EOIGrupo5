@@ -7,6 +7,7 @@ import com.eoi.grupo5.entities.Usuario;
 import com.eoi.grupo5.services.*;
 import com.eoi.grupo5.utils.exceptions.ItemsListaNotFoundException;
 import jakarta.servlet.http.HttpSession;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Controller
 public class ListaController {
 
@@ -79,7 +81,9 @@ public class ListaController {
         Usuario usuario = usuarioService.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
 
+
         Lista listaAbierta = listaService.getListaAbierta(usuario);
+
         itemListaService.addProductoALista(producto, usuario);
         carritoService.ajustarCuentasLista(listaAbierta);
         listaService.save(listaAbierta);
@@ -88,22 +92,28 @@ public class ListaController {
                 .orElseThrow(() -> new ItemsListaNotFoundException("No se encontraron items para la lista nº"+listaAbierta.getId().toString()));;
 
         model.addAttribute("listaAbierta", listaAbierta);
-        model.addAttribute("itemslistaAbierta", itemsListaAbierta);
+        model.addAttribute("itemsListaAbierta", itemsListaAbierta);
 
-        return "listaAbierta";
+        return "redirect:/listas/listaAbierta";
 
     }
 
-    @GetMapping("/listas/addProducto")
+    @GetMapping("/listas/listaAbierta")
     public String verCarrito(@AuthenticationPrincipal UserDetails userDetails, Model model){
         String username = userDetails.getUsername();
         Usuario usuario = usuarioService.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
 
         Lista listaAbierta = listaService.getListaAbierta(usuario);
+        carritoService.ajustarCuentasLista(listaAbierta);
+        listaService.save(listaAbierta);
+
+        List<ItemLista> itemsListaAbierta = itemListaService.getItemsDeLista(listaAbierta)
+                .orElseThrow(() -> new ItemsListaNotFoundException("No se encontraron items para la lista nº"+listaAbierta.getId().toString()));;
+
 
         model.addAttribute("listaAbierta", listaAbierta);
-        model.addAttribute("itemslistaAbierta", itemListaService.getItemsDeLista(listaAbierta));
+        model.addAttribute("itemsListaAbierta", itemsListaAbierta);
 
         return "listaAbierta";
 

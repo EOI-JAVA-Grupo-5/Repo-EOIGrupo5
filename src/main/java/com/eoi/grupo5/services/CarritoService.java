@@ -2,12 +2,14 @@ package com.eoi.grupo5.services;
 
 import com.eoi.grupo5.entities.ItemLista;
 import com.eoi.grupo5.entities.Lista;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Service
 public class CarritoService {
 
@@ -26,11 +28,10 @@ public class CarritoService {
             List<ItemLista> items = itemsOptional.get();
 
             BigDecimal cuentaCosteTotal = BigDecimal.valueOf(0);
-
             if(!items.isEmpty()){
 
                 for (ItemLista item : items){
-                    cuentaCosteTotal = cuentaCosteTotal.add(BigDecimal.valueOf(item.getProducto().getPrice()));
+                    cuentaCosteTotal = cuentaCosteTotal.add(BigDecimal.valueOf(item.getProducto().getPrice()*item.getCantidadComprada()));
                 }
 
             }
