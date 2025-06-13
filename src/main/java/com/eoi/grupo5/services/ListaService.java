@@ -8,6 +8,7 @@ import com.eoi.grupo5.utils.exceptions.ListaNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -56,6 +57,7 @@ public class ListaService {
                 }
             }
         }
+
         return listaAbierta;
     }
 

@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -67,6 +69,7 @@ public class ListaController {
         if (lista != null){
             List<ItemLista> itemsLista = itemListaService.getItemsDeLista(lista)
                     .orElseThrow(() -> new ItemsListaNotFoundException("No se encontraron items para la lista nº"+id.toString()));
+            itemListaService.ordenarItems(itemsLista);
             model.addAttribute("itemsLista", itemsLista);
         }
 
@@ -90,6 +93,7 @@ public class ListaController {
 
         List<ItemLista> itemsListaAbierta = itemListaService.getItemsDeLista(listaAbierta)
                 .orElseThrow(() -> new ItemsListaNotFoundException("No se encontraron items para la lista nº"+listaAbierta.getId().toString()));;
+        itemListaService.ordenarItems(itemsListaAbierta);
 
         model.addAttribute("listaAbierta", listaAbierta);
         model.addAttribute("itemsListaAbierta", itemsListaAbierta);
@@ -110,13 +114,30 @@ public class ListaController {
 
         List<ItemLista> itemsListaAbierta = itemListaService.getItemsDeLista(listaAbierta)
                 .orElseThrow(() -> new ItemsListaNotFoundException("No se encontraron items para la lista nº"+listaAbierta.getId().toString()));;
-
+        itemListaService.ordenarItems(itemsListaAbierta);
 
         model.addAttribute("listaAbierta", listaAbierta);
         model.addAttribute("itemsListaAbierta", itemsListaAbierta);
 
         return "listaAbierta";
 
+    }
+
+    @PostMapping("/listas/listaCerrada")
+    public String cerrarLista(@AuthenticationPrincipal UserDetails userDetails, RedirectAttributes redirectAttributes, Model model){
+        String username = userDetails.getUsername();
+        Usuario usuario = usuarioService.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
+
+        Lista listaAbierta = listaService.getListaAbierta(usuario);
+        listaAbierta.setCerrada(true);
+        listaAbierta.setFecha(new Date());
+        listaService.save(listaAbierta);
+        listaService.crearListaParaUsuario(usuario);
+
+        redirectAttributes.addFlashAttribute("seCerroLista", true);
+
+        return "redirect:/listas";
     }
 
     /**

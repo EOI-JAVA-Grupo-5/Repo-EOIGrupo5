@@ -7,6 +7,7 @@ import com.eoi.grupo5.entities.Usuario;
 import com.eoi.grupo5.repositories.ItemListaRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -79,5 +80,18 @@ public class ItemListaService {
             nuevoItem.setCantidadComprada(1);
             save(nuevoItem);
         }
+    }
+
+    /**
+     * Método que organiza los items de una List de items
+     * @param listaDesorganizada - Lista sin organizar
+     * @return Lista organizada
+     */
+    public List<ItemLista> ordenarItems(List<ItemLista> listaDesorganizada){
+        List<ItemLista> listaOrganizada = listaDesorganizada;
+        Collections.sort(listaOrganizada, (i1, i2) -> i1.getProducto().getId().compareTo(i2.getProducto().getId()));
+
+
+        return listaOrganizada;
     }
 }

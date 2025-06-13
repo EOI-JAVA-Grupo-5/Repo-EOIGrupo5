@@ -11,6 +11,13 @@
 
 <section>
     <div class="container">
+        <th:block th:if="${seCerroLista} == true">
+            <div class="alert p-3 alert-success alert-dismissible fade show" role="alert">
+                <strong>Lista cerrada con éxito</strong> Ya puedes ver tu lista guardada.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </th:block>
+
         <h2 class="p-3">Listas guardadas</h2>
         <div class="row p-3">
             <div class="table-responsive">
@@ -20,29 +27,28 @@
                         <th>Nº Lista</th>
                         <th>Fecha</th>
                         <th>Coste Total</th>
-                        <th>Dinero Ahorrado</th>
-                        <th>Estado</th>
+<!--                        <th>Dinero Ahorrado</th>-->
                         <th>Acciones</th>
                     </tr>
                     </thead>
                     <tbody>
+
                     <tr th:each="lista : ${listasUsuario}">
-                        <td th:text="${listaStat.index} + 1"></td>
-                        <td th:text="${#dates.format(lista.fecha,'dd/MM/yyyy, HH:mm')}"></td>
-                        <td th:text="${lista.costeTotal} + '€'"></td>
-                        <td th:text="${lista.dineroAhorrado}"></td>
-                        <td>
-                            <span th:if="${lista.cerrada} == true">Cerrada</span>
-                            <span th:if="${lista.cerrada} == false">Abierta</span>
-                        </td>
-                        <td>
-                            <a
-                                    class="btn btn-primary rounded-pill"
-                                    th:href="@{/listas/verLista/{id}(id=${lista.getId()})}"
-                                    role="button"
-                            >Ver lista</a
-                            >
-                        </td>
+<!--                        MOSTRAMOS SOLO LAS LISTAS CERRADAS-->
+                        <th:block th:if="${lista.cerrada} == true">
+                            <td th:text="${listaStat.index} + 1"></td>
+                            <td th:text="${#dates.format(lista.fecha,'dd/MM/yyyy, HH:mm')}"></td>
+                            <td th:text="${lista.costeTotal} + '€'"></td>
+<!--                            <td th:text="${lista.dineroAhorrado}"></td>-->
+                            <td>
+                                <a
+                                        class="btn btn-primary rounded-pill"
+                                        th:href="@{/listas/verLista/{id}(id=${lista.getId()})}"
+                                        role="button"
+                                >Ver lista</a
+                                >
+                            </td>
+                        </th:block>
                     </tr>
                     </tbody>
                 </table>
