@@ -81,12 +81,22 @@ public class ForoController {
     }
 
     @GetMapping("/hilo/{id}")
-    public String obtenerHilo(@PathVariable Long id, Model model) {
+    public String obtenerHilo(@PathVariable Long id,
+                              Model model,
+                              @AuthenticationPrincipal UserDetails userDetails) {
         EntidadHilo hilo = hiloService.obtenerHiloPorId(id);
         List<EntidadMensaje> mensajes = mensajeService.findMessagesByHiloId(id);
+
+        Optional<Usuario> usuarioActual = usuarioService.findByUsername(userDetails.getUsername());
+        Usuario usuario = null;
+        if (usuarioActual.isPresent()) {
+            usuario = usuarioActual.get();
+        }
+
         model.addAttribute("hilo", hilo);
         model.addAttribute("mensajes", mensajes);
         model.addAttribute("nuevoMensaje", new EntidadMensaje());
+        model.addAttribute("usuarioActual", usuario);
         return "foro/hilo";
     }
 

@@ -35,11 +35,16 @@
 
     <!-- Main Content Area -->
     <div class="container mt-3">
+        <!-- Buttons -->
+        <div th:if="${usuarioActual.id == hilo.autor.id}">
+            <a class="btn btn-outline-dark me-1"> Editar </a>
+            <a class="btn btn-outline-danger me-1"> Borrar </a>
+        </div>
         <!-- Thread Header -->
-        <section class="thread-header mb-2">
+        <section class="thread-header mt-2 mb-2">
             <div class="card p-3 border-warning">
                 <!-- Thread title -->
-                <h1 class="display-4 mb-3" th:text="${hilo.titulo}">Thread Title Here</h1>
+                <h1 class="display-4 mb-3" th:text="${hilo.titulo}">Titulo</h1>
 
                 <!-- Thread message/content -->
                 <p class="lead mb-4" th:text="${hilo.descripcion}">
