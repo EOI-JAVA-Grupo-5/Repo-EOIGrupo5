@@ -9,4 +9,6 @@ import java.util.List;
 @Repository
 public interface MensajeRepository extends JpaRepository<EntidadMensaje, Long> {
     List<EntidadMensaje> findMessagesByHiloId(Long hiloId);
+
+    List<EntidadMensaje> findByHilo_IdOrderByFechaCreacionAsc(Long hiloId);
 }

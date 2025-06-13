@@ -35,23 +35,23 @@ public class HiloService {
     public List<EntidadHilo> buscarYOrdenarHilos(String keyword, String sortType, UserDetails userDetails, boolean misHilos) {
         Sort sortCriteria = buildSortCriteria(sortType);
 
-        if (userDetails == null) {
-            misHilos = false;
+
+        if (userDetails == null || !misHilos) {
+            // No filtering by user
+            if (keyword == null || keyword.trim().isEmpty()) {
+                return hiloRepository.findAll(sortCriteria);
+            } else {
+                return hiloRepository.findByTituloContainingIgnoreCase(keyword, sortCriteria);
+            }
         }
 
+        // From this point on, user is authenticated and misHilos == true
+        String usuarioUsername = userDetails.getUsername();
+
         if (keyword == null || keyword.trim().isEmpty()) {
-            if (misHilos) {
-                String usuarioUsername = userDetails.getUsername();
-                return hiloRepository.findByAutor_Username(usuarioUsername, sortCriteria);
-            }
-            return hiloRepository.findAll(sortCriteria);
+            return hiloRepository.findByAutor_Username(usuarioUsername, sortCriteria);
         } else {
-            // Keyword provided: return filtered and sorted
-            if (misHilos) {
-                String usuarioUsername = userDetails.getUsername();
-                return hiloRepository.findByAutor_UsernameAndTituloContainingIgnoreCase(usuarioUsername, keyword, sortCriteria);
-            }
-            return hiloRepository.findByTituloContainingIgnoreCase(keyword, sortCriteria);
+            return hiloRepository.findByAutor_UsernameAndTituloContainingIgnoreCase(usuarioUsername, keyword, sortCriteria);
         }
     }
 

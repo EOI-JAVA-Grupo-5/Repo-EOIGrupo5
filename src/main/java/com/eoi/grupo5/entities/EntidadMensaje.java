@@ -1,7 +1,9 @@
 package com.eoi.grupo5.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
@@ -12,12 +14,14 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "mensajes")
+@NoArgsConstructor
+@AllArgsConstructor
 public class EntidadMensaje {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String contenido;
-    private LocalDateTime fechaPublicacion;
+    private LocalDateTime fechaCreacion;
     private Long votos;
 
     @ManyToOne

@@ -38,63 +38,60 @@
         <!-- Thread Header -->
         <section class="thread-header mb-2">
             <div class="card p-3 border-warning">
-                <h1 class="display-4 mb-3">Thread Title Here</h1>
+                <!-- Thread title -->
+                <h1 class="display-4 mb-3" th:text="${hilo.titulo}">Thread Title Here</h1>
 
-                <!-- Thread message content -->
-                <p class="lead mb-4">
-                    This is the main message/content of the thread, posted by the user who created it. It can be
-                    multiple lines and formatted as needed.
+                <!-- Thread message/content -->
+                <p class="lead mb-4" th:text="${hilo.descripcion}">
+                    This is the main message/content of the thread, posted by the user who created it.
                 </p>
 
+                <!-- Author and date -->
                 <div class="d-flex align-items-center gap-3 text-muted">
                     <div class="d-flex align-items-center gap-2">
-                        <img src="user-profile-pic.jpg" alt="User Profile Picture" class="rounded-circle" width="48"
-                            height="48" style="object-fit: cover;">
-                        <span class="fs-5 fw-semibold">UsernameHere</span>
+                        <!-- <img th:src="@{/images/default-user.jpg}" alt="User Profile Picture" class="rounded-circle" -->
+                        <!-- width="48" height="48" style="object-fit: cover;"> -->
+                        <span class="fs-5 fw-semibold" th:text="${hilo.autor.username}">UsernameHere</span>
                     </div>
-                    <time datetime="2025-05-27T15:30:00" class="small">May 27, 2025 3:30 PM</time>
+                    <time class="small" th:text="${@dateUtil.format(hilo.fechaCreacion, 'dd/MM/yyyy HH:mm')}">
+                        May 27, 2025 3:30 PM
+                    </time>
                 </div>
             </div>
         </section>
 
 
         <!-- Messages List -->
-        <section class="messages-list mb-5">
-            <!-- Example single message -->
-            <article class="card mb-2 shadow-sm">
-                <div class="card-body">
-                    <div class="d-flex align-items-center mb-2">
-                        <img src="user1-pic.jpg" alt="User1 Profile Picture" class="rounded-circle" width="40"
-                            height="40" style="object-fit: cover;">
-                        <span class="fw-bold ms-2">User1</span>
-                        <time datetime="2025-05-27T15:35:00" class="text-muted small ms-auto">May 27, 2025 3:35
-                            PM</time>
+        <section class="thread-replies mt-4">
+            <h2 class="h4 mb-3">Respuestas</h2>
+
+            <div th:if="${mensajes.isEmpty()}" class="text-muted fst-italic">
+                No hay respuestas todavía.
+            </div>
+
+            <div class="list-group">
+                <div class="list-group-item mb-3" th:each="mensaje : ${mensajes}">
+                    <p class="mb-2" th:text="${mensaje.contenido}">
+                        Este es un mensaje de ejemplo que responde al hilo.
+                    </p>
+
+                    <div class="d-flex align-items-center gap-3 text-muted small">
+                        <span th:text="${mensaje.autor.username}">Usuario</span>
+                        <time th:text="${@dateUtil.format(hilo.fechaCreacion, 'dd/MM/yyyy HH:mm')}">
+                            Fecha
+                        </time>
                     </div>
-                    <p class="mb-0">This is a message in the thread.</p>
                 </div>
-            </article>
-            <!-- Repeat message articles here -->
-            <article class="card mb-2 shadow-sm">
-                <div class="card-body">
-                    <div class="d-flex align-items-center mb-2">
-                        <img src="user1-pic.jpg" alt="User1 Profile Picture" class="rounded-circle" width="40"
-                            height="40" style="object-fit: cover;">
-                        <span class="fw-bold ms-2">User1</span>
-                        <time datetime="2025-05-27T15:35:00" class="text-muted small ms-auto">May 27, 2025 3:35
-                            PM</time>
-                    </div>
-                    <p class="mb-0">This is a message in the thread.</p>
-                </div>
-            </article>
+            </div>
         </section>
 
         <!-- Reply Form -->
         <section class="reply-form">
             <h2 class="h4 mb-2">Responde a este hilo</h2>
-            <form action="/post-reply" method="post">
+            <form method="post" th:action="@{/foro/hilo/{id}(id=${hilo.id})}" th:object="${nuevoMensaje}">
                 <div class="mb-2">
-                    <textarea name="reply" rows="5" class="form-control" placeholder="Escribe tu respuesta aqui..."
-                        required></textarea>
+                    <textarea name="contenido" th:field="*{contenido}" rows="5" class="form-control"
+                        placeholder="Escribe tu respuesta aquí..." required></textarea>
                 </div>
                 <button type="submit" class="btn btn-success px-4 mb-3">Enviar ></button>
             </form>
