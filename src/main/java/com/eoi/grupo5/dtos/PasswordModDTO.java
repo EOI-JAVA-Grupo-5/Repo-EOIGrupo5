@@ -13,6 +13,4 @@ public class PasswordModDTO {
     private String claveActual;
     private String claveNueva;
     private String claveNuevaRepe;
-
-
 }

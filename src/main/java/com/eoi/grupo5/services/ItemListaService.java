@@ -8,6 +8,7 @@ import com.eoi.grupo5.repositories.ItemListaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,6 +21,10 @@ public class ItemListaService {
     public ItemListaService(ItemListaRepository itemListaRepository, ListaService listaService) {
         this.itemListaRepository = itemListaRepository;
         this.listaService = listaService;
+    }
+
+    public Optional<ItemLista> findById(Long id){
+        return itemListaRepository.findById(id);
     }
 
     public ItemLista save(ItemLista itemLista) {
@@ -89,8 +94,10 @@ public class ItemListaService {
      */
     public List<ItemLista> ordenarItems(List<ItemLista> listaDesorganizada){
         List<ItemLista> listaOrganizada = listaDesorganizada;
-        Collections.sort(listaOrganizada, (i1, i2) -> i1.getProducto().getId().compareTo(i2.getProducto().getId()));
-
+//        Collections.sort(listaOrganizada,
+//                (i1, i2) -> i1.getProducto().getId().compareTo(i2.getProducto().getId()));
+        listaOrganizada.sort(Comparator.comparing((ItemLista item) -> item.getProducto().getSupermarket())
+                .thenComparing(item -> item.getProducto().getId()));
 
         return listaOrganizada;
     }

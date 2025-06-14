@@ -10,6 +10,7 @@ import java.util.Optional;
 
 @Repository
 public interface ItemListaRepository extends JpaRepository<ItemLista, Long> {
+    Optional<ItemLista> findById(Long id);
     Optional<List<ItemLista>> findAllByLista(Lista lista);
 
 
