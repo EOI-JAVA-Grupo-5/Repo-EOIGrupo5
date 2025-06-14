@@ -33,7 +33,7 @@
     <style>
 
     </style>
-  
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
@@ -221,8 +221,8 @@
                     <nav>
                         <div class="nav nav-tabs" role="tablist">
                             <button class="nav-link active" id="tab-1" data-bs-toggle="tab" data-bs-target="#tab-content-1" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Euros gastados en semana</button>
-                            <button class="nav-link" id="tab-2" data-bs-toggle="tab" data-bs-target="#tab-content-2" type="button" role="tab" aria-controls="nav-home" aria-selected="false">Dinero ahorrado</button>
-                            <button class="nav-link" id="tab-3" data-bs-toggle="tab" data-bs-target="#tab-content-3" type="button" role="tab" aria-controls="nav-home" aria-selected="false">Total</button>
+                            <button class="nav-link" id="tab-2" data-bs-toggle="tab" data-bs-target="#tab-content-2" type="button" role="tab" aria-controls="nav-home" aria-selected="false">Flujo en semana</button>
+                            <button class="nav-link" id="tab-3" data-bs-toggle="tab" data-bs-target="#tab-content-3" type="button" role="tab" aria-controls="nav-home" aria-selected="false">Gasto total en semana</button>
                         </div>
                     </nav>
                     <div class="tab-content">
@@ -232,29 +232,87 @@
                                 <canvas id="myChart1"></canvas>
                             </div>
                             
-                            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!--                            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>-->
                             
-                            <script>
-                            const ctx1 = document.getElementById('myChart1');
-                            
-                            new Chart(ctx1, {
-                                type: 'bar',
-                                data: {
-                                labels: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'],
-                                datasets: [{
-                                    label: 'Euros gastados',
-                                    data: [12, 19, 3, 5, 2, 3, 5],
-                                    borderWidth: 1
-                                }]
-                                },
-                                options: {
-                                scales: {
-                                    y: {
-                                    beginAtZero: true
-                                    }
+                            <script th:inline="javascript">
+                                /*<![CDATA[*/
+                                    const ctx1 = document.getElementById('myChart1').getContext('2d');
+
+                                    const fechas = /*[[${datosFechas}]]*/ [];
+                                    const gastos = /*[[${datosDinero}]]*/ [];
+
+
+                                    new Chart(ctx1, {
+                                        type: 'bar',
+                                        data: {
+                                        labels: fechas,
+                                        datasets: [{
+                                            label: 'Euros gastados',
+                                            data: gastos,
+                                            borderWidth: 1
+                                        }]
+                                        },
+                                        options: {
+                                        scales: {
+                                            y: {
+                                            beginAtZero: true
+                                            }
+                                        }
+                                        }
+                                    });
+
+
+                                let grafico2 = null;
+                                let grafico3 = null;
+
+                                function crearGraficoLinea() {
+                                    if (grafico2) return;
+                                    const ctx3 = document.getElementById('myChart3').getContext('2d');
+                                    grafico2 = new Chart(ctx3, {
+                                        type: 'line',
+                                        data: {
+                                            labels: fechas,
+                                            datasets: [{
+                                                label: 'Euros gastados',
+                                                data: gastos,
+                                                borderWidth: 1
+                                            }]
+                                        },
+                                        options: {
+                                            scales: {
+                                                y: {
+                                                    beginAtZero: true
+                                                }
+                                            }
+                                        }
+                                    });
                                 }
+
+                                function crearGraficoTarta() {
+                                    if (grafico3) return;
+                                    const ctx2 = document.getElementById('myChart2').getContext('2d');
+                                    grafico3 = new Chart(ctx2, {
+                                        type: 'pie',
+                                        data: {
+                                            labels: fechas,
+                                            datasets: [{
+                                                label: 'Euros gastados',
+                                                data: gastos,
+                                                borderWidth: 1
+                                            }]
+                                        }
+                                    });
                                 }
-                            });
+
+                                document.addEventListener('DOMContentLoaded', () => {
+                                    const tab2 = document.getElementById('tab-2');
+                                    const tab3 = document.getElementById('tab-3');
+
+                                    tab2.addEventListener('shown.bs.tab', crearGraficoLinea);
+                                    tab3.addEventListener('shown.bs.tab', crearGraficoTarta);
+                                });
+
+                                /*]]>*/
                             </script>
                             
                         </div>
@@ -265,31 +323,35 @@
                                 <canvas id="myChart3"></canvas>
                             </div>
                               
-                            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-                              
-                            <script>
-                            const ctx3 = document.getElementById('myChart3');
-                        
-                            new Chart(ctx3, {
-                                type: 'line',
-                                data: {
-                                labels: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'],
-                                datasets: [{
-                                    label: 'Euros gastados',
-                                    data: [12, 19, 3, 5, 2, 3, 5],
-                                    borderWidth: 1
-                                }]
-                                },
-                                options: {
-                                scales: {
-                                    y: {
-                                    beginAtZero: true
-                                    }
-                                }
-                                }
-                            });
+<!--                            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>-->
+<!--                              -->
+<!--                            <script th:inline="javascript">-->
+<!--                                /*<![CDATA[*/-->
+<!--                                    const ctx3 = document.getElementById('myChart3').getContext('2d');-->
 
-                            </script>
+<!--                                    const fechas = /*[[${datosFechas}]]*/ [];-->
+<!--                                    const gastos = /*[[${datosDinero}]]*/ [];-->
+
+<!--                                    new Chart(ctx3, {-->
+<!--                                        type: 'line',-->
+<!--                                        data: {-->
+<!--                                        labels: fechas,-->
+<!--                                        datasets: [{-->
+<!--                                            label: 'Euros gastados',-->
+<!--                                            data: gastos,-->
+<!--                                            borderWidth: 1-->
+<!--                                        }]-->
+<!--                                        },-->
+<!--                                        options: {-->
+<!--                                        scales: {-->
+<!--                                            y: {-->
+<!--                                            beginAtZero: true-->
+<!--                                            }-->
+<!--                                        }-->
+<!--                                        }-->
+<!--                                    });-->
+<!--                                /*]]>*/-->
+<!--                            </script>-->
 
                         </div>
 
@@ -298,31 +360,35 @@
                                 <canvas id="myChart2"></canvas>
                             </div>
                               
-                            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-                              
-                            <script>
-                            const ctx2 = document.getElementById('myChart2');
-                        
-                            new Chart(ctx2, {
-                                type: 'pie',
-                                data: {
-                                labels: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'],
-                                datasets: [{
-                                    label: 'Euros gastados',
-                                    data: [12, 19, 3, 5, 2, 3, 5],
-                                    borderWidth: 1
-                                }]
-                                },
-                                options: {
-                                scales: {
-                                    y: {
-                                    beginAtZero: true
-                                    }
-                                }
-                                }
-                            });
+<!--                            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>-->
+<!--                              -->
+<!--                            <script th:inline="javascript">-->
+<!--                                /*<![CDATA[*/-->
+<!--                                    const ctx2 = document.getElementById('myChart2').getContext('2d');-->
 
-                            </script>
+<!--                                    const fechas = /*[[${datosFechas}]]*/ [];-->
+<!--                                    const gastos = /*[[${datosDinero}]]*/ [];-->
+
+<!--                                    new Chart(ctx2, {-->
+<!--                                        type: 'pie',-->
+<!--                                        data: {-->
+<!--                                        labels: fechas,-->
+<!--                                        datasets: [{-->
+<!--                                            label: 'Euros gastados',-->
+<!--                                            data: gastos,-->
+<!--                                            borderWidth: 1-->
+<!--                                        }]-->
+<!--                                        },-->
+<!--                                        options: {-->
+<!--                                        scales: {-->
+<!--                                            y: {-->
+<!--                                            beginAtZero: true-->
+<!--                                            }-->
+<!--                                        }-->
+<!--                                        }-->
+<!--                                    });-->
+<!--                                /*]]>*/-->
+<!--                            </script>-->
                         </div>
 
                     </div>

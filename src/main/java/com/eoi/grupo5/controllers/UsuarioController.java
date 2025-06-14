@@ -1,8 +1,10 @@
 package com.eoi.grupo5.controllers;
 
+import com.eoi.grupo5.dtos.DatosGraficaDTO;
 import com.eoi.grupo5.dtos.PasswordModDTO;
 import com.eoi.grupo5.entities.Usuario;
 import com.eoi.grupo5.repositories.UsuarioRepository;
+import com.eoi.grupo5.services.TablaUsuarioService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -20,15 +22,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
+import java.text.DateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Controller
 public class UsuarioController {
 
     private final UsuarioRepository usuarioRepository;
+    private final TablaUsuarioService tablaUsuarioService;
 
-    public UsuarioController(UsuarioRepository usuarioRepository) {
+    public UsuarioController(UsuarioRepository usuarioRepository, TablaUsuarioService tablaUsuarioService) {
         this.usuarioRepository = usuarioRepository;
+        this.tablaUsuarioService = tablaUsuarioService;
     }
 
     /**
@@ -43,6 +55,28 @@ public class UsuarioController {
 
         Usuario usuario = usuarioRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
+
+        List<DatosGraficaDTO> datos = tablaUsuarioService.datosUltimaSemana(usuario);
+
+        List<Date> fechas = tablaUsuarioService.datosDiasUltimaSemana(datos);
+        List<Double> dineroGastado = tablaUsuarioService.datosDineroUltimaSemana(datos);
+
+        List<String> strings = new ArrayList<>();
+        List<Number> gastos = new ArrayList<>();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate localDate;
+        for(int i = 0; i<fechas.size(); i++)
+        {
+            localDate = fechas.get(i).toInstant()
+                    .atZone(ZoneId.systemDefault())
+                    .toLocalDate();
+            strings.add(localDate.format(formatter));
+            gastos.add(dineroGastado.get(i));
+        }
+
+        model.addAttribute("datosFechas", strings);
+        model.addAttribute("datosDinero", gastos);
 
         model.addAttribute("usuario", usuario);
         return "perfilUsuario";
