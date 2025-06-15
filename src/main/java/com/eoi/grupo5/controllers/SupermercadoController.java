@@ -9,7 +9,6 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -17,20 +16,33 @@ import org.springframework.web.bind.annotation.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
-
+/**
+ * Controlador para gestionar la visualización de supermercados y sus productos,
+ * así como la funcionalidad de agregar productos al carrito.
+ */
 @Controller
 public class SupermercadoController {
 
     private final SupermercadoService supermercadoService;
     private final ProductoService productoService;
-//    private final CarritoService carritoService;
 
+    /**
+     * Constructor que inyecta los servicios necesarios.
+     *
+     * @param supermercadoService Servicio para manejar supermercados
+     * @param productoService Servicio para manejar productos
+     */
     public SupermercadoController(SupermercadoService supermercadoService, ProductoService productoService) {
         this.supermercadoService = supermercadoService;
         this.productoService = productoService;
-//        this.carritoService = carritoService;
     }
 
+    /**
+     * Muestra el listado de todos los supermercados.
+     *
+     * @param model Modelo de vista para Thymeleaf
+     * @return Vista con la lista de supermercados
+     */
     @GetMapping("/supermercados")
     public String listarSupermercados(Model model) {
        List<Supermercado> supermercados = supermercadoService.findAll();
@@ -38,6 +50,16 @@ public class SupermercadoController {
         return "supermercados";
     }
 
+    /**
+     * Muestra los productos de un supermercado específico, con opciones de paginación, ordenación y filtrado por categoría.
+     *
+     * @param id id del supermercado
+     * @param model Modelo para la vista
+     * @param page Página actual de productos
+     * @param orden Criterio de ordenación (asc, desc, precio_asc, precio_desc)
+     * @param categoria Categoría para filtrar productos
+     * @return Vista con los productos del supermercado
+     */
     @GetMapping("/supermercados/{id}")
     public String verProductosDeSupermercado(@PathVariable Long id,
                                              Model model,
@@ -50,6 +72,7 @@ public class SupermercadoController {
 
         Page<Producto> productosPage;
 
+        // Filtrado y ordenación
         if (categoria != null && !categoria.isEmpty()) {
             productosPage = switch (orden) {
                 case "asc" ->
@@ -73,6 +96,7 @@ public class SupermercadoController {
             };
         }
 
+        // Obtener categorías únicas
         List<Producto> todosLosProductos = productoService.findBySupermercado(supermercado.getNombre());
         Set<String> categorias = todosLosProductos.stream()
                 .map(Producto::getCategory)
@@ -89,6 +113,15 @@ public class SupermercadoController {
     }
 
 
+    /**
+     * Agrega un producto al carrito almacenado en sesión.
+     *
+     * @param productoId id del producto a agregar
+     * @param cantidad Cantidad del producto a agregar
+     * @param supermercadoId id del supermercado desde el cual se agrega
+     * @param session Sesión HTTP donde se guarda el carrito
+     * @return Redirección a la vista del supermercado correspondiente
+     */
     @PostMapping("/Carrito/agregarProducto")
     public String agregarAlCarrito(@RequestParam("productoId") Long productoId,
                                    @RequestParam("cantidad") int cantidad,
