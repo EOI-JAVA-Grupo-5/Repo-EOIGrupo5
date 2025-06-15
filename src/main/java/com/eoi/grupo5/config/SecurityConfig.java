@@ -106,14 +106,10 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/", "/login", "/registro", "/foro/**", "/foro", "/foro/hilo/**").permitAll()
                         .requestMatchers("/carrito").permitAll()
-                                .requestMatchers("/listas").authenticated()
-                                .requestMatchers("/listas/*").authenticated()
-                        .requestMatchers("/forum").permitAll()
-                        .requestMatchers("/usuario").authenticated()
-                        .requestMatchers("/usuario/modificar").authenticated()
-                        .requestMatchers("/usuario/modificar/password").authenticated()
-                        .requestMatchers("/login").permitAll()
-                        .requestMatchers("/registro").permitAll()
+
+                        .requestMatchers("/listas").authenticated()
+                        .requestMatchers("/listas/*").authenticated()
+
                         .requestMatchers("/paginaDeProducto").permitAll()
                         .requestMatchers("/perfilSupermercado").permitAll()
 

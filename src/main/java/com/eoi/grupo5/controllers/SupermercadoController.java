@@ -23,12 +23,12 @@ public class SupermercadoController {
 
     private final SupermercadoService supermercadoService;
     private final ProductoService productoService;
-    private final CarritoService carritoService;
+//    private final CarritoService carritoService;
 
-    public SupermercadoController(SupermercadoService supermercadoService, ProductoService productoService, CarritoService carritoService) {
+    public SupermercadoController(SupermercadoService supermercadoService, ProductoService productoService) {
         this.supermercadoService = supermercadoService;
         this.productoService = productoService;
-        this.carritoService = carritoService;
+//        this.carritoService = carritoService;
     }
 
     @GetMapping("/supermercados")
