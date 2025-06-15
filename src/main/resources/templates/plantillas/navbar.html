@@ -73,7 +73,7 @@
                             </div>
                         </div>
 
-                        <div  sec:authorize="!isAuthenticated()">
+                        <div sec:authorize="!isAuthenticated()">
                             <a th:href="@{/login}">
                                 <button type="button" class="btn btn-warning rounded-pill">
                                     <i class="bi bi-person-circle"></i> Login
@@ -81,10 +81,10 @@
                             </a>
                         </div>
                     </div>
-                    <div class="d-grid p-3">
-                        <a th:href="@{/carrito}">
+                    <div sec:authorize="isAuthenticated()" class="d-grid p-3">
+                        <a th:href="@{/listas/listaAbierta}">
                             <button type="button" name="" id="" class="btn btn-warning rounded-pill">
-                                <i class="bi bi-cart-fill"></i> Carrito
+                                <i class="bi bi-cart-fill"></i> Lista
                             </button>
                         </a>
                     </div>

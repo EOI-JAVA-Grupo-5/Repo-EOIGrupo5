@@ -1,5 +1,9 @@
 package com.eoi.grupo5.config;
 
+import com.eoi.grupo5.repositories.ListaRepository;
+import com.eoi.grupo5.security.UsuarioLoginCorrectoHandler;
+import com.eoi.grupo5.services.ListaService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
@@ -36,8 +40,11 @@ public class SecurityConfig {
 
     private final Environment environment;
 
-    public SecurityConfig(Environment environment) {
+    private final UsuarioLoginCorrectoHandler loginSuccessHandler;
+
+    public SecurityConfig(Environment environment, UsuarioLoginCorrectoHandler loginSuccessHandler) {
         this.environment = environment;
+        this.loginSuccessHandler = loginSuccessHandler;
     }
 
 
@@ -99,6 +106,14 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/", "/login", "/registro", "/foro/**", "/foro", "/foro/hilo/**").permitAll()
                         .requestMatchers("/carrito").permitAll()
+                                .requestMatchers("/listas").authenticated()
+                                .requestMatchers("/listas/*").authenticated()
+                        .requestMatchers("/forum").permitAll()
+                        .requestMatchers("/usuario").authenticated()
+                        .requestMatchers("/usuario/modificar").authenticated()
+                        .requestMatchers("/usuario/modificar/password").authenticated()
+                        .requestMatchers("/login").permitAll()
+                        .requestMatchers("/registro").permitAll()
                         .requestMatchers("/paginaDeProducto").permitAll()
                         .requestMatchers("/perfilSupermercado").permitAll()
 
@@ -117,7 +132,8 @@ public class SecurityConfig {
                 .formLogin(form -> form
                         .loginPage("/login")
                         .loginProcessingUrl("/login")
-                        .defaultSuccessUrl("/usuario", true)
+                        .successHandler(loginSuccessHandler)    //Ejecucion de login personalizada, crea una lista nueva abierta si el usuario no tiene ya una
+//                        .defaultSuccessUrl("/usuario", true)
                         .failureUrl("/login?error")
                         .permitAll()
                 )
@@ -170,5 +186,7 @@ public class SecurityConfig {
     public HttpSessionEventPublisher httpSessionEventPublisher() {
         return new HttpSessionEventPublisher();
     }
+
+
 
 }
