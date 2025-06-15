@@ -32,10 +32,10 @@ public class EntidadMensaje {
     @JoinColumn(name = "id_escritor")
     private Usuario autor;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_citado")
-    private EntidadMensaje citado;
-
-    @OneToMany(mappedBy = "citado", cascade = CascadeType.ALL)
-    private List<EntidadMensaje> citadosPor = new ArrayList<>();
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "id_citado")
+//    private EntidadMensaje citado;
+//
+//    @OneToMany(mappedBy = "citado", cascade = CascadeType.ALL)
+//    private List<EntidadMensaje> citadosPor = new ArrayList<>();
 }

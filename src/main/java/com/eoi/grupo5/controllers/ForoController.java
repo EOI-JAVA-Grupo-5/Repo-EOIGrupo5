@@ -119,7 +119,7 @@ public class ForoController {
                 mensaje.setHilo(hilo);
                 mensaje.setFechaCreacion(LocalDateTime.now());
 
-                mensajeService.guardarMensaje(mensaje);
+                mensajeService.saveMessage(mensaje);
                 return "redirect:/foro/hilo/" + id;
             }
         }
@@ -147,6 +147,26 @@ public class ForoController {
         return "redirect:/foro/hilo/" + id;
     }
 
+    @PostMapping("/mensaje/editar/{id}")
+    public String editarMensaje(@PathVariable Long id,
+                                @RequestParam String contenido,
+                                @AuthenticationPrincipal UserDetails userDetails,
+                                RedirectAttributes redirectAttributes) {
+        try {
+            EntidadMensaje mensaje = mensajeService.findMessageById(id);
+            if (mensaje.getAutor().getUsername().equals(userDetails.getUsername())) {
+                mensaje.setContenido(contenido);
+                mensajeService.saveMessage(mensaje);
+                redirectAttributes.addFlashAttribute("success", "Mensaje editado correctamente.");
+            } else {
+                redirectAttributes.addFlashAttribute("error", "No tienes permiso para editar este mensaje.");
+            }
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Error al editar el mensaje.");
+        }
+        return "redirect:/foro/hilo/" + mensajeService.findMessageById(id).getHilo().getId();
+    }
+
     @PostMapping("/eliminar/{id}")
     public String eliminarHilo(@PathVariable Long id,
                                RedirectAttributes redirectAttributes) {
@@ -159,5 +179,30 @@ public class ForoController {
             redirectAttributes.addFlashAttribute("error", "Error al eliminar el hilo.");
         }
         return "redirect:/foro";
+    }
+
+    @PostMapping("/mensaje/eliminar/{id}")
+    public String eliminarMensaje(@PathVariable Long id,
+                                  @AuthenticationPrincipal UserDetails userDetails,
+                                  RedirectAttributes redirectAttributes) {
+        System.out.println("Attempting to delete mensaje id: " + id);
+        try {
+            EntidadMensaje mensaje = mensajeService.findMessageById(id);
+            System.out.println("Mensaje found: " + mensaje.getContenido());
+            if (mensaje.getAutor().getUsername().equals(userDetails.getUsername())) {
+                Long hiloId = mensaje.getHilo().getId();
+                mensajeService.deleteMessageById(id);
+                System.out.println("Mensaje deleted");
+                redirectAttributes.addFlashAttribute("success", "Mensaje eliminado correctamente.");
+                return "redirect:/foro/hilo/" + hiloId;
+            } else {
+                System.out.println("User not authorized to delete this message");
+                redirectAttributes.addFlashAttribute("error", "No tienes permiso para eliminar este mensaje.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("error", "Error al eliminar el mensaje.");
+        }
+        return "redirect:/foro"; // fallback
     }
 }

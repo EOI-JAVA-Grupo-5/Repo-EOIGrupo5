@@ -3,7 +3,6 @@ package com.eoi.grupo5.services;
 import com.eoi.grupo5.entities.EntidadHilo;
 import com.eoi.grupo5.entities.EntidadMensaje;
 import com.eoi.grupo5.repositories.HiloRepository;
-import com.eoi.grupo5.repositories.MensajeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -65,7 +64,7 @@ public class HiloService {
         EntidadHilo hilo = hiloRepository.findById(id).orElseThrow(() -> new RuntimeException("Hilo no encontrado"));
 
         for (EntidadMensaje mensaje : hilo.getMensajes()) {
-            mensajeService.borrarMensaje(mensaje.getId());
+            mensajeService.deleteMessageById(mensaje.getId());
         }
 
         hiloRepository.delete(hilo);
