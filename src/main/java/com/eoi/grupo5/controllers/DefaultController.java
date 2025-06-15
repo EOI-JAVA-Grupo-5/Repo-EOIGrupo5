@@ -182,7 +182,7 @@ public class DefaultController {
      * @param id The ID of the EntidadHija to delete.
      * @return A redirect to the "/protected" endpoint after deletion.
      */
-//    @PostMapping("/entidades/deleteHija/{id}")
+//    @GetMapping("/entidades/deleteHija/{id}")
 //    public String deleteEntidadHija(@PathVariable Long id) {
 //        entidadHijaService.deleteById(id);
 //        return "redirect:/entities";
