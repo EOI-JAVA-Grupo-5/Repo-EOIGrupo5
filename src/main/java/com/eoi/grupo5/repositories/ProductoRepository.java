@@ -25,7 +25,7 @@ public interface ProductoRepository extends JpaRepository<Producto, Long> {
                                  @Param("supermarket") String supermarket,
                                  @Param("name") String name,
                                  Pageable pageable);
-
+    
     // 🔹 Categorías únicas
     @Query("SELECT DISTINCT p.category FROM Producto p")
     List<String> findDistinctCategories();
@@ -33,6 +33,14 @@ public interface ProductoRepository extends JpaRepository<Producto, Long> {
     // 🔹 Supermercados únicos
     @Query("SELECT DISTINCT p.supermarket FROM Producto p")
     List<String> findDistinctSupermarkets();
+
+    // 🔹 Para obtener productos con filtros, paginación y ordenAdd commentMore actions
+    @Query("SELECT p FROM Producto p WHERE " +
+            "(:category IS NULL OR p.category = :category) AND " +
+            "(:supermarket IS NULL OR p.supermarket = :supermarket)")
+    Page<Producto> findByFiltros(@Param("category") String category,
+                                 @Param("supermarket") String supermarket,
+                                 Pageable pageable);
 
     // 🔹 Búsqueda libre por nombre del supermercado
     Page<Producto> findBySupermarketIgnoreCaseContaining(String supermarket, Pageable pageable);
@@ -48,7 +56,7 @@ public interface ProductoRepository extends JpaRepository<Producto, Long> {
     Page<Producto> findAllByOrderByPriceDesc(Pageable pageable);
 
     //Método para filtrar por categoría
-    Page<Producto> findBySupermarketIgnoreCaseContainingAndCategory(String nombre, String categoria, Pageable pageable);
+    Page<Producto> findBySupermarketIgnoreCaseContainingAndCategory(String nombre, String category, Pageable pageable);
 
 }
 

@@ -26,6 +26,31 @@
     <!-- Estilos personalizados -->
     <style>
 
+        .hero {
+            background: #fcfdaf;
+            color: rgb(0, 0, 0);
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        .btn-orange {
+            background-color: #fcfdaf;
+            color: rgb(0, 0, 0);
+        }
+
+        .paso {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background-color: #ccc;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .paso.activo {
+            background-color: #dba159;
+        }
+
         .supermercados-swiper .swiper-slide p {
             margin-bottom: 50px; /* Aumenta este valor según lo que necesites */
         }
@@ -217,33 +242,57 @@
 <section id="tutorial" role="region">
     <div class="tutorial-container">
         <h2 id="tituloTutorial">¿Cómo funciona?</h2>
+        <img id="imagenTutorial" src="img/tutorial0.png" alt="Introducción" />
         <p id="textoTutorial" class="texto-centrado">
             ¿Quieres ahorrar dinero en la cesta de la compra? Nuestro comparador de precios investiga miles de productos cada día y encuentra los mejores precios en los principales supermercados de España. Castañazo Deals te permite comparar precios buscando por categoría, producto o supermercado.
         </p>
         <div class="barra-progreso" id="barraProgreso"></div>
     </div>
 
+    <style>
+        .texto-centrado {
+            text-align: center;
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 1em auto;
+            line-height: 1.5;
+        }
+    </style>
+
     <script>
         const pasos = [
             {
                 texto: "¿Quieres ahorrar dinero en la cesta de la compra? Nuestro comparador de precios investiga miles de productos cada día y encuentra los mejores precios en los principales supermercados de España. Castañazo Deals te permite comparar precios buscando por categoría, producto o supermercado.",
+                imagen: "img/tutorial0.png",
+                alt: "Introducción"
             },
             {
-                texto: "Pasa 1: Busca el producto que deseas comprar usando la barra de búsqueda o navegando por la sección de productos. También puedes filtrar por categoría, supermercado u organizar de menor a mayor precio.",
+                texto: "Busca el producto que deseas comprar usando la barra de búsqueda o navegando por las categorías.",
+                imagen: "img/tutorial1.png",
+                alt: "Paso 1"
             },
             {
-                texto: "Paso 2: Haz clic en el producto para ver los detalles y su precio",
+                texto: "Haz clic en el producto para ver los detalles y opciones disponibles.",
+                imagen: "img/tutorial2.png",
+                alt: "Paso 2"
             },
             {
-                texto: "Paso 3: Añade el producto a tu carrito haciendo clic en 'Añadir al carrito'.",
+                texto: "Añade el producto a tu carrito haciendo clic en 'Añadir al carrito'.",
+                imagen: "img/tutorial3.png",
+                alt: "Paso 3"
             },
             {
-                texto: "Paso 4: Accede a tu carrito y descubre tu ahorro.",
+                texto: "Accede a tu carrito y revisa tu pedido antes de finalizar la compra.",
+                imagen: "img/tutorial4.png",
+                alt: "Paso 4"
             },
             {
-                texto: "Paso 5: Si lo deseas, imprime tu lista en PDF y llevala contigo al supermercado",
+                texto: "Rellena tus datos y selecciona el método de pago para finalizar la compra.",
+                imagen: "img/tutorial5.png",
+                alt: "Paso 5"
             }
         ];
+
 
         let pasoActual = 0;
         let intervalo;
@@ -320,7 +369,7 @@
                 <h5 class="card-title" th:text="${producto.name}">Nombre</h5>
                 <p class="card-text fw-bold" th:text="'€' + ${producto.price}">Precio</p>
                 <p class="card-text" th:text="${producto.supermarket}">Supermercado</p>
-                <form th:action="@{/carrito/agregar}" method="post">
+                <form th:action="@{/listas/addProducto}" method="post">
                     <input type="hidden" name="productoId" th:value="${producto.id}" />
                     <button type="submit" class="btn btn-success btn-sm">Añadir a la cesta</button>
                 </form>
@@ -450,6 +499,7 @@
             </div>
         </div>
     </div>
+
 </section>
 
 
@@ -603,5 +653,11 @@
 
 <!-- Bootstrap -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+
+<!-- Swiper JS y CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>

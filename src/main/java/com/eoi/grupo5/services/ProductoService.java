@@ -19,7 +19,7 @@ public class ProductoService {
     }
 
     // ✅ Método principal con todos los filtros aplicados: categoría, supermercado, nombre y orden
-    public Page<Producto> getProductosFiltrados(String category, String supermarket, String name, int page, int size, String orden) {
+    public Page<Producto> getProductosFiltrados(String category, String supermarket, int page, int size, String orden) {
         Sort sort = Sort.by("price");
         if ("desc".equalsIgnoreCase(orden)) {
             sort = sort.descending();
@@ -29,11 +29,11 @@ public class ProductoService {
 
         Pageable pageable = PageRequest.of(page, size, sort);
 
-        String categoryFiltrada = (category == null || category.isBlank()) ? null : category;
-        String supermercadoFiltrado = (supermarket == null || supermarket.isBlank()) ? null : supermarket;
-        String nameFiltrado = (name == null || name.isBlank()) ? null : name.toLowerCase();
-
-        return productoRepository.findByFiltros(categoryFiltrada, supermercadoFiltrado, nameFiltrado, pageable);
+        return productoRepository.findByFiltros(
+                category == null || category.isEmpty() ? null : category,
+                supermarket == null || supermarket.isEmpty() ? null : supermarket,
+                pageable
+        );
     }
 
     // ✅ Productos destacados para la página de inicio

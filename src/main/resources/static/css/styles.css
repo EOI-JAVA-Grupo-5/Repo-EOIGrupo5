@@ -70,3 +70,15 @@
 .icono-red-footer:hover {
     color: #efd780;
 }
+
+/* en tu archivo styles.css o en un <style> global */
+.offcanvas.offcanvas-end {
+    width: 500px;
+}
+
+/* opcionalmente controla también el ancho máximo en móviles */
+@media (max-width: 576px) {
+    .offcanvas.offcanvas-end {
+        width: 100%;  /* ocupa toda la pantalla en XS */
+    }
+}

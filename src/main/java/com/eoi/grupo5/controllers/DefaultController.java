@@ -81,11 +81,11 @@ public class DefaultController {
 //    }
 
 
-    @GetMapping("/")
-    public String index(Model model)
-    {
-        return "paginaDeInicio"; // View name
-    }
+//    @GetMapping("/")
+//    public String index(Model model)
+//    {
+//        return "paginaDeInicio"; // View name
+//    }
 
     @GetMapping("/carrito")
     public String carrito(Model model)
@@ -146,11 +146,11 @@ public class DefaultController {
 //        return "supermercados"; // View name
 //    }
 
-    @GetMapping("/paginaDeInicio")
-    public String paginaDeInicio(Principal principal, Model model)
-    {
-        return "paginaDeInicio"; // View name
-    }
+//    @GetMapping("/paginaDeInicio")
+//    public String paginaDeInicio(Principal principal, Model model)
+//    {
+//        return "paginaDeInicio"; // View name
+//    }
 
 //    @GetMapping("/paginaDeProducto")
 //    public String paginaDeProducto(Model model)
@@ -182,7 +182,7 @@ public class DefaultController {
      * @param id The ID of the EntidadHija to delete.
      * @return A redirect to the "/protected" endpoint after deletion.
      */
-//    @PostMapping("/entidades/deleteHija/{id}")
+//    @GetMapping("/entidades/deleteHija/{id}")
 //    public String deleteEntidadHija(@PathVariable Long id) {
 //        entidadHijaService.deleteById(id);
 //        return "redirect:/entities";

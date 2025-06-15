@@ -90,14 +90,32 @@ public class ForoController {
         return "foro/hilo";
     }
 
-//    @PostMapping("/hilo/{id}/mensaje")
-//    public String agregarMensaje(@PathVariable Long id, @ModelAttribute("nuevoMensaje") EntidadMensaje mensaje) {
-//        EntidadHilo hilo = hiloService.obtenerHiloPorId(id);
-//        Usuario autor = usuarioService.obtenerUsuarioPorId(1L); // Temporal, until login works
-//        mensaje.setHilo(hilo);
-//        mensaje.setAutor(autor);
-//        mensaje.setFechaPublicacion(LocalDateTime.now());
-//        mensajeService.guardarMensaje(mensaje);
-//        return "redirect:/foro/hilo/" + id;
-//    }
+    @PostMapping("/hilo/{id}")
+    public String agregarMensaje(@PathVariable Long id,
+                                 @ModelAttribute("nuevoMensaje") EntidadMensaje mensaje,
+                                 @AuthenticationPrincipal UserDetails userDetails) {
+        EntidadHilo hilo = hiloService.obtenerHiloPorId(id);
+
+        if (userDetails != null) {
+
+            Optional<Usuario> usuarioOpt = usuarioService.findByUsername(userDetails.getUsername());
+
+            if (usuarioOpt.isPresent()) {
+                Usuario autor = usuarioOpt.get();
+
+                System.out.println(">>> ID del mensaje antes de setId: " + mensaje.getId());
+
+                mensaje.setId(null);
+
+                System.out.println(">>> ID del mensaje despues de setId: " + mensaje.getId());
+                mensaje.setAutor(autor);
+                mensaje.setHilo(hilo);
+                mensaje.setFechaCreacion(LocalDateTime.now());
+
+                mensajeService.guardarMensaje(mensaje);
+                return "redirect:/foro/hilo/" + id;
+            }
+        }
+        return "redirect:/login";
+    }
 }
