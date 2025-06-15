@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:insert="plantillas/header :: head('Carrito')">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<section id="navbar-section">
+    <div th:insert="~{plantillas/navbar :: navbar}"></div>
+</section>
+
+<section>
+<!--  CARRITO  -->
+    <div class="offcanvas offcanvas-end show" id="cartSidebar" aria-labelledby="cartSidebarLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="cartSidebarLabel">Tu Lista</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div id="cart-items">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead class="table-dark">
+                        <tr>
+                            <th>Producto</th>
+                            <th>Precio Unitario</th>
+                            <th>Cantidad Comprada</th>
+                            <th></th>
+                            <th>Precio Total</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="item : ${itemsListaAbierta}">
+                            <td th:text="${item.getProducto().getName()}"></td>
+                            <td th:text="${item.getProducto().getPrice()}"></td>
+                            <td th:text="${item.getCantidadComprada()}"></td>
+                            <td>
+                                <a th:href="@{/listas/disminuirCantidad(itemId=${item.id})}" class="btn btn-danger">-</a>
+                                <a th:href="@{/listas/incrementarCantidad(itemId=${item.id})}" class="btn btn-primary">+</a>
+                            </td>
+                            <td th:text="${T(java.lang.String).format('%.2f €', item.cantidadComprada * item.producto.price)}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <hr>
+            <p><strong>Total:</strong> <span id="total-price" th:text="${T(java.lang.String).format('%.2f €', listaAbierta.costeTotal)}">0.00€</span></p>
+            <form th:action="@{/listas/listaCerrada}" method="post" class="p-1">
+                <button type="submit" class="btn btn-success w-100">Cerrar Lista</button>
+            </form>
+            <button class="btn btn-success w-100" onclick="generatePdf()">Generar PDF</button>
+<!--            <button class="btn btn-success w-100" onclick="generatePdf()">Generar PDF</button>-->
+        </div>
+    </div>
+
+
+    <div class="container p-3" th:each="item : ${itemsListaAbierta}">
+        <div class="row p-1">
+            <div class="card text-center p-2 h-100 d-flex flex-column">
+                <div class="row">
+                    <div class="col-md-4">
+                        <img th:src="${item.producto.url}" class="img-fluid" th:alt="${item.producto.name}" />
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body d-flex flex-column justify-content-between">
+                            <h5 class="card-title" th:text="${item.producto.name}">Nombre de producto</h5>
+                            <th:block th:each="supermercado : ${supermercados}">
+                                <th:block th:if="${item.producto.supermarket.toLowerCase().contains(supermercado.nombre.toLowerCase())}">
+                                    <img th:src="${supermercado.logoURL}" alt="Logo"  style="height: 40px; width: 40px; align-self: center;">
+                                </th:block>
+                            </th:block>
+                            <p class="fw-bold" th:text="'Precio Unidad: '
+                            + ${T(java.lang.String).format('%.2f €', item.producto.price)}">Precio €</p>
+                            <p class="fw-bold" th:text="'Cantidad: ' + ${item.cantidadComprada}">Cantidad Item</p>
+                            <p>
+                                <a th:href="@{/listas/disminuirCantidad(itemId=${item.id})}" class="btn btn-danger">-</a>
+                                <a th:href="@{/listas/incrementarCantidad(itemId=${item.id})}" class="btn btn-primary">+</a>
+                            </p>
+                            <p class="fw-bold" th:text="'Precio Total: '
+                            + ${T(java.lang.String).format('%.2f €', item.cantidadComprada * item.producto.price)}">Cantidad Item</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container p-3">
+        <h3 th:text="'Precio Total de la Lista: ' + ${T(java.lang.String).format('%.2f €', listaAbierta.costeTotal)}"></h3>
+        <form th:action="@{/listas/listaCerrada}" method="post" class="mt-2">
+            <button type="submit" class="btn btn-success">Cerrar Lista</button>
+        </form>
+    </div>
+
+</section>
+
+<section id="footer-section">
+    <div th:insert="~{plantillas/footer :: footer}"></div>
+</section>
+
+<!-- Bootstrap -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<th:block th:if="${itemsListaAbierta.size() > 0 and !itemsListaAbierta.isEmpty()}">
+<!--    <script th:inline="javascript">-->
+<!--        /*<![CDATA[*/-->
+<!--            document.addEventListener('DOMContentLoaded', function () {-->
+<!--                const cartSidebar = new bootstrap.Offcanvas(document.getElementById('cartSidebar'));-->
+<!--                cartSidebar.show();-->
+<!--            });-->
+
+<!--        // Inyectamos desde el modelo una lista de ItemLista con Thymeleaf-->
+<!--        const items = /*[[${itemsListaAbierta}]]*/ [];-->
+<!--        const supermercados = /*[[${supermercados}]]*/ [];-->
+
+<!--        async function generatePdf() {-->
+<!--            const {jsPDF} = window.jspdf;-->
+<!--            const doc = new jsPDF();-->
+<!--            let y = 20;-->
+<!--            const pageWidth = doc.internal.pageSize.getWidth();-->
+
+<!--            // Título-->
+<!--            const logoImgElement = document.getElementById('main-logo');-->
+<!--                const logoUrl = logoImgElement ? logoImgElement.src : null;-->
+
+<!--                if (logoUrl) {-->
+<!--                    const img = new Image();-->
+<!--                    img.crossOrigin = 'Anonymous';-->
+<!--                    img.src = logoUrl;-->
+
+<!--                    await new Promise((resolve, reject) => {-->
+<!--                        img.onload = () => {-->
+<!--                            try {-->
+<!--                                const logoWidth = 30;-->
+<!--                                const logoHeight = 30;-->
+<!--                                const logoX = (pageWidth - logoWidth) / 2;-->
+<!--                                doc.addImage(img, 'PNG', logoX, 10, logoWidth, logoHeight);-->
+<!--                                y += logoHeight + 10;-->
+<!--                                resolve();-->
+<!--                            } catch (e) {-->
+<!--                                console.warn("Error al añadir el logo principal al PDF. Revisar formato de imagen o CORS.", e);-->
+<!--                                resolve();-->
+<!--                            }-->
+<!--                        };-->
+<!--                        img.onerror = (error) => {-->
+<!--                            console.error("No se pudo cargar el logo principal para el PDF. Verifique la ruta: ", logoUrl, error);-->
+<!--                            alert("Error al cargar el logo principal. El PDF se generará sin el logo.");-->
+<!--                            resolve();-->
+<!--                        };-->
+<!--                    });-->
+<!--                }-->
+
+
+<!--            doc.setFontSize(18);-->
+<!--            doc.text("Lista de Compras", pageWidth / 2, y, {align: "center"});-->
+<!--            y += 15;-->
+
+<!--            for(const supermercado of supermercados){-->
+<!--                doc.text(supermercado.nombre, pageWidth / 2, y, {align: "center"});-->
+<!--                y += 15;-->
+<!--                // Cabecera de tabla-->
+<!--                doc.setFontSize(12);-->
+<!--                doc.text("Producto", 10, y);-->
+<!--                doc.text("PrecioUnitario", 20, y);-->
+<!--                doc.text("Cantidad", 90, y);-->
+<!--                doc.text("Total", 90, y);-->
+<!--                y += 5;-->
+<!--                doc.line(10, y, pageWidth - 10, y);-->
+<!--                y += 5;-->
+
+<!--                // Contenido-->
+<!--                for (const item of items) {-->
+<!--                    if(item.producto.supermarket.toLowerCase().includes(supermercado.nombre.toLowerCase())){-->
+<!--                        const name = item.producto.name;-->
+<!--                        const qty = item.cantidadComprada;-->
+<!--                        const price = parseFloat(item.producto.price);        // convierte a Number-->
+<!--                        const total = (price * qty).toFixed(2) + " €";-->
+
+<!--                        // Nombre (si es muy largo, word-wrap manual)-->
+<!--                        doc.text(name.substring(0, 30), 10, y);-->
+<!--                        // Precio unitario-->
+<!--                        doc.text(price + " €", 90, y);-->
+<!--                        // Cantidad-->
+<!--                        doc.text(qty.toString(), 90, y);-->
+<!--                        // Precio total-->
+<!--                        doc.text(total, 90, y);-->
+
+<!--                        y += 8;-->
+<!--                        // Si llegamos al final de la página, creamos una nueva-->
+<!--                        if (y > doc.internal.pageSize.getHeight() - 20) {-->
+<!--                            doc.addPage();-->
+<!--                            y = 20;-->
+<!--                        }-->
+<!--                    }-->
+<!--                }-->
+<!--            }-->
+
+
+<!--            // Guardar el PDF-->
+<!--            const fechaActual = new Date().toLocaleDateString("es-ES").replace(/\//g, "-");-->
+<!--            doc.save(`lista_compras_${fechaActual}.pdf`);-->
+<!--        }-->
+<!--        /*]]>*/-->
+<!--    </script>-->
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        document.addEventListener('DOMContentLoaded', function () {
+            const cartSidebar = new bootstrap.Offcanvas(document.getElementById('cartSidebar'));
+            cartSidebar.show();
+        });
+
+        const items = /*[[${itemsListaAbierta}]]*/ [];
+        const supermercados = /*[[${supermercados}]]*/ [];
+
+        async function generatePdf() {
+            const { jsPDF } = window.jspdf;
+            const doc    = new jsPDF();
+            let y       = 20;
+            const w     = doc.internal.pageSize.getWidth();
+            const h     = doc.internal.pageSize.getHeight();
+
+            // — Logo (igual que antes) —
+            const logoImg = document.getElementById('main-logo');
+            if (logoImg?.src) {
+                await new Promise(resolve => {
+                    const img = new Image();
+                    img.crossOrigin = 'Anonymous';
+                    img.src         = logoImg.src;
+                    img.onload      = () => {
+                        const lw = 30, lh = 30;
+                        doc.addImage(img, 'PNG', (w - lw)/2, y, lw, lh);
+                        y += lh + 10;
+                        resolve();
+                    };
+                    img.onerror     = resolve;
+                });
+            }
+
+            // — Título —
+            doc.setFontSize(18);
+            doc.setFont(undefined, 'bold');
+            doc.text("Lista de Compras", w/2, y, { align: 'center' });
+            y += 15;
+
+            let totalGeneral = 0;
+
+            // — Por cada supermercado —
+            for (const sup of supermercados) {
+                const itemsForSup = items.filter(i =>
+                    i.producto.supermarket.toLowerCase().includes(sup.nombre.toLowerCase())
+                );
+                if (itemsForSup.length === 0) continue;
+
+                // Salto de página
+                if (y > h - 50) { doc.addPage(); y = 20; }
+
+                // Nombre del supermercado
+                doc.setFontSize(14);
+                doc.setFont(undefined, 'bold');
+                doc.text(sup.nombre, w/2, y, { align: 'center' });
+                y += 12;
+
+                // Encabezados
+                const colProdX  = 10;
+                const colPrecio = w * 0.55;
+                const colCant   = w * 0.70;
+                const colTotal  = w * 0.85;
+
+                doc.setFontSize(12);
+                doc.setFont(undefined, 'bold');
+                doc.text("Producto", colProdX, y);
+                doc.text("Precio U.", colPrecio, y, { align: 'center' });
+                doc.text("Cant.", colCant, y,    { align: 'center' });
+                doc.text("Total", colTotal, y,   { align: 'center' });
+                y += 5;
+                doc.setLineWidth(0.5);
+                doc.line(10, y, w-10, y);
+                y += 7;
+
+                // Filas
+                doc.setFontSize(11);
+                doc.setFont(undefined, 'normal');
+                let subtotalSup = 0;
+
+                for (const item of itemsForSup) {
+                    if (y > h - 20) { doc.addPage(); y = 20; }
+
+                    const name  = item.producto.name;
+                    const qty   = item.cantidadComprada;
+                    const price = parseFloat(item.producto.price);
+                    const total = price * qty;
+
+                    subtotalSup += total;
+                    totalGeneral += total;
+
+                    doc.text(name, colProdX, y, { maxWidth: colPrecio - colProdX - 5 });
+                    doc.text(price.toFixed(2) + " €", colPrecio, y, { align: 'center' });
+                    doc.text(qty.toString(), colCant, y, { align: 'center' });
+                    doc.text(total.toFixed(2) + " €", colTotal, y, { align: 'center' });
+                    y += 8;
+                }
+
+                // Subtotal supermercado
+                y += 4;
+                doc.setFont(undefined, 'bold');
+                doc.text(
+                    `Subtotal ${sup.nombre}: ${subtotalSup.toFixed(2)} €`,
+                    colTotal,
+                    y,
+                    { align: 'center' }
+                );
+                y += 12;
+
+                // Línea separadora
+                doc.setDrawColor(200);
+                doc.setLineWidth(0.3);
+                doc.line(10, y, w-10, y);
+                y += 10;
+            }
+
+            // — Total general al final —
+            if (y > h - 30) { doc.addPage(); y = 20; }
+            doc.setFontSize(14);
+            doc.setFont(undefined, 'bold');
+            doc.text(
+                `TOTAL GENERAL: ${totalGeneral.toFixed(2)} €`,
+                w/2,
+                y,
+                { align: 'center' }
+            );
+
+            // — Guardar PDF con fecha —
+            const fecha = new Date()
+                .toLocaleDateString("es-ES")
+                .replace(/\//g, "-");
+            doc.save(`lista_compras_${fecha}.pdf`);
+        }
+        /*]]>*/
+    </script>
+
+</th:block>
+
+</body>
+</html>

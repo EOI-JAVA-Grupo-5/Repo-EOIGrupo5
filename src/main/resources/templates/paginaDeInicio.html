@@ -351,7 +351,7 @@
                 <h5 class="card-title" th:text="${producto.name}">Nombre</h5>
                 <p class="card-text fw-bold" th:text="'€' + ${producto.price}">Precio</p>
                 <p class="card-text" th:text="${producto.supermarket}">Supermercado</p>
-                <form th:action="@{/carrito/agregar}" method="post">
+                <form th:action="@{/listas/addProducto}" method="post">
                     <input type="hidden" name="productoId" th:value="${producto.id}" />
                     <button type="submit" class="btn btn-success btn-sm">Añadir a la cesta</button>
                 </form>

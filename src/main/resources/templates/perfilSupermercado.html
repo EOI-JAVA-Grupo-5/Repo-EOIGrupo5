@@ -169,7 +169,7 @@
                         <button class="btn btn-outline-secondary btn-sm btn-increase" th:attr="data-product-id=${producto.id}">+</button>
                     </div>
 
-                    <form method="post" action="/Carrito/agregar" class="add-to-cart-form">
+                    <form method="post" th:action="@{/listas/addProducto}" class="add-to-cart-form">
                         <input type="hidden" name="productoId" th:value="${producto.id}" />
                         <input type="hidden" name="cantidad" value="1" class="input-cantidad" th:attr="data-product-id=${producto.id}" />
                         <input type="hidden" name="supermercadoId" th:value="${supermercado.id}" />

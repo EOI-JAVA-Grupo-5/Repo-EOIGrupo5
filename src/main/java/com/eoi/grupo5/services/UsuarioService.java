@@ -28,6 +28,11 @@ public class UsuarioService {
         return usuarioRepository.findByCorreoEquals(correo);
     }
 
+    /**
+     * Encuentra al usuario por su nombre
+     * @param username - Nombre de usuario
+     * @return Optional del usuario buscado
+     */
     public Optional<Usuario> findByUsername(String username){
         return usuarioRepository.findByUsername(username);
     }

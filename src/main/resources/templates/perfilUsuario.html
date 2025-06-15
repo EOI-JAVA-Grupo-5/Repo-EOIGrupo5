@@ -33,7 +33,7 @@
     <style>
 
     </style>
-  
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
@@ -221,8 +221,8 @@
                     <nav>
                         <div class="nav nav-tabs" role="tablist">
                             <button class="nav-link active" id="tab-1" data-bs-toggle="tab" data-bs-target="#tab-content-1" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Euros gastados en semana</button>
-                            <button class="nav-link" id="tab-2" data-bs-toggle="tab" data-bs-target="#tab-content-2" type="button" role="tab" aria-controls="nav-home" aria-selected="false">Dinero ahorrado</button>
-                            <button class="nav-link" id="tab-3" data-bs-toggle="tab" data-bs-target="#tab-content-3" type="button" role="tab" aria-controls="nav-home" aria-selected="false">Total</button>
+                            <button class="nav-link" id="tab-2" data-bs-toggle="tab" data-bs-target="#tab-content-2" type="button" role="tab" aria-controls="nav-home" aria-selected="false">Flujo en semana</button>
+                            <button class="nav-link" id="tab-3" data-bs-toggle="tab" data-bs-target="#tab-content-3" type="button" role="tab" aria-controls="nav-home" aria-selected="false">Gasto total en semana</button>
                         </div>
                     </nav>
                     <div class="tab-content">
@@ -232,29 +232,87 @@
                                 <canvas id="myChart1"></canvas>
                             </div>
                             
-                            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!--                            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>-->
                             
-                            <script>
-                            const ctx1 = document.getElementById('myChart1');
-                            
-                            new Chart(ctx1, {
-                                type: 'bar',
-                                data: {
-                                labels: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'],
-                                datasets: [{
-                                    label: 'Euros gastados',
-                                    data: [12, 19, 3, 5, 2, 3, 5],
-                                    borderWidth: 1
-                                }]
-                                },
-                                options: {
-                                scales: {
-                                    y: {
-                                    beginAtZero: true
-                                    }
+                            <script th:inline="javascript">
+                                /*<![CDATA[*/
+                                    const ctx1 = document.getElementById('myChart1').getContext('2d');
+
+                                    const fechas = /*[[${datosFechas}]]*/ [];
+                                    const gastos = /*[[${datosDinero}]]*/ [];
+
+
+                                    new Chart(ctx1, {
+                                        type: 'bar',
+                                        data: {
+                                        labels: fechas,
+                                        datasets: [{
+                                            label: 'Euros gastados',
+                                            data: gastos,
+                                            borderWidth: 1
+                                        }]
+                                        },
+                                        options: {
+                                        scales: {
+                                            y: {
+                                            beginAtZero: true
+                                            }
+                                        }
+                                        }
+                                    });
+
+
+                                let grafico2 = null;
+                                let grafico3 = null;
+
+                                function crearGraficoLinea() {
+                                    if (grafico2) return;
+                                    const ctx3 = document.getElementById('myChart3').getContext('2d');
+                                    grafico2 = new Chart(ctx3, {
+                                        type: 'line',
+                                        data: {
+                                            labels: fechas,
+                                            datasets: [{
+                                                label: 'Euros gastados',
+                                                data: gastos,
+                                                borderWidth: 1
+                                            }]
+                                        },
+                                        options: {
+                                            scales: {
+                                                y: {
+                                                    beginAtZero: true
+                                                }
+                                            }
+                                        }
+                                    });
                                 }
+
+                                function crearGraficoTarta() {
+                                    if (grafico3) return;
+                                    const ctx2 = document.getElementById('myChart2').getContext('2d');
+                                    grafico3 = new Chart(ctx2, {
+                                        type: 'pie',
+                                        data: {
+                                            labels: fechas,
+                                            datasets: [{
+                                                label: 'Euros gastados',
+                                                data: gastos,
+                                                borderWidth: 1
+                                            }]
+                                        }
+                                    });
                                 }
-                            });
+
+                                document.addEventListener('DOMContentLoaded', () => {
+                                    const tab2 = document.getElementById('tab-2');
+                                    const tab3 = document.getElementById('tab-3');
+
+                                    tab2.addEventListener('shown.bs.tab', crearGraficoLinea);
+                                    tab3.addEventListener('shown.bs.tab', crearGraficoTarta);
+                                });
+
+                                /*]]>*/
                             </script>
                             
                         </div>
@@ -265,31 +323,35 @@
                                 <canvas id="myChart3"></canvas>
                             </div>
                               
-                            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-                              
-                            <script>
-                            const ctx3 = document.getElementById('myChart3');
-                        
-                            new Chart(ctx3, {
-                                type: 'line',
-                                data: {
-                                labels: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'],
-                                datasets: [{
-                                    label: 'Euros gastados',
-                                    data: [12, 19, 3, 5, 2, 3, 5],
-                                    borderWidth: 1
-                                }]
-                                },
-                                options: {
-                                scales: {
-                                    y: {
-                                    beginAtZero: true
-                                    }
-                                }
-                                }
-                            });
+<!--                            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>-->
+<!--                              -->
+<!--                            <script th:inline="javascript">-->
+<!--                                /*<![CDATA[*/-->
+<!--                                    const ctx3 = document.getElementById('myChart3').getContext('2d');-->
 
-                            </script>
+<!--                                    const fechas = /*[[${datosFechas}]]*/ [];-->
+<!--                                    const gastos = /*[[${datosDinero}]]*/ [];-->
+
+<!--                                    new Chart(ctx3, {-->
+<!--                                        type: 'line',-->
+<!--                                        data: {-->
+<!--                                        labels: fechas,-->
+<!--                                        datasets: [{-->
+<!--                                            label: 'Euros gastados',-->
+<!--                                            data: gastos,-->
+<!--                                            borderWidth: 1-->
+<!--                                        }]-->
+<!--                                        },-->
+<!--                                        options: {-->
+<!--                                        scales: {-->
+<!--                                            y: {-->
+<!--                                            beginAtZero: true-->
+<!--                                            }-->
+<!--                                        }-->
+<!--                                        }-->
+<!--                                    });-->
+<!--                                /*]]>*/-->
+<!--                            </script>-->
 
                         </div>
 
@@ -298,31 +360,35 @@
                                 <canvas id="myChart2"></canvas>
                             </div>
                               
-                            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-                              
-                            <script>
-                            const ctx2 = document.getElementById('myChart2');
-                        
-                            new Chart(ctx2, {
-                                type: 'pie',
-                                data: {
-                                labels: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'],
-                                datasets: [{
-                                    label: 'Euros gastados',
-                                    data: [12, 19, 3, 5, 2, 3, 5],
-                                    borderWidth: 1
-                                }]
-                                },
-                                options: {
-                                scales: {
-                                    y: {
-                                    beginAtZero: true
-                                    }
-                                }
-                                }
-                            });
+<!--                            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>-->
+<!--                              -->
+<!--                            <script th:inline="javascript">-->
+<!--                                /*<![CDATA[*/-->
+<!--                                    const ctx2 = document.getElementById('myChart2').getContext('2d');-->
 
-                            </script>
+<!--                                    const fechas = /*[[${datosFechas}]]*/ [];-->
+<!--                                    const gastos = /*[[${datosDinero}]]*/ [];-->
+
+<!--                                    new Chart(ctx2, {-->
+<!--                                        type: 'pie',-->
+<!--                                        data: {-->
+<!--                                        labels: fechas,-->
+<!--                                        datasets: [{-->
+<!--                                            label: 'Euros gastados',-->
+<!--                                            data: gastos,-->
+<!--                                            borderWidth: 1-->
+<!--                                        }]-->
+<!--                                        },-->
+<!--                                        options: {-->
+<!--                                        scales: {-->
+<!--                                            y: {-->
+<!--                                            beginAtZero: true-->
+<!--                                            }-->
+<!--                                        }-->
+<!--                                        }-->
+<!--                                    });-->
+<!--                                /*]]>*/-->
+<!--                            </script>-->
                         </div>
 
                     </div>
@@ -332,7 +398,9 @@
                 <div class="col-md-6">
                     <div class="container m-3">
                         <ul class="list-group">
-                            <li class="list-group-item list-group-item-action">Historial de compras</li>
+                            <li class="list-group-item list-group-item-action">
+                                <a th:href="@{/listas}">Historial de listas</a>
+                            </li>
                             <li class="list-group-item list-group-item-action">Lista de amigos</li>
                             <li class="list-group-item list-group-item-action">Mensajes del foro</li>
                         </ul>
@@ -345,151 +413,8 @@
 
 
 
-    <section id="footer">
-        <div class="justify-content-end pt-3">
-            <!-- <footer class="bg-light text-center text-dark p-4">
-                <p><strong>@ 2025. Todos los derechos reservados.</strong></p>
-            </footer> -->
-
-            <footer
-            class="text-center text-lg-start"
-            style="background-color: #efd780"
-            >
-                <!-- Section: Social media -->
-                <section
-                        class="d-flex justify-content-between p-4"
-                        style="background-color: #dba159"
-                        >
-                    <!-- Left -->
-                    <div class="me-5" style="color: #fcfdaf;">
-                        <span><strong>Síguenos en nuestras redes sociales:</strong></span>
-                    </div>
-                    <!-- Left -->
-                
-                    <!-- Right -->
-                    <div>
-                        <a href="" class="icono-red-footer me-4">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a href="" class="icono-red-footer me-4">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="" class="icono-red-footer me-4">
-                            <i class="fab fa-google"></i>
-                        </a>
-                        <a href="" class="icono-red-footer me-4">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="" class="icono-red-footer me-4">
-                            <i class="fab fa-linkedin"></i>
-                        </a>
-                        <a href="" class="icono-red-footer me-4">
-                            <i class="fab fa-github"></i>
-                        </a>
-                    </div>
-                    <!-- Right -->
-                </section>
-                <!-- Section: Social media -->
-            
-                <!-- Section: Links  -->
-                <section class="">
-                    <div class="container text-center text-md-start mt-5">
-                        <!-- Grid row -->
-                        <div class="row mt-3">
-                            <!-- Grid column -->
-                            <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-                                <!-- Content -->
-                                <h6 class="text-uppercase fw-bold">Sobre Castañazo Deals</h6>
-                                <hr
-                                    class="mb-4 mt-0 d-inline-block mx-auto"
-                                    style="width: 60px; background-color: #dba159; height: 2px"
-                                    />
-                                <p>
-                                Aquí va propaganda pura y dura, sin filtrar. Café para los mas cafeteros.
-                                </p>
-                            </div>
-                            <!-- Grid column -->
-                
-                            <!-- Grid column -->
-                            <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-                                <!-- Links -->
-                                <h6 class="text-uppercase fw-bold">Cosas</h6>
-                                <hr
-                                    class="mb-4 mt-0 d-inline-block mx-auto"
-                                    style="width: 60px; background-color: #dba159; height: 2px"
-                                    />
-                                <p>
-                                <a href="#!" class="text-blue">Cosa 1</a>
-                                </p>
-                                <p>
-                                <a href="#!" class="text-blue">Cosa 2</a>
-                                </p>
-                                <p>
-                                <a href="#!" class="text-blue">Cosa 3</a>
-                                </p>
-                                <p>
-                                <a href="#!" class="text-blue">Cosa 4</a>
-                                </p>
-                            </div>
-                            <!-- Grid column -->
-                
-                            <!-- Grid column -->
-                            <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-                                <!-- Links -->
-                                <h6 class="text-uppercase fw-bold">Links Útiles</h6>
-                                <hr
-                                    class="mb-4 mt-0 d-inline-block mx-auto"
-                                    style="width: 60px; background-color: #dba159; height: 2px"
-                                    />
-                                <p>
-                                <a href="#!" class="text-blue">Link 1</a>
-                                </p>
-                                <p>
-                                <a href="#!" class="text-blue">Link 2</a>
-                                </p>
-                                <p>
-                                <a href="#!" class="text-blue">Link 3</a>
-                                </p>
-                                <p>
-                                <a href="#!" class="text-blue">Link 4</a>
-                                </p>
-                            </div>
-                            <!-- Grid column -->
-                
-                            <!-- Grid column -->
-                            <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-                                <!-- Links -->
-                                <h6 class="text-uppercase fw-bold">Contacto</h6>
-                                <hr
-                                    class="mb-4 mt-0 d-inline-block mx-auto"
-                                    style="width: 60px; background-color: #dba059; height: 2px"
-                                    />
-                                <p><i class="fas fa-home mr-3"></i> Sevilla, Sevilla, ES</p>
-                                <p><i class="fas fa-envelope mr-3"></i> info@castañazodeals.es</p>
-                                <p><i class="fas fa-phone mr-3"></i> + 01 234 567 88</p>
-                                <p><i class="fas fa-print mr-3"></i> + 01 234 567 89</p>
-                            </div>
-                            <!-- Grid column -->
-                        </div>
-                        <!-- Grid row -->
-                    </div>
-                </section>
-                <!-- Section: Links  -->
-        
-                <!-- Copyright -->
-                <div
-                    class="text-center p-3"
-                    style="background-color: #dba0598f"
-                    >
-                © 2025 Copyright:
-                <a class="text-blue" href="https://mdbootstrap.com/"
-                    >MDBootstrap.com</a
-                    >
-                </div>
-                <!-- Copyright -->
-            </footer>
-        </div>
-
+    <section id="footer-section">
+        <div th:insert="~{plantillas/footer :: footer}"></div>
     </section>
 
     <!-- Bootstrap -->
