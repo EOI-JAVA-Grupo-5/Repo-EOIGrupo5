@@ -56,7 +56,7 @@ public class HiloService {
         }
     }
 
-    public EntidadHilo obtenerHiloPorId(Long id) {
+    public EntidadHilo findById(Long id) {
         return hiloRepository.findById(id).orElse(null);
     }
 

@@ -36,7 +36,7 @@
     <!-- Main Content Area -->
     <div class="container mt-3">
         <!-- Buttons -->
-        <div th:if="${usuarioActual.id == hilo.autor.id}">
+        <div th:if="${usuarioActual.id == hilo.autor.id} or ${isAdmin}">
             <button href="#" type="button" class="btn btn-outline-dark me-1" data-bs-toggle="modal"
                 data-bs-target="#editarHiloModal">
                 Editar
@@ -94,7 +94,7 @@
 
             <div class="list-group">
                 <div class="list-group-item mb-3" th:each="mensaje : ${mensajes}">
-                    <div th:if="${usuarioActual.id == mensaje.autor.id}">
+                    <div th:if="${usuarioActual.id == mensaje.autor.id} or ${isAdmin}">
                         <a href="#" class="btn btn-sm btn-outline-dark me-1"
                             th:attr="data-bs-toggle='modal', data-bs-target='#editarMensajeModal__' + ${mensaje.id}">
                             Editar

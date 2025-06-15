@@ -85,13 +85,19 @@ public class ForoController {
     public String obtenerHilo(@PathVariable Long id,
                               Model model,
                               @AuthenticationPrincipal UserDetails userDetails) {
-        EntidadHilo hilo = hiloService.obtenerHiloPorId(id);
+        EntidadHilo hilo = hiloService.findById(id);
         List<EntidadMensaje> mensajes = mensajeService.findMessagesByHiloId(id);
 
         Optional<Usuario> usuarioActual = usuarioService.findByUsername(userDetails.getUsername());
         Usuario usuario = null;
         if (usuarioActual.isPresent()) {
             usuario = usuarioActual.get();
+        }
+
+        if (isAdmin(userDetails)) {
+            model.addAttribute("isAdmin", true);
+        } else {
+            model.addAttribute("isAdmin", false);
         }
 
         model.addAttribute("hilo", hilo);
@@ -105,7 +111,7 @@ public class ForoController {
     public String agregarMensaje(@PathVariable Long id,
                                  @ModelAttribute("nuevoMensaje") EntidadMensaje mensaje,
                                  @AuthenticationPrincipal UserDetails userDetails) {
-        EntidadHilo hilo = hiloService.obtenerHiloPorId(id);
+        EntidadHilo hilo = hiloService.findById(id);
 
         if (userDetails != null) {
 
@@ -130,15 +136,21 @@ public class ForoController {
     public String editarHilo(@PathVariable Long id,
                              @RequestParam String titulo,
                              @RequestParam String descripcion,
+                             @AuthenticationPrincipal UserDetails userDetails,
                              RedirectAttributes redirectAttributes) {
 
         try {
-            EntidadHilo hilo = hiloService.obtenerHiloPorId(id);
-            hilo.setTitulo(titulo);
-            hilo.setDescripcion(descripcion);
-            hiloService.guardarHilo(hilo);
+            EntidadHilo hilo = hiloService.findById(id);
+            String username = userDetails.getUsername();
 
-            redirectAttributes.addFlashAttribute("success", "Hilo editado correctamente.");
+            if (hilo.getAutor().getUsername().equals(username) || isAdmin(userDetails)) {
+                hilo.setTitulo(titulo);
+                hilo.setDescripcion(descripcion);
+                hiloService.guardarHilo(hilo);
+                redirectAttributes.addFlashAttribute("success", "Hilo editado correctamente.");
+            } else {
+                redirectAttributes.addFlashAttribute("error", "No tienes permiso para editar este hilo.");
+            }
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "No se pudo editar el hilo.");
         }
@@ -169,12 +181,21 @@ public class ForoController {
 
     @PostMapping("/eliminar/{id}")
     public String eliminarHilo(@PathVariable Long id,
+                               @AuthenticationPrincipal UserDetails userDetails,
                                RedirectAttributes redirectAttributes) {
 
 
         try {
-            hiloService.eliminarHiloYMensajes(id);
-            redirectAttributes.addFlashAttribute("success", "Hilo eliminado correctamente.");
+            EntidadHilo hilo = hiloService.findById(id);
+            String username = userDetails.getUsername();
+
+            if (hilo.getAutor().getUsername().equals(username) || isAdmin(userDetails)) {
+                hiloService.eliminarHiloYMensajes(id);
+                redirectAttributes.addFlashAttribute("success", "Hilo eliminado correctamente.");
+            } else {
+                redirectAttributes.addFlashAttribute("error", "No tienes permiso para eliminar este hilo.");
+            }
+
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "Error al eliminar el hilo.");
         }
@@ -185,24 +206,24 @@ public class ForoController {
     public String eliminarMensaje(@PathVariable Long id,
                                   @AuthenticationPrincipal UserDetails userDetails,
                                   RedirectAttributes redirectAttributes) {
-        System.out.println("Attempting to delete mensaje id: " + id);
         try {
             EntidadMensaje mensaje = mensajeService.findMessageById(id);
-            System.out.println("Mensaje found: " + mensaje.getContenido());
-            if (mensaje.getAutor().getUsername().equals(userDetails.getUsername())) {
+            if (mensaje.getAutor().getUsername().equals(userDetails.getUsername()) || isAdmin(userDetails)) {
                 Long hiloId = mensaje.getHilo().getId();
                 mensajeService.deleteMessageById(id);
-                System.out.println("Mensaje deleted");
                 redirectAttributes.addFlashAttribute("success", "Mensaje eliminado correctamente.");
                 return "redirect:/foro/hilo/" + hiloId;
             } else {
-                System.out.println("User not authorized to delete this message");
                 redirectAttributes.addFlashAttribute("error", "No tienes permiso para eliminar este mensaje.");
             }
         } catch (Exception e) {
-            e.printStackTrace();
             redirectAttributes.addFlashAttribute("error", "Error al eliminar el mensaje.");
         }
-        return "redirect:/foro"; // fallback
+        return "redirect:/foro";
+    }
+
+    private boolean isAdmin(UserDetails userDetails) {
+        return userDetails.getAuthorities().stream()
+                .anyMatch(auth -> auth.getAuthority().equals("ADMIN"));
     }
 }
