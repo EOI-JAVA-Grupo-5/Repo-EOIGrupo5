@@ -170,17 +170,11 @@
 
 <!-- Sección ¡Vamos de compras! -->
 <section class="text-white py-5" style="background-color: #fcfdaf;">
-    <div class="container text-center">Add commentMore actions
+    <div class="container text-center">
         <h2 class="fw-bold text-dark">¡Vamos de compras!</h2>
         <p class="text-dark">Encuentra los productos más baratos cerca de ti.</p>
-        <form method="get" th:action="@{/paginaDeProducto}" class="input-group w-75 w-md-50 mx-auto">
-            <label>
-                <input type="text" class="form-control" name="nombre" placeholder="Buscar ítem" th:value="${param.nombre}" />
-            </label>
-            <button type="submit" class="btn btn-dark">
-                <i class="bi bi-search"></i> Buscar
-            </button>
-        </form>
+
+
     </div>
 </section>
 
