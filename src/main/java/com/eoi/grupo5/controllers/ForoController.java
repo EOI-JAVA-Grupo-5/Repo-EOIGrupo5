@@ -166,7 +166,7 @@ public class ForoController {
                                 RedirectAttributes redirectAttributes) {
         try {
             EntidadMensaje mensaje = mensajeService.findMessageById(id);
-            if (mensaje.getAutor().getUsername().equals(userDetails.getUsername())) {
+            if (mensaje.getAutor().getUsername().equals(userDetails.getUsername()) || isAdmin(userDetails)) {
                 mensaje.setContenido(contenido);
                 mensajeService.saveMessage(mensaje);
                 redirectAttributes.addFlashAttribute("success", "Mensaje editado correctamente.");
