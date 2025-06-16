@@ -3,15 +3,12 @@ package com.eoi.grupo5.services;
 import com.eoi.grupo5.entities.ItemLista;
 import com.eoi.grupo5.entities.Lista;
 import com.eoi.grupo5.utils.exceptions.ItemsListaNotFoundException;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
-@Slf4j
 @Service
 public class CarritoService {
 
@@ -23,6 +20,10 @@ public class CarritoService {
         this.itemListaService = itemListaService;
     }
 
+    /**
+     * Ajusta el coste total de una lista
+     * @param lista - Lista a ajustar
+     */
     public void ajustarCuentasLista(Lista lista){
         Optional<List<ItemLista>> itemsOptional = itemListaService.getItemsDeLista(lista);
 
@@ -43,6 +44,10 @@ public class CarritoService {
         }
     }
 
+    /**
+     * Incrementa la cantidad comprada de un item de lista en 1
+     * @param idItem - Item a aumentar
+     */
     public void incrementarCantidadItem(Long idItem){
         ItemLista item = itemListaService.findById(idItem)
                 .orElseThrow(()->new ItemsListaNotFoundException("Item no encontrado"));
@@ -50,6 +55,11 @@ public class CarritoService {
         itemListaService.save(item);
     }
 
+    /**
+     * Disminuye la cantidad comprada de un item de lista en 1.
+     * Si la cantidad llega a 0, borra el item.
+     * @param idItem - Item a disminuir
+     */
     public void disminuirCantidadItem(Long idItem){
         ItemLista item = itemListaService.findById(idItem)
                 .orElseThrow(()->new ItemsListaNotFoundException("Item no encontrado"));

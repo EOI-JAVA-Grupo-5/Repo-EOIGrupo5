@@ -21,18 +21,38 @@ public class ListaService {
         this.listaRepository = listaRepository;
     }
 
+    /**
+     * Guarda la lista en la BBDD
+     * @param lista - Lista a guardar
+     * @return Guarda la lista
+     */
     public Lista save(Lista lista) {
         return listaRepository.save(lista);
     }
 
+    /**
+     * Borra la lista de la BBDD
+     * @param lista - Lista a borrar
+     */
     public void delete(Lista lista) {
          listaRepository.delete(lista);
     }
 
+    /**
+     * Obtiene una lista con todas las listas del usuario (incluida la lista abierta [carrito])
+     * @param usuario - Usuario del cual se buscan las listas
+     * @return Optional de las listas buscadas
+     */
     public Optional<List<Lista>> getListasDeUsuario(Usuario usuario) {
         return listaRepository.findAllByUsuario(usuario);
     }
 
+    /**
+     * Devuelve una lista basada en su ID y su usuario
+     * @param idLista - ID de la lista
+     * @param usuario - Usuario
+     * @return Lista si la encuentra o null si no
+     */
     public Lista getLista(Long idLista, Usuario usuario){
         Lista lista = listaRepository.findListaById(idLista)
                 .orElseThrow(() -> new ListaNotFoundException("No se encontró la lista nº" + idLista));
@@ -43,6 +63,11 @@ public class ListaService {
         }
     }
 
+    /**
+     * Obtiene la lista abierta (carrito) de un usuario
+     * @param usuario - Usuario
+     * @return Lista abierta (carrito) del usuario
+     */
     public Lista getListaAbierta(Usuario usuario){
         Optional <List<Lista>> listasUsuario = getListasDeUsuario(usuario);
         Lista listaAbierta = new Lista();
@@ -61,11 +86,20 @@ public class ListaService {
         return listaAbierta;
     }
 
+    /**
+     * Añade un item a la lista abierta (carrito)
+     * @param itemLista - Item a añadir
+     * @param usuario - Usuario
+     */
     public void addItemListaALista(ItemLista itemLista, Usuario usuario){
         Lista listaAbierta = getListaAbierta(usuario);
         itemLista.setLista(listaAbierta);
     }
 
+    /**
+     * Crea una nueva lista abierta para el usuario
+     * @param usuario - Usuario
+     */
     public void crearListaParaUsuario(Usuario usuario){
         Optional <List<Lista>> listasUsuario = getListasDeUsuario(usuario);
 
