@@ -1,68 +1,68 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:sec="http://www.w3.org/1999/xhtml">
+
 <head th:insert="plantillas/header :: head('Listas')">
 </head>
+
 <body>
 
-<!-- NAVBAR -->
-<section id="navbar-section">
-    <div th:insert="~{plantillas/navbar :: navbar}"></div>
-</section>
+    <!-- Incluir navbar -->
+    <div th:replace="~{plantillas/navbar :: navbar}"></div>
 
-<section>
-    <div class="container">
-        <th:block th:if="${seCerroLista} == true">
-            <div class="alert p-3 alert-success alert-dismissible fade show" role="alert">
-                <strong>Lista cerrada con éxito</strong> Ya puedes ver tu lista guardada.
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        </th:block>
+    <section>
+        <div class="container">
+            <th:block th:if="${seCerroLista} == true">
+                <div class="alert p-3 alert-success alert-dismissible fade show" role="alert">
+                    <strong>Lista cerrada con éxito</strong> Ya puedes ver tu lista guardada.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </th:block>
 
-        <h2 class="p-3">Listas guardadas</h2>
-        <div class="row p-3">
-            <div class="table-responsive">
-                <table class="table table-bordered">
-                    <thead class="table-dark">
-                    <tr>
-                        <th>Nº Lista</th>
-                        <th>Fecha</th>
-                        <th>Coste Total</th>
-<!--                        <th>Dinero Ahorrado</th>-->
-                        <th>Acciones</th>
-                    </tr>
-                    </thead>
-                    <tbody>
+            <h2 class="p-3">Listas guardadas</h2>
+            <div class="row p-3">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Nº Lista</th>
+                                <th>Fecha</th>
+                                <th>Coste Total</th>
+                                <!--                        <th>Dinero Ahorrado</th>-->
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
 
-                    <tr th:each="lista : ${listasUsuario}">
-<!--                        MOSTRAMOS SOLO LAS LISTAS CERRADAS-->
-                        <th:block th:if="${lista.cerrada} == true">
-                            <td th:text="${listaStat.index} + 1"></td>
-                            <td th:text="${#dates.format(lista.fecha,'dd/MM/yyyy, HH:mm')}"></td>
-                            <td th:text="${lista.costeTotal} + '€'"></td>
-<!--                            <td th:text="${lista.dineroAhorrado}"></td>-->
-                            <td>
-                                <a
-                                        class="btn btn-primary rounded-pill"
-                                        th:href="@{/listas/verLista/{id}(id=${lista.getId()})}"
-                                        role="button"
-                                >Ver lista</a
-                                >
-                            </td>
-                        </th:block>
-                    </tr>
-                    </tbody>
-                </table>
+                            <tr th:each="lista : ${listasUsuario}">
+                                <!--                        MOSTRAMOS SOLO LAS LISTAS CERRADAS-->
+                                <th:block th:if="${lista.cerrada} == true">
+                                    <td th:text="${listaStat.index} + 1"></td>
+                                    <td th:text="${#dates.format(lista.fecha,'dd/MM/yyyy, HH:mm')}"></td>
+                                    <td th:text="${lista.costeTotal} + '€'"></td>
+                                    <!--                            <td th:text="${lista.dineroAhorrado}"></td>-->
+                                    <td>
+                                        <a class="btn btn-primary rounded-pill"
+                                            th:href="@{/listas/verLista/{id}(id=${lista.getId()})}" role="button">Ver
+                                            lista</a>
+                                    </td>
+                                </th:block>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<section id="footer-section">
-    <div th:insert="~{plantillas/footer :: footer}"></div>
-</section>
+    <section id="footer-section">
+        <div th:insert="~{plantillas/footer :: footer}"></div>
+    </section>
 
-<!-- Bootstrap -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <!-- Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
 
 </body>
+
 </html>

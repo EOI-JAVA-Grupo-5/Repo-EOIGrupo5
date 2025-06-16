@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Navbar</title>
 </head>
+
 <body>
     <div th:fragment="navbar">
         <!-- Navbar -->
@@ -42,22 +43,23 @@
                             </a>
                         </li>
                     </ul>
-                    <form class="d-flex pt-3 my-2 my-lg-0">
+                    <!-- <form class="d-flex pt-3 my-2 my-lg-0">
                         <div class="input-group mb-3">
                             <input class="form-control input-box bg-100" type="search" placeholder="Buscar" aria-label="Search" style="border-top-left-radius: 20px; border-bottom-left-radius: 20px">
                             <button class="btn btn-outline-warning text-black my-2 my-sm-0 fa-solid fa-magnifying-glass" type="submit" style="border-top-right-radius: 20px; border-bottom-right-radius: 20px">
                             </button>
                         </div>
-                    </form>
+                    </form> -->
                     <div class="d-grid p-3">
-                        <div  sec:authorize="isAuthenticated()">
-<!--                            <a th:href="@{/usuario}">-->
-<!--                                <button type="button" class="btn btn-warning rounded-pill">-->
-<!--                                    <i class="bi bi-person-circle"></i> Perfil-->
-<!--                                </button>-->
-<!--                            </a>-->
+                        <div sec:authorize="isAuthenticated()">
+                            <!--                            <a th:href="@{/usuario}">-->
+                            <!--                                <button type="button" class="btn btn-warning rounded-pill">-->
+                            <!--                                    <i class="bi bi-person-circle"></i> Perfil-->
+                            <!--                                </button>-->
+                            <!--                            </a>-->
                             <div class="dropdown">
-                                <a id="btnUser-Login" class="btn btn-warning rounded-pill dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <a id="btnUser-Login" class="btn btn-lg btn-warning rounded-pill dropdown-toggle"
+                                    href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="bi bi-person-circle"></i>
                                     <span class="text-black" sec:authentication="name"></span>
                                 </a>
@@ -65,7 +67,7 @@
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" th:href="@{/usuario}">Ver perfil</a></li>
                                     <li>
-                                        <form th:action="@{/logout}" method="post" style="margin: 0;">
+                                        <form th:action="@{/logout}" method="post">
                                             <button type="submit" class="dropdown-item">Cerrar sesión</button>
                                         </form>
                                     </li>
@@ -75,7 +77,7 @@
 
                         <div sec:authorize="!isAuthenticated()">
                             <a th:href="@{/login}">
-                                <button type="button" class="btn btn-warning rounded-pill">
+                                <button type="button" class="btn btn-lg btn-warning rounded-pill">
                                     <i class="bi bi-person-circle"></i> Login
                                 </button>
                             </a>
@@ -83,7 +85,7 @@
                     </div>
                     <div sec:authorize="isAuthenticated()" class="d-grid p-3">
                         <a th:href="@{/listas/listaAbierta}">
-                            <button type="button" name="" id="" class="btn btn-warning rounded-pill">
+                            <button type="button" name="" id="" class="btn btn-lg btn-warning rounded-pill">
                                 <i class="bi bi-cart-fill"></i> Lista
                             </button>
                         </a>
@@ -93,4 +95,5 @@
         </nav>
     </div>
 </body>
+
 </html>

@@ -29,38 +29,30 @@
 .primary-navbar div button,
 #btnUser-Login,
 .primary-navbar div .dropdown-menu,
-.primary-navbar div .dropdown-item{
+.primary-navbar div .dropdown-item {
     background-color: #fcfdaf;
 }
 
 .primary-navbar div button:hover,
 #btnUser-Login:hover,
-.primary-navbar div .dropdown-item:hover{
+.primary-navbar div .dropdown-item:hover {
     background-color: #efd780;
 }
 
 
 .nav-item .nav-link {
     color: #333;
-    font-size: medium;
+    font-size: large;
     transition: color 0.3s ease, border-bottom 0.3s ease;
     border-bottom: 1px solid transparent;
 }
 
 .nav-item .nav-link:hover {
     color: #fcfdaf;
-    /* or any highlight color */
     border-bottom: 1px solid #fcfdaf;
     transition: color 0.3s ease, border-bottom 0.3s ease;
     text-decoration: none;
 }
-
-/*.nav-item .nav-link:active {*/
-/*    color: #fcfdaf;*/
-/*    !* or any highlight color *!*/
-/*    border-bottom: 1px solid #fcfdaf;*/
-/*    text-decoration: none;*/
-/*}*/
 
 /* Iconos de redes sociales del footer */
 .icono-red-footer {
@@ -79,6 +71,7 @@
 /* opcionalmente controla también el ancho máximo en móviles */
 @media (max-width: 576px) {
     .offcanvas.offcanvas-end {
-        width: 100%;  /* ocupa toda la pantalla en XS */
+        width: 100%;
+        /* ocupa toda la pantalla en XS */
     }
 }
