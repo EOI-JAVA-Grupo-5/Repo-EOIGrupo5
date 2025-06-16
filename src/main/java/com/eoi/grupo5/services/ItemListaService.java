@@ -23,18 +23,37 @@ public class ItemListaService {
         this.listaService = listaService;
     }
 
+    /**
+     * Busca un Item de lista en la BBDD
+     * @param id - ID del item
+     * @return Optional del item
+     */
     public Optional<ItemLista> findById(Long id){
         return itemListaRepository.findById(id);
     }
 
+    /**
+     * Guarda el item en la BBDD
+     * @param itemLista - Item a guardar
+     * @return Guarda el item en la BBDD
+     */
     public ItemLista save(ItemLista itemLista) {
         return itemListaRepository.save(itemLista);
     }
 
+    /**
+     * Borra el item de la BBDD
+     * @param itemLista - Item a borrar
+     */
     public void delete(ItemLista itemLista) {
         itemListaRepository.delete(itemLista);
     }
 
+    /**
+     * Obtiene todos los items de una lista
+     * @param lista - Lista de la que se quiere obtener los items
+     * @return Optional de lista con todos los items
+     */
     public Optional<List<ItemLista>> getItemsDeLista (Lista lista) {
         return itemListaRepository.findAllByLista(lista);
     }

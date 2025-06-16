@@ -16,14 +16,28 @@ public class UsuarioService {
         this.usuarioRepository = usuarioRepository;
     }
 
+    /**
+     * Busca todos los usuarios en la base de datos
+     * @return Lista con todos los usuarios
+     */
     public List<Usuario> findAll(){
         return usuarioRepository.findAll();
     }
 
+    /**
+     * Busca un usuario por su id
+     * @param id - ID del usuario
+     * @return Optional del usuario buscado
+     */
     public Optional<Usuario> findById(Long id){
         return usuarioRepository.findById(id);
     }
 
+    /**
+     * Busca un usuario por su correo electrónico
+     * @param correo - Correo del usuario
+     * @return Optional del usuario buscado
+     */
     public Optional<Usuario> findByEmail(String correo){
         return usuarioRepository.findByCorreoEquals(correo);
     }

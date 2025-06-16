@@ -19,6 +19,12 @@ public class UsuarioDetailsService implements UserDetailsService {
         this.usuarioRepository = usuarioRepository;
     }
 
+    /**
+     * Carga los detalles del usuario
+     * @param credencialUsuario - Nombre de usuario
+     * @return Construye un usuario con la autoridad pertinente
+     * @throws UsernameNotFoundException
+     */
     @Override
     public UserDetails loadUserByUsername(String credencialUsuario) throws UsernameNotFoundException {
 
