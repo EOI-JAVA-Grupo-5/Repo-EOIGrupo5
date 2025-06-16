@@ -35,11 +35,22 @@
 
     <!-- Main Content Area -->
     <div class="container mt-3">
+        <!-- Buttons -->
+        <div th:if="${usuarioActual.id == hilo.autor.id} or ${isAdmin}">
+            <button href="#" type="button" class="btn btn-outline-dark me-1" data-bs-toggle="modal"
+                data-bs-target="#editarHiloModal">
+                Editar
+            </button>
+            <button type="button" class="btn btn-outline-danger me-1" data-bs-toggle="modal"
+                data-bs-target="#confirmDeleteModal">
+                Borrar
+            </button>
+        </div>
         <!-- Thread Header -->
-        <section class="thread-header mb-2">
+        <section class="thread-header mt-2 mb-2">
             <div class="card p-3 border-warning">
                 <!-- Thread title -->
-                <h1 class="display-4 mb-3" th:text="${hilo.titulo}">Thread Title Here</h1>
+                <h1 class="display-4 mb-3" th:text="${hilo.titulo}">Titulo</h1>
 
                 <!-- Thread message/content -->
                 <p class="lead mb-4" th:text="${hilo.descripcion}">
@@ -60,6 +71,18 @@
             </div>
         </section>
 
+        <!-- Flash success message -->
+        <div th:if="${success}" class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+            <span th:text="${success}">Mensaje de éxito</span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+
+        <!-- Flash error message -->
+        <div th:if="${error}" class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+            <span th:text="${error}">Algo salió mal</span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
 
         <!-- Messages List -->
         <section class="thread-replies mt-4">
@@ -71,6 +94,14 @@
 
             <div class="list-group">
                 <div class="list-group-item mb-3" th:each="mensaje : ${mensajes}">
+                    <div th:if="${usuarioActual.id == mensaje.autor.id} or ${isAdmin}">
+                        <a href="#" class="btn btn-sm btn-outline-dark me-1"
+                            th:attr="data-bs-toggle='modal', data-bs-target='#editarMensajeModal__' + ${mensaje.id}">
+                            Editar
+                        </a>
+                        <a class="btn btn-sm btn-outline-danger me-1" data-bs-toggle="modal"
+                            th:data-bs-target="'#confirmDeleteMensajeModal__' + ${mensaje.id}"> Borrar </a>
+                    </div>
                     <p class="mb-2" th:text="${mensaje.contenido}">
                         Este es un mensaje de ejemplo que responde al hilo.
                     </p>
@@ -80,6 +111,61 @@
                         <time th:text="${@dateUtil.format(hilo.fechaCreacion, 'dd/MM/yyyy HH:mm')}">
                             Fecha
                         </time>
+                    </div>
+
+                    <!-- Modal para editar mensaje -->
+                    <div class="modal fade" th:id="'editarMensajeModal__' + ${mensaje.id}" tabindex="-1"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <form th:action="@{'/foro/mensaje/editar/' + ${mensaje.id}}" method="post">
+                                    <div class="modal-header justify-content-center">
+                                        <h3 class="modal-title">
+                                            <strong>Editar Mensaje</strong> <i class="fa-solid fa-pen-to-square"></i>
+                                        </h3>
+                                    </div>
+
+                                    <div class="modal-body">
+                                        <textarea name="contenido" class="form-control mt-2 pb-2"
+                                            placeholder="Contenido..." rows="4" required
+                                            th:text="${mensaje.contenido}"></textarea>
+                                    </div>
+
+                                    <div class="modal-footer justify-content-center">
+                                        <button type="submit" class="btn btn-success btn-lg">
+                                            Guardar Cambios <i class="fa-solid fa-floppy-disk"></i>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal de confirmación para eliminar mensaje -->
+                    <div class="modal fade" th:id="'confirmDeleteMensajeModal__' + ${mensaje.id}" tabindex="-1"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content border-danger">
+                                <div class="modal-header bg-danger text-white">
+                                    <h5 class="modal-title">¿Eliminar mensaje?</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Cerrar"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>¿Estás seguro de que quieres eliminar este mensaje? Esta acción no se puede
+                                        deshacer.</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <form th:action="@{'/foro/mensaje/eliminar/' + ${mensaje.id}}" method="post">
+                                        <input type="hidden" th:name="${_csrf.parameterName}"
+                                            th:value="${_csrf.token}" />
+                                        <button type="submit" class="btn btn-danger">Borrar</button>
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Cancelar</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -97,6 +183,60 @@
             </form>
         </section>
     </div>
+
+    <!-- Modal para confirmar eliminación -->
+    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-danger">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title" id="confirmDeleteModalLabel">¿Eliminar hilo?</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    ¿Estás seguro de que deseas borrar este hilo? Esta acción no se puede deshacer.
+                </div>
+                <form th:action="@{'/foro/eliminar/' + ${hilo.id}}" method="post">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-danger">Borrar</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para editar hilo -->
+    <div class="modal fade" id="editarHiloModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <form th:action="@{'/foro/editar/' + ${hilo.id}}" method="post">
+                    <div class="modal-header justify-content-center">
+                        <h3 class="modal-title">
+                            <strong>Editar Hilo</strong> <i class="fa-solid fa-pen-to-square"></i>
+                        </h3>
+                    </div>
+
+                    <div class="modal-body">
+                        <input type="text" name="titulo" class="form-control" th:value="${hilo.titulo}"
+                            placeholder="Título del hilo..." required />
+
+                        <textarea name="descripcion" class="form-control mt-2 pb-2" placeholder="Contenido..." rows="4"
+                            required th:text="${hilo.descripcion}"></textarea>
+                    </div>
+
+                    <div class="modal-footer justify-content-center">
+                        <button type="submit" class="btn btn-success btn-lg">
+                            Guardar Cambios <i class="fa-solid fa-floppy-disk"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
 
     <!-- Incluir footer -->
     <div th:replace="plantillas/footer :: footer"></div>

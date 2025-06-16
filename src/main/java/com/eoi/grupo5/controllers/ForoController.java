@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -81,12 +82,28 @@ public class ForoController {
     }
 
     @GetMapping("/hilo/{id}")
-    public String obtenerHilo(@PathVariable Long id, Model model) {
-        EntidadHilo hilo = hiloService.obtenerHiloPorId(id);
+    public String obtenerHilo(@PathVariable Long id,
+                              Model model,
+                              @AuthenticationPrincipal UserDetails userDetails) {
+        EntidadHilo hilo = hiloService.findById(id);
         List<EntidadMensaje> mensajes = mensajeService.findMessagesByHiloId(id);
+
+        Optional<Usuario> usuarioActual = usuarioService.findByUsername(userDetails.getUsername());
+        Usuario usuario = null;
+        if (usuarioActual.isPresent()) {
+            usuario = usuarioActual.get();
+        }
+
+        if (isAdmin(userDetails)) {
+            model.addAttribute("isAdmin", true);
+        } else {
+            model.addAttribute("isAdmin", false);
+        }
+
         model.addAttribute("hilo", hilo);
         model.addAttribute("mensajes", mensajes);
         model.addAttribute("nuevoMensaje", new EntidadMensaje());
+        model.addAttribute("usuarioActual", usuario);
         return "foro/hilo";
     }
 
@@ -94,7 +111,7 @@ public class ForoController {
     public String agregarMensaje(@PathVariable Long id,
                                  @ModelAttribute("nuevoMensaje") EntidadMensaje mensaje,
                                  @AuthenticationPrincipal UserDetails userDetails) {
-        EntidadHilo hilo = hiloService.obtenerHiloPorId(id);
+        EntidadHilo hilo = hiloService.findById(id);
 
         if (userDetails != null) {
 
@@ -103,19 +120,110 @@ public class ForoController {
             if (usuarioOpt.isPresent()) {
                 Usuario autor = usuarioOpt.get();
 
-                System.out.println(">>> ID del mensaje antes de setId: " + mensaje.getId());
-
                 mensaje.setId(null);
-
-                System.out.println(">>> ID del mensaje despues de setId: " + mensaje.getId());
                 mensaje.setAutor(autor);
                 mensaje.setHilo(hilo);
                 mensaje.setFechaCreacion(LocalDateTime.now());
 
-                mensajeService.guardarMensaje(mensaje);
+                mensajeService.saveMessage(mensaje);
                 return "redirect:/foro/hilo/" + id;
             }
         }
         return "redirect:/login";
+    }
+
+    @PostMapping("/editar/{id}")
+    public String editarHilo(@PathVariable Long id,
+                             @RequestParam String titulo,
+                             @RequestParam String descripcion,
+                             @AuthenticationPrincipal UserDetails userDetails,
+                             RedirectAttributes redirectAttributes) {
+
+        try {
+            EntidadHilo hilo = hiloService.findById(id);
+            String username = userDetails.getUsername();
+
+            if (hilo.getAutor().getUsername().equals(username) || isAdmin(userDetails)) {
+                hilo.setTitulo(titulo);
+                hilo.setDescripcion(descripcion);
+                hiloService.guardarHilo(hilo);
+                redirectAttributes.addFlashAttribute("success", "Hilo editado correctamente.");
+            } else {
+                redirectAttributes.addFlashAttribute("error", "No tienes permiso para editar este hilo.");
+            }
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "No se pudo editar el hilo.");
+        }
+
+
+        return "redirect:/foro/hilo/" + id;
+    }
+
+    @PostMapping("/mensaje/editar/{id}")
+    public String editarMensaje(@PathVariable Long id,
+                                @RequestParam String contenido,
+                                @AuthenticationPrincipal UserDetails userDetails,
+                                RedirectAttributes redirectAttributes) {
+        try {
+            EntidadMensaje mensaje = mensajeService.findMessageById(id);
+            if (mensaje.getAutor().getUsername().equals(userDetails.getUsername()) || isAdmin(userDetails)) {
+                mensaje.setContenido(contenido);
+                mensajeService.saveMessage(mensaje);
+                redirectAttributes.addFlashAttribute("success", "Mensaje editado correctamente.");
+            } else {
+                redirectAttributes.addFlashAttribute("error", "No tienes permiso para editar este mensaje.");
+            }
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Error al editar el mensaje.");
+        }
+        return "redirect:/foro/hilo/" + mensajeService.findMessageById(id).getHilo().getId();
+    }
+
+    @PostMapping("/eliminar/{id}")
+    public String eliminarHilo(@PathVariable Long id,
+                               @AuthenticationPrincipal UserDetails userDetails,
+                               RedirectAttributes redirectAttributes) {
+
+
+        try {
+            EntidadHilo hilo = hiloService.findById(id);
+            String username = userDetails.getUsername();
+
+            if (hilo.getAutor().getUsername().equals(username) || isAdmin(userDetails)) {
+                hiloService.eliminarHiloYMensajes(id);
+                redirectAttributes.addFlashAttribute("success", "Hilo eliminado correctamente.");
+            } else {
+                redirectAttributes.addFlashAttribute("error", "No tienes permiso para eliminar este hilo.");
+            }
+
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Error al eliminar el hilo.");
+        }
+        return "redirect:/foro";
+    }
+
+    @PostMapping("/mensaje/eliminar/{id}")
+    public String eliminarMensaje(@PathVariable Long id,
+                                  @AuthenticationPrincipal UserDetails userDetails,
+                                  RedirectAttributes redirectAttributes) {
+        try {
+            EntidadMensaje mensaje = mensajeService.findMessageById(id);
+            if (mensaje.getAutor().getUsername().equals(userDetails.getUsername()) || isAdmin(userDetails)) {
+                Long hiloId = mensaje.getHilo().getId();
+                mensajeService.deleteMessageById(id);
+                redirectAttributes.addFlashAttribute("success", "Mensaje eliminado correctamente.");
+                return "redirect:/foro/hilo/" + hiloId;
+            } else {
+                redirectAttributes.addFlashAttribute("error", "No tienes permiso para eliminar este mensaje.");
+            }
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Error al eliminar el mensaje.");
+        }
+        return "redirect:/foro";
+    }
+
+    private boolean isAdmin(UserDetails userDetails) {
+        return userDetails.getAuthorities().stream()
+                .anyMatch(auth -> auth.getAuthority().equals("ADMIN"));
     }
 }
