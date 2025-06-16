@@ -57,16 +57,20 @@
                     This is the main message/content of the thread, posted by the user who created it.
                 </p>
 
-                <!-- Author and date -->
-                <div class="d-flex align-items-center gap-3 text-muted">
-                    <div class="d-flex align-items-center gap-2">
-                        <!-- <img th:src="@{/images/default-user.jpg}" alt="User Profile Picture" class="rounded-circle" -->
-                        <!-- width="48" height="48" style="object-fit: cover;"> -->
+                <!-- Author/date left, Me Gusta right -->
+                <div class="d-flex justify-content-between align-items-center text-muted">
+                    <!-- Left side: Author + Date -->
+                    <div class="d-flex align-items-center gap-3">
                         <span class="fs-5 fw-semibold" th:text="${hilo.autor.username}">UsernameHere</span>
+                        <time class="small" th:text="${@dateUtil.format(hilo.fechaCreacion, 'dd/MM/yyyy HH:mm')}">
+                            May 27, 2025 3:30 PM
+                        </time>
                     </div>
-                    <time class="small" th:text="${@dateUtil.format(hilo.fechaCreacion, 'dd/MM/yyyy HH:mm')}">
-                        May 27, 2025 3:30 PM
-                    </time>
+
+                    <!-- Right side: Me Gusta button -->
+                    <a class="btn btn-sm btn-outline-dark">
+                        <i class="fa-solid fa-heart"></i> Me Gusta!
+                    </a>
                 </div>
             </div>
         </section>
