@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Castañazo Deals</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 
     <link rel="apple-touch-icon" sizes="180x180" th:href="@{/images/logo-SF.png}">
     <link rel="icon" type="image/png" sizes="32x32" th:href="@{/images/logo-SF.png}">
@@ -13,14 +15,15 @@
     <link rel="shortcut icon" type="image/x-icon" th:href="@{/images/logo-SF.png}">
 
     <link href="assets/css/theme.min.css" rel="stylesheet" />
-    <link th:href="@{css/styles.css}" rel="stylesheet"/>
+    <link th:href="@{css/styles.css}" rel="stylesheet" />
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
@@ -62,7 +65,8 @@
         #cartSidebar .cart-item {
             border: 1px solid #eaeaea;
             border-radius: 0.5rem;
-            position: relative; /* Para posicionar el mensaje de ahorro */
+            position: relative;
+            /* Para posicionar el mensaje de ahorro */
         }
 
         /* Separar producto y precio */
@@ -137,8 +141,10 @@
 
         /* Estilo para el mensaje de ahorro */
         .saving-message {
-            background-color: #d4edda; /* Verde claro */
-            color: #155724; /* Verde oscuro */
+            background-color: #d4edda;
+            /* Verde claro */
+            color: #155724;
+            /* Verde oscuro */
             padding: 5px 10px;
             border-radius: 5px;
             font-size: 0.8em;
@@ -147,265 +153,270 @@
         }
     </style>
 </head>
+
 <body>
 
-<section id="navbar-section">
-    <div th:insert="~{plantillas/navbar :: navbar}"></div>
-</section>
+    <!-- Incluir navbar -->
+    <div th:replace="~{plantillas/navbar :: navbar}"></div>
 
-<section class="container-fluid mt-4">
-    <div class="row">
-        <div class="col-12">
-            <div class="p-4">
-                <div class="card shadow-sm mb-4">
-                    <div class="row g-0">
-                        <div class="col-md-4">
-                            <img src="https://picsum.photos/400?random=1" class="img-fluid rounded-start" alt="Leche Entera">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">Leche Entera 1L</h5>
-                                <p class="card-text">Leche de la mejor calidad, perfecta para tu desayuno o recetas.</p>
-                                <p class="card-text">
-                                    <strong>Supermercado A: <span class="text-success">1.10€</span></strong>
-                                    <button class="btn btn-sm btn-primary ms-2"
+    <section class="container-fluid mt-4">
+        <div class="row">
+            <div class="col-12">
+                <div class="p-4">
+                    <div class="card shadow-sm mb-4">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="https://picsum.photos/400?random=1" class="img-fluid rounded-start"
+                                    alt="Leche Entera">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">Leche Entera 1L</h5>
+                                    <p class="card-text">Leche de la mejor calidad, perfecta para tu desayuno o recetas.
+                                    </p>
+                                    <p class="card-text">
+                                        <strong>Supermercado A: <span class="text-success">1.10€</span></strong>
+                                        <button class="btn btn-sm btn-primary ms-2"
                                             onclick="addToCart({productId: 1, name: 'Leche Entera 1L', price: 1.10, supermarketName: 'Supermercado A', image: 'https://picsum.photos/100?random=1'})">
-                                        Añadir (A)
-                                    </button>
-                                </p>
-                                <p class="card-text">
-                                    <strong>Supermercado B: <span class="text-success">1.00€</span></strong>
-                                    <button class="btn btn-sm btn-primary ms-2"
+                                            Añadir (A)
+                                        </button>
+                                    </p>
+                                    <p class="card-text">
+                                        <strong>Supermercado B: <span class="text-success">1.00€</span></strong>
+                                        <button class="btn btn-sm btn-primary ms-2"
                                             onclick="addToCart({productId: 1, name: 'Leche Entera 1L', price: 1.00, supermarketName: 'Supermercado B', image: 'https://picsum.photos/100?random=1'})">
-                                        Añadir (B)
-                                    </button>
-                                </p>
-                                <p class="card-text">
-                                    <strong>Supermercado C: <span class="text-success">1.25€</span></strong>
-                                    <button class="btn btn-sm btn-primary ms-2"
+                                            Añadir (B)
+                                        </button>
+                                    </p>
+                                    <p class="card-text">
+                                        <strong>Supermercado C: <span class="text-success">1.25€</span></strong>
+                                        <button class="btn btn-sm btn-primary ms-2"
                                             onclick="addToCart({productId: 1, name: 'Leche Entera 1L', price: 1.25, supermarketName: 'Supermercado C', image: 'https://picsum.photos/100?random=1'})">
-                                        Añadir (C)
-                                    </button>
-                                </p>
+                                            Añadir (C)
+                                        </button>
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="card shadow-sm mb-4">
-                    <div class="row g-0">
-                        <div class="col-md-4">
-                            <img src="https://picsum.photos/400?random=2" class="img-fluid rounded-start" alt="Pan de Molde">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">Pan de Molde Integral</h5>
-                                <p class="card-text">Pan de molde suave y saludable, ideal para tostadas.</p>
-                                <p class="card-text">
-                                    <strong>Supermercado A: <span class="text-success">1.80€</span></strong>
-                                    <button class="btn btn-sm btn-primary ms-2"
+                    <div class="card shadow-sm mb-4">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="https://picsum.photos/400?random=2" class="img-fluid rounded-start"
+                                    alt="Pan de Molde">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">Pan de Molde Integral</h5>
+                                    <p class="card-text">Pan de molde suave y saludable, ideal para tostadas.</p>
+                                    <p class="card-text">
+                                        <strong>Supermercado A: <span class="text-success">1.80€</span></strong>
+                                        <button class="btn btn-sm btn-primary ms-2"
                                             onclick="addToCart({productId: 2, name: 'Pan de Molde Integral', price: 1.80, supermarketName: 'Supermercado A', image: 'https://picsum.photos/100?random=2'})">
-                                        Añadir (A)
-                                    </button>
-                                </p>
-                                <p class="card-text">
-                                    <strong>Supermercado B: <span class="text-success">2.00€</span></strong>
-                                    <button class="btn btn-sm btn-primary ms-2"
+                                            Añadir (A)
+                                        </button>
+                                    </p>
+                                    <p class="card-text">
+                                        <strong>Supermercado B: <span class="text-success">2.00€</span></strong>
+                                        <button class="btn btn-sm btn-primary ms-2"
                                             onclick="addToCart({productId: 2, name: 'Pan de Molde Integral', price: 2.00, supermarketName: 'Supermercado B', image: 'https://picsum.photos/100?random=2'})">
-                                        Añadir (B)
-                                    </button>
-                                </p>
+                                            Añadir (B)
+                                        </button>
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </section>
+
+    <div id="cartSidebar">
+        <span class="closebtn" onclick="closeCart()">&times;</span>
+        <div class="cart-content">
+            <h4 class="fw-bold mb-4 text-center">🛒 Tu Carrito de Compras</h4>
+
+            <div id="cart-items" class="d-flex flex-column gap-3">
+                <p id="empty-cart-message" class="text-center text-muted">Tu carrito está vacío.</p>
+            </div>
+
+            <hr class="my-4" />
+
+            <div class="d-flex justify-content-between mb-2">
+                <span><strong>Total de Unidades:</strong></span>
+                <span id="total-units">0</span>
+            </div>
+            <div class="d-flex justify-content-between mb-4">
+                <span><strong>Total:</strong></span>
+                <span id="total-price">0.00€</span>
+            </div>
+
+            <div class="d-grid gap-2">
+                <button class="btn btn-info text-white fw-bold" onclick="generatePdf()">
+                    <i class="bi bi-file-earmark-pdf-fill"></i> Generar PDF de la lista
+                </button>
+                <a href="carrito_total" class="btn btn-warning text-dark fw-bold">
+                    <i class="bi bi-cart-check-fill"></i> Ir al Carrito
+                </a>
+            </div>
+        </div>
     </div>
-</section>
+    >
 
-<div id="cartSidebar">
-    <span class="closebtn" onclick="closeCart()">&times;</span>
-    <div class="cart-content">
-        <h4 class="fw-bold mb-4 text-center">🛒 Tu Carrito de Compras</h4>
+    <section id="footer">
+        <div th:insert="~{plantillas/footer :: footer}"></div>
+    </section>
 
-        <div id="cart-items" class="d-flex flex-column gap-3">
-            <p id="empty-cart-message" class="text-center text-muted">Tu carrito está vacío.</p>
-        </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
+    <script>
+        // Base de datos simulada de productos y sus precios en diferentes supermercados
+        // NOTA: 'id' es el ID único del producto general (ej. Leche Entera), no de una oferta específica.
+        const allAvailableProducts = [
+            {
+                id: 1,
+                name: "Leche Entera 1L",
+                image: "https://picsum.photos/100?random=1",
+                prices: [
+                    { supermarketName: "Supermercado A", price: 1.10 },
+                    { supermarketName: "Supermercado B", price: 1.00 },
+                    { supermarketName: "Supermercado C", price: 1.25 }
+                ]
+            },
+            {
+                id: 2,
+                name: "Pan de Molde Integral",
+                image: "https://picsum.photos/100?random=2",
+                prices: [
+                    { supermarketName: "Supermercado A", price: 1.80 },
+                    { supermarketName: "Supermercado B", price: 2.00 }
+                ]
+            },
+            // Puedes añadir más productos aquí
+            {
+                id: 3,
+                name: "Manzanas Golden (Kg)",
+                image: "https://picsum.photos/100?random=3",
+                prices: [
+                    { supermarketName: "Supermercado A", price: 2.50 },
+                    { supermarketName: "Supermercado C", price: 2.20 },
+                    { supermarketName: "Supermercado D", price: 2.30 }
+                ]
+            }
+        ];
 
-        <hr class="my-4" />
+        // Array para almacenar los productos en el carrito
+        // Cada elemento del carrito representa UNA oferta específica de un supermercado
+        let cart = [];
 
-        <div class="d-flex justify-content-between mb-2">
-            <span><strong>Total de Unidades:</strong></span>
-            <span id="total-units">0</span>
-        </div>
-        <div class="d-flex justify-content-between mb-4">
-            <span><strong>Total:</strong></span>
-            <span id="total-price">0.00€</span>
-        </div>
-
-        <div class="d-grid gap-2">
-            <button class="btn btn-info text-white fw-bold" onclick="generatePdf()">
-                <i class="bi bi-file-earmark-pdf-fill"></i> Generar PDF de la lista
-            </button>
-            <a href="carrito_total" class="btn btn-warning text-dark fw-bold">
-                <i class="bi bi-cart-check-fill"></i> Ir al Carrito
-            </a>
-        </div>
-    </div>
-</div>
->
-
-<section id="footer">
-    <div th:insert="~{plantillas/footer :: footer}"></div>
-</section>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
-<script>
-    // Base de datos simulada de productos y sus precios en diferentes supermercados
-    // NOTA: 'id' es el ID único del producto general (ej. Leche Entera), no de una oferta específica.
-    const allAvailableProducts = [
-        {
-            id: 1,
-            name: "Leche Entera 1L",
-            image: "https://picsum.photos/100?random=1",
-            prices: [
-                { supermarketName: "Supermercado A", price: 1.10 },
-                { supermarketName: "Supermercado B", price: 1.00 },
-                { supermarketName: "Supermercado C", price: 1.25 }
-            ]
-        },
-        {
-            id: 2,
-            name: "Pan de Molde Integral",
-            image: "https://picsum.photos/100?random=2",
-            prices: [
-                { supermarketName: "Supermercado A", price: 1.80 },
-                { supermarketName: "Supermercado B", price: 2.00 }
-            ]
-        },
-        // Puedes añadir más productos aquí
-        {
-            id: 3,
-            name: "Manzanas Golden (Kg)",
-            image: "https://picsum.photos/100?random=3",
-            prices: [
-                { supermarketName: "Supermercado A", price: 2.50 },
-                { supermarketName: "Supermercado C", price: 2.20 },
-                { supermarketName: "Supermercado D", price: 2.30 }
-            ]
+        // Función para abrir el carrito lateral
+        function openCart() {
+            document.getElementById("cartSidebar").style.width = "350px";
         }
-    ];
 
-    // Array para almacenar los productos en el carrito
-    // Cada elemento del carrito representa UNA oferta específica de un supermercado
-    let cart = [];
-
-    // Función para abrir el carrito lateral
-    function openCart() {
-        document.getElementById("cartSidebar").style.width = "350px";
-    }
-
-    // Función para cerrar el carrito lateral
-    function closeCart() {
-        document.getElementById("cartSidebar").style.width = "0";
-    }
-
-    // Función para añadir productos al carrito
-    // productOffer es un objeto como { productId, name, price, supermarketName, image }
-    function addToCart(productOffer) {
-        // Buscamos si ya existe EXACTAMENTE la misma oferta en el carrito (mismo producto Y mismo supermercado)
-        const existingOfferInCart = cart.find(
-            item => item.productId === productOffer.productId && item.supermarketName === productOffer.supermarketName
-        );
-
-        if (existingOfferInCart) {
-            existingOfferInCart.quantity++;
-        } else {
-            cart.push({ ...productOffer, quantity: 1 });
+        // Función para cerrar el carrito lateral
+        function closeCart() {
+            document.getElementById("cartSidebar").style.width = "0";
         }
-        renderCart();
-        openCart(); // Abre el carrito automáticamente al añadir un producto
-    }
 
-    // Actualiza cantidad y total producto
-    function updateQuantity(productId, supermarketName, change) {
-        const itemIndex = cart.findIndex(
-            item => item.productId === productId && item.supermarketName === supermarketName
-        );
+        // Función para añadir productos al carrito
+        // productOffer es un objeto como { productId, name, price, supermarketName, image }
+        function addToCart(productOffer) {
+            // Buscamos si ya existe EXACTAMENTE la misma oferta en el carrito (mismo producto Y mismo supermercado)
+            const existingOfferInCart = cart.find(
+                item => item.productId === productOffer.productId && item.supermarketName === productOffer.supermarketName
+            );
 
-        if (itemIndex > -1) {
-            cart[itemIndex].quantity += change;
-            if (cart[itemIndex].quantity < 1) {
-                cart.splice(itemIndex, 1); // Eliminar si la cantidad es 0
+            if (existingOfferInCart) {
+                existingOfferInCart.quantity++;
+            } else {
+                cart.push({ ...productOffer, quantity: 1 });
             }
             renderCart();
-        }
-    }
-
-    // Elimina un producto del carrito
-    function removeProduct(productId, supermarketName) {
-        cart = cart.filter(
-            item => !(item.productId === productId && item.supermarketName === supermarketName)
-        );
-        renderCart();
-    }
-
-    // Función para obtener el precio más bajo para un producto dado (productId)
-    function getLowestPriceOffer(productId) {
-        const product = allAvailableProducts.find(p => p.id === productId);
-        if (!product || !product.prices || product.prices.length === 0) {
-            return null;
+            openCart(); // Abre el carrito automáticamente al añadir un producto
         }
 
-        let lowestPrice = Infinity;
-        let bestSupermarket = '';
+        // Actualiza cantidad y total producto
+        function updateQuantity(productId, supermarketName, change) {
+            const itemIndex = cart.findIndex(
+                item => item.productId === productId && item.supermarketName === supermarketName
+            );
 
-        product.prices.forEach(offer => {
-            if (offer.price < lowestPrice) {
-                lowestPrice = offer.price;
-                bestSupermarket = offer.supermarketName;
-            }
-        });
-        return { price: lowestPrice, supermarketName: bestSupermarket };
-    }
-
-    // Renderiza el contenido del carrito
-    function renderCart() {
-        const cartItemsContainer = document.getElementById("cart-items");
-        cartItemsContainer.innerHTML = ''; // Limpia el contenido actual
-
-        if (cart.length === 0) {
-            cartItemsContainer.innerHTML = '<p id="empty-cart-message" class="text-center text-muted">Tu carrito está vacío.</p>';
-        } else {
-            document.getElementById("empty-cart-message")?.remove(); // Elimina el mensaje de carrito vacío si existe
-
-            // Agrupar productos por productId para la comparación de precios
-            const groupedCartItems = {};
-            cart.forEach(item => {
-                if (!groupedCartItems[item.productId]) {
-                    groupedCartItems[item.productId] = [];
+            if (itemIndex > -1) {
+                cart[itemIndex].quantity += change;
+                if (cart[itemIndex].quantity < 1) {
+                    cart.splice(itemIndex, 1); // Eliminar si la cantidad es 0
                 }
-                groupedCartItems[item.productId].push(item);
+                renderCart();
+            }
+        }
+
+        // Elimina un producto del carrito
+        function removeProduct(productId, supermarketName) {
+            cart = cart.filter(
+                item => !(item.productId === productId && item.supermarketName === supermarketName)
+            );
+            renderCart();
+        }
+
+        // Función para obtener el precio más bajo para un producto dado (productId)
+        function getLowestPriceOffer(productId) {
+            const product = allAvailableProducts.find(p => p.id === productId);
+            if (!product || !product.prices || product.prices.length === 0) {
+                return null;
+            }
+
+            let lowestPrice = Infinity;
+            let bestSupermarket = '';
+
+            product.prices.forEach(offer => {
+                if (offer.price < lowestPrice) {
+                    lowestPrice = offer.price;
+                    bestSupermarket = offer.supermarketName;
+                }
             });
+            return { price: lowestPrice, supermarketName: bestSupermarket };
+        }
 
-            for (const productId in groupedCartItems) {
-                groupedCartItems[productId].forEach(productInCart => {
-                    const productTotal = (productInCart.price * productInCart.quantity).toFixed(2);
-                    let savingMessage = '';
+        // Renderiza el contenido del carrito
+        function renderCart() {
+            const cartItemsContainer = document.getElementById("cart-items");
+            cartItemsContainer.innerHTML = ''; // Limpia el contenido actual
 
-                    const lowestPriceOffer = getLowestPriceOffer(productInCart.productId);
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<p id="empty-cart-message" class="text-center text-muted">Tu carrito está vacío.</p>';
+            } else {
+                document.getElementById("empty-cart-message")?.remove(); // Elimina el mensaje de carrito vacío si existe
 
-                    if (lowestPriceOffer && productInCart.price > lowestPriceOffer.price) {
-                        const potentialSaving = ((productInCart.price - lowestPriceOffer.price) * productInCart.quantity).toFixed(2);
-                        savingMessage = `
+                // Agrupar productos por productId para la comparación de precios
+                const groupedCartItems = {};
+                cart.forEach(item => {
+                    if (!groupedCartItems[item.productId]) {
+                        groupedCartItems[item.productId] = [];
+                    }
+                    groupedCartItems[item.productId].push(item);
+                });
+
+                for (const productId in groupedCartItems) {
+                    groupedCartItems[productId].forEach(productInCart => {
+                        const productTotal = (productInCart.price * productInCart.quantity).toFixed(2);
+                        let savingMessage = '';
+
+                        const lowestPriceOffer = getLowestPriceOffer(productInCart.productId);
+
+                        if (lowestPriceOffer && productInCart.price > lowestPriceOffer.price) {
+                            const potentialSaving = ((productInCart.price - lowestPriceOffer.price) * productInCart.quantity).toFixed(2);
+                            savingMessage = `
                             <div class="saving-message">
                                 ¡Podrías ahorrar ${potentialSaving}€ comprando en ${lowestPriceOffer.supermarketName} (${lowestPriceOffer.price.toFixed(2)}€)!
                             </div>
                         `;
-                    }
+                        }
 
-                    const itemHtml = `
+                        const itemHtml = `
                         <div class="card cart-item shadow-sm border-0" data-product-id="${productInCart.productId}" data-supermarket-name="${productInCart.supermarketName}">
                             <div class="card-body">
                                 <div class="product-info">
@@ -430,167 +441,168 @@
                             ${savingMessage}
                         </div>
                     `;
-                    cartItemsContainer.innerHTML += itemHtml;
-                });
+                        cartItemsContainer.innerHTML += itemHtml;
+                    });
+                }
             }
+            updateCartTotals();
         }
-        updateCartTotals();
-    }
 
-    // Actualiza totales generales del carrito
-    function updateCartTotals() {
-        let totalUnits = 0;
-        let totalPrice = 0;
+        // Actualiza totales generales del carrito
+        function updateCartTotals() {
+            let totalUnits = 0;
+            let totalPrice = 0;
 
-        cart.forEach(item => {
-            totalUnits += item.quantity;
-            totalPrice += item.quantity * item.price;
-        });
-
-        document.getElementById("total-units").textContent = totalUnits;
-        document.getElementById("total-price").textContent = totalPrice.toFixed(2) + "€";
-    }
-
-    // Función para limpiar texto de caracteres problemáticos (opcional)
-    function cleanTextForPdf(text) {
-        return text;
-    }
-
-    // Función para generar el PDF
-    async function generatePdf() {
-        const { jsPDF } = window.jspdf;
-        const doc = new jsPDF();
-
-        const logoImgElement = document.getElementById('main-logo');
-        const logoUrl = logoImgElement ? logoImgElement.src : null;
-
-        const pageWidth = doc.internal.pageSize.getWidth();
-        let y = 20;
-
-        if (logoUrl) {
-            const img = new Image();
-            img.crossOrigin = 'Anonymous';
-            img.src = logoUrl;
-
-            await new Promise((resolve, reject) => {
-                img.onload = () => {
-                    try {
-                        const logoWidth = 30;
-                        const logoHeight = 30;
-                        const logoX = (pageWidth - logoWidth) / 2;
-                        doc.addImage(img, 'PNG', logoX, 10, logoWidth, logoHeight);
-                        y += logoHeight + 10;
-                        resolve();
-                    } catch (e) {
-                        console.warn("Error al añadir el logo principal al PDF. Revisar formato de imagen o CORS.", e);
-                        resolve();
-                    }
-                };
-                img.onerror = (error) => {
-                    console.error("No se pudo cargar el logo principal para el PDF. Verifique la ruta: ", logoUrl, error);
-                    alert("Error al cargar el logo principal. El PDF se generará sin el logo.");
-                    resolve();
-                };
+            cart.forEach(item => {
+                totalUnits += item.quantity;
+                totalPrice += item.quantity * item.price;
             });
+
+            document.getElementById("total-units").textContent = totalUnits;
+            document.getElementById("total-price").textContent = totalPrice.toFixed(2) + "€";
         }
 
-        doc.setFontSize(22);
-        doc.text("Lista de Compras de Castañazo Deals", pageWidth / 2, y, { align: 'center' });
-        y += 20;
-
-        const lineHeight = 10;
-        const imageWidth = 20;
-        const imageHeight = 20;
-        const textIndent = 10 + imageWidth + 5; // Margen izquierdo + ancho de imagen + espacio
-
-        if (cart.length === 0) {
-            doc.setFontSize(12);
-            doc.text("El carrito está vacío.", 10, y);
-            doc.save("lista_compras_castanazo_deals.pdf");
-            return;
+        // Función para limpiar texto de caracteres problemáticos (opcional)
+        function cleanTextForPdf(text) {
+            return text;
         }
 
-        const savingMessages = []; // Array para almacenar los mensajes de ahorro
+        // Función para generar el PDF
+        async function generatePdf() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
 
-        doc.setFontSize(14);
-        for (const item of cart) {
-            const productName = cleanTextForPdf(item.name);
-            const supermarketName = cleanTextForPdf(item.supermarketName);
-            const qty = item.quantity;
-            const productTotal = (item.price * item.quantity).toFixed(2) + "€";
-            const imageUrl = item.image;
+            const logoImgElement = document.getElementById('main-logo');
+            const logoUrl = logoImgElement ? logoImgElement.src : null;
 
-            const lowestPriceOffer = getLowestPriceOffer(item.productId);
-            if (lowestPriceOffer && item.price > lowestPriceOffer.price) {
-                const potentialSaving = ((item.price - lowestPriceOffer.price) * item.quantity).toFixed(2);
-                savingMessages.push(`- ${productName}: ¡Ahorra ${potentialSaving}€ comprando en ${lowestPriceOffer.supermarketName} (${lowestPriceOffer.price.toFixed(2)}€)!`);
-            }
+            const pageWidth = doc.internal.pageSize.getWidth();
+            let y = 20;
 
-            // Dibuja la imagen del producto
-            if (imageUrl) {
-                const productImg = new Image();
-                productImg.crossOrigin = 'Anonymous';
-                productImg.src = imageUrl;
+            if (logoUrl) {
+                const img = new Image();
+                img.crossOrigin = 'Anonymous';
+                img.src = logoUrl;
 
-                await new Promise((resolve) => {
-                    productImg.onload = () => {
+                await new Promise((resolve, reject) => {
+                    img.onload = () => {
                         try {
-                            doc.addImage(productImg, 'JPEG', 10, y, imageWidth, imageHeight);
+                            const logoWidth = 30;
+                            const logoHeight = 30;
+                            const logoX = (pageWidth - logoWidth) / 2;
+                            doc.addImage(img, 'PNG', logoX, 10, logoWidth, logoHeight);
+                            y += logoHeight + 10;
+                            resolve();
                         } catch (e) {
-                            console.warn(`No se pudo añadir la imagen del producto '${productName}' al PDF. Posible error de CORS o formato incorrecto.`, e);
+                            console.warn("Error al añadir el logo principal al PDF. Revisar formato de imagen o CORS.", e);
+                            resolve();
                         }
-                        resolve();
                     };
-                    productImg.onerror = () => {
-                        console.warn(`Error al cargar la imagen del producto '${productName}'. La imagen no se incluirá en el PDF.`, imageUrl);
+                    img.onerror = (error) => {
+                        console.error("No se pudo cargar el logo principal para el PDF. Verifique la ruta: ", logoUrl, error);
+                        alert("Error al cargar el logo principal. El PDF se generará sin el logo.");
                         resolve();
                     };
                 });
             }
 
-            // Dibuja la línea principal del producto
-            doc.text(`${productName} (${supermarketName}) - Cantidad: ${qty} - Total: ${productTotal}`, textIndent, y + (imageHeight / 2));
+            doc.setFontSize(22);
+            doc.text("Lista de Compras de Castañazo Deals", pageWidth / 2, y, { align: 'center' });
+            y += 20;
 
-            // Incrementa y para la siguiente línea de producto
-            y += (imageHeight > lineHeight ? imageHeight : lineHeight) + 5;
-        }
+            const lineHeight = 10;
+            const imageWidth = 20;
+            const imageHeight = 20;
+            const textIndent = 10 + imageWidth + 5; // Margen izquierdo + ancho de imagen + espacio
 
-        y += 10; // Espacio antes de los totales
+            if (cart.length === 0) {
+                doc.setFontSize(12);
+                doc.text("El carrito está vacío.", 10, y);
+                doc.save("lista_compras_castanazo_deals.pdf");
+                return;
+            }
 
-        const totalUnits = document.getElementById("total-units").textContent;
-        const totalPrice = document.getElementById("total-price").textContent;
+            const savingMessages = []; // Array para almacenar los mensajes de ahorro
 
-        doc.setFontSize(16);
-        doc.text(`Total de Unidades: ${totalUnits}`, 10, y);
-        y += lineHeight;
-        doc.text(`Total a Pagar: ${totalPrice}`, 10, y);
-        y += lineHeight * 2; // Espacio antes de los mensajes de ahorro
-
-        // Dibuja los mensajes de ahorro al final
-        if (savingMessages.length > 0) {
             doc.setFontSize(14);
-            doc.setTextColor(0, 0, 0); // Asegurar color negro para el título
-            doc.text("Oportunidades de Ahorro:", 10, y);
-            y += lineHeight;
+            for (const item of cart) {
+                const productName = cleanTextForPdf(item.name);
+                const supermarketName = cleanTextForPdf(item.supermarketName);
+                const qty = item.quantity;
+                const productTotal = (item.price * item.quantity).toFixed(2) + "€";
+                const imageUrl = item.image;
 
-            doc.setFontSize(10); // Un poco más pequeño para los mensajes de ahorro
-            doc.setTextColor(50, 150, 50); // Color verde para el ahorro
-            savingMessages.forEach(msg => {
-                doc.text(msg, 10, y);
+                const lowestPriceOffer = getLowestPriceOffer(item.productId);
+                if (lowestPriceOffer && item.price > lowestPriceOffer.price) {
+                    const potentialSaving = ((item.price - lowestPriceOffer.price) * item.quantity).toFixed(2);
+                    savingMessages.push(`- ${productName}: ¡Ahorra ${potentialSaving}€ comprando en ${lowestPriceOffer.supermarketName} (${lowestPriceOffer.price.toFixed(2)}€)!`);
+                }
+
+                // Dibuja la imagen del producto
+                if (imageUrl) {
+                    const productImg = new Image();
+                    productImg.crossOrigin = 'Anonymous';
+                    productImg.src = imageUrl;
+
+                    await new Promise((resolve) => {
+                        productImg.onload = () => {
+                            try {
+                                doc.addImage(productImg, 'JPEG', 10, y, imageWidth, imageHeight);
+                            } catch (e) {
+                                console.warn(`No se pudo añadir la imagen del producto '${productName}' al PDF. Posible error de CORS o formato incorrecto.`, e);
+                            }
+                            resolve();
+                        };
+                        productImg.onerror = () => {
+                            console.warn(`Error al cargar la imagen del producto '${productName}'. La imagen no se incluirá en el PDF.`, imageUrl);
+                            resolve();
+                        };
+                    });
+                }
+
+                // Dibuja la línea principal del producto
+                doc.text(`${productName} (${supermarketName}) - Cantidad: ${qty} - Total: ${productTotal}`, textIndent, y + (imageHeight / 2));
+
+                // Incrementa y para la siguiente línea de producto
+                y += (imageHeight > lineHeight ? imageHeight : lineHeight) + 5;
+            }
+
+            y += 10; // Espacio antes de los totales
+
+            const totalUnits = document.getElementById("total-units").textContent;
+            const totalPrice = document.getElementById("total-price").textContent;
+
+            doc.setFontSize(16);
+            doc.text(`Total de Unidades: ${totalUnits}`, 10, y);
+            y += lineHeight;
+            doc.text(`Total a Pagar: ${totalPrice}`, 10, y);
+            y += lineHeight * 2; // Espacio antes de los mensajes de ahorro
+
+            // Dibuja los mensajes de ahorro al final
+            if (savingMessages.length > 0) {
+                doc.setFontSize(14);
+                doc.setTextColor(0, 0, 0); // Asegurar color negro para el título
+                doc.text("Oportunidades de Ahorro:", 10, y);
                 y += lineHeight;
-            });
-            doc.setTextColor(0, 0, 0); // Restaurar color a negro
-            doc.setFontSize(14); // Restaurar tamaño de fuente
+
+                doc.setFontSize(10); // Un poco más pequeño para los mensajes de ahorro
+                doc.setTextColor(50, 150, 50); // Color verde para el ahorro
+                savingMessages.forEach(msg => {
+                    doc.text(msg, 10, y);
+                    y += lineHeight;
+                });
+                doc.setTextColor(0, 0, 0); // Restaurar color a negro
+                doc.setFontSize(14); // Restaurar tamaño de fuente
+            }
+
+            doc.save("lista_compras_castanazo_deals.pdf");
         }
 
-        doc.save("lista_compras_castanazo_deals.pdf");
-    }
+        // Inicializa el carrito y los totales cuando la página se carga
+        window.onload = () => renderCart();
+    </script>
 
-    // Inicializa el carrito y los totales cuando la página se carga
-    window.onload = () => renderCart();
-</script>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
+
 </html>

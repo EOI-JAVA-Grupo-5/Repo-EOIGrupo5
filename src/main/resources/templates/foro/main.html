@@ -32,7 +32,7 @@
 
 <body>
   <!-- Incluir navbar -->
-  <div th:insert="~{plantillas/navbar :: navbar}"></div>
+  <div th:replace="~{plantillas/navbar :: navbar}"></div>
 
   <!-- Mensajes Flash -->
   <div th:if="${success}" class="alert alert-success alert-dismissible fade show" role="alert">

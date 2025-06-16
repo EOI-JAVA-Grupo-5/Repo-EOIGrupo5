@@ -134,11 +134,7 @@ public class DefaultController {
 //        return "perfilUsuario";
 //    }
 
-    @GetMapping("/forum")
-    public String forum(Model model)
-    {
-        return "forum"; // View name
-    }
+
 
 //    @GetMapping("/supermercados")
 //    public String perfilSupermercado(Model model)

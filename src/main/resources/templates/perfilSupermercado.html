@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Perfil del Supermercado</title>
-    <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-    />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
 
     <!--Icono de web-->
     <link rel="apple-touch-icon" sizes="180x180" th:href="@{/images/logo-SF.png}">
@@ -27,206 +25,190 @@
     <!-- Links para el Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-            href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,100..900;1,100..900&display=swap"
-            rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet" />
 
 </head>
 
 <body>
-<!-- NAVBAR -->
-<section id="navbar-section">
-    <div th:insert="~{plantillas/navbar :: navbar}"></div>
-</section>
+
+    <!-- Incluir navbar -->
+    <div th:replace="~{plantillas/navbar :: navbar}"></div>
 
 
-<!--Supermarket Info-->
-<section id="infoSuper" class="py-5">
-    <div class="container d-flex justify-content-center">
-        <div class="d-flex gap-4 p-4 bg-white rounded-3 shadow w-100" style="max-width: 1000px;">
-            <!-- Logo -->
-            <div class="img-wrapper" style="flex-shrink: 0;">
-                <img th:src="${supermercado.logoURL}" alt="Logo del supermercado" class="img-fluid">
-            </div>
+    <!--Supermarket Info-->
+    <section id="infoSuper" class="py-5">
+        <div class="container d-flex justify-content-center">
+            <div class="d-flex gap-4 p-4 bg-white rounded-3 shadow w-100" style="max-width: 1000px;">
+                <!-- Logo -->
+                <div class="img-wrapper" style="flex-shrink: 0;">
+                    <img th:src="${supermercado.logoURL}" alt="Logo del supermercado" class="img-fluid">
+                </div>
 
-            <!-- Contenido -->
-            <div class="flex-grow-1">
-                <h3 class="display-5 mb-2" id="nombreSuper" th:text="${supermercado?.nombre}">Lidl</h3>
-                <p class="mb-4">¿Dónde encontrar su tienda más cercana?</p>
+                <!-- Contenido -->
+                <div class="flex-grow-1">
+                    <h3 class="display-5 mb-2" id="nombreSuper" th:text="${supermercado?.nombre}">Lidl</h3>
+                    <p class="mb-4">¿Dónde encontrar su tienda más cercana?</p>
 
-                <!-- Mapa -->
-                <div id="map" style="height: 400px; border-radius: 8px; background-color: #e0e0e0;"></div>
-            </div>
-        </div>
-    </div>
-</section>
-
-
-
-
-<!--Products List-->
-<section class="container my-5">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2>Listado de Productos</h2>
-
-        <div class="d-flex gap-2">
-            <!--Categorias-->
-            <button
-                    class="filter-btn btn btn-warning dropdown-toggle"
-                    type="button"
-                    id="dropdownCategoryButton"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-            >
-                Categorías
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownCategoryButton">
-                <li>
-                    <a class="dropdown-item text-danger fw-bold"
-                       th:href="@{/supermercados/{id}(id=${supermercado.id}, page=0)}">
-                        Mostrar todos
-                    </a>
-                </li>
-                <li><hr class="dropdown-divider"></li>
-                <li th:each="cat : ${categorias}">
-                    <a class="dropdown-item"
-                       th:href="@{/supermercados/{id}(id=${supermercado.id}, categoria=${cat}, orden=${orden}, page=0)}"
-                       th:text="${cat}">
-                        Categoría
-                    </a>
-                </li>
-            </ul>
-
-
-
-            <!--Filtrar-->
-            <div class="dropdown">
-                <button
-                        class="filter-btn btn btn-warning dropdown-toggle"
-                        type="button"
-                        id="dropdownMenuButton"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                >
-                    Filtros
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <li>
-                        <a class="dropdown-item text-danger fw-bold"
-                           th:href="@{/supermercados/{id}(id=${supermercado.id}, page=0)}">
-                            Quitar filtros
-                        </a>
-                    </li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item"
-                           th:href="@{/supermercados/{id}(id=${supermercado.id}, orden='asc', categoria=${categoria}, page=${productosPage.number})}">
-                        Nombre (A-Z)
-                    </a></li>
-                    <li><a class="dropdown-item"
-                           th:href="@{/supermercados/{id}(id=${supermercado.id}, orden='desc', categoria=${categoria}, page=${productosPage.number})}">
-                        Nombre (Z-A)
-                    </a></li>
-                    <li><a class="dropdown-item"
-                           th:href="@{/supermercados/{id}(id=${supermercado.id}, orden='precio_asc', categoria=${categoria}, page=${productosPage.number})}">
-                        Precio (Menor a Mayor)
-                    </a></li>
-                    <li><a class="dropdown-item"
-                           th:href="@{/supermercados/{id}(id=${supermercado.id}, orden='precio_desc', categoria=${categoria}, page=${productosPage.number})}">
-                        Precio (Mayor a Menor)
-                    </a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-
-
-    <div class="row">
-        <!-- Producto -->
-        <div th:each="producto : ${productosPage.content}" class="col-md-3 col-sm-6 mb-4" style="min-width: 200px">
-            <div
-                    class="card text-center p-2 h-100 d-flex flex-column"
-            >
-                <img
-                        th:src="${producto.url}"
-                        class="card-img-top"
-                        alt="Producto"
-                />
-                <div class="card-body d-flex flex-column justify-content-between">
-                    <h5 class="card-title" th:text="${producto.name}">Producto 1</h5>
-<!--                    <p class="text-warning">★★★★★</p>-->
-                    <p class="fw-bold" th:text="${producto.price + '€'}">10.99 €</p>
-<!--                    <div class="d-flex justify-content-center mb-2">-->
-<!--                        <button class="btn btn-outline-danger btn-sm p-0" style="width: 2rem; height: 2rem;">-->
-<!--                            ❤-->
-<!--                        </button>-->
-<!--                    </div>-->
-
-                    <div class="d-flex justify-content-center align-items-center mb-2">
-                        <button class="btn btn-outline-secondary btn-sm btn-decrease" th:attr="data-product-id=${producto.id}">-</button>
-                        <span class="mx-2 cantidad" th:attr="data-product-id=${producto.id}">1</span>
-                        <button class="btn btn-outline-secondary btn-sm btn-increase" th:attr="data-product-id=${producto.id}">+</button>
-                    </div>
-
-                    <form method="post" th:action="@{/listas/addProducto}" class="add-to-cart-form">
-                        <input type="hidden" name="productoId" th:value="${producto.id}" />
-                        <input type="hidden" name="cantidad" value="1" class="input-cantidad" th:attr="data-product-id=${producto.id}" />
-                        <input type="hidden" name="supermercadoId" th:value="${supermercado.id}" />
-                        <button type="submit" class="btn btn-success btn-sm">
-                            Añadir al carrito
-                        </button>
-                    </form>
-
+                    <!-- Mapa -->
+                    <div id="map" style="height: 400px; border-radius: 8px; background-color: #e0e0e0;"></div>
                 </div>
             </div>
         </div>
-    </div>
-
-    <!-- Paginación -->
-    <div class="d-flex justify-content-center mt-4">
-        <nav>
-            <ul class="pagination">
-                <li class="page-item" th:classappend="${productosPage.first} ? 'disabled'">
-                    <a class="page-link"
-                       th:href="@{/supermercados/{id}(id=${supermercado.id}, page=${productosPage.number - 1})}">Anterior</a>
-                </li>
-
-                <li class="page-item disabled">
-                <span class="page-link"
-                      th:text="'Página ' + (${productosPage.number + 1}) + ' de ' + ${productosPage.totalPages}"></span>
-                </li>
-
-                <li class="page-item" th:classappend="${productosPage.last} ? 'disabled'">
-                    <a class="page-link"
-                       th:href="@{/supermercados/{id}(id=${supermercado.id}, page=${productosPage.number + 1})}">Siguiente</a>
-                </li>
-            </ul>
-        </nav>
-    </div>
+    </section>
 
 
-</section>
 
-<section id="footer">
-    <div  th:insert="~{plantillas/footer :: footer}" class="justify-content-end pt-3">
-    </div>
-</section>
+
+    <!--Products List-->
+    <section class="container my-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>Listado de Productos</h2>
+
+            <div class="d-flex gap-2">
+                <!--Categorias-->
+                <button class="filter-btn btn btn-warning dropdown-toggle" type="button" id="dropdownCategoryButton"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    Categorías
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownCategoryButton">
+                    <li>
+                        <a class="dropdown-item text-danger fw-bold"
+                            th:href="@{/supermercados/{id}(id=${supermercado.id}, page=0)}">
+                            Mostrar todos
+                        </a>
+                    </li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li th:each="cat : ${categorias}">
+                        <a class="dropdown-item"
+                            th:href="@{/supermercados/{id}(id=${supermercado.id}, categoria=${cat}, orden=${orden}, page=0)}"
+                            th:text="${cat}">
+                            Categoría
+                        </a>
+                    </li>
+                </ul>
+
+
+
+                <!--Filtrar-->
+                <div class="dropdown">
+                    <button class="filter-btn btn btn-warning dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Filtros
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <li>
+                            <a class="dropdown-item text-danger fw-bold"
+                                th:href="@{/supermercados/{id}(id=${supermercado.id}, page=0)}">
+                                Quitar filtros
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item"
+                                th:href="@{/supermercados/{id}(id=${supermercado.id}, orden='asc', categoria=${categoria}, page=${productosPage.number})}">
+                                Nombre (A-Z)
+                            </a></li>
+                        <li><a class="dropdown-item"
+                                th:href="@{/supermercados/{id}(id=${supermercado.id}, orden='desc', categoria=${categoria}, page=${productosPage.number})}">
+                                Nombre (Z-A)
+                            </a></li>
+                        <li><a class="dropdown-item"
+                                th:href="@{/supermercados/{id}(id=${supermercado.id}, orden='precio_asc', categoria=${categoria}, page=${productosPage.number})}">
+                                Precio (Menor a Mayor)
+                            </a></li>
+                        <li><a class="dropdown-item"
+                                th:href="@{/supermercados/{id}(id=${supermercado.id}, orden='precio_desc', categoria=${categoria}, page=${productosPage.number})}">
+                                Precio (Mayor a Menor)
+                            </a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            <!-- Producto -->
+            <div th:each="producto : ${productosPage.content}" class="col-md-3 col-sm-6 mb-4" style="min-width: 200px">
+                <div class="card text-center p-2 h-100 d-flex flex-column">
+                    <img th:src="${producto.url}" class="card-img-top" alt="Producto" />
+                    <div class="card-body d-flex flex-column justify-content-between">
+                        <h5 class="card-title" th:text="${producto.name}">Producto 1</h5>
+                        <!--                    <p class="text-warning">★★★★★</p>-->
+                        <p class="fw-bold" th:text="${producto.price + '€'}">10.99 €</p>
+                        <!--                    <div class="d-flex justify-content-center mb-2">-->
+                        <!--                        <button class="btn btn-outline-danger btn-sm p-0" style="width: 2rem; height: 2rem;">-->
+                        <!--                            ❤-->
+                        <!--                        </button>-->
+                        <!--                    </div>-->
+
+                        <div class="d-flex justify-content-center align-items-center mb-2">
+                            <button class="btn btn-outline-secondary btn-sm btn-decrease"
+                                th:attr="data-product-id=${producto.id}">-</button>
+                            <span class="mx-2 cantidad" th:attr="data-product-id=${producto.id}">1</span>
+                            <button class="btn btn-outline-secondary btn-sm btn-increase"
+                                th:attr="data-product-id=${producto.id}">+</button>
+                        </div>
+
+                        <form method="post" th:action="@{/listas/addProducto}" class="add-to-cart-form">
+                            <input type="hidden" name="productoId" th:value="${producto.id}" />
+                            <input type="hidden" name="cantidad" value="1" class="input-cantidad"
+                                th:attr="data-product-id=${producto.id}" />
+                            <input type="hidden" name="supermercadoId" th:value="${supermercado.id}" />
+                            <button type="submit" class="btn btn-success btn-sm">
+                                Añadir al carrito
+                            </button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Paginación -->
+        <div class="d-flex justify-content-center mt-4">
+            <nav>
+                <ul class="pagination">
+                    <li class="page-item" th:classappend="${productosPage.first} ? 'disabled'">
+                        <a class="page-link"
+                            th:href="@{/supermercados/{id}(id=${supermercado.id}, page=${productosPage.number - 1})}">Anterior</a>
+                    </li>
+
+                    <li class="page-item disabled">
+                        <span class="page-link"
+                            th:text="'Página ' + (${productosPage.number + 1}) + ' de ' + ${productosPage.totalPages}"></span>
+                    </li>
+
+                    <li class="page-item" th:classappend="${productosPage.last} ? 'disabled'">
+                        <a class="page-link"
+                            th:href="@{/supermercados/{id}(id=${supermercado.id}, page=${productosPage.number + 1})}">Siguiente</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+
+    </section>
+
+    <section id="footer">
+        <div th:insert="~{plantillas/footer :: footer}" class="justify-content-end pt-3">
+        </div>
+    </section>
 </body>
 
 <!-- Bootstrap -->
-<script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-        crossorigin="anonymous"
-></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+    crossorigin="anonymous"></script>
 
 <!-- Mapa -->
 <script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjrZgjGKXXglqTkK1Xvo7xuFOuh5ICEAk&libraries=places,geometry&callback=initMap"
-        async
-        defer
-></script>
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjrZgjGKXXglqTkK1Xvo7xuFOuh5ICEAk&libraries=places,geometry&callback=initMap"
+    async defer></script>
 
 <script>
     function initMap() {
