@@ -1,5 +1,6 @@
-package com.eoi.grupo5.entities;
+package com.eoi.grupo5.entities.foro;
 
+import com.eoi.grupo5.entities.Usuario;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

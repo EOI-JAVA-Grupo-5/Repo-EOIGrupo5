@@ -1,5 +1,6 @@
-package com.eoi.grupo5.entities;
+package com.eoi.grupo5.entities.foro;
 
+import com.eoi.grupo5.entities.Usuario;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,8 +8,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Setter

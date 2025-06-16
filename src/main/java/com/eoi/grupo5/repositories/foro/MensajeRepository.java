@@ -1,6 +1,6 @@
-package com.eoi.grupo5.repositories;
+package com.eoi.grupo5.repositories.foro;
 
-import com.eoi.grupo5.entities.EntidadMensaje;
+import com.eoi.grupo5.entities.foro.EntidadMensaje;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

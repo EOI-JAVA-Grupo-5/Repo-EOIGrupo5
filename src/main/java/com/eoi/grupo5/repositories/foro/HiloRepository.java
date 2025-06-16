@@ -1,6 +1,6 @@
-package com.eoi.grupo5.repositories;
+package com.eoi.grupo5.repositories.foro;
 
-import com.eoi.grupo5.entities.EntidadHilo;
+import com.eoi.grupo5.entities.foro.EntidadHilo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
