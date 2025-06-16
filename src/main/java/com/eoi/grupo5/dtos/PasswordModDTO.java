@@ -10,6 +10,11 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PasswordModDTO {
+
+    /**
+     * Atributos para modificar la contraseña del usuario
+     */
+
     private String claveActual;
     private String claveNueva;
     private String claveNuevaRepe;
