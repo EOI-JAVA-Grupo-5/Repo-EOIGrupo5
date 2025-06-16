@@ -12,7 +12,7 @@
     <link rel="shortcut icon" type="image/x-icon" th:href="@{/images/logo-SF.png}">
     
     <!-- Stylesheets -->
-    <link href="assets/css/theme.min.css" rel="stylesheet" />
+    <link th:href="@{/assets/css/theme.min.css}" rel="stylesheet" />
     <link th:href="@{css/styles.css}" rel="stylesheet"/>
     <link th:href="@{css/login.css}" rel="stylesheet"/>
     <!-- iconos -->
@@ -46,8 +46,7 @@
                                 <div class="card-body p-md-5 mx-md-4">
                     
                                     <div class="text-center">
-                                        <img src="../images/logo-SF.png"
-                                            style="width: 150px;" alt="logo">
+                                        <img th:src="@{/images/logo-SF.png}" style="width: 150px;" alt="logo">
                                         <h3 class="mt-1 mb-5 pb-1"><strong>Castañazo Deals</strong></h3>
                                     </div>
 

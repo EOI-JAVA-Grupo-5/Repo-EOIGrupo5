@@ -1,7 +1,9 @@
 package com.eoi.grupo5.services;
 
 import com.eoi.grupo5.entities.EntidadHilo;
+import com.eoi.grupo5.entities.EntidadMensaje;
 import com.eoi.grupo5.repositories.HiloRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -14,13 +16,12 @@ import java.util.List;
 @Service
 public class HiloService {
     private final HiloRepository hiloRepository;
+    private final MensajeService mensajeService;
 
-    public HiloService(HiloRepository hiloRepository) {
+    @Autowired
+    public HiloService(HiloRepository hiloRepository, MensajeService mensajeService) {
         this.hiloRepository = hiloRepository;
-    }
-
-    public List<EntidadHilo> obtenerHilos() {
-        return hiloRepository.findAll();
+        this.mensajeService = mensajeService;
     }
 
     public EntidadHilo guardarHilo(EntidadHilo hilo) {
@@ -32,9 +33,10 @@ public class HiloService {
         return hiloRepository.findAllByOrderByFechaCreacionDesc(pageable);
     }
 
-    public List<EntidadHilo> buscarYOrdenarHilos(String keyword, String sortType, UserDetails userDetails, boolean misHilos) {
+    public List<EntidadHilo> buscarYOrdenarHilos(String keyword, String sortType,
+                                                 UserDetails userDetails,
+                                                 boolean misHilos) {
         Sort sortCriteria = buildSortCriteria(sortType);
-
 
         if (userDetails == null || !misHilos) {
             // No filtering by user
@@ -45,7 +47,6 @@ public class HiloService {
             }
         }
 
-        // From this point on, user is authenticated and misHilos == true
         String usuarioUsername = userDetails.getUsername();
 
         if (keyword == null || keyword.trim().isEmpty()) {
@@ -55,8 +56,18 @@ public class HiloService {
         }
     }
 
-    public EntidadHilo obtenerHiloPorId(Long id) {
+    public EntidadHilo findById(Long id) {
         return hiloRepository.findById(id).orElse(null);
+    }
+
+    public void eliminarHiloYMensajes(Long id) {
+        EntidadHilo hilo = hiloRepository.findById(id).orElseThrow(() -> new RuntimeException("Hilo no encontrado"));
+
+        for (EntidadMensaje mensaje : hilo.getMensajes()) {
+            mensajeService.deleteMessageById(mensaje.getId());
+        }
+
+        hiloRepository.delete(hilo);
     }
 
     private Sort buildSortCriteria (String sortType) {
