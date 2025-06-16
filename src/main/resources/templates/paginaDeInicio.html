@@ -242,9 +242,8 @@
 <section id="tutorial" role="region">
     <div class="tutorial-container">
         <h2 id="tituloTutorial">¿Cómo funciona?</h2>
-        <img id="imagenTutorial" src="img/tutorial0.png" alt="Introducción" />
         <p id="textoTutorial" class="texto-centrado">
-            ¿Quieres ahorrar dinero en la cesta de la compra? Nuestro comparador de precios investiga miles de productos cada día y encuentra los mejores precios en los principales supermercados de España. Castañazo Deals te permite comparar precios buscando por categoría, producto o supermercado.
+            ¿Quieres ahorrar dinero en la cesta de la compra? Nuestro catalogo de productos se actualiza cada día y encuentra los mejores precios en los principales supermercados de España. Castañazo Deals te permite comparar precios buscando por categoría, producto o supermercado.
         </p>
         <div class="barra-progreso" id="barraProgreso"></div>
     </div>
@@ -262,41 +261,27 @@
     <script>
         const pasos = [
             {
-                texto: "¿Quieres ahorrar dinero en la cesta de la compra? Nuestro comparador de precios investiga miles de productos cada día y encuentra los mejores precios en los principales supermercados de España. Castañazo Deals te permite comparar precios buscando por categoría, producto o supermercado.",
-                imagen: "img/tutorial0.png",
-                alt: "Introducción"
+                texto: "¿Quieres ahorrar dinero en la cesta de la compra? Nuestro comparador de precios investiga miles de productos cada día y encuentra los mejores precios en los principales supermercados de España. Castañazo Deals te permite comparar precios buscando por categoría, producto o supermercado."
             },
             {
-                texto: "Busca el producto que deseas comprar usando la barra de búsqueda o navegando por las categorías.",
-                imagen: "img/tutorial1.png",
-                alt: "Paso 1"
+                texto: "Busca el producto que deseas comprar usando la barra de búsqueda o navegando por las categorías."
             },
             {
-                texto: "Haz clic en el producto para ver los detalles y opciones disponibles.",
-                imagen: "img/tutorial2.png",
-                alt: "Paso 2"
+                texto: "Haz clic en el producto para ver los detalles y opciones disponibles."
             },
             {
-                texto: "Añade el producto a tu carrito haciendo clic en 'Añadir al carrito'.",
-                imagen: "img/tutorial3.png",
-                alt: "Paso 3"
+                texto: "Añade el producto a tu carrito haciendo clic en 'Añadir al carrito'."
             },
             {
-                texto: "Accede a tu carrito y revisa tu pedido antes de finalizar la compra.",
-                imagen: "img/tutorial4.png",
-                alt: "Paso 4"
+                texto: "Accede a tu carrito y revisa tu pedido antes de finalizar la compra."
             },
             {
-                texto: "Rellena tus datos y selecciona el método de pago para finalizar la compra.",
-                imagen: "img/tutorial5.png",
-                alt: "Paso 5"
+                texto: "Rellena tus datos y selecciona el método de pago para finalizar la compra."
             }
         ];
 
-
         let pasoActual = 0;
         let intervalo;
-        const imagen = document.getElementById("imagenTutorial");
         const texto = document.getElementById("textoTutorial");
         const barra = document.getElementById("barraProgreso");
 
@@ -317,14 +302,10 @@
 
         function mostrarPaso() {
             const paso = pasos[pasoActual];
-            imagen.style.opacity = 0;
             texto.style.opacity = 0;
 
             setTimeout(() => {
-                imagen.src = paso.imagen;
-                imagen.alt = paso.alt;
                 texto.textContent = paso.texto;
-                imagen.style.opacity = 1;
                 texto.style.opacity = 1;
                 renderBarra();
             }, 300);
@@ -360,6 +341,7 @@
 </section>
 
 
+
 <!-- Ofertas destacadas -->
 <div class="row row-cols-1 row-cols-md-4 g-4 mt-2">
     <div class="col" th:each="producto : ${productosDestacados}">
@@ -380,35 +362,22 @@
 
 
 <!-- Supermercados Cercanos -->
-<!-- Contenedor -->
 <section class="container py-5">
     <h2 class="text-center mb-4">Supermercados Cercanos</h2>
     <div id="map" style="height: 400px; width: 100%; border-radius: 12px;"></div>
     <div id="listaSupermercados" class="mt-4"></div>
 </section>
 
-<!-- Script de Google Maps con tu API KEY -->
+<!-- Carga el script de Google Maps con Places API -->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCngS5G3YCImc00eJLYBGT_moQWBb-AdSA&callback=inicializarMapa" async defer></script>
 
 <script>
-    const supermercados = [
-        { nombre: "Mercadona", lat: 40.4171, lng: -3.7038 },
-        { nombre: "Carrefour", lat: 40.4221, lng: -3.7028 },
-        { nombre: "Lidl", lat: 40.4251, lng: -3.6990 },
-        { nombre: "DIA", lat: 40.4291, lng: -3.7080 },
-        { nombre: "Alcampo", lat: 40.4335, lng: -3.7150 },
-        { nombre: "Eroski", lat: 40.4198, lng: -3.6985 },
-        { nombre: "Aldi", lat: 40.4182, lng: -3.7102 },
-        { nombre: "El Corte Inglés", lat: 40.4209, lng: -3.7044 }
-    ];
-
     function calcularDistancia(lat1, lon1, lat2, lon2) {
-        const R = 6371;
+        const R = 6371; // km
         const dLat = (lat2 - lat1) * Math.PI / 180;
         const dLon = (lon2 - lon1) * Math.PI / 180;
         const a = Math.sin(dLat / 2) ** 2 +
-            Math.cos(lat1 * Math.PI / 180) *
-            Math.cos(lat2 * Math.PI / 180) *
+            Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
             Math.sin(dLon / 2) ** 2;
         const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
         return R * c;
@@ -424,8 +393,10 @@
 
                 const mapa = new google.maps.Map(document.getElementById('map'), {
                     center: userPos,
-                    zoom: 13
+                    zoom: 15
                 });
+
+                const servicio = new google.maps.places.PlacesService(mapa);
 
                 // Marcador del usuario
                 new google.maps.Marker({
@@ -437,34 +408,55 @@
                     }
                 });
 
-                // Calcular distancia y ordenar
-                const supermercadosConDistancia = supermercados.map(s => ({
-                    ...s,
-                    distancia: calcularDistancia(userPos.lat, userPos.lng, s.lat, s.lng)
-                })).sort((a, b) => a.distancia - b.distancia);
+                const solicitud = {
+                    location: userPos,
+                    radius: 3000, // 3 km
+                    keyword: 'supermercado' // o types: ['supermarket']
+                };
 
-                // Mostrar en mapa y en lista
-                const contenedorLista = document.getElementById("listaSupermercados");
-                contenedorLista.innerHTML = "<h5>Ordenados por cercanía:</h5><ul class='list-group'>";
+                servicio.nearbySearch(solicitud, (resultados, status) => {
+                    if (status === google.maps.places.PlacesServiceStatus.OK) {
+                        const lista = resultados.map(place => {
+                            const distancia = calcularDistancia(
+                                userPos.lat, userPos.lng,
+                                place.geometry.location.lat(),
+                                place.geometry.location.lng()
+                            );
+                            return {
+                                nombre: place.name,
+                                direccion: place.vicinity || '',
+                                lat: place.geometry.location.lat(),
+                                lng: place.geometry.location.lng(),
+                                distancia: distancia
+                            };
+                        }).sort((a, b) => a.distancia - b.distancia);
 
-                supermercadosConDistancia.forEach(s => {
-                    // Marcador en el mapa
-                    new google.maps.Marker({
-                        position: { lat: s.lat, lng: s.lng },
-                        map: mapa,
-                        title: s.nombre
-                    });
+                        const contenedorLista = document.getElementById("listaSupermercados");
+                        let listaHTML = "<h5>Ordenados por cercanía:</h5><ul class='list-group'>";
 
-                    // Elemento de la lista
-                    contenedorLista.innerHTML += `
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            ${s.nombre}
-                            <span class="badge bg-primary rounded-pill">${s.distancia.toFixed(2)} km</span>
-                        </li>
-                    `;
+                        lista.forEach(s => {
+                            new google.maps.Marker({
+                                position: { lat: s.lat, lng: s.lng },
+                                map: mapa,
+                                title: s.nombre
+                            });
+
+                            listaHTML += `
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <strong>${s.nombre}</strong><br>
+                                        <small>${s.direccion}</small>
+                                    </div>
+                                    <span class="badge bg-primary rounded-pill">${s.distancia.toFixed(2)} km</span>
+                                </li>`;
+                        });
+
+                        listaHTML += "</ul>";
+                        contenedorLista.innerHTML = listaHTML;
+                    } else {
+                        alert("No se pudieron encontrar supermercados cercanos.");
+                    }
                 });
-
-                contenedorLista.innerHTML += "</ul>";
 
             }, () => {
                 alert("No se pudo obtener tu ubicación.");
