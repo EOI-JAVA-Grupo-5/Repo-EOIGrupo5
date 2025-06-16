@@ -37,7 +37,6 @@ public class LoginController {
      * @param model
      * @return pagina de login
      */
-
     @GetMapping
     public String mostrarPagina(@RequestParam(value = "expired", required = false) String error, Model model){
 //        if("session".equals(error)){

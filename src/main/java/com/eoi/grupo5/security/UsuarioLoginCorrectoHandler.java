@@ -33,15 +33,14 @@ public class UsuarioLoginCorrectoHandler implements AuthenticationSuccessHandler
 
 
     /**
-     *
+     * Cuando un usuario inicia sesion correctamente, se comprueba si el usuario tiene una lista abierta.
+     * Si no la tiene, el sistema le crea una nueva lista abierta.
      * @param request
      * @param response
      * @param authentication
      * @throws IOException
      * @throws ServletException
      *
-     * Cuando un usuario inicia sesion correctamente, se comprueba si el usuario tiene una lista abierta.
-     * Si no la tiene, el sistema le crea una nueva lista abierta.
      */
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request,

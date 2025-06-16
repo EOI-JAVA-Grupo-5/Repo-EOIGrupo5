@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,7 +10,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
@@ -25,7 +27,6 @@
 
     <!-- Estilos personalizados -->
     <style>
-
         .hero {
             background: #fcfdaf;
             color: rgb(0, 0, 0);
@@ -52,7 +53,8 @@
         }
 
         .supermercados-swiper .swiper-slide p {
-            margin-bottom: 50px; /* Aumenta este valor según lo que necesites */
+            margin-bottom: 50px;
+            /* Aumenta este valor según lo que necesites */
         }
 
         .card img {
@@ -62,6 +64,7 @@
         .primary-navbar {
             background-color: #dba159;
         }
+
         .primary-navbar span {
             color: #fcfdaf;
         }
@@ -69,6 +72,7 @@
         .primary-navbar div button {
             background-color: #fcfdaf;
         }
+
         .primary-navbar div button:hover {
             background-color: #efd780;
         }
@@ -144,520 +148,414 @@
         }
     </style>
 </head>
+
 <body>
-<!-- NAVBAR -->
-<!-- NAVBAR -->
-<section id="navbar-section">
-    <nav
-            class="navbar navbar-expand-sm primary-navbar"
-    >
-        <div class="container">
-            <a class="navbar-brand d-inline-flex" th:href="@{/}">
-                <img class="d-inline-block" th:src="@{/images/logo-SF.png}"
-                     alt="logo" style="width: 5rem; align-self: center;">
-                <span class="text-1000 fs-3 fw-bold ms-2">Castañazo <br> Deals</span>
-            </a>
-            <button
-                    class="navbar-toggler d-lg-none"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#collapsibleNavId"
-                    aria-controls="collapsibleNavId"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation"
-            >
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="collapsibleNavId">
-                <ul class="navbar-nav me-auto mt-2 mt-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="paginaDeProducto" aria-current="page">
-                            <i class="fa-solid fa-cube"></i> Productos
-                            <span class="visually-hidden">(current)</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="supermercados" aria-current="page">
-                            <i class="fa-solid fa-store"></i> Supermercados
-                            <span class="visually-hidden">(current)</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="forum" aria-current="page">
-                            <i class="fa-solid fa-comments"></i> Forum
-                            <span class="visually-hidden">(current)</span>
-                        </a>
-                    </li>
-                </ul>
+
+    <!-- Incluir navbar -->
+    <div th:replace="~{plantillas/navbar :: navbar}"></div>
 
 
-                <form class="d-flex pt-3 my-2 my-lg-0">
-                    <div class="input-group mb-3">
-                        <input class="form-control input-box bg-100" type="search" placeholder="Buscar" aria-label="Search" style="border-top-left-radius: 20px; border-bottom-left-radius: 20px">
-                        <button class="btn btn-outline-warning text-black my-2 my-sm-0 fa-solid fa-magnifying-glass" type="submit" style="border-top-right-radius: 20px; border-bottom-right-radius: 20px">
-                        </button>
-                    </div>
-                </form>
+    <!-- TUTORIAL / ¿CÓMO FUNCIONA? -->
+    <section id="tutorial" role="region">
+        <div class="tutorial-container">
+            <h2 id="tituloTutorial">¿Cómo funciona?</h2>
+            <p id="textoTutorial" class="texto-centrado">
+                ¿Quieres ahorrar dinero en la cesta de la compra? Nuestro catalogo de productos se actualiza cada día y
+                encuentra los mejores precios en los principales supermercados de España. Castañazo Deals te permite
+                comparar precios buscando por categoría, producto o supermercado.
+            </p>
+            <div class="barra-progreso" id="barraProgreso"></div>
+        </div>
 
-                <div class="d-grid p-3">
-                    <div sec:authorize="isAuthenticated()">
-                        <a th:href="@{/usuario}">
-                            <button type="button" class="btn btn-warning rounded-pill">
-                                <i class="bi bi-person-circle"></i> Perfil
-                            </button>
-                        </a>
-                    </div>
+        <style>
+            .texto-centrado {
+                text-align: center;
+                font-size: 1.3rem;
+                max-width: 800px;
+                margin: 1em auto;
+                line-height: 1.5;
+            }
+        </style>
 
-                    <div sec:authorize="!isAuthenticated()">
-                        <a th:href="@{/login}">
-                            <button type="button" class="btn btn-warning rounded-pill">
-                                <i class="bi bi-person-circle"></i> Login
-                            </button>
-                        </a>
-                    </div>
+        <script>
+            const pasos = [
+                {
+                    texto: "¿Quieres ahorrar dinero en la cesta de la compra? Nuestro comparador de precios investiga miles de productos cada día y encuentra los mejores precios en los principales supermercados de España. Castañazo Deals te permite comparar precios buscando por categoría, producto o supermercado."
+                },
+                {
+                    texto: "Busca el producto que deseas comprar usando la barra de búsqueda o navegando por las categorías."
+                },
+                {
+                    texto: "Haz clic en el producto para ver los detalles y opciones disponibles."
+                },
+                {
+                    texto: "Añade el producto a tu carrito haciendo clic en 'Añadir al carrito'."
+                },
+                {
+                    texto: "Accede a tu carrito y revisa tu pedido antes de finalizar la compra."
+                },
+                {
+                    texto: "Rellena tus datos y selecciona el método de pago para finalizar la compra."
+                }
+            ];
+
+            let pasoActual = 0;
+            let intervalo;
+            const texto = document.getElementById("textoTutorial");
+            const barra = document.getElementById("barraProgreso");
+
+            function renderBarra() {
+                barra.innerHTML = "";
+                pasos.forEach((_, i) => {
+                    const punto = document.createElement("div");
+                    punto.classList.add("paso");
+                    if (i === pasoActual) punto.classList.add("activo");
+                    punto.addEventListener("click", () => {
+                        pasoActual = i;
+                        mostrarPaso();
+                        reiniciarCarrusel();
+                    });
+                    barra.appendChild(punto);
+                });
+            }
+
+            function mostrarPaso() {
+                const paso = pasos[pasoActual];
+                texto.style.opacity = 0;
+
+                setTimeout(() => {
+                    texto.textContent = paso.texto;
+                    texto.style.opacity = 1;
+                    renderBarra();
+                }, 300);
+            }
+
+            function siguientePaso() {
+                pasoActual = (pasoActual + 1) % pasos.length;
+                mostrarPaso();
+            }
+
+            function iniciarCarrusel() {
+                let primerPaso = true;
+
+                function siguiente() {
+                    siguientePaso();
+                    clearInterval(intervalo);
+                    intervalo = setInterval(siguientePaso, 4000); // después de la primera, normal
+                }
+
+                intervalo = setTimeout(siguiente, 7000); // primera dura más (7s)
+            }
+
+            function reiniciarCarrusel() {
+                clearInterval(intervalo);
+                iniciarCarrusel();
+            }
+
+            window.addEventListener("DOMContentLoaded", () => {
+                mostrarPaso();
+                iniciarCarrusel();
+            });
+        </script>
+    </section>
+
+
+
+    <!-- Ofertas destacadas -->
+    <div class="row row-cols-1 row-cols-md-4 g-4 mt-2">
+        <div class="col" th:each="producto : ${productosDestacados}">
+            <div class="card h-100 shadow-sm">
+                <img th:src="${producto.url}" class="card-img-top" th:alt="${producto.name}"
+                    style="object-fit: cover; height: 200px;">
+                <div class="card-body text-center">
+                    <h5 class="card-title" th:text="${producto.name}">Nombre</h5>
+                    <p class="card-text fw-bold" th:text="'€' + ${producto.price}">Precio</p>
+                    <p class="card-text" th:text="${producto.supermarket}">Supermercado</p>
+                    <form th:action="@{/listas/addProducto}" method="post">
+                        <input type="hidden" name="productoId" th:value="${producto.id}" />
+                        <button type="submit" class="btn btn-success btn-sm">Añadir a la cesta</button>
+                    </form>
                 </div>
-
-                <div class="d-grid p-3">
-                    <a th:href="@{/carrito}">
-                        <button
-                                type="button"
-                                name=""
-                                id="btnCarrito"
-                                class="btn btn-warning rounded-pill"
-                        >
-                            <i class="bi bi-cart-fill"></i> Carrito
-                        </button>
-                    </a>
-
-                </div>
-
             </div>
         </div>
-    </nav>
-
-</section>
-
-
-<!-- TUTORIAL / ¿CÓMO FUNCIONA? -->
-<section id="tutorial" role="region">
-    <div class="tutorial-container">
-        <h2 id="tituloTutorial">¿Cómo funciona?</h2>
-        <img id="imagenTutorial" src="img/tutorial0.png" alt="Introducción" />
-        <p id="textoTutorial" class="texto-centrado">
-            ¿Quieres ahorrar dinero en la cesta de la compra? Nuestro comparador de precios investiga miles de productos cada día y encuentra los mejores precios en los principales supermercados de España. Castañazo Deals te permite comparar precios buscando por categoría, producto o supermercado.
-        </p>
-        <div class="barra-progreso" id="barraProgreso"></div>
     </div>
 
-    <style>
-        .texto-centrado {
-            text-align: center;
-            font-size: 1.3rem;
-            max-width: 800px;
-            margin: 1em auto;
-            line-height: 1.5;
-        }
-    </style>
+
+    <!-- Supermercados Cercanos -->
+    <section class="container py-5">
+        <h2 class="text-center mb-4">Supermercados Cercanos</h2>
+        <div id="map" style="height: 400px; width: 100%; border-radius: 12px;"></div>
+        <div id="listaSupermercados" class="mt-4"></div>
+    </section>
+
+    <!-- Carga el script de Google Maps con Places API -->
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCngS5G3YCImc00eJLYBGT_moQWBb-AdSA&callback=inicializarMapa"
+        async defer></script>
 
     <script>
-        const pasos = [
-            {
-                texto: "¿Quieres ahorrar dinero en la cesta de la compra? Nuestro comparador de precios investiga miles de productos cada día y encuentra los mejores precios en los principales supermercados de España. Castañazo Deals te permite comparar precios buscando por categoría, producto o supermercado.",
-                imagen: "img/tutorial0.png",
-                alt: "Introducción"
-            },
-            {
-                texto: "Busca el producto que deseas comprar usando la barra de búsqueda o navegando por las categorías.",
-                imagen: "img/tutorial1.png",
-                alt: "Paso 1"
-            },
-            {
-                texto: "Haz clic en el producto para ver los detalles y opciones disponibles.",
-                imagen: "img/tutorial2.png",
-                alt: "Paso 2"
-            },
-            {
-                texto: "Añade el producto a tu carrito haciendo clic en 'Añadir al carrito'.",
-                imagen: "img/tutorial3.png",
-                alt: "Paso 3"
-            },
-            {
-                texto: "Accede a tu carrito y revisa tu pedido antes de finalizar la compra.",
-                imagen: "img/tutorial4.png",
-                alt: "Paso 4"
-            },
-            {
-                texto: "Rellena tus datos y selecciona el método de pago para finalizar la compra.",
-                imagen: "img/tutorial5.png",
-                alt: "Paso 5"
-            }
-        ];
-
-
-        let pasoActual = 0;
-        let intervalo;
-        const imagen = document.getElementById("imagenTutorial");
-        const texto = document.getElementById("textoTutorial");
-        const barra = document.getElementById("barraProgreso");
-
-        function renderBarra() {
-            barra.innerHTML = "";
-            pasos.forEach((_, i) => {
-                const punto = document.createElement("div");
-                punto.classList.add("paso");
-                if (i === pasoActual) punto.classList.add("activo");
-                punto.addEventListener("click", () => {
-                    pasoActual = i;
-                    mostrarPaso();
-                    reiniciarCarrusel();
-                });
-                barra.appendChild(punto);
-            });
+        function calcularDistancia(lat1, lon1, lat2, lon2) {
+            const R = 6371; // km
+            const dLat = (lat2 - lat1) * Math.PI / 180;
+            const dLon = (lon2 - lon1) * Math.PI / 180;
+            const a = Math.sin(dLat / 2) ** 2 +
+                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                Math.sin(dLon / 2) ** 2;
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            return R * c;
         }
 
-        function mostrarPaso() {
-            const paso = pasos[pasoActual];
-            imagen.style.opacity = 0;
-            texto.style.opacity = 0;
+        function inicializarMapa() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(pos => {
+                    const userPos = {
+                        lat: pos.coords.latitude,
+                        lng: pos.coords.longitude
+                    };
 
-            setTimeout(() => {
-                imagen.src = paso.imagen;
-                imagen.alt = paso.alt;
-                texto.textContent = paso.texto;
-                imagen.style.opacity = 1;
-                texto.style.opacity = 1;
-                renderBarra();
-            }, 300);
-        }
-
-        function siguientePaso() {
-            pasoActual = (pasoActual + 1) % pasos.length;
-            mostrarPaso();
-        }
-
-        function iniciarCarrusel() {
-            let primerPaso = true;
-
-            function siguiente() {
-                siguientePaso();
-                clearInterval(intervalo);
-                intervalo = setInterval(siguientePaso, 4000); // después de la primera, normal
-            }
-
-            intervalo = setTimeout(siguiente, 7000); // primera dura más (7s)
-        }
-
-        function reiniciarCarrusel() {
-            clearInterval(intervalo);
-            iniciarCarrusel();
-        }
-
-        window.addEventListener("DOMContentLoaded", () => {
-            mostrarPaso();
-            iniciarCarrusel();
-        });
-    </script>
-</section>
-
-
-<!-- Ofertas destacadas -->
-<div class="row row-cols-1 row-cols-md-4 g-4 mt-2">
-    <div class="col" th:each="producto : ${productosDestacados}">
-        <div class="card h-100 shadow-sm">
-            <img th:src="${producto.url}" class="card-img-top" th:alt="${producto.name}" style="object-fit: cover; height: 200px;">
-            <div class="card-body text-center">
-                <h5 class="card-title" th:text="${producto.name}">Nombre</h5>
-                <p class="card-text fw-bold" th:text="'€' + ${producto.price}">Precio</p>
-                <p class="card-text" th:text="${producto.supermarket}">Supermercado</p>
-                <form th:action="@{/listas/addProducto}" method="post">
-                    <input type="hidden" name="productoId" th:value="${producto.id}" />
-                    <button type="submit" class="btn btn-success btn-sm">Añadir a la cesta</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<!-- Supermercados Cercanos -->
-<!-- Contenedor -->
-<section class="container py-5">
-    <h2 class="text-center mb-4">Supermercados Cercanos</h2>
-    <div id="map" style="height: 400px; width: 100%; border-radius: 12px;"></div>
-    <div id="listaSupermercados" class="mt-4"></div>
-</section>
-
-<!-- Script de Google Maps con tu API KEY -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCngS5G3YCImc00eJLYBGT_moQWBb-AdSA&callback=inicializarMapa" async defer></script>
-
-<script>
-    const supermercados = [
-        { nombre: "Mercadona", lat: 40.4171, lng: -3.7038 },
-        { nombre: "Carrefour", lat: 40.4221, lng: -3.7028 },
-        { nombre: "Lidl", lat: 40.4251, lng: -3.6990 },
-        { nombre: "DIA", lat: 40.4291, lng: -3.7080 },
-        { nombre: "Alcampo", lat: 40.4335, lng: -3.7150 },
-        { nombre: "Eroski", lat: 40.4198, lng: -3.6985 },
-        { nombre: "Aldi", lat: 40.4182, lng: -3.7102 },
-        { nombre: "El Corte Inglés", lat: 40.4209, lng: -3.7044 }
-    ];
-
-    function calcularDistancia(lat1, lon1, lat2, lon2) {
-        const R = 6371;
-        const dLat = (lat2 - lat1) * Math.PI / 180;
-        const dLon = (lon2 - lon1) * Math.PI / 180;
-        const a = Math.sin(dLat / 2) ** 2 +
-            Math.cos(lat1 * Math.PI / 180) *
-            Math.cos(lat2 * Math.PI / 180) *
-            Math.sin(dLon / 2) ** 2;
-        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        return R * c;
-    }
-
-    function inicializarMapa() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(pos => {
-                const userPos = {
-                    lat: pos.coords.latitude,
-                    lng: pos.coords.longitude
-                };
-
-                const mapa = new google.maps.Map(document.getElementById('map'), {
-                    center: userPos,
-                    zoom: 13
-                });
-
-                // Marcador del usuario
-                new google.maps.Marker({
-                    position: userPos,
-                    map: mapa,
-                    title: "Tu ubicación",
-                    icon: {
-                        url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
-                    }
-                });
-
-                // Calcular distancia y ordenar
-                const supermercadosConDistancia = supermercados.map(s => ({
-                    ...s,
-                    distancia: calcularDistancia(userPos.lat, userPos.lng, s.lat, s.lng)
-                })).sort((a, b) => a.distancia - b.distancia);
-
-                // Mostrar en mapa y en lista
-                const contenedorLista = document.getElementById("listaSupermercados");
-                contenedorLista.innerHTML = "<h5>Ordenados por cercanía:</h5><ul class='list-group'>";
-
-                supermercadosConDistancia.forEach(s => {
-                    // Marcador en el mapa
-                    new google.maps.Marker({
-                        position: { lat: s.lat, lng: s.lng },
-                        map: mapa,
-                        title: s.nombre
+                    const mapa = new google.maps.Map(document.getElementById('map'), {
+                        center: userPos,
+                        zoom: 15
                     });
 
-                    // Elemento de la lista
-                    contenedorLista.innerHTML += `
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            ${s.nombre}
-                            <span class="badge bg-primary rounded-pill">${s.distancia.toFixed(2)} km</span>
-                        </li>
-                    `;
+                    const servicio = new google.maps.places.PlacesService(mapa);
+
+                    // Marcador del usuario
+                    new google.maps.Marker({
+                        position: userPos,
+                        map: mapa,
+                        title: "Tu ubicación",
+                        icon: {
+                            url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
+                        }
+                    });
+
+                    const solicitud = {
+                        location: userPos,
+                        radius: 3000, // 3 km
+                        keyword: 'supermercado' // o types: ['supermarket']
+                    };
+
+                    servicio.nearbySearch(solicitud, (resultados, status) => {
+                        if (status === google.maps.places.PlacesServiceStatus.OK) {
+                            const lista = resultados.map(place => {
+                                const distancia = calcularDistancia(
+                                    userPos.lat, userPos.lng,
+                                    place.geometry.location.lat(),
+                                    place.geometry.location.lng()
+                                );
+                                return {
+                                    nombre: place.name,
+                                    direccion: place.vicinity || '',
+                                    lat: place.geometry.location.lat(),
+                                    lng: place.geometry.location.lng(),
+                                    distancia: distancia
+                                };
+                            }).sort((a, b) => a.distancia - b.distancia);
+
+                            const contenedorLista = document.getElementById("listaSupermercados");
+                            let listaHTML = "<h5>Ordenados por cercanía:</h5><ul class='list-group'>";
+
+                            lista.forEach(s => {
+                                new google.maps.Marker({
+                                    position: { lat: s.lat, lng: s.lng },
+                                    map: mapa,
+                                    title: s.nombre
+                                });
+
+                                listaHTML += `
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <strong>${s.nombre}</strong><br>
+                                        <small>${s.direccion}</small>
+                                    </div>
+                                    <span class="badge bg-primary rounded-pill">${s.distancia.toFixed(2)} km</span>
+                                </li>`;
+                            });
+
+                            listaHTML += "</ul>";
+                            contenedorLista.innerHTML = listaHTML;
+                        } else {
+                            alert("No se pudieron encontrar supermercados cercanos.");
+                        }
+                    });
+
+                }, () => {
+                    alert("No se pudo obtener tu ubicación.");
                 });
-
-                contenedorLista.innerHTML += "</ul>";
-
-            }, () => {
-                alert("No se pudo obtener tu ubicación.");
-            });
-        } else {
-            alert("Tu navegador no soporta geolocalización.");
+            } else {
+                alert("Tu navegador no soporta geolocalización.");
+            }
         }
-    }
-</script>
+    </script>
 
 
-<!-- Beneficios -->
-<section class="container text-center py-5">
-    <h2 class="mb-4 fw-bold">Beneficios</h2>
-    <div class="row g-4">
-        <div class="col-md-4 col-12">
-            <div class="p-4 shadow rounded-4 h-100 benefit-card">
-                <i class="bi bi-tag-fill text-primary" style="font-size: 4rem;"></i>
-                <h5 class="fw-semibold mt-3">Descuentos diarios actualizados</h5>
+    <!-- Beneficios -->
+    <section class="container text-center py-5">
+        <h2 class="mb-4 fw-bold">Beneficios</h2>
+        <div class="row g-4">
+            <div class="col-md-4 col-12">
+                <div class="p-4 shadow rounded-4 h-100 benefit-card">
+                    <i class="bi bi-tag-fill text-primary" style="font-size: 4rem;"></i>
+                    <h5 class="fw-semibold mt-3">Descuentos diarios actualizados</h5>
+                </div>
+            </div>
+            <div class="col-md-4 col-12">
+                <div class="p-4 shadow rounded-4 h-100 benefit-card">
+                    <i class="bi bi-geo-alt-fill text-danger" style="font-size: 4rem;"></i>
+                    <h5 class="fw-semibold mt-3">Encuentra tu tienda cercana</h5>
+                </div>
+            </div>
+            <div class="col-md-4 col-12">
+                <div class="p-4 shadow rounded-4 h-100 benefit-card">
+                    <i class="bi bi-currency-euro text-success" style="font-size: 4rem;"></i>
+                    <h5 class="fw-semibold mt-3">Ahorra mensualmente en tus compras</h5>
+                </div>
             </div>
         </div>
-        <div class="col-md-4 col-12">
-            <div class="p-4 shadow rounded-4 h-100 benefit-card">
-                <i class="bi bi-geo-alt-fill text-danger" style="font-size: 4rem;"></i>
-                <h5 class="fw-semibold mt-3">Encuentra tu tienda cercana</h5>
-            </div>
-        </div>
-        <div class="col-md-4 col-12">
-            <div class="p-4 shadow rounded-4 h-100 benefit-card">
-                <i class="bi bi-currency-euro text-success" style="font-size: 4rem;"></i>
-                <h5 class="fw-semibold mt-3">Ahorra mensualmente en tus compras</h5>
-            </div>
-        </div>
-    </div>
 
-</section>
+    </section>
 
 
-<!-- Footer -->
-<section id="footer">
-    <div class="justify-content-end pt-3">
-        <!-- <footer class="bg-light text-center text-dark p-4">
+    <!-- Footer -->
+    <section id="footer">
+        <div class="justify-content-end pt-3">
+            <!-- <footer class="bg-light text-center text-dark p-4">
             <p><strong>@ 2025. Todos los derechos reservados.</strong></p>
         </footer> -->
 
-        <footer
-                class="text-center text-lg-start"
-                style="background-color: #efd780"
-        >
-            <!-- Section: Social media -->
-            <section
-                    class="d-flex justify-content-between p-4"
-                    style="background-color: #dba159"
-            >
-                <!-- Left -->
-                <div class="me-5" style="color: #fcfdaf;">
-                    <span><strong>Síguenos en nuestras redes sociales:</strong></span>
-                </div>
-                <!-- Left -->
-
-                <!-- Right -->
-                <div>
-                    <a href="" class="icono-red-footer me-4">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                    <a href="" class="icono-red-footer me-4">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                    <a href="" class="icono-red-footer me-4">
-                        <i class="fab fa-google"></i>
-                    </a>
-                    <a href="" class="icono-red-footer me-4">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                    <a href="" class="icono-red-footer me-4">
-                        <i class="fab fa-linkedin"></i>
-                    </a>
-                    <a href="" class="icono-red-footer me-4">
-                        <i class="fab fa-github"></i>
-                    </a>
-                </div>
-                <!-- Right -->
-            </section>
-            <!-- Section: Social media -->
-
-            <!-- Section: Links  -->
-            <section class="">
-                <div class="container text-center text-md-start mt-5">
-                    <!-- Grid row -->
-                    <div class="row mt-3">
-                        <!-- Grid column -->
-                        <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-                            <!-- Content -->
-                            <h6 class="text-uppercase fw-bold">Sobre Castañazo Deals</h6>
-                            <hr
-                                    class="mb-4 mt-0 d-inline-block mx-auto"
-                                    style="width: 60px; background-color: #dba159; height: 2px"
-                            />
-                            <p>
-                                Aquí va propaganda pura y dura, sin filtrar. Café para los mas cafeteros.
-                            </p>
-                        </div>
-                        <!-- Grid column -->
-
-                        <!-- Grid column -->
-                        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-                            <!-- Links -->
-                            <h6 class="text-uppercase fw-bold">Cosas</h6>
-                            <hr
-                                    class="mb-4 mt-0 d-inline-block mx-auto"
-                                    style="width: 60px; background-color: #dba159; height: 2px"
-                            />
-                            <p>
-                                <a href="#!" class="text-blue">Cosa 1</a>
-                            </p>
-                            <p>
-                                <a href="#!" class="text-blue">Cosa 2</a>
-                            </p>
-                            <p>
-                                <a href="#!" class="text-blue">Cosa 3</a>
-                            </p>
-                            <p>
-                                <a href="#!" class="text-blue">Cosa 4</a>
-                            </p>
-                        </div>
-                        <!-- Grid column -->
-
-                        <!-- Grid column -->
-                        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-                            <!-- Links -->
-                            <h6 class="text-uppercase fw-bold">Links Útiles</h6>
-                            <hr
-                                    class="mb-4 mt-0 d-inline-block mx-auto"
-                                    style="width: 60px; background-color: #dba159; height: 2px"
-                            />
-                            <p>
-                                <a href="#!" class="text-blue">Link 1</a>
-                            </p>
-                            <p>
-                                <a href="#!" class="text-blue">Link 2</a>
-                            </p>
-                            <p>
-                                <a href="#!" class="text-blue">Link 3</a>
-                            </p>
-                            <p>
-                                <a href="#!" class="text-blue">Link 4</a>
-                            </p>
-                        </div>
-                        <!-- Grid column -->
-
-                        <!-- Grid column -->
-                        <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-                            <!-- Links -->
-                            <h6 class="text-uppercase fw-bold">Contacto</h6>
-                            <hr
-                                    class="mb-4 mt-0 d-inline-block mx-auto"
-                                    style="width: 60px; background-color: #dba059; height: 2px"
-                            />
-                            <p><i class="fas fa-home mr-3"></i> Sevilla, Sevilla, ES</p>
-                            <p><i class="fas fa-envelope mr-3"></i> info@castañazodeals.es</p>
-                            <p><i class="fas fa-phone mr-3"></i> + 01 234 567 88</p>
-                            <p><i class="fas fa-print mr-3"></i> + 01 234 567 89</p>
-                        </div>
-                        <!-- Grid column -->
+            <footer class="text-center text-lg-start" style="background-color: #efd780">
+                <!-- Section: Social media -->
+                <section class="d-flex justify-content-between p-4" style="background-color: #dba159">
+                    <!-- Left -->
+                    <div class="me-5" style="color: #fcfdaf;">
+                        <span><strong>Síguenos en nuestras redes sociales:</strong></span>
                     </div>
-                    <!-- Grid row -->
+                    <!-- Left -->
+
+                    <!-- Right -->
+                    <div>
+                        <a href="" class="icono-red-footer me-4">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="" class="icono-red-footer me-4">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="" class="icono-red-footer me-4">
+                            <i class="fab fa-google"></i>
+                        </a>
+                        <a href="" class="icono-red-footer me-4">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="" class="icono-red-footer me-4">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="" class="icono-red-footer me-4">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                    <!-- Right -->
+                </section>
+                <!-- Section: Social media -->
+
+                <!-- Section: Links  -->
+                <section class="">
+                    <div class="container text-center text-md-start mt-5">
+                        <!-- Grid row -->
+                        <div class="row mt-3">
+                            <!-- Grid column -->
+                            <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                                <!-- Content -->
+                                <h6 class="text-uppercase fw-bold">Sobre Castañazo Deals</h6>
+                                <hr class="mb-4 mt-0 d-inline-block mx-auto"
+                                    style="width: 60px; background-color: #dba159; height: 2px" />
+                                <p>
+                                    Aquí va propaganda pura y dura, sin filtrar. Café para los mas cafeteros.
+                                </p>
+                            </div>
+                            <!-- Grid column -->
+
+                            <!-- Grid column -->
+                            <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+                                <!-- Links -->
+                                <h6 class="text-uppercase fw-bold">Cosas</h6>
+                                <hr class="mb-4 mt-0 d-inline-block mx-auto"
+                                    style="width: 60px; background-color: #dba159; height: 2px" />
+                                <p>
+                                    <a href="#!" class="text-blue">Cosa 1</a>
+                                </p>
+                                <p>
+                                    <a href="#!" class="text-blue">Cosa 2</a>
+                                </p>
+                                <p>
+                                    <a href="#!" class="text-blue">Cosa 3</a>
+                                </p>
+                                <p>
+                                    <a href="#!" class="text-blue">Cosa 4</a>
+                                </p>
+                            </div>
+                            <!-- Grid column -->
+
+                            <!-- Grid column -->
+                            <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                                <!-- Links -->
+                                <h6 class="text-uppercase fw-bold">Links Útiles</h6>
+                                <hr class="mb-4 mt-0 d-inline-block mx-auto"
+                                    style="width: 60px; background-color: #dba159; height: 2px" />
+                                <p>
+                                    <a href="#!" class="text-blue">Link 1</a>
+                                </p>
+                                <p>
+                                    <a href="#!" class="text-blue">Link 2</a>
+                                </p>
+                                <p>
+                                    <a href="#!" class="text-blue">Link 3</a>
+                                </p>
+                                <p>
+                                    <a href="#!" class="text-blue">Link 4</a>
+                                </p>
+                            </div>
+                            <!-- Grid column -->
+
+                            <!-- Grid column -->
+                            <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                                <!-- Links -->
+                                <h6 class="text-uppercase fw-bold">Contacto</h6>
+                                <hr class="mb-4 mt-0 d-inline-block mx-auto"
+                                    style="width: 60px; background-color: #dba059; height: 2px" />
+                                <p><i class="fas fa-home mr-3"></i> Sevilla, Sevilla, ES</p>
+                                <p><i class="fas fa-envelope mr-3"></i> info@castañazodeals.es</p>
+                                <p><i class="fas fa-phone mr-3"></i> + 01 234 567 88</p>
+                                <p><i class="fas fa-print mr-3"></i> + 01 234 567 89</p>
+                            </div>
+                            <!-- Grid column -->
+                        </div>
+                        <!-- Grid row -->
+                    </div>
+                </section>
+                <!-- Section: Links  -->
+
+                <!-- Copyright -->
+                <div class="text-center p-3" style="background-color: #dba0598f">
+                    © 2025 Copyright:
+                    <a class="text-blue" href="https://mdbootstrap.com/">MDBootstrap.com</a>
                 </div>
-            </section>
-            <!-- Section: Links  -->
+                <!-- Copyright -->
+            </footer>
+        </div>
 
-            <!-- Copyright -->
-            <div
-                    class="text-center p-3"
-                    style="background-color: #dba0598f"
-            >
-                © 2025 Copyright:
-                <a class="text-blue" href="https://mdbootstrap.com/"
-                >MDBootstrap.com</a
-                >
-            </div>
-            <!-- Copyright -->
-        </footer>
-    </div>
+    </section>
 
-</section>
 
-<!-- Bootstrap -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+<!--    &lt;!&ndash; Swiper JS y CSS &ndash;&gt;-->
+<!--    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>-->
+<!--    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>-->
 
-<!-- Swiper JS y CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
-<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+            crossorigin="anonymous"></script>
 
 </body>
+
 </html>

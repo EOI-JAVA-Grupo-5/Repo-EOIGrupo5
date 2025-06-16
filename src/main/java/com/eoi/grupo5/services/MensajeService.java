@@ -1,34 +1,52 @@
 package com.eoi.grupo5.services;
 
+import com.eoi.grupo5.entities.EntidadHilo;
 import com.eoi.grupo5.entities.EntidadMensaje;
 import com.eoi.grupo5.repositories.MensajeRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class MensajeService {
 
-    private final MensajeRepository mensajeRepo;
+    private final MensajeRepository mensajeRepository;
 
     public MensajeService(MensajeRepository mensajeRepo) {
-        this.mensajeRepo = mensajeRepo;
+        this.mensajeRepository = mensajeRepo;
     }
 
     public List<EntidadMensaje> findMessagesByHiloId(Long hiloId) {
-        return mensajeRepo.findByHilo_IdOrderByFechaCreacionAsc(hiloId);
+        return mensajeRepository.findByHilo_IdOrderByFechaCreacionAsc(hiloId);
     }
 
-    public EntidadMensaje guardarMensaje(EntidadMensaje mensaje) {
-        return mensajeRepo.save(mensaje);
+    public EntidadMensaje saveMessage(EntidadMensaje mensaje) {
+        return mensajeRepository.save(mensaje);
     }
 
-    public Optional<EntidadMensaje> obtenerMensajePorId(Long id) {
-        return mensajeRepo.findById(id);
+    public EntidadMensaje findMessageById(Long id) {
+
+        EntidadMensaje mensaje = mensajeRepository.findById(id).get();
+
+        if (mensaje == null) {
+            throw new EntityNotFoundException("Mensaje no encontrado");
+        }
+
+        return mensaje;
     }
 
-    public void borrarMensaje(Long id) {
-        mensajeRepo.deleteById(id);
+    @Transactional
+    public void deleteMessageById(Long id) {
+        EntidadMensaje mensaje = mensajeRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Mensaje no encontrado"));
+
+        EntidadHilo hilo = mensaje.getHilo();
+        if (hilo != null) {
+            hilo.getMensajes().remove(mensaje);
+        }
+
+        mensajeRepository.delete(mensaje);
     }
 }
