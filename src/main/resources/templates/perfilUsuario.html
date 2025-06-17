@@ -144,11 +144,18 @@
             <div class="row justify-content-center align-items-center g-2">
 
                 <div class="col-md-3 pt-2">
-
                     <div class="card bg-light">
+<!--                        Si el usuario tiene una imagen de perfil-->
                         <img class="card-img-top rounded-circle justify-content-center align-self-center p-2"
-                             style="width: 12rem;height: fit-content;"
-                             src="https://content.imageresizer.com/images/memes/rizz-apple-meme-5.jpg"
+                             style="width: 12rem; height: 12rem;"
+                             th:if="${usuario.imagenURL != null}"
+                             th:src="@{'/images/perfiles/' + ${usuario.imagenURL}}"
+                             alt="Image-Avatar">
+<!--                        Si no tiene imagen de perfil-->
+                        <img class="card-img-top rounded-circle justify-content-center align-self-center p-2"
+                             style="width: 12rem; height: 12rem;"
+                             th:if="${usuario.imagenURL == null}"
+                             th:src="@{'/images/perfiles/default-profile-picture.jpg'}"
                              alt="Image-Avatar">
                         <div class="card-body text-center">
                             <h4 id="userName" class="card-title"><span th:text="${usuario.username}">Usuario</span></h4>
