@@ -44,8 +44,9 @@ a {
 .side-card {
     height: 150px;
     /* Or height: 120px to force exact size */
-    overflow: hidden;
-    text-overflow: ellipsis;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%;
 }
 
 .side-card:hover .text-title {
