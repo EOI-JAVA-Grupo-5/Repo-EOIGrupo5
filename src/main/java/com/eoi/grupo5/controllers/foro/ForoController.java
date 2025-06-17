@@ -93,4 +93,11 @@ public class ForoController {
 
         return mensajeService.deleteMensaje(id, userDetails, redirectAttributes);
     }
+
+    @PostMapping("/hilo/{id}/like")
+    public String toggleLike(@PathVariable Long id,
+                             @AuthenticationPrincipal UserDetails userDetails) {
+
+        return hiloService.likeHilo(id, userDetails);
+    }
 }

@@ -122,6 +122,17 @@ public class HiloService {
         hiloRepository.save(hilo);
     }
 
+    public String likeHilo(Long id, UserDetails userDetails) {
+
+        if (userDetails == null) {
+            throw  new IllegalArgumentException("El usuario no puede ser nulo.");
+        }
+        Hilo hilo = findById(id);
+        hilo.setVotos(hilo.getVotos() + 1);
+        hiloRepository.save(hilo);
+        return "redirect:/foro/hilo/" + hilo.getId();
+    }
+
     // Methods showHilosEnForo
     private void addModelAttributes(Model model,
                                     List<Hilo> hilosOrdenados,

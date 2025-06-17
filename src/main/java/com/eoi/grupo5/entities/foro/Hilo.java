@@ -19,10 +19,15 @@ public class Hilo {
     private Long id;
 
     private String titulo;
+
     private String descripcion;
+
     private long votos = 0;
+
     private long visitas = 0;
+
     private LocalDateTime fechaCreacion;
+
     private long mensajeCount = 0;
 
     @ManyToOne
