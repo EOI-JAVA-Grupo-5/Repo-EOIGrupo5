@@ -1,7 +1,7 @@
 package com.eoi.grupo5.services.foro;
 
-import com.eoi.grupo5.entities.foro.EntidadHilo;
-import com.eoi.grupo5.entities.foro.EntidadMensaje;
+import com.eoi.grupo5.entities.foro.Hilo;
+import com.eoi.grupo5.entities.foro.MensajeHilo;
 import com.eoi.grupo5.entities.Usuario;
 import com.eoi.grupo5.repositories.foro.MensajeRepository;
 import com.eoi.grupo5.services.UsuarioService;
@@ -29,7 +29,7 @@ public class MensajeService {
         this.hiloLookupService = hiloLookupService;
     }
 
-    public String newMensaje(Long hiloId, EntidadMensaje mensaje, UserDetails userDetails) {
+    public String newMensaje(Long hiloId, MensajeHilo mensaje, UserDetails userDetails) {
         if (userDetails == null) {
             return "redirect:/login";
         }
@@ -39,7 +39,7 @@ public class MensajeService {
             return "redirect:/login";
         }
 
-        EntidadHilo hilo = hiloLookupService.findById(hiloId);
+        Hilo hilo = hiloLookupService.findById(hiloId);
         preparareNewMensaje(mensaje, autor, hilo);
 
         saveMessage(mensaje);
@@ -51,7 +51,7 @@ public class MensajeService {
                               UserDetails userDetails,
                               RedirectAttributes redirectAttributes) {
         try {
-            EntidadMensaje mensaje = findMessageById(mensajeId);
+            MensajeHilo mensaje = findMessageById(mensajeId);
 
             if (!canEditMensaje(mensaje, userDetails)) {
                 redirectAttributes.addFlashAttribute("error", "No tienes permiso para editar este mensaje.");
@@ -67,13 +67,13 @@ public class MensajeService {
         }
 
         // Always redirect to the hilo page of the mensaje
-        EntidadMensaje mensaje = findMessageById(mensajeId);
+        MensajeHilo mensaje = findMessageById(mensajeId);
         return redirectToHilo(mensaje);
     }
 
     public String deleteMensaje(Long mensajeId, UserDetails userDetails, RedirectAttributes redirectAttributes) {
         try {
-            EntidadMensaje mensaje = findMessageById(mensajeId);
+            MensajeHilo mensaje = findMessageById(mensajeId);
 
             if (!canEditMensaje(mensaje, userDetails)) {
                 redirectAttributes.addFlashAttribute("error", "No tienes permiso para eliminar este mensaje.");
@@ -93,41 +93,43 @@ public class MensajeService {
 
 
     // Metodos para newMensaje
-    private void preparareNewMensaje(EntidadMensaje mensaje, Usuario autor, EntidadHilo hilo) {
+    private void preparareNewMensaje(MensajeHilo mensaje, Usuario autor, Hilo hilo) {
         mensaje.setId(null);
         mensaje.setAutor(autor);
         mensaje.setHilo(hilo);
         mensaje.setFechaCreacion(LocalDateTime.now());
+        hilo.setMensajeCount(hilo.getMensajeCount() + 1);
+        hiloLookupService.saveHilo(hilo);
     }
 
     // Metodos para editMensaje
-    private boolean canEditMensaje(EntidadMensaje mensaje, UserDetails userDetails) {
+    private boolean canEditMensaje(MensajeHilo mensaje, UserDetails userDetails) {
         String username = userDetails.getUsername();
         return mensaje.getAutor().getUsername().equals(username) || isAdmin(userDetails);
     }
 
-    private void actualizarContenidoMensaje(EntidadMensaje mensaje, String contenido) {
+    private void actualizarContenidoMensaje(MensajeHilo mensaje, String contenido) {
         mensaje.setContenido(contenido);
     }
 
-    private String redirectToHilo(EntidadMensaje mensaje) {
+    private String redirectToHilo(MensajeHilo mensaje) {
         return "redirect:/foro/hilo/" + mensaje.getHilo().getId();
     }
 
     // Metodos para deleteMensaje
 
     // Metodos para HiloService y reutilizables
-    public List<EntidadMensaje> findMessagesByHiloId(Long hiloId) {
+    public List<MensajeHilo> findMessagesByHiloId(Long hiloId) {
         return mensajeRepository.findByHilo_IdOrderByFechaCreacionAsc(hiloId);
     }
 
-    public void saveMessage(EntidadMensaje mensaje) {
+    public void saveMessage(MensajeHilo mensaje) {
         mensajeRepository.save(mensaje);
     }
 
-    public EntidadMensaje findMessageById(Long id) {
+    public MensajeHilo findMessageById(Long id) {
 
-        EntidadMensaje mensaje = mensajeRepository.findById(id).get();
+        MensajeHilo mensaje = mensajeRepository.findById(id).get();
 
         if (mensaje == null) {
             throw new EntityNotFoundException("Mensaje no encontrado");
@@ -138,12 +140,13 @@ public class MensajeService {
 
     @Transactional
     public void deleteMessageById(Long id) {
-        EntidadMensaje mensaje = mensajeRepository.findById(id)
+        MensajeHilo mensaje = mensajeRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Mensaje no encontrado"));
 
-        EntidadHilo hilo = mensaje.getHilo();
+        Hilo hilo = mensaje.getHilo();
         if (hilo != null) {
             hilo.getMensajes().remove(mensaje);
+            hilo.setMensajeCount(hilo.getMensajeCount() - 1);
         }
 
         hiloLookupService.saveHilo(hilo);

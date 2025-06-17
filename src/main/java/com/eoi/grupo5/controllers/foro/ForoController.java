@@ -1,7 +1,7 @@
 package com.eoi.grupo5.controllers.foro;
 
-import com.eoi.grupo5.entities.foro.EntidadHilo;
-import com.eoi.grupo5.entities.foro.EntidadMensaje;
+import com.eoi.grupo5.entities.foro.Hilo;
+import com.eoi.grupo5.entities.foro.MensajeHilo;
 import com.eoi.grupo5.services.foro.HiloService;
 import com.eoi.grupo5.services.foro.MensajeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +37,7 @@ public class ForoController {
     }
 
     @PostMapping
-    public String createHilo(@ModelAttribute("nuevoHilo") EntidadHilo hilo,
+    public String createHilo(@ModelAttribute("nuevoHilo") Hilo hilo,
                              @AuthenticationPrincipal UserDetails userDetails) {
 
         return hiloService.createHilo(hilo, userDetails);
@@ -71,7 +71,7 @@ public class ForoController {
 
     @PostMapping("/hilo/{id}/nuevo-mensaje")
     public String newMensaje(@PathVariable Long id,
-                             @ModelAttribute("nuevoMensaje") EntidadMensaje mensaje,
+                             @ModelAttribute("nuevoMensaje") MensajeHilo mensaje,
                              @AuthenticationPrincipal UserDetails userDetails) {
 
         return mensajeService.newMensaje(id, mensaje, userDetails);

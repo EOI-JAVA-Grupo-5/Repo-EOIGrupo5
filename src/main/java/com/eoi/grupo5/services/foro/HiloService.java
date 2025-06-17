@@ -1,7 +1,7 @@
 package com.eoi.grupo5.services.foro;
 
-import com.eoi.grupo5.entities.foro.EntidadHilo;
-import com.eoi.grupo5.entities.foro.EntidadMensaje;
+import com.eoi.grupo5.entities.foro.Hilo;
+import com.eoi.grupo5.entities.foro.MensajeHilo;
 import com.eoi.grupo5.entities.Usuario;
 import com.eoi.grupo5.repositories.foro.HiloRepository;
 import com.eoi.grupo5.services.UsuarioService;
@@ -38,8 +38,8 @@ public class HiloService {
                                   Model model,
                                   UserDetails userDetails) {
 
-        Page<EntidadHilo> hilosRecientes = obtenerHilosRecientesPaginado(page, 3);
-        List<EntidadHilo> hilosOrdenados = buscarYOrdenarHilos(keyword, sort, userDetails, misHilos);
+        Page<Hilo> hilosRecientes = obtenerHilosRecientesPaginado(page, 3);
+        List<Hilo> hilosOrdenados = buscarYOrdenarHilos(keyword, sort, userDetails, misHilos);
 
         addModelAttributes(model, hilosOrdenados, hilosRecientes, page, sort, keyword, misHilos);
         return "foro/main";
@@ -47,8 +47,8 @@ public class HiloService {
 
     public String showHilo(Long id, Model model, UserDetails userDetails) {
 
-        EntidadHilo hilo = findById(id);
-        List<EntidadMensaje> mensajes = mensajeService.findMessagesByHiloId(id);
+        Hilo hilo = findById(id);
+        List<MensajeHilo> mensajes = mensajeService.findMessagesByHiloId(id);
         Usuario usuario = getAuthenticatedUsuario(userDetails);
         if (usuario == null) {
             return "redirect:/login";
@@ -58,7 +58,7 @@ public class HiloService {
         return "foro/hilo";
     }
 
-    public String createHilo(EntidadHilo hilo, UserDetails userDetails) {
+    public String createHilo(Hilo hilo, UserDetails userDetails) {
         Usuario usuario = getAuthenticatedUsuario(userDetails);
         if (usuario == null) {
             return "redirect:/login";
@@ -77,7 +77,7 @@ public class HiloService {
                            RedirectAttributes redirectAttributes) {
 
         try {
-            EntidadHilo hilo = findById(id);
+            Hilo hilo = findById(id);
             if (canEditHilo(hilo, userDetails)) {
                 updateHiloConDatos(hilo, titulo, descripcion);
                 guardarHilo(hilo);
@@ -97,7 +97,7 @@ public class HiloService {
                              RedirectAttributes redirectAttributes) {
 
         try {
-            EntidadHilo hilo = findById(id);
+            Hilo hilo = findById(id);
             if (canEditHilo(hilo, userDetails)) {
                 eliminarHiloYMensajes(id);
                 redirectAttributes.addFlashAttribute("success", "Hilo eliminado correctamente.");
@@ -112,18 +112,18 @@ public class HiloService {
         return "redirect:/foro";
     }
 
-    public EntidadHilo guardarHilo(EntidadHilo hilo) {
+    public Hilo guardarHilo(Hilo hilo) {
         return hiloRepository.save(hilo);
     }
 
-    public Page<EntidadHilo> obtenerHilosRecientesPaginado(int page, int size) {
+    public Page<Hilo> obtenerHilosRecientesPaginado(int page, int size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by("fechaCreacion").descending());
         return hiloRepository.findAllByOrderByFechaCreacionDesc(pageable);
     }
 
-    private List<EntidadHilo> buscarYOrdenarHilos(String keyword, String sortType,
-                                                 UserDetails userDetails,
-                                                 boolean misHilos) {
+    private List<Hilo> buscarYOrdenarHilos(String keyword, String sortType,
+                                           UserDetails userDetails,
+                                           boolean misHilos) {
         Sort sortCriteria = buildSortCriteria(sortType);
 
         if (userDetails == null || !misHilos) {
@@ -145,8 +145,8 @@ public class HiloService {
 
     // Metodos showHilosEnForo
     private void addModelAttributes(Model model,
-                                    List<EntidadHilo> hilosOrdenados,
-                                    Page<EntidadHilo> hilosRecientes,
+                                    List<Hilo> hilosOrdenados,
+                                    Page<Hilo> hilosRecientes,
                                     int page,
                                     String sort,
                                     String keyword,
@@ -156,7 +156,7 @@ public class HiloService {
         model.addAttribute("hilosRecientes", hilosRecientes);
         model.addAttribute("totalPages", hilosRecientes.getTotalPages());
         model.addAttribute("currentPage", page);
-        model.addAttribute("nuevoHilo", new EntidadHilo());
+        model.addAttribute("nuevoHilo", new Hilo());
         model.addAttribute("selectedSort", sort);
         model.addAttribute("keyword", keyword);
         model.addAttribute("misHilos", misHilos);
@@ -168,10 +168,10 @@ public class HiloService {
                 .orElse(null);
     }
 
-    private void addHiloAttributesToModel(Model model, EntidadHilo hilo, List<EntidadMensaje> mensajes, Usuario usuario, UserDetails userDetails) {
+    private void addHiloAttributesToModel(Model model, Hilo hilo, List<MensajeHilo> mensajes, Usuario usuario, UserDetails userDetails) {
         model.addAttribute("hilo", hilo);
         model.addAttribute("mensajes", mensajes);
-        model.addAttribute("nuevoMensaje", new EntidadMensaje());
+        model.addAttribute("nuevoMensaje", new MensajeHilo());
         model.addAttribute("usuarioActual", usuario);
         model.addAttribute("isAdmin", isAdmin(userDetails));
     }
@@ -182,28 +182,28 @@ public class HiloService {
     }
 
     // Metodos para createHilo
-    private void prepararNuevoHilo(EntidadHilo hilo, Usuario usuario) {
+    private void prepararNuevoHilo(Hilo hilo, Usuario usuario) {
         hilo.setFechaCreacion(LocalDateTime.now());
         hilo.setAutor(usuario);
     }
 
     // Metodos para editarHilo
 
-    private boolean canEditHilo(EntidadHilo hilo, UserDetails userDetails) {
+    private boolean canEditHilo(Hilo hilo, UserDetails userDetails) {
         String username = userDetails.getUsername();
         return hilo.getAutor().getUsername().equals(username) || isAdmin(userDetails);
     }
 
-    private void updateHiloConDatos(EntidadHilo hilo, String titulo, String descripcion) {
+    private void updateHiloConDatos(Hilo hilo, String titulo, String descripcion) {
         hilo.setTitulo(titulo);
         hilo.setDescripcion(descripcion);
     }
 
     // Metodos para deleteHilo
     private void eliminarHiloYMensajes(Long id) {
-        EntidadHilo hilo = hiloRepository.findById(id).orElseThrow(() -> new RuntimeException("Hilo no encontrado"));
+        Hilo hilo = hiloRepository.findById(id).orElseThrow(() -> new RuntimeException("Hilo no encontrado"));
 
-        for (EntidadMensaje mensaje : hilo.getMensajes()) {
+        for (MensajeHilo mensaje : hilo.getMensajes()) {
             mensajeService.deleteMessageById(mensaje.getId());
         }
 
@@ -212,7 +212,7 @@ public class HiloService {
 
     // Metodos reutilizables y de otros metodos
 
-    private EntidadHilo findById(Long id) {
+    private Hilo findById(Long id) {
         return hiloRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Hilo no encontrado"));
     }

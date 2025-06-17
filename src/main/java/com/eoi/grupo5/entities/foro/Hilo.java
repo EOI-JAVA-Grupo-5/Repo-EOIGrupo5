@@ -13,22 +13,22 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "hilos")
-public class EntidadHilo {
+public class Hilo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String titulo;
     private String descripcion;
-    private Long votos;
-    private Long visitas;
+    private long votos = 0;
+    private long visitas = 0;
     private LocalDateTime fechaCreacion;
-    private Long mensajeCount;
+    private long mensajeCount = 0;
 
     @ManyToOne
     @JoinColumn(name = "id_creador")
     private Usuario autor;
 
     @OneToMany(mappedBy = "hilo", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private List<EntidadMensaje> mensajes = new ArrayList<>();
+    private List<MensajeHilo> mensajes = new ArrayList<>();
 }

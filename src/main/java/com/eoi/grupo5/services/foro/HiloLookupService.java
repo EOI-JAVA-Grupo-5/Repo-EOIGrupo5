@@ -1,6 +1,6 @@
 package com.eoi.grupo5.services.foro;
 
-import com.eoi.grupo5.entities.foro.EntidadHilo;
+import com.eoi.grupo5.entities.foro.Hilo;
 import com.eoi.grupo5.repositories.foro.HiloRepository;
 import org.springframework.stereotype.Service;
 
@@ -17,12 +17,12 @@ public class HiloLookupService {
         this.hiloRepository = hiloRepository;
     }
 
-    public EntidadHilo findById(Long id) {
+    public Hilo findById(Long id) {
         return hiloRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Hilo no encontrado"));
     }
 
-    public void saveHilo(EntidadHilo hilo) {
+    public void saveHilo(Hilo hilo) {
         hiloRepository.save(hilo);
     }
 }
