@@ -142,13 +142,21 @@
             </div>
 
             <div class="row justify-content-center align-items-center g-2">
-                <div class="col-md-3 pt-2">
 
+                <div class="col-md-3 pt-2">
                     <div class="card bg-light">
+<!--                        Si el usuario tiene una imagen de perfil-->
                         <img class="card-img-top rounded-circle justify-content-center align-self-center p-2"
-                            style="width: 12rem;height: fit-content;"
-                            src="https://content.imageresizer.com/images/memes/rizz-apple-meme-5.jpg"
-                            alt="Image-Avatar">
+                             style="width: 12rem; height: 12rem;"
+                             th:if="${usuario.imagenURL != null}"
+                             th:src="@{'/images/perfiles/' + ${usuario.imagenURL}}"
+                             alt="Image-Avatar">
+<!--                        Si no tiene imagen de perfil-->
+                        <img class="card-img-top rounded-circle justify-content-center align-self-center p-2"
+                             style="width: 12rem; height: 12rem;"
+                             th:if="${usuario.imagenURL == null}"
+                             th:src="@{'/images/perfiles/default-profile-picture.jpg'}"
+                             alt="Image-Avatar">
                         <div class="card-body text-center">
                             <h4 id="userName" class="card-title"><span th:text="${usuario.username}">Usuario</span></h4>
                             <p class="card-text">
@@ -159,76 +167,23 @@
                     </div>
                 </div>
 
-                <div class="col-md-9 align-self-start pt-2">
-                    <div class="card bg-light">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <p class="mb-0"><strong>Nombre</strong></p>
-                                </div>
-                                <div class="col-sm-9"><span th:text="${usuario.nombre}">Paco</span></div>
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <p class="mb-0"><strong>Apellidos</strong></p>
-                                </div>
-                                <div class="col-sm-9"><span th:text="${usuario.apellidos}">Pacoles</span></div>
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <p class="mb-0"><strong>Correo</strong></p>
-                                </div>
-                                <div class="col-sm-9"><span
-                                        th:text="${usuario.correo}">correodelusuario@correo.es</span></div>
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <p class="mb-0"><strong>Teléfono</strong></p>
-                                </div>
-                                <div class="col-sm-9"><span th:text="${usuario.telefono}">Número de teléfono</span>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row pt-3 justify-content-end">
-                                <div class="col-md-3">
-                                    <a class="btn btn-primary rounded-pill" th:href="@{/usuario/modificar}"
-                                        role="button">Modificar datos</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-    </section>
-
-    <!-- Popurri de informacion -->
-    <section id="popurri">
-        <div class="container">
-            <h3>Datos de compras</h3>
-            <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-9">
                     <nav>
                         <div class="nav nav-tabs" role="tablist">
                             <button class="nav-link active" id="tab-1" data-bs-toggle="tab"
-                                data-bs-target="#tab-content-1" type="button" role="tab" aria-controls="nav-home"
-                                aria-selected="true">Euros gastados en semana</button>
+                                    data-bs-target="#tab-content-1" type="button" role="tab" aria-controls="nav-home"
+                                    aria-selected="true">Euros gastados en semana</button>
                             <button class="nav-link" id="tab-2" data-bs-toggle="tab" data-bs-target="#tab-content-2"
-                                type="button" role="tab" aria-controls="nav-home" aria-selected="false">Flujo en
+                                    type="button" role="tab" aria-controls="nav-home" aria-selected="false">Flujo en
                                 semana</button>
                             <button class="nav-link" id="tab-3" data-bs-toggle="tab" data-bs-target="#tab-content-3"
-                                type="button" role="tab" aria-controls="nav-home" aria-selected="false">Gasto total en
+                                    type="button" role="tab" aria-controls="nav-home" aria-selected="false">Gasto total en
                                 semana</button>
                         </div>
                     </nav>
                     <div class="tab-content">
                         <div class="tab-pane fade show active" id="tab-content-1" role="tabpanel"
-                            aria-labelledby="tab-content-1" tabindex="0">
+                             aria-labelledby="tab-content-1" tabindex="0">
 
                             <div>
                                 <canvas id="myChart1"></canvas>
@@ -320,7 +275,7 @@
                         </div>
 
                         <div class="tab-pane fade" id="tab-content-2" role="tabpanel" aria-labelledby="tab-content-2"
-                            tabindex="0">
+                             tabindex="0">
 
                             <div class="container">
                                 <canvas id="myChart3"></canvas>
@@ -359,9 +314,9 @@
                         </div>
 
                         <div class="tab-pane fade" id="tab-content-3" role="tabpanel" aria-labelledby="tab-content-3"
-                            tabindex="0">
-                            <div class="container">
-                                <canvas id="myChart2"></canvas>
+                             tabindex="0">
+                            <div class="container" style="height: 500px">
+                                <canvas id="myChart2" style="align-self: center"></canvas>
                             </div>
 
                             <!--                            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>-->
@@ -398,8 +353,61 @@
                     </div>
 
                 </div>
+            </div>
 
-                <div class="col-md-6">
+        </div>
+
+    </section>
+
+    <!-- Popurri de informacion -->
+    <section id="popurri">
+        <div class="container mb-4">
+            <h3>Datos del usuario</h3>
+            <div class="row">
+                <div class="col-md-9 align-self-start pt-2">
+                    <div class="card bg-light">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0"><strong>Nombre</strong></p>
+                                </div>
+                                <div class="col-sm-9"><span th:text="${usuario.nombre}">Paco</span></div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0"><strong>Apellidos</strong></p>
+                                </div>
+                                <div class="col-sm-9"><span th:text="${usuario.apellidos}">Pacoles</span></div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0"><strong>Correo</strong></p>
+                                </div>
+                                <div class="col-sm-9"><span
+                                        th:text="${usuario.correo}">correodelusuario@correo.es</span></div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0"><strong>Teléfono</strong></p>
+                                </div>
+                                <div class="col-sm-9"><span th:text="${usuario.telefono}">Número de teléfono</span>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row pt-3 justify-content-end">
+                                <div class="col-md-3">
+                                    <a class="btn btn-primary rounded-pill" th:href="@{/usuario/modificar}"
+                                       role="button">Modificar datos</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
                     <div class="container m-3">
                         <ul class="list-group">
                             <li class="list-group-item list-group-item-action">

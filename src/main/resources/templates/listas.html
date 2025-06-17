@@ -20,7 +20,10 @@
 
             <h2 class="p-3">Listas guardadas</h2>
             <div class="row p-3">
-                <div class="table-responsive">
+
+                <h4 th:if="${listasUsuario.size() == 1}">Actualmente no tienes listas guardadas</h4>
+
+                <div th:if="${listasUsuario.size() != 1}" class="table-responsive">
                     <table class="table table-bordered">
                         <thead class="table-dark">
                             <tr>
@@ -32,7 +35,6 @@
                             </tr>
                         </thead>
                         <tbody>
-
                             <tr th:each="lista : ${listasUsuario}">
                                 <!--                        MOSTRAMOS SOLO LAS LISTAS CERRADAS-->
                                 <th:block th:if="${lista.cerrada} == true">
@@ -46,6 +48,9 @@
                                             lista</a>
                                     </td>
                                 </th:block>
+                            </tr>
+                            <tr>
+
                             </tr>
                         </tbody>
                     </table>
