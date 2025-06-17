@@ -5,7 +5,6 @@ import com.eoi.grupo5.entities.foro.MensajeHilo;
 import com.eoi.grupo5.entities.Usuario;
 import com.eoi.grupo5.repositories.foro.MensajeRepository;
 import com.eoi.grupo5.services.UsuarioService;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -21,6 +20,9 @@ public class MensajeService {
     private final MensajeRepository mensajeRepository;
     private final UsuarioService usuarioService;
     private final HiloLookupService hiloLookupService;
+
+    private static final String REDIRECT_HILO = "redirect:/foro/hilo/";
+    private static final String FLASH_ERROR = "error";
 
     @Autowired
     public MensajeService(MensajeRepository mensajeRepository, UsuarioService usuarioService, HiloLookupService hiloLookupService) {
@@ -43,7 +45,7 @@ public class MensajeService {
         preparareNewMensaje(mensaje, autor, hilo);
 
         saveMessage(mensaje);
-        return "redirect:/foro/hilo/" + hiloId;
+        return REDIRECT_HILO + hiloId;
     }
 
     public String editMensaje(Long mensajeId,
@@ -53,8 +55,8 @@ public class MensajeService {
         try {
             MensajeHilo mensaje = findMessageById(mensajeId);
 
-            if (!canEditMensaje(mensaje, userDetails)) {
-                redirectAttributes.addFlashAttribute("error", "No tienes permiso para editar este mensaje.");
+            if (cantEditMensaje(mensaje, userDetails)) {
+                redirectAttributes.addFlashAttribute(FLASH_ERROR, "No tienes permiso para editar este mensaje.");
                 return redirectToHilo(mensaje);
             }
 
@@ -62,8 +64,8 @@ public class MensajeService {
             saveMessage(mensaje);
             redirectAttributes.addFlashAttribute("success", "Mensaje editado correctamente.");
 
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", "Error al editar el mensaje.");
+        } catch (Exception _) {
+            redirectAttributes.addFlashAttribute(FLASH_ERROR, "Error al editar el mensaje.");
         }
 
         // Always redirect to the hilo page of the mensaje
@@ -75,18 +77,18 @@ public class MensajeService {
         try {
             MensajeHilo mensaje = findMessageById(mensajeId);
 
-            if (!canEditMensaje(mensaje, userDetails)) {
-                redirectAttributes.addFlashAttribute("error", "No tienes permiso para eliminar este mensaje.");
+            if (cantEditMensaje(mensaje, userDetails)) {
+                redirectAttributes.addFlashAttribute(FLASH_ERROR, "No tienes permiso para eliminar este mensaje.");
                 return redirectToHilo(mensaje);
             }
 
             Long hiloId = mensaje.getHilo().getId();
             deleteMessageById(mensajeId);
             redirectAttributes.addFlashAttribute("success", "Mensaje eliminado correctamente.");
-            return "redirect:/foro/hilo/" + hiloId;
+            return REDIRECT_HILO + hiloId;
 
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", "Error al eliminar el mensaje.");
+        } catch (Exception _) {
+            redirectAttributes.addFlashAttribute(FLASH_ERROR, "Error al eliminar el mensaje.");
             return "redirect:/foro";
         }
     }
@@ -103,9 +105,9 @@ public class MensajeService {
     }
 
     // Metodos para editMensaje
-    private boolean canEditMensaje(MensajeHilo mensaje, UserDetails userDetails) {
+    private boolean cantEditMensaje(MensajeHilo mensaje, UserDetails userDetails) {
         String username = userDetails.getUsername();
-        return mensaje.getAutor().getUsername().equals(username) || isAdmin(userDetails);
+        return !mensaje.getAutor().getUsername().equals(username) && !isAdmin(userDetails);
     }
 
     private void actualizarContenidoMensaje(MensajeHilo mensaje, String contenido) {
@@ -113,7 +115,7 @@ public class MensajeService {
     }
 
     private String redirectToHilo(MensajeHilo mensaje) {
-        return "redirect:/foro/hilo/" + mensaje.getHilo().getId();
+        return REDIRECT_HILO + mensaje.getHilo().getId();
     }
 
     // Metodos para deleteMensaje
@@ -128,14 +130,8 @@ public class MensajeService {
     }
 
     public MensajeHilo findMessageById(Long id) {
-
-        MensajeHilo mensaje = mensajeRepository.findById(id).get();
-
-        if (mensaje == null) {
-            throw new EntityNotFoundException("Mensaje no encontrado");
-        }
-
-        return mensaje;
+        return mensajeRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Mensaje no encontrado con id: " + id));
     }
 
     @Transactional
@@ -147,9 +143,10 @@ public class MensajeService {
         if (hilo != null) {
             hilo.getMensajes().remove(mensaje);
             hilo.setMensajeCount(hilo.getMensajeCount() - 1);
+            hiloLookupService.saveHilo(hilo);
         }
 
-        hiloLookupService.saveHilo(hilo);
+        mensajeRepository.delete(mensaje);
     }
 
     private boolean isAdmin(UserDetails userDetails) {

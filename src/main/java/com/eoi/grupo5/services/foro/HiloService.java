@@ -24,12 +24,16 @@ public class HiloService {
     private final MensajeService mensajeService;
     private final UsuarioService usuarioService;
 
+    private static final String FLASH_ERROR = "error";
+
     @Autowired
     public HiloService(HiloRepository hiloRepository, MensajeService mensajeService, UsuarioService usuarioService) {
         this.hiloRepository = hiloRepository;
         this.mensajeService = mensajeService;
         this.usuarioService = usuarioService;
     }
+
+    // Controller Methods
 
     public String showHilosEnForo(int page,
                                   String sort,
@@ -54,6 +58,8 @@ public class HiloService {
             return "redirect:/login";
         }
 
+        addViewCount(hilo);
+
         addHiloAttributesToModel(model, hilo, mensajes, usuario, userDetails);
         return "foro/hilo";
     }
@@ -65,7 +71,7 @@ public class HiloService {
         }
 
         prepararNuevoHilo(hilo, usuario);
-        guardarHilo(hilo);
+        saveHilo(hilo);
 
         return "redirect:/foro/hilo/" + hilo.getId();
     }
@@ -80,13 +86,13 @@ public class HiloService {
             Hilo hilo = findById(id);
             if (canEditHilo(hilo, userDetails)) {
                 updateHiloConDatos(hilo, titulo, descripcion);
-                guardarHilo(hilo);
+                saveHilo(hilo);
                 redirectAttributes.addFlashAttribute("success", "Hilo editado correctamente.");
             } else {
-                redirectAttributes.addFlashAttribute("error", "No tienes permiso para editar este hilo.");
+                redirectAttributes.addFlashAttribute(FLASH_ERROR, "No tienes permiso para editar este hilo.");
             }
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", "No se pudo editar el hilo.");
+        } catch (Exception _) {
+            redirectAttributes.addFlashAttribute(FLASH_ERROR, "No se pudo editar el hilo.");
         }
 
         return "redirect:/foro/hilo/" + id;
@@ -102,48 +108,21 @@ public class HiloService {
                 eliminarHiloYMensajes(id);
                 redirectAttributes.addFlashAttribute("success", "Hilo eliminado correctamente.");
             } else {
-                redirectAttributes.addFlashAttribute("error", "No tienes permiso para eliminar este hilo.");
+                redirectAttributes.addFlashAttribute(FLASH_ERROR, "No tienes permiso para eliminar este hilo.");
             }
 
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", "Error al eliminar el hilo.");
+        } catch (Exception _) {
+            redirectAttributes.addFlashAttribute(FLASH_ERROR, "Error al eliminar el hilo.");
         }
 
         return "redirect:/foro";
     }
 
-    public Hilo guardarHilo(Hilo hilo) {
-        return hiloRepository.save(hilo);
+    public void saveHilo(Hilo hilo) {
+        hiloRepository.save(hilo);
     }
 
-    public Page<Hilo> obtenerHilosRecientesPaginado(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by("fechaCreacion").descending());
-        return hiloRepository.findAllByOrderByFechaCreacionDesc(pageable);
-    }
-
-    private List<Hilo> buscarYOrdenarHilos(String keyword, String sortType,
-                                           UserDetails userDetails,
-                                           boolean misHilos) {
-        Sort sortCriteria = buildSortCriteria(sortType);
-
-        if (userDetails == null || !misHilos) {
-            if (keyword == null || keyword.trim().isEmpty()) {
-                return hiloRepository.findAll(sortCriteria);
-            } else {
-                return hiloRepository.findByTituloContainingIgnoreCase(keyword, sortCriteria);
-            }
-        }
-
-        String usuarioUsername = userDetails.getUsername();
-
-        if (keyword == null || keyword.trim().isEmpty()) {
-            return hiloRepository.findByAutor_Username(usuarioUsername, sortCriteria);
-        } else {
-            return hiloRepository.findByAutor_UsernameAndTituloContainingIgnoreCase(usuarioUsername, keyword, sortCriteria);
-        }
-    }
-
-    // Metodos showHilosEnForo
+    // Methods showHilosEnForo
     private void addModelAttributes(Model model,
                                     List<Hilo> hilosOrdenados,
                                     Page<Hilo> hilosRecientes,
@@ -162,7 +141,40 @@ public class HiloService {
         model.addAttribute("misHilos", misHilos);
     }
 
-    // Metodos para showHilo
+    public Page<Hilo> obtenerHilosRecientesPaginado(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("fechaCreacion").descending());
+        return hiloRepository.findAllByOrderByFechaCreacionDesc(pageable);
+    }
+
+    private List<Hilo> buscarYOrdenarHilos(String keyword,
+                                           String sortType,
+                                           UserDetails userDetails,
+                                           boolean misHilos) {
+
+        Sort sort = buildSortCriteria(sortType);
+        boolean isKeywordEmpty = (keyword == null || keyword.trim().isEmpty());
+        String username = (userDetails != null) ? userDetails.getUsername() : null;
+
+        if (!misHilos || username == null) {
+            return buscarHilosPublicos(keyword, isKeywordEmpty, sort);
+        }
+
+        return buscarHilosDelUsuario(username, keyword, isKeywordEmpty, sort);
+    }
+
+    private List<Hilo> buscarHilosPublicos(String keyword, boolean isKeywordEmpty, Sort sort) {
+        return isKeywordEmpty
+                ? hiloRepository.findAll(sort)
+                : hiloRepository.findByTituloContainingIgnoreCase(keyword, sort);
+    }
+
+    private List<Hilo> buscarHilosDelUsuario(String username, String keyword, boolean isKeywordEmpty, Sort sort) {
+        return isKeywordEmpty
+                ? hiloRepository.findByAutor_Username(username, sort)
+                : hiloRepository.findByAutor_UsernameAndTituloContainingIgnoreCase(username, keyword, sort);
+    }
+
+    // Methods para showHilo
     private Usuario getAuthenticatedUsuario(UserDetails userDetails) {
         return usuarioService.findByUsername(userDetails.getUsername())
                 .orElse(null);
@@ -181,13 +193,20 @@ public class HiloService {
                 .anyMatch(auth -> auth.getAuthority().equals("ADMIN"));
     }
 
-    // Metodos para createHilo
+    private void addViewCount (Hilo hilo) {
+
+        // Very basic view count would need to implement a better version if app gets bigger
+        hilo.setVisitas(hilo.getVisitas() + 1);
+        saveHilo(hilo);
+    }
+
+    // Methods to createHilo
     private void prepararNuevoHilo(Hilo hilo, Usuario usuario) {
         hilo.setFechaCreacion(LocalDateTime.now());
         hilo.setAutor(usuario);
     }
 
-    // Metodos para editarHilo
+    // Methods to editarHilo
 
     private boolean canEditHilo(Hilo hilo, UserDetails userDetails) {
         String username = userDetails.getUsername();
@@ -199,7 +218,7 @@ public class HiloService {
         hilo.setDescripcion(descripcion);
     }
 
-    // Metodos para deleteHilo
+    // Methods to deleteHilo
     private void eliminarHiloYMensajes(Long id) {
         Hilo hilo = hiloRepository.findById(id).orElseThrow(() -> new RuntimeException("Hilo no encontrado"));
 
@@ -210,7 +229,7 @@ public class HiloService {
         hiloRepository.delete(hilo);
     }
 
-    // Metodos reutilizables y de otros metodos
+    // Methods reutilizables y de otros metodos
 
     private Hilo findById(Long id) {
         return hiloRepository.findById(id)
@@ -218,23 +237,12 @@ public class HiloService {
     }
 
     private Sort buildSortCriteria (String sortType) {
-        Sort sortCriteria;
-
-        switch (sortType) {
-            case "votos":
-                sortCriteria = Sort.by(Sort.Direction.DESC, "votos");
-                break;
-            case "visitas":
-                sortCriteria = Sort.by(Sort.Direction.DESC, "visitas");
-                break;
-            case "mensajes":
-                sortCriteria = Sort.by(Sort.Direction.DESC, "mensajeCount");
-                break;
-            default:
-                sortCriteria = Sort.by(Sort.Direction.DESC, "fechaCreacion");
-                break;
-        }
-        return sortCriteria;
+        return switch (sortType) {
+            case "votos" -> Sort.by(Sort.Direction.DESC, "votos");
+            case "visitas" -> Sort.by(Sort.Direction.DESC, "visitas");
+            case "mensajes" -> Sort.by(Sort.Direction.DESC, "mensajeCount");
+            default -> Sort.by(Sort.Direction.DESC, "fechaCreacion");
+        };
     }
 
 }
