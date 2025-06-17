@@ -16,7 +16,7 @@ id,name,supermarket,zip_code,price,url,category
 25866811,Lomo de cerdo iberico,mercadona.es,28020,6.26,https://prod-mercadona.imgix.net/images/c9659de97e441fcafd10953dba2acea0.jpg?fit=crop&h=600&w=600,carne|cerdo
 25858606,Zumo de fruta y leche Carrefour Tropical pack de 6 briks de 20 cl.,carrefour.es,28020,1.19,https://static.carrefour.es/hd_510x_/img_pim_food/837366_00_1.jpg,bebidas|aguas_y_zumos|zumos_no_refrigerados
 25866308,Cerveza Suave Steinburg,mercadona.es,28020,0.29,https://prod-mercadona.imgix.net/images/fcfd89d5896bc4b8f7cfa825964b2d96.jpg?fit=crop&h=300&w=300,bodega|cerveza
-25860089,""Tabletas limpiadoras para protesis dentales, ferulas dentales y ortodoncias Oxigeno Activo Corega 108 ud."",carrefour.es,28020,17.19,https://static.carrefour.es/hd_510x_/img_pim_food/671015_00_1.jpg,parafarmacia|higiene_bucal|cuidado_y_fijacion_protesis_dentales
+"25860089,""Tabletas limpiadoras para protesis dentales, ferulas dentales y ortodoncias Oxigeno Activo Corega 108 ud."",carrefour.es,28020,17.19,https://static.carrefour.es/hd_510x_/img_pim_food/671015_00_1.jpg,parafarmacia|higiene_bucal|cuidado_y_fijacion_protesis_dentales"
 25857123,Masa para empanadillas y postres Buitoni sin lactosa 160 g.,carrefour.es,28020,1.1,https://yourspanishcorner.com/4929-large_default/masa-para-empanadillas-y-postres-buitoni-160-g.jpg,la_despensa|panaderia_bolleria_y_pasteleria|masa_fresca_y_bases
 25864926,MISTOL lavavajillas mano ultra plus botella 650 ml,dia.es,28020,2.49,https://supermercado.eroski.es/images/24537110.jpg,cuidado_del_hogar|lavavajillas
 25864306,COLGATE cepillo dental 360 max white medio 1 ud,dia.es,28020,4.29,https://static.carrefour.es/hd_510x_/img_pim_food/927281_00_1.jpg,cuidado_personal|cuidado_bucal
@@ -47,7 +47,7 @@ id,name,supermarket,zip_code,price,url,category
 25864378,LUXIDERMA calcetin exfoliante para pies envase 2 uds,dia.es,28020,6.99,https://www.ahorramas.com/on/demandware.static/-/Sites-ahorramas-master/default/dwa870581f/Assets/062810_C1C1/large/4/9/c/4/49c446d74c811e1c1509f662d161ec2cb692e19f_062810_C1C1.jpg,cuidado_personal|cuidado_corporal|cuidado_de_manos_y_pies
 25864454,DIA IMAQE discos de algodon ovalados bolsa 70 uds,dia.es,28020,1.25,https://www.dia.es/product_images/283888/283888_ISO_0_ES.jpg?imwidth=392,cuidado_personal|cuidado_corporal|limpieza_facial
 25869502,Fregona Microfibra Resistente Bosque Verde,mercadona.es,28020,3.8,https://a0.soysuper.com/dc6faa3ac4ba1e63147e778e0f2154d3.1500.0.0.0.wmark.8cc36b59.jpg,limpieza_y_hogar|utensilios_de_limpieza_y_calzado
-25859299,""Fregasuelos aroma pino Essential Carrefour 1,5 l."",carrefour.es,28020,0.99,https://static.carrefour.es/hd_510x_/img_pim_food/675797_00_1.jpg,limpieza_y_hogar|productos_para_toda_la_casa|suelos
+"25859299,""Fregasuelos aroma pino Essential Carrefour 1,5 l."",carrefour.es,28020,0.99,https://static.carrefour.es/hd_510x_/img_pim_food/675797_00_1.jpg,limpieza_y_hogar|productos_para_toda_la_casa|suelos"
 25862597,CARMENCITA oregano frasco 7 gr,dia.es,28020,1.95,https://media.verdecora.es/1246070-pdt_540/oregano-carmencita-tarro-cristal.jpg,despensa|sal_y_especias
 25860934,ASTURIANA leche desnatada 0% M.G. sin lactosa envase 1 lt,dia.es,28020,1.19,https://m.media-amazon.com/images/I/71WnSfHavTL.__AC_SX300_SY300_QL70_ML2_.jpg,despensa|lacteos_y_huevos|leche
 25860887,Sopa juliana deshidratada bandeja 100 gr,dia.es,28020,2.36,https://www.dia.es/product_images/50310/50310_ISO_0_ES.jpg,frescos|verduras_y_hortalizas|verduras_y_ensaladas_preparadas
@@ -60,7 +60,7 @@ id,name,supermarket,zip_code,price,url,category
 25868077,Lote corporal hombre Axe Dark temptation,mercadona.es,28020,11,https://cdn.notinoimg.com/detail_main_lq/axe/8720182851833_01/dark-temptation-dark-chocolate___240930.jpg,cuidado_facial_y_corporal|afeitado_y_cuidado_para_hombre
 25855505,Preparado para fajitas Surinver 230 g,carrefour.es,28020,1.99,https://sgfm.elcorteingles.es/SGFM/dctm/MEDIA03/202304/14/00118160102838____2__600x600.jpg,productos_frescos|platos_preparados|platos_de_verdura
 25862198,ANETO caldo de pollo bajo en sal envase 1 lt,dia.es,28020,3.99,https://static.condisline.com/resize_395x416/images/catalog/large/116089.jpg,despensa|sopas|caldos
-25858339,""Carrefour te de melocoton botella 1,5 l."",carrefour.es,28020,0.95,https://static.carrefour.es/hd_1500x_/img_pim_food/256378_00_1.jpg,bebidas|refrescos|te
+"25858339,""Carrefour te de melocoton botella 1,5 l."",carrefour.es,28020,0.95,https://static.carrefour.es/hd_1500x_/img_pim_food/256378_00_1.jpg,bebidas|refrescos|te"
 25855855,Levadura de cerveza desamargada Carrefour 150 g.,carrefour.es,28020,4.95,https://a0.soysuper.com/769fee20040b93328e671a86a93ecb20.340.340.0.min.wmark.564a1337.jpg,la_despensa|alimentacion|vitaminas_y_complementos
 25866275,Toallitas bebe pieles con tendencia atopica Deliplus,mercadona.es,28020,1.7,https://prod-mercadona.imgix.net/images/071d1ab6e1365ea833fb2b85057a0395.jpg?fit=crop&h=600&w=600,bebe|toallitas_y_panales
 25868310,Gel-Champan de ba�o dermoprotector Deliplus para cuerpo y cabello,mercadona.es,28020,1,https://prod-mercadona.imgix.net/images/2fcd80aa4cef88c104447756eb38f310.jpg?fit=crop&h=600&w=600,cuidado_facial_y_corporal|gel_y_jabon_de_manos
@@ -89,7 +89,7 @@ id,name,supermarket,zip_code,price,url,category
 25868252,Recambios maquinilla depilacion Venus Snap Extra Smooth Gillette 5 hojas,mercadona.es,28020,9.95,https://m.media-amazon.com/images/I/51FrRmgMX8L._AC_.jpg,cuidado_facial_y_corporal|depilacion
 25863769,CONGELADOS DE NAVARRA arandanos bolsa 300 gr,dia.es,28020,2.11,https://www.dia.es/product_images/290109/290109_ISO_0_ES.jpg?imwidth=392,congelados|verduras_y_hortalizas
 25864660,NATIVA leche crecimiento con galleta Maria +12 meses envase 1 lt,dia.es,28020,1.99,https://static.carrefour.es/hd_510x_/img_pim_food/764863_00_1.jpg,bebe|leche_para_bebes
-25859914,""Aromatizante de Pino para Arena de Gato 750 gr, Carrefour"",carrefour.es,28020,4.5,https://storage.googleapis.com/catalog-pictures-carrefour-es/catalog/pictures/hd_510x_/8440000153627_1.jpg,mascotas|gatos|accesorios_e_higiene
+"25859914,""Aromatizante de Pino para Arena de Gato 750 gr, Carrefour"",carrefour.es,28020,4.5,https://storage.googleapis.com/catalog-pictures-carrefour-es/catalog/pictures/hd_510x_/8440000153627_1.jpg,mascotas|gatos|accesorios_e_higiene"
 25862607,DANI ajo y perejil frasco 150 gr,dia.es,28020,4.05,https://www.dia.es/product_images/263633/263633_ISO_0_ES.jpg,despensa|sal_y_especias
 25865445,Sazonador ensalada Hacendado,mercadona.es,28020,2.6,https://tienda.mercadona.es/product/37405/sazonador-ensalada-hacendado-bote,aceite_especias_y_salsas|especias
 25860584,ELPOZO pechuga de pavo en finas lonchas envase 115 gr,dia.es,28020,1.5,https://sgfm.elcorteingles.es/SGFM/dctm/MEDIA03/202409/06/00118384601466____3__325x325.jpg,frescos|charcuteria_y_quesos|cocidos
@@ -104,7 +104,7 @@ id,name,supermarket,zip_code,price,url,category
 25870119,Bizcochos Hacendado,mercadona.es,28020,1.8,https://prod-mercadona.imgix.net/images/4fba1503f1b274ccc7be9f90f5c05bf4.jpg?fit=crop&h=600&w=600,panaderia_y_pasteleria|bolleria_envasada
 25854570,Bacalao desalado desmigado procedente de pesca sostenible Carrefour 250 g.,carrefour.es,28020,4.15,https://static.carrefour.es/hd_510x_/img_pim_food/965241_00_1.jpg,productos_frescos|pescaderia|bacalao_y_salazones
 25863409,J&B whisky botella 70 cl,dia.es,28020,12.5,https://www.dia.es/product_images/947/947_ISO_0_ES.jpg?imwidth=392,bodega|alcoholes|whisky
-25854850,""Tarta Profiteroles 1,2 kg"",carrefour.es,28020,11.99,https://a1.soysuper.com/eb302309b3a548841fc678f60919e39a.1500.0.0.0.wmark.c81af955.jpg,productos_frescos|panaderia_tradicional|pasteleria_y_reposteria
+"25854850,""Tarta Profiteroles 1,2 kg"",carrefour.es,28020,11.99,https://a1.soysuper.com/eb302309b3a548841fc678f60919e39a.1500.0.0.0.wmark.c81af955.jpg,productos_frescos|panaderia_tradicional|pasteleria_y_reposteria"
 25866788,Lomo de cerdo adobado,mercadona.es,28020,3.27,https://prod-mercadona.imgix.net/images/ea50f7da52090f60c39a191a2cbab19f.jpg?fit=crop&h=600&w=600,carne|cerdo
 25865395,Hierbas provenzales Hacendado,mercadona.es,28020,1.1,https://prod-mercadona.imgix.net/images/75ea233839587117b294f2d15027f57a.jpg?fit=crop&h=600&w=600,aceite_especias_y_salsas|especias
 25868224,Serum facial acido Hialuronico y Ceramidas Hidrata Deliplus,mercadona.es,28020,6.0,https://prod-mercadona.imgix.net/images/417a335e2cf9e49c883ec654f7eedb29.jpg?fit=crop&h=600&w=600,cuidado_facial_y_corporal|cuidado_e_higiene_facial
@@ -126,7 +126,7 @@ id,name,supermarket,zip_code,price,url,category
 25861209,GULLON galleta ligera sin sal y sin azucar paquete 200 gr,dia.es,28020,1.39,https://a0.soysuper.com/d6e6fbd64014a4060e2b26f59e00dc25.1500.0.0.0.wmark.a0586a8d.jpg,despensa|desayunos_y_dulces|galletas
 25866707,Solomillo de pavo,mercadona.es,28020,4.92,https://prod-mercadona.imgix.net/images/5bb818d0e9762e82d926efb3ce16c8a9.jpg?fit=crop&h=600&w=600,carne|aves_y_pollo
 25862319,DIA AL DIANTE macarron integral paquete 500 gr,dia.es,28020,1.04,https://www.dia.es/product_images/277305/277305_ISO_0_ES.jpg?imwidth=392,despensa|pastas_harinas_y_masas|pastas
-25863098,""SAN MIGUEL cerveza radler con limon 0,0% alcohol lata 33 cl"",dia.es,28020,0.75,https://www.dia.es/product_images/125715/125715_ISO_0_ES.jpg?imwidth=392,bebidas|cervezas|con_limon
+"25863098,""SAN MIGUEL cerveza radler con limon 0,0% alcohol lata 33 cl"",dia.es,28020,0.75,https://www.dia.es/product_images/125715/125715_ISO_0_ES.jpg?imwidth=392,bebidas|cervezas|con_limon"
 25865812,Cocktail picante Hacendado,mercadona.es,28020,1.55,https://a2.soysuper.com/5e94123f4d5ef60430ebd478f9ae8953.1500.0.0.0.wmark.3695ec71.jpg,aperitivos|frutos_secos_y_fruta_desecada
 25866459,Cava semi seco Cabre & Sabate,mercadona.es,28020,2.35,https://prod-mercadona.imgix.net/images/d6cb0896d9017a83aa22dc4b5d892b50.jpg?fit=crop&h=600&w=600,bodega|sidra_y_cava
 25869997,Snacks gato rellenos con pollo y malta Compy,mercadona.es,28020,1.1,https://prod-mercadona.imgix.net/images/57513fa5c8c08acf9d232890cb2b4473.jpg?fit=crop&h=600&w=600,mascotas|gato
@@ -153,7 +153,7 @@ id,name,supermarket,zip_code,price,url,category
 25863499,MOURAMA vino tinto Mencia DO Monterrei botella 75 cl,dia.es,28020,4.99,https://www.dia.es/product_images/272362/272362_ISO_0_ES.jpg,bodega|vino|tinto
 25865785,Almendra marcona Hacendado frita con sal,mercadona.es,28020,2.85,https://prod-mercadona.imgix.net/images/5d551ec58b08bfd9d1712843f6e603f4.jpg?fit=crop&h=600&w=600,aperitivos|frutos_secos_y_fruta_desecada
 25862471,DIA SELECCION MUNDIAL vinagre balsamico de madena botella 50 cl,dia.es,28020,2.2,https://www.dia.es/product_images/106144/106144_ISO_0_ES.jpg,despensa|aceites_vinagres_y_alinos|vinagres_y_alinos
-25859696,""Pilas Alcalinas Carrefour Itech AAA/LR03, paquete 6"",carrefour.es,28020,4.29,https://static.carrefour.es/hd_510x_/img_pim_food/706810_00_1.jpg,limpieza_y_hogar|bazar|pilas
+"25859696,""Pilas Alcalinas Carrefour Itech AAA/LR03, paquete 6"",carrefour.es,28020,4.29,https://static.carrefour.es/hd_510x_/img_pim_food/706810_00_1.jpg,limpieza_y_hogar|bazar|pilas"
 25863482,MAYOR DE CASTILLA vino tinto botella 75 cl,dia.es,28020,3.3,https://supermercado.eroski.es/images/20891818.jpg,bodega|vino|tinto
 25860045,Champu recien nacido elimina la costra lactea Mustela 150 ml.,carrefour.es,28020,9.05,https://static.carrefour.es/hd_510x_/crs/cdn_static/catalog/hd/545963_00_1.jpg,parafarmacia|bebe|champu
 25869421,Film Transparente Bosque Verde,mercadona.es,28020,1.6,https://prod-mercadona.imgix.net/images/2edf6e6d627c5e1f86efa0519b06761c.jpg?fit=crop&h=600&w=600,limpieza_y_hogar|menaje_y_conservacion_de_alimentos
@@ -267,7 +267,7 @@ id,name,supermarket,zip_code,price,url,category
 25857824,Huevos M-L ecológicos Carrefour Bio 10 ud.,carrefour.es,28020,3.95,https://static.carrefour.es/hd_510x_/img_pim_food/497273_00_1.jpg,la_despensa|huevos|huevos_frescos
 25861254,DIA GALLETECA mini galletas rellenas de chocolate caja 176 gr,dia.es,28020,1.15,https://www.dia.es/product_images/300080/300080_ISO_0_ES.jpg,despensa|desayunos_y_dulces|galletas
 25869389,Lavavajillas Ultra concentrado Bosque Verde,mercadona.es,28020,1.1,https://prod-mercadona.imgix.net/images/30ccd8015874b0d2ed7b3b5b87a8cd25.jpg?fit=crop&h=600&w=600,limpieza_y_hogar|limpieza_vajilla
-25860052,Loción Hidratante corporal Suavinex 750 ml,carrefour.es,28020,15.89,https://www.suavinex.com/medias/locion750hidratante-suavinex-cosmetica19.jpgOriginalImage-515Wx515H?context=bWFzdGVyfGltYWdlc3wxNzk2M3xpbWFnZS9qcGVnfGltYWdlcy9oZTMvaDQ4Lzg4MjYzNDUzMjQ1NzQuanBnfDllZmY1YjYxNzU5YzIwZWQ2MmY4NmZkM2E3MTI2YTkzOTJhNWRiNDEzNmVkYWUzYzIyMzM2MmNhMmMzYjNiODc,parafarmacia|bebe|hidratantes_y_aceites_corporales
+25860052,Loción Hidratante corporal Suavinex 750 ml,carrefour.es,28020,15.89,https://static.carrefour.es/hd_510x_/img_pim_food/681596_00_1.jpg,parafarmacia|bebe|hidratantes_y_aceites_corporales
 25869372,Multiusos Perfumado Bosque Verde,mercadona.es,28020,1.3,https://prod-mercadona.imgix.net/images/023e47cacc6b6b646be2cf431d8fe270.jpg?fit=crop&h=600&w=600,limpieza_y_hogar|limpieza_muebles_y_multiusos
 25862044,CALVO calamares en su tinta pack 3 latas 48 gr,dia.es,28020,2.99,https://www.dia.es/product_images/55630/55630_ISO_0_ES.jpg,despensa|conservas|conservas_de_pescado
 25862043,CAMPOS atún claro en aceite de girasol lata 104 gr,dia.es,28020,2.15,https://www.dia.es/product_images/186623/186623_ISO_0_ES.jpg,despensa|conservas|conservas_de_pescado
@@ -306,8 +306,8 @@ id,name,supermarket,zip_code,price,url,category
 25864555,CAREFREE protege slips cotton aloe vera caja 56 uds,dia.es,28020,3.49,https://www.dia.es/product_images/218511/218511_ISO_0_ES.jpg?imwidth=392,cuidado_personal|cuidado_intimo
 25859556,Ambientador de coche bebé y colonia Cristalinas 1 ud.,carrefour.es,28020,3.69,Ambientador de coche bebé y colonia Cristalinas 1 ud.,limpieza_y_hogar|ambientadores|coche
 25860058,Dentífrico Herbal Fresh Parodontax pack de 2 unidades de 75 ml.,carrefour.es,28020,8.99,https://static.carrefour.es/hd_510x_/img_pim_food/459359_00_1.jpg,parafarmacia|higiene_bucal|pasta_de_dientes
-25860941,""CELTA leche desnatada envase 1,5 lt"",dia.es,28020,1.63,https://lechecelta.com/wp-content/uploads/2022/12/desnatada-1-scaled.webp,despensa|lacteos_y_huevos|leche
-25865299,""BREKKIES Excel alimento para gatos sabor salmón, atún y verduras bolsa 1.5 Kg"",dia.es,28020,5.39,https://www.dia.es/product_images/151720/151720_ISO_0_ES.jpg,mascotas|gatos
+"25860941,""CELTA leche desnatada envase 1,5 lt"",dia.es,28020,1.63,https://lechecelta.com/wp-content/uploads/2022/12/desnatada-1-scaled.webp,despensa|lacteos_y_huevos|leche"
+"25865299,""BREKKIES Excel alimento para gatos sabor salmón, atún y verduras bolsa 1.5 Kg"",dia.es,28020,5.39,https://www.dia.es/product_images/151720/151720_ISO_0_ES.jpg,mascotas|gatos"
 25869694,Perfilador de ojos Waterproof Deliplus 07 verde turquesa,mercadona.es,28020,2.5,https://prod-mercadona.imgix.net/images/313414792cd3bd6d3b7db3af3abd0bfc.jpg?fit=crop&h=600&w=600,maquillaje|ojos
 25868706,Aftersun Monoï,mercadona.es,28020,3.6,https://a2.soysuper.com/9fdf0239c8e1cf95baee902e5d7cdf62.1500.0.0.0.wmark.1faf9c8c.jpg,cuidado_facial_y_corporal|protector_solar_y_aftersun
 25863958,COLOR SENSATION tinte Rojo Intenso Nº 6.60 caja 1 ud,dia.es,28020,4.59,https://www.familiaonline.es/images/15112162.jpg,cuidado_personal|bano_e_higiene_personal|cuidado_del_cabello
@@ -373,7 +373,7 @@ id,name,supermarket,zip_code,price,url,category
 25860460,Lomo adobado al horno bandeja 330 gr,dia.es,28020,3.19,https://www.dia.es/product_images/1372/1372_ISO_0_ES.jpg,frescos|carne|cerdo
 25858725,Brandy de Jerez Magno solera reserva 1 l.,carrefour.es,28020,16.25,https://static.carrefour.es/hd_510x_/img_pim_food/679095_00_1.jpg,bebidas|alcoholes|brandy_y_conac
 25865193,PEDIGREE paté para perros con pollo lata 800 gr,dia.es,28020,4.29,https://piensoymascotas.com/22331-thickbox_default/pedigree-lata-pollo.jpg,mascotas|perros
-25859700,""Pilas Alcalinas de botón LR44 Duracell Especiales, paquete de 2"",carrefour.es,28020,2.25,https://static.carrefour.es/hd_510x_/crs/cdn_static/catalog/hd/936485_00_1.jpg,limpieza_y_hogar|bazar|pilas
+"25859700,""Pilas Alcalinas de botón LR44 Duracell Especiales, paquete de 2"",carrefour.es,28020,2.25,https://static.carrefour.es/hd_510x_/crs/cdn_static/catalog/hd/936485_00_1.jpg,limpieza_y_hogar|bazar|pilas"
 25870657,Fruta + leche tropical Hacendado,mercadona.es,28020,1.0,https://a0.soysuper.com/e9f31bb2e8ee799d0fc50b535a18ee9e.1500.0.0.0.wmark.b2a255c7.jpg,zumos|fruta_variada
 25861670,AZUCARERA azúcar blanco paquete 1 Kg,dia.es,28020,1.45,https://sgfm.elcorteingles.es/SGFM/dctm/MEDIA03/202002/05/00120930500044____2__600x600.jpg,despensa|desayunos_y_dulces|azucar_y_edulcorantes
 25856024,Café latte macchiato caramelo Carrefour sin gluten 250 ml.,carrefour.es,28020,0.91,https://static.carrefour.es/hd_510x_/img_pim_food/322772_00_1.jpg,la_despensa|lacteos|listo_para_beber
@@ -392,14 +392,14 @@ id,name,supermarket,zip_code,price,url,category
 25862180,DIA VEGECAMPO pimientos del piquillo enteros al natural frasco 260 gr,dia.es,28020,1.29,https://www.dia.es/product_images/215665/215665_ISO_0_ES.jpg?imwidth=392,despensa|conservas|conservas_vegetales
 25868237,Bandas de cera cuerpo y piernas Pure Veet piel sensible,mercadona.es,28020,5.5,https://www.maquillalia.com/images/productos/veet-bandas-de-cera-depilatoria-piernas-y-cuerpo-pure-pieles-sensibles-40u-1-69534.jpeg,cuidado_facial_y_corporal|depilacion
 25865645,Refresco de limón Hacendado zero azúcar fresh gas,mercadona.es,28020,0.87,https://prod-mercadona.imgix.net/images/23f39916dc4c566b2118b78b125f2ab1.jpg?fit=crop&h=600&w=600,agua_y_refrescos|refresco_de_naranja_y_de_limon
-25863759,""DIA VEGECAMPO brócoli, coliflor y zanahoria bolsa 1 kg"",dia.es,28020,1.69,https://www.dia.es/product_images/265079/265079_ISO_0_ES.jpg,congelados|verduras_y_hortalizas
+"25863759,""DIA VEGECAMPO brócoli, coliflor y zanahoria bolsa 1 kg"",dia.es,28020,1.69,https://www.dia.es/product_images/265079/265079_ISO_0_ES.jpg,congelados|verduras_y_hortalizas"
 25865935,Spaghetti al huevo Hacendado,mercadona.es,28020,1.29,https://prod-mercadona.imgix.net/images/b26f3111a8c49a4c6f8b105e46a65c6e.jpg?fit=crop&h=600&w=600,arroz_legumbres_y_pasta|pasta_y_fideos
 25861099,DANONE DANONINO maxi petit fresa y plátano pack 4 unidades 100 gr,dia.es,28020,2.11,https://sgfm.elcorteingles.es/SGFM/dctm/MEDIA03/202410/31/00118821000413____29__600x600.jpg,despensa|lacteos_y_huevos|yogures
 25860133,Gel de mano hidroalcohólico 70% alcohol perfume limón Carrefour 500 ml.,carrefour.es,28020,3.95,https://a0.soysuper.com/7b4f5954aeebf0046d304c5be7b72d63.1500.0.0.0.wmark.28385b15.jpg,parafarmacia|botiquin|geles_hidroalcoholicos
 25862033,ALBO sardinas picantonas lata 85 gr,dia.es,28020,1.99,https://www.despensa.es/documents/10180/10736/031322_G.jpg,despensa|conservas|conservas_de_pescado
-25860380,""BONDUELLE lunch bowl de lentejas, pimento rojo, berenjena y cherry bolsa 250 gr"",dia.es,28020,2.89,https://www.dia.es/product_images/277677/277677_ISO_0_ES.jpg?imwidth=392,platos_preparados|legumbres
+"25860380,""BONDUELLE lunch bowl de lentejas, pimento rojo, berenjena y cherry bolsa 250 gr"",dia.es,28020,2.89,https://www.dia.es/product_images/277677/277677_ISO_0_ES.jpg?imwidth=392,platos_preparados|legumbres"
 25865820,Dátiles desecados sin hueso Hacendado,mercadona.es,28020,2.16,https://prod-mercadona.imgix.net/images/748aca1ffbd304b26299c4727450422d.jpg?fit=crop&h=600&w=600,aperitivos|frutos_secos_y_fruta_desecada
-25866466,""Tinto de verano 0,0% sin alcohol limón Don Simón"",mercadona.es,28020,1.55,https://sgfm.elcorteingles.es/SGFM/dctm/MEDIA03/202202/03/00118628200505____6__600x600.jpg,bodega|tinto_de_verano_y_sangria
+"25866466,""Tinto de verano 0,0% sin alcohol limón Don Simón"",mercadona.es,28020,1.55,https://sgfm.elcorteingles.es/SGFM/dctm/MEDIA03/202202/03/00118628200505____6__600x600.jpg,bodega|tinto_de_verano_y_sangria"
 25862909,VICHY CATALAN agua mineral con gas botella 1 lt,dia.es,28020,1.55,https://sgfm.elcorteingles.es/SGFM/dctm/MEDIA03/202305/22/00118631900067____2__600x600.jpg,bebidas|aguas
 25860325,DIA AL PUNTO pizza serrana envase 390 gr,dia.es,28020,2.75,https://www.dia.es/product_images/226508/226508_ISO_0_ES.jpg,platos_preparados|pizzas_refrigeradas
 25868013,Coloración permanente 8.77 rubio claro marrón intenso Deliplus 0% amoníaco,mercadona.es,28020,3.9,https://dx7csy7aghu7b.cloudfront.net/prods/19531.webp,cuidado_del_cabello|coloracion_cabello
@@ -407,12 +407,12 @@ id,name,supermarket,zip_code,price,url,category
 25860054,Toallitas húmedas Chicco pack 2 unidades de 72 ud.,carrefour.es,28020,4.49,https://a2.soysuper.com/2a53120890e89f228c49d257b217b99b.1500.0.0.0.wmark.f9322209.jpg,parafarmacia|bebe|toallitas_bebe
 25868968,Huevos grandes L,mercadona.es,28020,1.2,https://a2.soysuper.com/d3961c6b2525ae3c247bc23cbec85e82.1500.0.0.0.wmark.610d4483.jpg,huevos_leche_y_mantequilla|huevos
 25862508,DIA SALSEO ketchup light bote 540 gr,dia.es,28020,1.49,https://www.dia.es/product_images/74771/74771_ISO_0_ES.jpg,despensa|salsas|mayonesa_y_otras_salsas
-25863125,""DIA RAMBLERS cerveza 0,0% alcohol lata 33 cl"",dia.es,28020,0.4,https://www.dia.es/product_images/54701/54701_ISO_0_ES.jpg?imwidth=392,bebidas|cervezas|sin_alcohol
+"25863125,""DIA RAMBLERS cerveza 0,0% alcohol lata 33 cl"",dia.es,28020,0.4,https://www.dia.es/product_images/54701/54701_ISO_0_ES.jpg?imwidth=392,bebidas|cervezas|sin_alcohol"
 25865557,Agua mineral con gas grande Parot,mercadona.es,28020,0.74,https://prod-mercadona.imgix.net/images/2c05abc6c531b2de95877ce3e11b2396.jpg,agua_y_refrescos|agua
 25858069,Filetes de bacalao ultracongelado Pescanova 400 g.,carrefour.es,28020,7.95,https://static.carrefour.es/hd_510x_/img_pim_food/429074_00_1.jpg,congelados|rebozados_y_platos_preparados|pescados_congelados
 25865527,Agua mineral grande Nestlé Aquarel,mercadona.es,28020,1.69,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT78l93TFUNklzL3UWJB8gvvMADe2KX5Tb9vQ&s,agua_y_refrescos|agua
 25862184,LITORAL callos a la madrileña lata 380 gr,dia.es,28020,4.89,https://www.dia.es/product_images/46587/46587_ISO_0_ES.jpg,despensa|conservas|conservas_de_carne
-25865355,""Aceite de oliva 0,4º Hacendado"",mercadona.es,28020,23.63,https://prod-mercadona.imgix.net/images/c1788076223b499bd260c6a03d89b087.jpg?fit=crop&h=600&w=600,aceite_especias_y_salsas|aceite_vinagre_y_sal
+"25865355,""Aceite de oliva 0,4º Hacendado"",mercadona.es,28020,23.63,https://prod-mercadona.imgix.net/images/c1788076223b499bd260c6a03d89b087.jpg?fit=crop&h=600&w=600,aceite_especias_y_salsas|aceite_vinagre_y_sal"
 25869926,Rodaballo a filetes y sin piel,mercadona.es,28020,11.38,https://a1.soysuper.com/2999203948081d82bf1e5977c894c21d.1500.0.0.0.wmark.5ccd6323.jpg,marisco_y_pescado|pescado_fresco
 25869396,Abrillantador lavavajillas líquido Bosque Verde,mercadona.es,28020,1.2,https://prod-mercadona.imgix.net/images/2aa2364f8069ec82873d2772f7090da6.jpg?fit=crop&h=600&w=600,limpieza_y_hogar|limpieza_vajilla
 25863820,MAGNUM helado bombón after dinner classic caja 10 uds 290 gr,dia.es,28020,5.69,https://www.dia.es/product_images/37443/37443_ISO_0_ES.jpg?imwidth=392,congelados|helados
@@ -420,7 +420,7 @@ id,name,supermarket,zip_code,price,url,category
 25861678,ORBIT chicle grageas sabor fresa paquete 5 uds,dia.es,28020,2.95,https://clarel.imgix.net/media/catalog/product/6/5/65606_1_d1b6.jpg,despensa|desayunos_y_dulces|caramelos_chicles_y_golosinas
 25860444,Filetes de pechuga de pollo de antaño bandeja 400 gr,dia.es,28020,3.8,https://www.dia.es/product_images/243944/243944_ISO_0_ES.jpg,frescos|carne|pollo
 25865816,Pasas moscatel sin semillas Hacendado,mercadona.es,28020,1.54,https://prod-mercadona.imgix.net/images/43cb5b2b51525f9a1ca7ed04c2fd5d5e.jpg?fit=crop&h=600&w=600,aperitivos|frutos_secos_y_fruta_desecada
-25869979,""Comida gato esterilizado light Supreme Compy con pollo fresco, frutas y verduras"",mercadona.es,28020,5.3,https://prod-mercadona.imgix.net/images/296a54eb252f2552345e581cf83f8b92.jpg?fit=crop&h=600&w=600,mascotas|gato
+"25869979,""Comida gato esterilizado light Supreme Compy con pollo fresco, frutas y verduras"",mercadona.es,28020,5.3,https://prod-mercadona.imgix.net/images/296a54eb252f2552345e581cf83f8b92.jpg?fit=crop&h=600&w=600,mascotas|gato"
 25868682,Protector solar niños Nivea FPS 50+,mercadona.es,28020,14.95,https://cdn2.primor.eu/media/catalog/product/cache/8d3aba296f7a18b5251ee30fa5db42b2/4/0/4005900908865_1309.jpg,cuidado_facial_y_corporal|protector_solar_y_aftersun
 25867559,Pizza americana rellena de cheddar Hacendado ultracongelada,mercadona.es,28020,3.7,https://prod-mercadona.imgix.net/images/2933e2ae754108494879a6553215be70.jpg?fit=crop&h=600&w=600,congelados|pizzas
 25867728,Maíz dulce Hacendado,mercadona.es,28020,1.2,https://prod-mercadona.imgix.net/images/dc4f4afd3f87a6f5ba3c1592752a306b.jpg?fit=crop&h=600&w=600,conservas_caldos_y_cremas|conservas_de_verdura_y_frutas
@@ -449,10 +449,10 @@ id,name,supermarket,zip_code,price,url,category
 25866581,Café en cápsula Colombia Hacendado,mercadona.es,28020,3.65,https://prod-mercadona.imgix.net/images/2e10cf88be65aae55bb5dca24088e75f.jpg?fit=crop&h=600&w=600,cacao_cafe_e_infusiones|cafe_capsula_y_monodosis
 25868234,Cera caliente en tarro Deliplus piel sensible,mercadona.es,28020,4.1,https://prod-mercadona.imgix.net/images/d3094c526ea4ab873660f1721471376d.jpg?fit=crop&h=600&w=600,cuidado_facial_y_corporal|depilacion
 25867819,Caldo de verduras Hacendado,mercadona.es,28020,1.0,https://prod-mercadona.imgix.net/images/c4cbe46d861d4449ca8ee78df66b1751.jpg?fit=crop&h=600&w=600,conservas_caldos_y_cremas|sopa_y_caldo
-25863950,""COLOR SENSATION tinte Rubio Dorado Nº 7,3 caja 1 ud"",dia.es,28020,4.59,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7rWeo_UM0RGaO-4vCtiNpcGIgMw1-xLJQ_A&s,cuidado_personal|bano_e_higiene_personal|cuidado_del_cabello
+"25863950,""COLOR SENSATION tinte Rubio Dorado Nº 7,3 caja 1 ud"",dia.es,28020,4.59,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7rWeo_UM0RGaO-4vCtiNpcGIgMw1-xLJQ_A&s,cuidado_personal|bano_e_higiene_personal|cuidado_del_cabello"
 25869336,Limpiador WC Spa Bosque Verde en gel,mercadona.es,28020,1.05,https://prod-mercadona.imgix.net/images/66b6ba2bce806ba6a38550dceb3ba031.jpg?fit=crop&h=600&w=600,limpieza_y_hogar|limpieza_bano_y_wc
 25861414,EL MOLINO DE DIA magdalenas clásicas bolsa 515 gr,dia.es,28020,2.15,https://www.dia.es/product_images/288020/288020_ISO_0_ES.jpg,despensa|desayunos_y_dulces|bolleria
-25858923,""Tinto de verano con limón botella La Casera 1,5 l."",carrefour.es,28020,2.25,https://sgfm.elcorteingles.es/SGFM/dctm/MEDIA03/202010/15/00118628200356____6__600x600.jpg,bebidas|vinos|sangria_y_tinto_de_verano
+"25858923,""Tinto de verano con limón botella La Casera 1,5 l."",carrefour.es,28020,2.25,https://sgfm.elcorteingles.es/SGFM/dctm/MEDIA03/202010/15/00118628200356____6__600x600.jpg,bebidas|vinos|sangria_y_tinto_de_verano"
 25859471,Papel de aluminio Albal 30 metros.,carrefour.es,28020,5.28,https://static.carrefour.es/hd_510x_/img_pim_food/007736_00_1.jpg,limpieza_y_hogar|conservacion_de_alimentos|papel_de_aluminio
 25864627,JOHNSON'S acondicionador gotas de fuerza spray 200 ml,dia.es,28020,4.19,https://images.ctfassets.net/qilztky7jpz1/6ETxDXZQEfZZOHNSSgrWgT/2b41b098c42ce87d6d455c2cae29b888/bebe-gotas-fuerza-acondicionador-spray-es-es,bebe|cuidado_del_bebe
 25865411,Molinillo pimienta negra Hacendado,mercadona.es,28020,1.65,https://olefoodmarket.com/cdn/shop/products/25-Molinillo-pimienta-negra-Hacendado.jpg?v=1636544089,aceite_especias_y_salsas|especias

@@ -7,6 +7,7 @@ import com.eoi.grupo5.repositories.UsuarioRepository;
 import com.eoi.grupo5.services.TablaUsuarioService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -17,8 +18,15 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -26,6 +34,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Slf4j
 @Controller
@@ -188,5 +197,40 @@ public class UsuarioController {
             log.info("CONTRASEÑA ACTUALIZADA");
             return "redirect:/usuario/modificar/password?exito";
         }
+    }
+
+
+    @PostMapping("/usuario/modificar/subirFoto")
+    public String subirFoto(@RequestParam("foto") MultipartFile foto, Principal principal, RedirectAttributes redirectAttributes) throws IOException {
+
+        Usuario usuario = usuarioRepository.findByUsername(principal.getName())
+                .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
+
+
+        if(foto.isEmpty()){
+            redirectAttributes.addFlashAttribute("fotoInvalida", "No se subió una imagen válida");
+
+            return "redirect:/usuario/modificar";
+        }else{
+            if(usuario.getImagenURL() != null){
+                Files.delete(Paths.get("uploads/perfiles/" + usuario.getImagenURL()));
+            }
+            String nombreArchivo = UUID.randomUUID() + "_" + foto.getOriginalFilename();
+            Path rutaDestino = Paths.get("uploads/perfiles/" + nombreArchivo);
+            Files.createDirectories(rutaDestino.getParent()); // crea la carpeta si no existe
+            Files.copy(foto.getInputStream(), rutaDestino, StandardCopyOption.REPLACE_EXISTING);
+
+            log.info("ARCHIVO: " + nombreArchivo);
+
+            usuario.setImagenURL(nombreArchivo);
+            usuarioRepository.save(usuario);
+
+            log.info("URL: " + usuario.getImagenURL());
+
+            redirectAttributes.addFlashAttribute("modificado", "Se actualizó la foto de perfil");
+
+            return "redirect:/usuario/modificar";
+        }
+
     }
 }

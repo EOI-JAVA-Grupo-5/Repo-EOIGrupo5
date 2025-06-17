@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="UTF-8">
@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
 
     <!-- Estilos locales -->
-    <link rel="stylesheet" th:href="@{css/styles.css}">
+    <link th:href="@{css/styles.css}" rel="stylesheet" />
     <link rel="apple-touch-icon" sizes="180x180" th:href="@{/images/logo-SF.png}">
     <link rel="icon" type="image/png" sizes="32x32" th:href="@{/images/logo-SF.png}">
     <link rel="icon" type="image/png" sizes="16x16" th:href="@{/images/logo-SF.png}">
@@ -27,30 +27,6 @@
 
     <!-- Estilos personalizados -->
     <style>
-        .hero {
-            background: #fcfdaf;
-            color: rgb(0, 0, 0);
-            text-align: center;
-            padding: 50px 20px;
-        }
-
-        .btn-orange {
-            background-color: #fcfdaf;
-            color: rgb(0, 0, 0);
-        }
-
-        .paso {
-            width: 14px;
-            height: 14px;
-            border-radius: 50%;
-            background-color: #ccc;
-            transition: background-color 0.3s ease;
-            cursor: pointer;
-        }
-
-        .paso.activo {
-            background-color: #dba159;
-        }
 
         .supermercados-swiper .swiper-slide p {
             margin-bottom: 50px;
@@ -59,10 +35,6 @@
 
         .card img {
             border-radius: 10px;
-        }
-
-        .primary-navbar {
-            background-color: #dba159;
         }
 
         .primary-navbar span {
@@ -96,15 +68,6 @@
             margin-bottom: 30px;
             font-family: 'Poppins', sans-serif;
             font-weight: 700;
-        }
-
-        #imagenTutorial {
-            width: 100%;
-            max-height: 350px;
-            object-fit: contain;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            transition: opacity 0.5s ease;
         }
 
         #textoTutorial {
@@ -166,16 +129,6 @@
             </p>
             <div class="barra-progreso" id="barraProgreso"></div>
         </div>
-
-        <style>
-            .texto-centrado {
-                text-align: center;
-                font-size: 1.3rem;
-                max-width: 800px;
-                margin: 1em auto;
-                line-height: 1.5;
-            }
-        </style>
 
         <script>
             const pasos = [
@@ -280,7 +233,6 @@
         </div>
     </div>
 
-
     <!-- Supermercados Cercanos -->
     <section class="container py-5">
         <h2 class="text-center mb-4">Supermercados Cercanos</h2>
@@ -288,10 +240,8 @@
         <div id="listaSupermercados" class="mt-4"></div>
     </section>
 
-    <!-- Carga el script de Google Maps con Places API -->
-    <script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCngS5G3YCImc00eJLYBGT_moQWBb-AdSA&callback=inicializarMapa"
-        async defer></script>
+    <!-- Google Maps + Places API -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCngS5G3YCImc00eJLYBGT_moQWBb-AdSA&callback=inicializarMapa" async defer></script>
 
     <script>
         function calcularDistancia(lat1, lon1, lat2, lon2) {
@@ -332,8 +282,8 @@
 
                     const solicitud = {
                         location: userPos,
-                        radius: 3000, // 3 km
-                        keyword: 'supermercado' // o types: ['supermarket']
+                        radius: 3000,
+                        keyword: 'supermercado'
                     };
 
                     servicio.nearbySearch(solicitud, (resultados, status) => {
@@ -354,15 +304,19 @@
                             }).sort((a, b) => a.distancia - b.distancia);
 
                             const contenedorLista = document.getElementById("listaSupermercados");
-                            let listaHTML = "<h5>Ordenados por cercanía:</h5><ul class='list-group'>";
+                            let listaHTML = `
+                            <h5 class="mb-3">Ordenados por cercanía:</h5>
+                            <ul class="list-group">`;
 
                             lista.forEach(s => {
+                                // Añadir marcador al mapa
                                 new google.maps.Marker({
                                     position: { lat: s.lat, lng: s.lng },
                                     map: mapa,
                                     title: s.nombre
                                 });
 
+                                // Añadir item a la lista
                                 listaHTML += `
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     <div>

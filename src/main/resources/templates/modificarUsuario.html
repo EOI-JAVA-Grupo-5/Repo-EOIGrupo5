@@ -75,7 +75,6 @@
                                                 </button>
                                             </div>
 
-
                                             <div class="d-flex align-items-center justify-content-center pb-4">
                                                 <p class="mb-0 me-2">Para modificar tu contraseña, pulsa este botón</p>
                                                 <a th:href="@{/usuario/modificar/password}">
@@ -87,8 +86,18 @@
 
                                         </form>
 
-                                        <div th:if="${param.error}">
-                                            <p style="color:red;">Usuario o contraseña inválidos</p>
+                                        <div class="d-flex align-items-center justify-content-center pb-4 gap-2">
+                                            <form th:action="@{/usuario/modificar/subirFoto}" method="post" enctype="multipart/form-data">
+                                                <input type="file" name="foto" accept="image/*" />
+                                                <button type="submit"
+                                                        class="btn btn-outline-warning text-black mb-3 rounded-pill">
+                                                    Cambiar foto de perfil
+                                                </button>
+                                            </form>
+                                        </div>
+
+                                        <div th:if="${fotoInvalida}">
+                                            <p style="color:red;" th:text="${fotoInvalida}">ERROR</p>
                                         </div>
                                     </div>
                                 </div>
