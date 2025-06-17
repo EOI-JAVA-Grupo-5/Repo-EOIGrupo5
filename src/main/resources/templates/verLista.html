@@ -52,7 +52,7 @@
             </div>
         </div>
         <div class="row p-3">
-            <button class="btn btn-success">Generar PDF</button>
+            <button class="btn btn-success" onclick="generatePdf()">Generar PDF</button>
         </div>
     </div>
 </section>
@@ -61,6 +61,138 @@
     <div th:insert="~{plantillas/footer :: footer}"></div>
 </section>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<th:block>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        const items = /*[[${itemsLista}]]*/ [];
+        const supermercados = /*[[${supermercados}]]*/ [];
+
+        async function generatePdf() {
+            const { jsPDF } = window.jspdf;
+            const doc    = new jsPDF();
+            let y       = 20;
+            const w     = doc.internal.pageSize.getWidth();
+            const h     = doc.internal.pageSize.getHeight();
+
+            // — Logo (igual que antes) —
+            const logoImg = document.getElementById('main-logo');
+            if (logoImg?.src) {
+                await new Promise(resolve => {
+                    const img = new Image();
+                    img.crossOrigin = 'Anonymous';
+                    img.src         = logoImg.src;
+                    img.onload      = () => {
+                        const lw = 30, lh = 30;
+                        doc.addImage(img, 'PNG', (w - lw)/2, y, lw, lh);
+                        y += lh + 10;
+                        resolve();
+                    };
+                    img.onerror     = resolve;
+                });
+            }
+
+            // — Título —
+            doc.setFontSize(18);
+            doc.setFont(undefined, 'bold');
+            doc.text("Lista de Compras", w/2, y, { align: 'center' });
+            y += 15;
+
+            let totalGeneral = 0;
+
+            // — Por cada supermercado —
+            for (const sup of supermercados) {
+                const itemsForSup = items.filter(i =>
+                    i.producto.supermarket.toLowerCase().includes(sup.nombre.toLowerCase())
+                );
+                if (itemsForSup.length === 0) continue;
+
+                // Salto de página
+                if (y > h - 50) { doc.addPage(); y = 20; }
+
+                // Nombre del supermercado
+                doc.setFontSize(14);
+                doc.setFont(undefined, 'bold');
+                doc.text(sup.nombre, w/2, y, { align: 'center' });
+                y += 12;
+
+                // Encabezados
+                const colProdX  = 10;
+                const colPrecio = w * 0.55;
+                const colCant   = w * 0.70;
+                const colTotal  = w * 0.85;
+
+                doc.setFontSize(12);
+                doc.setFont(undefined, 'bold');
+                doc.text("Producto", colProdX, y);
+                doc.text("Precio U.", colPrecio, y, { align: 'center' });
+                doc.text("Cant.", colCant, y,    { align: 'center' });
+                doc.text("Total", colTotal, y,   { align: 'center' });
+                y += 5;
+                doc.setLineWidth(0.5);
+                doc.line(10, y, w-10, y);
+                y += 7;
+
+                // Filas
+                doc.setFontSize(11);
+                doc.setFont(undefined, 'normal');
+                let subtotalSup = 0;
+
+                for (const item of itemsForSup) {
+                    if (y > h - 20) { doc.addPage(); y = 20; }
+
+                    const name  = item.producto.name;
+                    const qty   = item.cantidadComprada;
+                    const price = parseFloat(item.producto.price);
+                    const total = price * qty;
+
+                    subtotalSup += total;
+                    totalGeneral += total;
+
+                    doc.text(name, colProdX, y, { maxWidth: colPrecio - colProdX - 5 });
+                    doc.text(price.toFixed(2) + " €", colPrecio, y, { align: 'center' });
+                    doc.text(qty.toString(), colCant, y, { align: 'center' });
+                    doc.text(total.toFixed(2) + " €", colTotal, y, { align: 'center' });
+                    y += 8;
+                }
+
+                // Subtotal supermercado
+                y += 4;
+                doc.setFont(undefined, 'bold');
+                doc.text(
+                    `Subtotal ${sup.nombre}: ${subtotalSup.toFixed(2)} €`,
+                    colTotal,
+                    y,
+                    { align: 'center' }
+                );
+                y += 12;
+
+                // Línea separadora
+                doc.setDrawColor(200);
+                doc.setLineWidth(0.3);
+                doc.line(10, y, w-10, y);
+                y += 10;
+            }
+
+            // — Total general al final —
+            if (y > h - 30) { doc.addPage(); y = 20; }
+            doc.setFontSize(14);
+            doc.setFont(undefined, 'bold');
+            doc.text(
+                `TOTAL GENERAL: ${totalGeneral.toFixed(2)} €`,
+                w/2,
+                y,
+                { align: 'center' }
+            );
+
+            // — Guardar PDF con fecha —
+            const fecha = /*[[${fechaLista.toString()}]]*/
+            doc.save(`lista_compras_${fecha}.pdf`);
+        }
+        /*]]>*/
+    </script>
+
+</th:block>
 
 <!-- Bootstrap -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
