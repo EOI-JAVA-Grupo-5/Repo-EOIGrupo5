@@ -1,5 +1,6 @@
-package com.eoi.grupo5.entities;
+package com.eoi.grupo5.entities.foro;
 
+import com.eoi.grupo5.entities.Usuario;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,8 +8,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Setter
@@ -16,17 +15,17 @@ import java.util.List;
 @Table(name = "mensajes")
 @NoArgsConstructor
 @AllArgsConstructor
-public class EntidadMensaje {
+public class MensajeHilo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String contenido;
     private LocalDateTime fechaCreacion;
-    private Long votos;
+//    private Long votos;
 
     @ManyToOne
     @JoinColumn(name = "id_hilo")
-    private EntidadHilo hilo;
+    private Hilo hilo;
 
     @ManyToOne
     @JoinColumn(name = "id_escritor")
@@ -34,8 +33,8 @@ public class EntidadMensaje {
 
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "id_citado")
-//    private EntidadMensaje citado;
+//    private MensajeHilo citado;
 //
 //    @OneToMany(mappedBy = "citado", cascade = CascadeType.ALL)
-//    private List<EntidadMensaje> citadosPor = new ArrayList<>();
+//    private List<MensajeHilo> citadosPor = new ArrayList<>();
 }

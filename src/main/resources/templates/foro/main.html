@@ -60,7 +60,7 @@
     <div class="modal fade" id="nuevoHiloModal" tabindex="-1" aria-hidden="true">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
-          <form th:action="@{/foro/crear}" th:object="${nuevoHilo}" method="post">
+          <form th:action="@{/foro}" th:object="${nuevoHilo}" method="post">
             <div class="modal-header justify-content-center">
               <h3 class="modal-title"><strong>Nuevo Hilo!</strong> <i class="fa-solid fa-pencil"></i></h3>
             </div>
@@ -112,15 +112,17 @@
       </div>
     </div>
 
+    <!-- Main Section -->
     <div class="row">
+
+      <!-- Hilo Cards -->
       <div class="col-lg-9">
-        <!-- Loop through all hilos -->
         <div th:each="hilo : ${hilos}">
           <a th:href="@{'foro/hilo/' + ${hilo.id}}">
             <div class="card card-hover mb-3 border-warning p-2">
               <div class="row align-items-center">
                 <div class="col-md-8">
-                  <h6 th:text="${hilo.titulo}" class="text-title">Placeholder</h6>
+                  <h6 th:text="${hilo.titulo}" class="text-title">Titulo</h6>
                   <p class="text-sm" th:text="${hilo.descripcion}">Descripcion</p>
                   <p class="text-sm">
                     Publicado
@@ -170,6 +172,7 @@
             </div>
           </a>
         </div>
+
         <!-- Pagination controls -->
         <div class="d-flex justify-content-center text-center bg-white rounded border">
           <div class="px-3 py-3">
@@ -186,9 +189,9 @@
           </div>
         </div>
       </div>
-
     </div>
   </div>
+
   <!-- Incluir footer -->
   <div th:insert="~{plantillas/footer :: footer}"></div>
 </body>
