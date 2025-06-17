@@ -111,7 +111,7 @@ public class SecurityConfig {
                         .requestMatchers("/listas/*").authenticated()
 
                         .requestMatchers("/paginaDeProducto").permitAll()
-                        .requestMatchers("/perfilSupermercado").permitAll()
+                        .requestMatchers("/supermercados", "/supermercados/**").permitAll()
 
                         .requestMatchers("/entities/**").permitAll()
                         .requestMatchers("/css/**", "/images/**", "/workspace/uploads/**").permitAll()
@@ -135,7 +135,7 @@ public class SecurityConfig {
                 )
                 .logout(logout -> logout
                         .logoutUrl("/logout")
-                        .logoutSuccessUrl("/")
+                        .logoutSuccessUrl("/cerrarSesion")
                         .invalidateHttpSession(true)
                         .deleteCookies("JSESSIONID")
                         .permitAll()
