@@ -20,6 +20,7 @@ public class ProductoCSVLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        productoRepository.deleteAll();
         BufferedReader reader = new BufferedReader(new InputStreamReader(
                 new ClassPathResource("productos-de-supermercados-sample.csv").getInputStream(), "UTF-8"));
 
