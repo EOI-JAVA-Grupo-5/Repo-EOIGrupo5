@@ -46,8 +46,10 @@
                                 <div class="card-body p-md-5 mx-md-4">
                     
                                     <div class="text-center">
-                                        <img th:src="@{/images/logo-SF.png}" style="width: 150px;" alt="logo">
-                                        <h3 class="mt-1 mb-5 pb-1"><strong>Castañazo Deals</strong></h3>
+                                        <a  style="text-decoration: none;" th:href="@{/}">
+                                            <img th:src="@{/images/logo-SF.png}" style="width: 150px;" alt="logo">
+                                            <h3 class="mt-1 mb-5 pb-1"><strong>Castañazo Deals</strong></h3>
+                                        </a>
                                     </div>
 
                                     <div th:if="${param.error}">
@@ -66,19 +68,19 @@
                                         <div data-mdb-input-init class="form-outline mb-4">
                                             <label class="form-label" for="username">Usuario</label>
                                             <input type="text" id="username" name="username" class="form-control"
-                                            placeholder="Usuario"/>
+                                            placeholder="Usuario" required/>
                                         </div>
                         
                                         <div data-mdb-input-init class="form-outline mb-4">
                                             <label class="form-label" for="password">Contraseña</label>
-                                            <input type="password" id="password" name="password" class="form-control"/>
+                                            <input type="password" id="password" name="password" class="form-control" required/>
                                         </div>
                         
                                         <div class="text-center pt-1 mb-5 pb-1">
                                             <a>
                                                 <button id="btnLogin" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block fa-lg mb-3 rounded-pill" type="submit">Log in</button>
                                             </a>
-                                            <a class="text-muted" href="#!">¿Olvidaste tu contraseña?</a>
+<!--                                            <a class="text-muted" href="#!">¿Olvidaste tu contraseña?</a>-->
                                         </div>
 
                                         <div class="d-flex align-items-center justify-content-center pb-4">

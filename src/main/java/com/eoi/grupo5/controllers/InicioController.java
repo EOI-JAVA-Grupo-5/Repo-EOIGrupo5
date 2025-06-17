@@ -25,4 +25,11 @@ public class InicioController {
         model.addAttribute("productosDestacados", destacados);
         return "paginaDeInicio";
     }
+
+    @GetMapping({"/cerrarSesion"})
+    public String cerrarSesion(Model model) {
+        List<Producto> destacados = productoService.getProductosDestacados();
+        model.addAttribute("productosDestacados", destacados);
+        return "redirect:/paginaDeInicio";
+    }
 }
