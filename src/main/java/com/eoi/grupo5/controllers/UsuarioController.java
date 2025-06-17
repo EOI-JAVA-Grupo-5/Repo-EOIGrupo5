@@ -2,6 +2,7 @@ package com.eoi.grupo5.controllers;
 
 import com.eoi.grupo5.dtos.DatosGraficaDTO;
 import com.eoi.grupo5.dtos.PasswordModDTO;
+import com.eoi.grupo5.entities.Producto;
 import com.eoi.grupo5.entities.Usuario;
 import com.eoi.grupo5.repositories.UsuarioRepository;
 import com.eoi.grupo5.services.TablaUsuarioService;
@@ -200,6 +201,14 @@ public class UsuarioController {
     }
 
 
+    /**
+     * Sube la foto de un usuario. Si el usuario ya tenía una foto guardada, reemplaza la foto.
+     * @param foto - Archivo de imagen de la foto
+     * @param principal - Principal
+     * @param redirectAttributes - Atributos de redirección
+     * @return Cambia la foto o muestra un mensaje de error
+     * @throws IOException
+     */
     @PostMapping("/usuario/modificar/subirFoto")
     public String subirFoto(@RequestParam("foto") MultipartFile foto, Principal principal, RedirectAttributes redirectAttributes) throws IOException {
 

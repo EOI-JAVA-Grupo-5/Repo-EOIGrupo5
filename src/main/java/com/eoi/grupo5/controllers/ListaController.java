@@ -77,6 +77,9 @@ public class ListaController {
                     .orElseThrow(() -> new ItemsListaNotFoundException("No se encontraron items para la lista nº"+id.toString()));
             itemListaService.ordenarItems(itemsLista);
             model.addAttribute("itemsLista", itemsLista);
+            List<Supermercado> supermercados = supermercadoService.findAll();
+            model.addAttribute("supermercados", supermercados);
+            model.addAttribute("fechaLista", lista.getFecha());
         }
 
         return "verLista";
