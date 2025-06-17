@@ -114,7 +114,7 @@ public class SecurityConfig {
                         .requestMatchers("/perfilSupermercado").permitAll()
 
                         .requestMatchers("/entities/**").permitAll()
-                        .requestMatchers("/css/**", "/images/**").permitAll()
+                        .requestMatchers("/css/**", "/images/**", "/workspace/uploads/**").permitAll()
 
                         .requestMatchers("/usuario", "/usuario/modificar", "/usuario/modificar/password").authenticated()
 
