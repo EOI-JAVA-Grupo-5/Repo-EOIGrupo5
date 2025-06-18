@@ -1,0 +1,15 @@
+com.eoi.grupo5
+com.eoi.grupo5.config
+com.eoi.grupo5.controllers
+com.eoi.grupo5.controllers.foro
+com.eoi.grupo5.dtos
+com.eoi.grupo5.entities
+com.eoi.grupo5.entities.foro
+com.eoi.grupo5.loaders
+com.eoi.grupo5.repositories
+com.eoi.grupo5.repositories.foro
+com.eoi.grupo5.security
+com.eoi.grupo5.services
+com.eoi.grupo5.services.foro
+com.eoi.grupo5.utils
+com.eoi.grupo5.utils.exceptions
